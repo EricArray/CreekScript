@@ -1,3 +1,6 @@
+# Code::Blocks save failed
+*.save-failed
+
 # Compiled Object files
 *.slo
 *.lo
