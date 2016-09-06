@@ -1,3 +1,7 @@
+# Code::Blocks files
+*.save-failed
+*.depend
+
 # Compiled Object files
 *.slo
 *.lo
