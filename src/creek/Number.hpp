@@ -1,3 +1,5 @@
+#pragma once
+
 #include <creek/Data.hpp>
 
 
@@ -16,9 +18,10 @@ namespace creek
         Number(Value value);
 
 
-        std::string class_name() override;
+        Data* copy() const override;
+        std::string class_name() const override;
+        std::string debug_text() const override;
 
-        std::string debug_text() override;
         bool bool_value() override;
         void bool_value(bool new_value) override;
         float float_value() override;
@@ -40,9 +43,10 @@ namespace creek
         Data* bit_or(Data* other) override;
         Data* bit_xor(Data* other) override;
         Data* bit_not() override;
+        int cmp(Data* other) override;
 
 
     private:
         Value m_value;
-    }
+    };
 }

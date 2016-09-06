@@ -8,14 +8,19 @@ namespace creek
 
     }
 
-    std::string String::class_name()
+    Data* String::copy() const
+    {
+        return new String(m_value);
+    }
+
+    std::string String::class_name() const
     {
         return "String";
     }
 
-    std::string String::debug_text()
+    std::string String::debug_text() const
     {
-        return "'a string'";
+        return std::string("\"") + m_value + std::string("\"");
     }
 
     bool String::bool_value()
@@ -55,20 +60,20 @@ namespace creek
         int pos = key->float_value();
         if (pos < 0)
         {
-            pos = string.size() + pos;
+            pos = value.size() + pos;
         }
 
         return new String(value.substr(pos, 1));
     }
 
-    void String::index(Data* key, Data* new_data)
+    Data* String::index(Data* key, Data* new_data)
     {
         Value value = this->string_value();
 
         int pos = key->float_value();
         if (pos < 0)
         {
-            pos = string.size() + pos;
+            pos = value.size() + pos;
         }
 
         return new String(std::string(1, value[pos]));
@@ -76,7 +81,7 @@ namespace creek
 
     Data* String::add(Data* other)
     {
-        return new String(this->float_value() + other->float_value());
+        return new String(this->string_value() + other->string_value());
     }
 
     // Data* String::sub(Data* other)
@@ -87,10 +92,10 @@ namespace creek
     Data* String::mul(Data* other)
     {
         Value old_value = this->string_value();
-        int new_size = old_value.size() * other->float_value();
-        Value new_value = Value(new_size);
+        size_t new_size = old_value.size() * other->float_value();
+        Value new_value = Value(new_size, ' ');
 
-        for (int i = 0; i < new_value.size(); ++i)
+        for (size_t i = 0; i < new_value.size(); ++i)
         {
             new_value[i] = old_value[i % old_value.size()];
         }
@@ -146,4 +151,9 @@ namespace creek
     //     int this_int = this->float_value();
     //     return new String(~this_int);
     // }
+
+    int String::cmp(Data* other)
+    {
+        return this->string_value().compare(other->string_value());
+    }
 }

@@ -1,5 +1,7 @@
 #include <creek/Number.hpp>
 
+#include <cmath>
+
 
 namespace creek
 {
@@ -8,19 +10,24 @@ namespace creek
 
     }
 
-    std::string Number::class_name()
+    Data* Number::copy() const
+    {
+        return new Number(m_value);
+    }
+
+    std::string Number::class_name() const
     {
         return "Number";
     }
 
-    std::string Number::debug_text()
+    std::string Number::debug_text() const
     {
-        return "'a number'";
+        return std::to_string(m_value);
     }
 
     bool Number::bool_value()
     {
-        return m_value;
+        return m_value >= Value(0);
     }
 
     void Number::bool_value(bool new_value)
@@ -120,5 +127,24 @@ namespace creek
     {
         int this_int = this->float_value();
         return new Number(~this_int);
+    }
+
+    int Number::cmp(Data* other)
+    {
+        float this_float = this->float_value();
+        float other_float = other->float_value();
+
+        if (this_float < other_float)
+        {
+            return -1;
+        }
+        else if (this_float > other_float)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

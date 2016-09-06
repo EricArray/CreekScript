@@ -1,0 +1,32 @@
+#include <creek/Variable.hpp>
+
+#include <creek/Data.hpp>
+
+
+namespace creek
+{
+    // `Variable` constructor.
+    Variable::Variable()
+    {
+
+    }
+
+    // `Variable` constructor.
+    // @param  data        Initial data.
+    Variable::Variable(Data* data) : m_data(data)
+    {
+
+    }
+
+    // Get the stored data.
+    Data* Variable::data()
+    {
+        return m_data.get();
+    }
+
+    // Set the stored data.
+    void Variable::data(Data* new_data)
+    {
+        m_data.reset(new_data);
+    }
+}

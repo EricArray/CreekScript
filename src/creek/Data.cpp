@@ -1,16 +1,22 @@
 #include <creek/Data.hpp>
 
+#include <creek/Exception.hpp>
 #include <creek/Variable.hpp>
 
 
 namespace creek
 {
-    std::string Data::class_name()
+    Data* Data::copy() const
+    {
+        throw Undefined(class_name() + "::copy");
+    }
+
+    std::string Data::class_name() const
     {
         return "Data";
     }
 
-    std::string Data::debug_text()
+    std::string Data::debug_text() const
     {
         throw Undefined(class_name() + "::debug_text");
     }
@@ -50,7 +56,7 @@ namespace creek
         throw Undefined(class_name() + "::index");
     }
 
-    void Data::index(Data* key, Data* new_data)
+    Data* Data::index(Data* key, Data* new_data)
     {
         throw Undefined(class_name() + "::index");
     }
@@ -108,5 +114,10 @@ namespace creek
     Data* Data::bit_not()
     {
         throw Undefined(class_name() + "::bit_not");
+    }
+
+    int Data::cmp()
+    {
+        throw Undefined(class_name() + "::cmp");
     }
 }

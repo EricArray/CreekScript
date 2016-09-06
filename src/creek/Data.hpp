@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 
 
@@ -6,20 +8,24 @@ namespace creek
     class Variable;
 
 
-    /// Base class for variables' data.
+    /// Abstract class for variables' data.
     class Data
     {
     public:
         virtual ~Data() = default;
 
-        
-        /// Get data class name.
-        virtual std::string class_name();
+        /// Create a copy from this data.
+        virtual Data* copy() const;
 
+        /// Get data class name.
+        virtual std::string class_name() const;
 
         /// Get debug text.
-        virtual std::string debug_text();
+        virtual std::string debug_text() const;
 
+
+        /// @name   Value access.
+        /// @{
         /// Get the bool value of this data.
         virtual bool bool_value();
 
@@ -37,46 +43,67 @@ namespace creek
 
         /// Set the string value of this data.
         virtual void string_value(const std::string& new_value);
+        /// @}
 
 
+        /// @name   Container index
+        /// @{
         /// Get the data at index.
         virtual Data* index(Data* key);
 
         /// Set the data at index.
-        virtual void index(Data* key, Data* new_data);
+        virtual Data* index(Data* key, Data* new_data);
+        /// @}
 
 
-        /// Binary operation: addition.
+        /// @name   Arithmetic operations
+        /// @{
+        /// Addition.
         virtual Data* add(Data* other);
 
-        /// Binary operation: subtraction.
+        /// Subtraction.
         virtual Data* sub(Data* other);
 
-        /// Binary operation: multiplication.
+        /// Multiplication.
         virtual Data* mul(Data* other);
 
-        /// Binary operation: divison.
+        /// Divison.
         virtual Data* div(Data* other);
 
-        /// Binary operation: modulo.
+        /// Modulo.
         virtual Data* mod(Data* other);
 
-        /// Binary operation: exponentiation.
+        /// Exponentiation.
         virtual Data* exp(Data* other);
 
-        /// Unary operation: minus.
-        virtual Data* min();
+        /// Unary minus.
+        virtual Data* unm();
+        /// @}
 
-        /// Binary operation: bitwise and.
+
+        /// @name   Bitwise operations
+        /// @{
+        /// Bitwise and.
         virtual Data* bit_and(Data* other);
 
-        /// Binary operation: bitwise or.
+        /// Bitwise or.
         virtual Data* bit_or(Data* other);
 
-        /// Binary operation: bitwise xor.
+        /// Bitwise xor.
         virtual Data* bit_xor(Data* other);
 
-        /// Unary operation: bitwise not.
+        /// Bitwise not.
         virtual Data* bit_not();
+        /// @}
+
+
+        /// @name   Relational operations
+        /// Only one operation is defined.
+        /// @{
+        /// Compare less-than/equal/greater-than.
+        /// This special operation must return an integer.
+        /// @return -1 if less-than, 0 if equal, +1 if greater-than.
+        virtual int cmp(Data* other);
+        /// @}
     };
 }
