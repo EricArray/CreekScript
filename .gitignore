@@ -1,5 +1,6 @@
-# Code::Blocks save failed
+# Code::Blocks files
 *.save-failed
+*.depend
 
 # Compiled Object files
 *.slo
