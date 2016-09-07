@@ -23,7 +23,7 @@ namespace creek
         return std::string("\"") + m_value + std::string("\"");
     }
 
-    bool String::bool_value()
+    bool String::bool_value() const
     {
         return true;
     }
@@ -43,7 +43,7 @@ namespace creek
 
     // }
 
-    std::string String::string_value()
+    std::string String::string_value() const
     {
         return m_value;
     }
@@ -57,7 +57,7 @@ namespace creek
     {
         Value value = this->string_value();
 
-        int pos = key->float_value();
+        int pos = key->int_value();
         if (pos < 0)
         {
             pos = value.size() + pos;
@@ -70,13 +70,16 @@ namespace creek
     {
         Value value = this->string_value();
 
-        int pos = key->float_value();
+        int pos = key->int_value();
         if (pos < 0)
         {
             pos = value.size() + pos;
         }
 
-        return new String(std::string(1, value[pos]));
+        value[pos] = new_data->int_value();
+        this->string_value(value);
+
+        return new_data;
     }
 
     Data* String::add(Data* other)
@@ -93,7 +96,7 @@ namespace creek
     {
         Value old_value = this->string_value();
         size_t new_size = old_value.size() * other->float_value();
-        Value new_value = Value(new_size, ' ');
+        Value new_value(new_size, ' ');
 
         for (size_t i = 0; i < new_value.size(); ++i)
         {

@@ -17,7 +17,7 @@ namespace creek
         return "void";
     }
 
-    bool Void::bool_value()
+    bool Void::bool_value() const
     {
         return false;
     }

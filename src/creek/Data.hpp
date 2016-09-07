@@ -21,25 +21,32 @@ namespace creek
         virtual std::string class_name() const;
 
         /// Get debug text.
+        /// Should be same as or more specific than `string_value`.
         virtual std::string debug_text() const;
 
 
         /// @name   Value access.
         /// @{
         /// Get the bool value of this data.
-        virtual bool bool_value();
+        virtual bool bool_value() const;
 
         /// Set the bool value of this data.
         virtual void bool_value(bool new_value);
 
+        /// Get the int value of this data.
+        virtual int int_value() const;
+
+        /// Set the int value of this data.
+        virtual void int_value(int new_value);
+
         /// Get the float value of this data.
-        virtual float float_value();
+        virtual float float_value() const;
 
         /// Set the float value of this data.
         virtual void float_value(float new_value);
 
         /// Get the string value of this data.
-        virtual std::string string_value();
+        virtual std::string string_value() const;
 
         /// Set the string value of this data.
         virtual void string_value(const std::string& new_value);
@@ -83,17 +90,23 @@ namespace creek
 
         /// @name   Bitwise operations
         /// @{
-        /// Bitwise and.
+        /// Bitwise AND.
         virtual Data* bit_and(Data* other);
 
-        /// Bitwise or.
+        /// Bitwise OR.
         virtual Data* bit_or(Data* other);
 
-        /// Bitwise xor.
+        /// Bitwise XOR.
         virtual Data* bit_xor(Data* other);
 
-        /// Bitwise not.
+        /// Bitwise NOT.
         virtual Data* bit_not();
+
+        /// Bitwise left shift.
+        virtual Data* bit_left_shift(Data* other);
+
+        /// Bitwise right shift.
+        virtual Data* bit_right_shift(Data* other);
         /// @}
 
 

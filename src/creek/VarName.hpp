@@ -32,10 +32,10 @@ namespace creek
 
 
         /// Get the id.
-        Id id();
+        Id id() const;
 
         /// Get the name.
-        const Name& name();
+        const Name& name() const;
 
 
         /// @name   Relational operators
@@ -47,6 +47,7 @@ namespace creek
         bool operator >  (const VarName& other) const;
         bool operator >= (const VarName& other) const;
         /// @}
+
 
     private:
         VarName(Id id);

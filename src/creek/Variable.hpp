@@ -66,25 +66,60 @@ namespace creek
         /// @}
 
 
-        /// @name   Data operations
+        /// @name   Arithmetic operations
         /// @{
-        /// Binary operation: addition.
+        /// Addition.
         Variable add(Variable& other);
 
-        /// Binary operation: subtraction.
+        /// Subtraction.
         Variable sub(Variable& other);
 
-        /// Binary operation: multiplication.
+        /// Multiplication.
         Variable mul(Variable& other);
 
-        /// Binary operation: divison.
+        /// Divison.
         Variable div(Variable& other);
 
-        /// Binary operation: modulo.
+        /// Modulo.
         Variable mod(Variable& other);
 
-        /// Binary operation: exponentiation.
+        /// Exponentiation.
         Variable exp(Variable& other);
+
+        /// Unary minus.
+        Variable unm();
+        /// @}
+
+
+        /// @name   Bitwise operations
+        /// @{
+        /// Bitwise and.
+        Variable bit_and(Variable& other);
+
+        /// Bitwise or.
+        Variable bit_or(Variable& other);
+
+        /// Bitwise xor.
+        Variable bit_xor(Variable& other);
+
+        /// Bitwise not.
+        Variable bit_not();
+
+        /// Bitwise left shift.
+        Variable bit_left_shift(Variable& other);
+
+        /// Bitwise right shift.
+        Variable bit_right_shift(Variable& other);
+        /// @}
+
+
+        /// @name   Relational operations
+        /// Only one operation is defined.
+        /// @{
+        /// Compare less-than/equal/greater-than.
+        /// This special operation must return an integer.
+        /// @return -1 if less-than, 0 if equal, +1 if greater-than.
+        int cmp(Variable& other);
         /// @}
 
 
@@ -97,6 +132,12 @@ namespace creek
         Variable operator / (Variable& other);
         Variable operator % (Variable& other);
         // Variable operator ** (Variable& other); // not free operator with same precedence as pow.
+        Variable operator - ();
+
+        Variable operator & (Variable& other);
+        Variable operator | (Variable& other);
+        Variable operator ^ (Variable& other);
+        Variable operator ~ ();
         /// @}
 
     private:
