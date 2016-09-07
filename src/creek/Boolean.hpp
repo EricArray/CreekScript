@@ -2,22 +2,20 @@
 
 #include <creek/Data.hpp>
 
-#include <string>
-
 
 namespace creek
 {
-    /// Data type: character string.
-    class String : public Data
+    /// Data type: boolean.
+    class Boolean : public Data
     {
     public:
         /// Stored value type.
-        using Value = std::string;
+        using Value = bool;
 
 
         /// Constructor.
         /// @param  value   String value.
-        String(Value value);
+        Boolean(Value value);
 
 
         Data* copy() const override;
@@ -25,20 +23,20 @@ namespace creek
         std::string debug_text() const override;
 
         bool bool_value() const override;
-        // void bool_value(bool new_value) override;
-        // int int_value() const override;
-        // void int_value(int new_value) override;
-        // float float_value() const override;
-        // void float_value(float new_value) override;
+        void bool_value(bool new_value) override;
+        int int_value() const override;
+        void int_value(int new_value) override;
+        float float_value() const override;
+        void float_value(float new_value) override;
         std::string string_value() const override;
         void string_value(const std::string& new_value) override;
 
-        Data* index(Data* key) override;
-        Data* index(Data* key, Data* new_value) override;
+        // Data* index(Data* key) override;
+        // Data* index(Data* key, Data* new_value) override;
 
-        Data* add(Data* other) override;
+        // Data* add(Data* other) override;
         // Data* sub(Data* other) override;
-        Data* mul(Data* other) override;
+        // Data* mul(Data* other) override;
         // Data* div(Data* other) override;
         // Data* mod(Data* other) override;
         // Data* exp(Data* other) override;

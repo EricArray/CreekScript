@@ -21,7 +21,7 @@ namespace creek
         throw Undefined(class_name() + "::debug_text");
     }
 
-    bool Data::bool_value()
+    bool Data::bool_value() const
     {
         throw Undefined(class_name() + "::bool_value");
     }
@@ -31,7 +31,17 @@ namespace creek
         throw Undefined(class_name() + "::bool_value");
     }
 
-    float Data::float_value()
+    int Data::int_value() const
+    {
+        throw Undefined(class_name() + "::int_value");
+    }
+
+    void Data::int_value(int new_value)
+    {
+        throw Undefined(class_name() + "::int_value");
+    }
+
+    float Data::float_value() const
     {
         throw Undefined(class_name() + "::float_value");
     }
@@ -41,7 +51,7 @@ namespace creek
         throw Undefined(class_name() + "::float_value");
     }
 
-    std::string Data::string_value()
+    std::string Data::string_value() const
     {
         throw Undefined(class_name() + "::string_value");
     }
@@ -91,9 +101,9 @@ namespace creek
         throw Undefined(class_name() + "::exp");
     }
 
-    Data* Data::min()
+    Data* Data::unm()
     {
-        throw Undefined(class_name() + "::min");
+        throw Undefined(class_name() + "::unm");
     }
 
     Data* Data::bit_and(Data* other)
@@ -116,7 +126,17 @@ namespace creek
         throw Undefined(class_name() + "::bit_not");
     }
 
-    int Data::cmp()
+    Data* Data::bit_left_shift(Data* other)
+    {
+        throw Undefined(class_name() + "::bit_left_shift");
+    }
+
+    Data* Data::bit_right_shift(Data* other)
+    {
+        throw Undefined(class_name() + "::bit_right_shift");
+    }
+
+    int Data::cmp(Data* other)
     {
         throw Undefined(class_name() + "::cmp");
     }

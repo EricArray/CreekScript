@@ -25,7 +25,7 @@ namespace creek
         return std::to_string(m_value);
     }
 
-    bool Number::bool_value()
+    bool Number::bool_value() const
     {
         return m_value >= Value(0);
     }
@@ -35,7 +35,17 @@ namespace creek
         m_value = new_value;
     }
 
-    float Number::float_value()
+    int Number::int_value() const
+    {
+        return m_value;
+    }
+
+    void Number::int_value(int new_value)
+    {
+        m_value = new_value;
+    }
+
+    float Number::float_value() const
     {
         return m_value;
     }
@@ -87,9 +97,7 @@ namespace creek
 
     Data* Number::mod(Data* other)
     {
-        int this_int = this->float_value();
-        int other_int = other->float_value();
-        return new Number(this_int % other_int);
+        return new Number(this->int_value() % other->int_value());
     }
 
     Data* Number::exp(Data* other)
@@ -97,36 +105,39 @@ namespace creek
         return new Number(std::pow(this->float_value(), other->float_value()));
     }
 
-    Data* Number::min()
+    Data* Number::unm()
     {
         return new Number(-this->float_value());
     }
 
     Data* Number::bit_and(Data* other)
     {
-        int this_int = this->float_value();
-        int other_int = other->float_value();
-        return new Number(this_int & other_int);
+        return new Number(this->int_value() & other->int_value());
     }
 
     Data* Number::bit_or(Data* other)
     {
-        int this_int = this->float_value();
-        int other_int = other->float_value();
-        return new Number(this_int | other_int);
+        return new Number(this->int_value() | other->int_value());
     }
 
     Data* Number::bit_xor(Data* other)
     {
-        int this_int = this->float_value();
-        int other_int = other->float_value();
-        return new Number(this_int ^ other_int);
+        return new Number(this->int_value() ^ other->int_value());
     }
 
     Data* Number::bit_not()
     {
-        int this_int = this->float_value();
-        return new Number(~this_int);
+        return new Number(~this->int_value());
+    }
+
+    Data* Number::bit_left_shift(Data* other)
+    {
+        return new Number(this->int_value() << other->int_value());
+    }
+
+    Data* Number::bit_right_shift(Data* other)
+    {
+        return new Number(this->int_value() >> other->int_value());
     }
 
     int Number::cmp(Data* other)

@@ -32,13 +32,13 @@ namespace creek
     }
 
     // Get the id.
-    VarName::Id VarName::id()
+    VarName::Id VarName::id() const
     {
         return m_id;
     }
 
     // Get the name.
-    const VarName::Name& VarName::name()
+    const VarName::Name& VarName::name() const
     {
         return s_names[m_id];
     }
