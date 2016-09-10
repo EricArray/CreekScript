@@ -66,6 +66,16 @@ namespace creek
         /// @}
 
 
+        /// @name   Container index
+        /// @{
+        /// Get the data at index.
+        Variable index(Variable key);
+
+        /// Set the data at index.
+        Variable index(Variable key, Variable new_data);
+        /// @}
+
+
         /// @name   Arithmetic operations
         /// @{
         /// Addition.
@@ -126,6 +136,8 @@ namespace creek
         /// @name   Operators
         /// @{
         /// Call equivalent data operation.
+        // ProxyVariable operator [] (Variable& index);
+
         Variable operator + (Variable& other);
         Variable operator - (Variable& other);
         Variable operator * (Variable& other);

@@ -19,7 +19,7 @@ namespace creek
     public:
         /// `ExprBlock` constructor.
         /// @param  expressions  List of expressions to evaluate.
-        ExprBlock(std::vector<Expression*>&& expressions);
+        ExprBlock(const std::vector<Expression*>& expressions);
 
         Variable eval(Scope& scope) override;
 
@@ -44,6 +44,38 @@ namespace creek
         std::unique_ptr<Expression> m_condition;
         std::unique_ptr<Expression> m_true_branch;
         std::unique_ptr<Expression> m_false_branch;
+    };
+
+    /// Expression: Infinite loop block.
+    /// Returns result of last evaluated expression.
+    class ExprLoop : public Expression
+    {
+    public:
+        /// `ExprLoop` constructor.
+        /// @param  block       Expression to execute in each loop.
+        ExprLoop(Expression* body);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_body;
+    };
+
+    /// Expression: Conditional while block.
+    /// Returns result of last evaluated expression, or void.
+    class ExprWhile : public Expression
+    {
+    public:
+        /// `ExprWhile` constructor.
+        /// @param  condition   Contidion expression.
+        /// @param  block       Expression to execute in each loop.
+        ExprWhile(Expression* condition, Expression* body);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_condition;
+        std::unique_ptr<Expression> m_body;
     };
 
     /// @}

@@ -26,40 +26,40 @@ namespace creek
         throw Undefined(class_name() + "::bool_value");
     }
 
-    void Data::bool_value(bool new_value)
-    {
-        throw Undefined(class_name() + "::bool_value");
-    }
+    // void Data::bool_value(bool new_value)
+    // {
+    //     throw Undefined(class_name() + "::bool_value");
+    // }
 
     int Data::int_value() const
     {
         throw Undefined(class_name() + "::int_value");
     }
 
-    void Data::int_value(int new_value)
-    {
-        throw Undefined(class_name() + "::int_value");
-    }
+    // void Data::int_value(int new_value)
+    // {
+    //     throw Undefined(class_name() + "::int_value");
+    // }
 
     float Data::float_value() const
     {
         throw Undefined(class_name() + "::float_value");
     }
 
-    void Data::float_value(float new_value)
-    {
-        throw Undefined(class_name() + "::float_value");
-    }
+    // void Data::float_value(float new_value)
+    // {
+    //     throw Undefined(class_name() + "::float_value");
+    // }
 
     std::string Data::string_value() const
     {
         throw Undefined(class_name() + "::string_value");
     }
 
-    void Data::string_value(const std::string& new_value)
-    {
-        throw Undefined(class_name() + "::string_value");
-    }
+    // void Data::string_value(const std::string& new_value)
+    // {
+    //     throw Undefined(class_name() + "::string_value");
+    // }
 
     Data* Data::index(Data* key)
     {
@@ -139,5 +139,10 @@ namespace creek
     int Data::cmp(Data* other)
     {
         throw Undefined(class_name() + "::cmp");
+    }
+
+    Data* Data::call(const std::vector< std::unique_ptr<Data> >& args)
+    {
+        throw Undefined(class_name() + "::call");
     }
 }

@@ -1,0 +1,9 @@
+var x = 1;
+var y = x + 10;
+if (!y) {
+    "not y";
+} else if (x - 100) {
+    "yes x minus 100";
+} else {
+    "don't know";
+};

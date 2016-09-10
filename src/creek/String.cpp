@@ -48,10 +48,10 @@ namespace creek
         return m_value;
     }
 
-    void String::string_value(const std::string& new_value)
-    {
-        m_value = new_value;
-    }
+//    void String::string_value(const std::string& new_value)
+//    {
+//        m_value = new_value;
+//    }
 
     Data* String::index(Data* key)
     {
@@ -68,16 +68,12 @@ namespace creek
 
     Data* String::index(Data* key, Data* new_data)
     {
-        Value value = this->string_value();
-
         int pos = key->int_value();
         if (pos < 0)
         {
-            pos = value.size() + pos;
+            pos = m_value.size() + pos;
         }
-
-        value[pos] = new_data->int_value();
-        this->string_value(value);
+        m_value[pos] = new_data->int_value();
 
         return new_data;
     }

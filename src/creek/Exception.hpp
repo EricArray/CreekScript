@@ -7,12 +7,24 @@
 namespace creek
 {
     /// Base class for exceptions.
+    /// Can be constructed by passing a error message to the constructor or
+    /// by appending text to the string stream using `stream` method.
     class Exception
     {
     public:
+        /// `Exception` constructor.
         Exception();
+
+        /// `Exception` copy constructor.
         Exception(const Exception& other);
+
+        /// `Exception` move constructor.
         Exception(Exception&& other);
+
+        /// `Exception` constructor.
+        /// @param  message     Description of the error.
+        Exception(const std::string& message);
+
         virtual ~Exception() = default;
 
         /// Get exception message.
@@ -27,12 +39,22 @@ namespace creek
     };
 
 
-    /// Undefined operation/feature.
+    /// Undefined operation.
     class Undefined : public Exception
     {
     public:
         /// `Undefined` constructor.
         /// @param  what    What is undefined?
         Undefined(const std::string& what);
+    };
+
+
+    /// Not yet implemented operation/feature.
+    class Unimplemented : public Exception
+    {
+    public:
+        /// `Unimplemented` constructor.
+        /// @param  what    What is Unimplemented?
+        Unimplemented(const std::string& what);
     };
 }

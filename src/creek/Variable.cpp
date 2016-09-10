@@ -101,6 +101,22 @@ namespace creek
     }
 
 
+    // @name   Container index
+    // @{
+    // Get the data at index.
+    Variable Variable::index(Variable key)
+    {
+        return Variable(data()->index(key.data()));
+    }
+
+    // Set the data at index.
+    Variable Variable::index(Variable key, Variable new_data)
+    {
+        return Variable(data()->index(key.data(), new_data.release()));
+    }
+    // @}
+
+
     // @name   Arithmetic operations
     // @{
     // Addition.
@@ -202,7 +218,12 @@ namespace creek
 
     // @name   Operators
     // @{
-    // Call equivalent data operation.
+    // // Call equivalent data operation.
+    // VariableProxy Variable::operator [] (Variable& index)
+    // {
+
+    // }
+
     Variable Variable::operator + (Variable& other) { return add(other); }
     Variable Variable::operator - (Variable& other) { return sub(other); }
     Variable Variable::operator * (Variable& other) { return mul(other); }

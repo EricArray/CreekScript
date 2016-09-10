@@ -9,6 +9,7 @@
 #include <creek/Expression_ControlFlow.hpp>
 #include <creek/Expression_Debug.hpp>
 #include <creek/Expression_Variable.hpp>
+#include <creek/Interpreter.hpp>
 #include <creek/Scope.hpp>
 
 
@@ -16,56 +17,54 @@ int main(int argc, char** argv)
 {
     using namespace creek;
 
+    // interpreter
+    Interpreter interpreter;
 
     // create program
-    std::unique_ptr<Expression> program(new ExprBlock({
-        new ExprPrint(new ExprString("Test program")),
-        new ExprBlock({
-            new ExprLocalVar(VarName::from_name("x"), new ExprNumber(5)),
-            new ExprLocalVar(VarName::from_name("y"), new ExprNumber(10)),
-            new ExprPrint(new ExprAdd(new ExprLoadVar(VarName::from_name("x")), new ExprLoadVar(VarName::from_name("y")))),
-        }),
-        new ExprPrint(new ExprIdentifier(VarName::from_name("x"))),
-        new ExprPrint(new ExprVector()),
-        
-        new ExprPrint(new ExprString("Test bitwise")),
-        new ExprPrint(new ExprNumber(0xFF00)),
-        new ExprPrint(new ExprBitAnd(new ExprNumber(0xFF00), new ExprNumber(0x0FF0))),
-        new ExprPrint(new ExprBitOr(new ExprBitAnd(new ExprNumber(0xFF00), new ExprNumber(0x0FF0)), new ExprNumber(0x000F))),
-
-        new ExprPrint(new ExprString("Test boolean")),
-        new ExprPrint(new ExprBoolAnd(new ExprBoolean(true), new ExprBoolean(false))),
-        new ExprPrint(new ExprBoolAnd(new ExprNumber(12), new ExprNumber(-12))),
-        new ExprPrint(new ExprBoolAnd(new ExprNumber(-12), new ExprNumber(12))),
-        new ExprPrint(new ExprBoolOr(new ExprNumber(34), new ExprBoolean(false))),
-    }));
-
+    std::unique_ptr<Expression> program;
+    try
+    {
+        program.reset(interpreter.load_file("test.txt"));
+    }
+    catch (const SyntaxError& e)
+    {
+        std::cerr << "Exception throw while loading:\n";
+        std::cerr << "\t`" << e.token().text() << "` (" << InterpreterToken::type_names.at(e.token().type()) << ")\n";
+        std::cerr << "\t" << e.message() << "\n";
+        return -1;
+    }
+    catch (const Exception& e)
+    {
+        std::cerr << "Exception throw while loading:\n";
+        std::cerr << "\t" << e.message() << "\n";
+        return -1;
+    }
+    catch (...)
+    {
+        std::cerr << "Unknown exception throw while loading\n";
+        return -1;
+    }
 
     // create global scope
     Scope scope;
-
 
     // try to execute the program
     try
     {
         std::cout << "Running program:\n\n";
-
-        Variable result;
-
-        result = (program->eval(scope));
-
-        // print returned value
+        Variable result = program->eval(scope);
         std::cout << "\nProgram returned " << result->debug_text() << ".\n";
     }
     catch(Exception& e)
     {
         std::cerr << "Creek exception: " << e.message() << ".\n";
+        return -1;
     }
     catch(...)
     {
         std::cerr << "Unknown exception.\n";
+        return -1;
     }
-
 
     return 0;
 }

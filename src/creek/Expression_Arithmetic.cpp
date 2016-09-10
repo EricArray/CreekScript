@@ -78,6 +78,24 @@ namespace creek
     }
 
 
+    // `ExprMod` constructor.
+    // @param  lexpr       Expression for left parameter.
+    // @param  rexpr       Expression for right parameter.
+    ExprMod::ExprMod(Expression* lexpr, Expression* rexpr) :
+        m_lexpr(lexpr),
+        m_rexpr(rexpr)
+    {
+
+    }
+
+    Variable ExprMod::eval(Scope& scope)
+    {
+        Variable l(m_lexpr->eval(scope));
+        Variable r(m_rexpr->eval(scope));
+        return l.mod(r);
+    }
+
+
     // `ExprExp` constructor.
     // @param  lexpr       Expression for left parameter.
     // @param  rexpr       Expression for right parameter.

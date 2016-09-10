@@ -9,7 +9,7 @@ namespace creek
 {
     // ExprBlock constructor.
     // @param  expressions  List of expressions to evaluate.
-    ExprBlock::ExprBlock(std::vector<Expression*>&& expressions)
+    ExprBlock::ExprBlock(const std::vector<Expression*>& expressions)
     {
         for (auto& expression : expressions)
         {
@@ -45,14 +45,74 @@ namespace creek
 
     Variable ExprIf::eval(Scope& scope)
     {
-        Variable condition_result(m_condition->eval(scope));
+        Scope new_scope(scope);
+
+        Variable condition_result(m_condition->eval(new_scope));
         if (condition_result->bool_value())
         {
-            return m_true_branch ? m_true_branch->eval(scope) : Variable(new Void());
+            return m_true_branch ? m_true_branch->eval(new_scope) : Variable(new Void());
         }
         else
         {
-            return m_false_branch ? m_false_branch->eval(scope) : Variable(new Void());
+            return m_false_branch ? m_false_branch->eval(new_scope) : Variable(new Void());
         }
+    }
+
+    /// `ExprLoop` constructor.
+    /// @param  block       Expression to execute in each loop.
+    ExprLoop::ExprLoop(Expression* body) : m_body(body)
+    {
+
+    }
+
+    Variable ExprLoop::eval(Scope& scope)
+    {
+        Variable result;
+        while (true)
+        {
+            Scope new_scope(scope);
+
+            result = m_body->eval(new_scope);
+        }
+        return result;
+    }
+
+    /// `ExprWhile` constructor.
+    /// @param  condition   Contidion expression.
+    /// @param  block       Expression to execute in each loop.
+    ExprWhile::ExprWhile(Expression* condition, Expression* body) :
+        m_condition(condition),
+        m_body(body)
+    {
+
+    }
+
+    Variable ExprWhile::eval(Scope& scope)
+    {
+        Scope new_scope(scope);
+
+        Variable result;
+        bool done = false;
+        while (!done)
+        {
+            Scope new_scope(scope);
+
+            Variable condition_result(m_condition->eval(new_scope));
+            if (condition_result->bool_value())
+            {
+                result = m_body->eval(new_scope);
+            }
+            else
+            {
+                done = true;
+            }
+        }
+
+        if (!result.data())
+        {
+            result.data(new Void());
+        }
+
+        return result;
     }
 }

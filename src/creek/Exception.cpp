@@ -18,6 +18,11 @@ namespace creek
         m_stream.swap(other.m_stream);
     }
 
+    Exception::Exception(const std::string& message)
+    {
+        m_stream.str(message);
+    }
+
     // Get exception message.
     std::string Exception::message() const
     {
@@ -35,5 +40,12 @@ namespace creek
     Undefined::Undefined(const std::string& what)
     {
         stream() << "Undefined: " << what;
+    }
+
+    // `Unimplemented` constructor.
+    // @param  what    What is Unimplemented?
+    Unimplemented::Unimplemented(const std::string& what)
+    {
+        stream() << "Unimplemented: " << what;
     }
 }
