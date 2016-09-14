@@ -4,11 +4,13 @@
 #include <iostream>
 #include <string>
 
+#include <creek/Exception.hpp>
 #include <creek/Expression.hpp>
 #include <creek/Expression_Arithmetic.hpp>
 #include <creek/Expression_BasicDataTypes.hpp>
 #include <creek/Expression_Bitwise.hpp>
 #include <creek/Expression_Boolean.hpp>
+#include <creek/Expression_Comparison.hpp>
 #include <creek/Expression_ControlFlow.hpp>
 #include <creek/Expression_Debug.hpp>
 #include <creek/Expression_General.hpp>
@@ -18,6 +20,8 @@
 
 namespace creek
 {
+
+
     // find correct std::stoi function
     template<class T> T stoi(const std::string& source, std::size_t* pos, int base);
 
@@ -35,6 +39,7 @@ namespace creek
     {
         return std::stoll(source, pos, base);
     }
+
 
     // find correct std::stof function
     template<class T> T stof(const std::string& source, std::size_t* pos);
@@ -55,12 +60,11 @@ namespace creek
     }
 
 
-
     // Token type names.
     const std::map<InterpreterTokenType, std::string> InterpreterToken::type_names
     {
         { InterpreterTokenType::unknown,        "unknown" },                    //< Unexpected character.
-
+        { InterpreterTokenType::eof,            "EOF" },                        //< End of file.
         { InterpreterTokenType::space,          "space" },                      //< Blank space (space, new line, etc.).
         { InterpreterTokenType::commentary,     "commentary" },                 //< Commentary (sigle-line or multi-line).
 
@@ -80,7 +84,7 @@ namespace creek
         { InterpreterTokenType::comma,          "comma" },                      //< Comma (,).
         { InterpreterTokenType::semicolon,      "semicolon" },                  //< Semicolon (;).
         { InterpreterTokenType::dollar,         "dollar" },                     //< Dollar sign ($).
-        { InterpreterTokenType::then,           "then" },                       ///< Then arrow (=>).
+        { InterpreterTokenType::then,           "then arrow" },                 //< Then arrow (=>).
         { InterpreterTokenType::operation_sign, "operation sign" },             //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
 
         { InterpreterTokenType::open_round,     "open parentheses" },           //< Open round brackets or parentheses (().
@@ -285,17 +289,19 @@ namespace creek
     // Operators.
     const std::set<InterpreterOperator> Interpreter::operators =
     {
-        InterpreterOperator("**", 11),
+        InterpreterOperator("**", 12),
 
-        InterpreterOperator("*", 10),
-        InterpreterOperator("/", 10),
-        InterpreterOperator("%", 10),
+        InterpreterOperator("*", 11),
+        InterpreterOperator("/", 11),
+        InterpreterOperator("%", 11),
 
-        InterpreterOperator("+", 9),
-        InterpreterOperator("-", 9),
+        InterpreterOperator("+", 10),
+        InterpreterOperator("-", 10),
 
-        InterpreterOperator("<<", 8),
-        InterpreterOperator(">>", 8),
+        InterpreterOperator("<<", 9),
+        InterpreterOperator(">>", 9),
+
+        InterpreterOperator("<=>", 8),
 
         InterpreterOperator("<", 7),
         InterpreterOperator("<=", 7),
@@ -340,7 +346,8 @@ namespace creek
         { InterpreterTokenType::dollar,         std::regex(R"__(^(\$))__") },
         { InterpreterTokenType::then,           std::regex(R"__(^(=>))__") },
 
-        { InterpreterTokenType::operation_sign, std::regex(R"__(^(\+|\-|/|%|\^|~|!|(\*\*?)|(&&?)|(\|\|?)|(<[<=]?)|(>[>=]?)|(!=)))__") },
+        // { InterpreterTokenType::operation_sign, std::regex(R"__(^(\+|\-|/|%|\^|~|!|(\*\*?)|(&&?)|(\|\|?)|(<[<=]?)|(>[>=]?)|(!=)))__") },
+        { InterpreterTokenType::operation_sign, std::regex(R"__(^(\+|\-|/|%|\^|~|!|\*\*?|&&?|\|\|?|<(=>?)?|>=?|==|!=))__") },
 
         { InterpreterTokenType::open_round,     std::regex(R"__(^(\())__") },
         { InterpreterTokenType::close_round,    std::regex(R"__(^(\)))__") },
@@ -370,14 +377,15 @@ namespace creek
         { "class",      InterpreterTokenType::keyword },
         { "function",   InterpreterTokenType::keyword },
         { "return",     InterpreterTokenType::keyword },
+        { "throw",      InterpreterTokenType::keyword },
 
         { "null",       InterpreterTokenType::null },
         { "false",      InterpreterTokenType::boolean },
         { "true",       InterpreterTokenType::boolean },
 
-        { "and",        InterpreterTokenType::operation_sign },
-        { "or",         InterpreterTokenType::operation_sign },
-        { "not",        InterpreterTokenType::operation_sign },
+        // { "and",        InterpreterTokenType::operation_sign },
+        // { "or",         InterpreterTokenType::operation_sign },
+        // { "not",        InterpreterTokenType::operation_sign },
     };
 
     // `Interpreter` constructor.
@@ -528,6 +536,9 @@ namespace creek
             iter += largest;
         }
 
+        // add EOF token
+        tokens.push_back(InterpreterToken(InterpreterTokenType::eof, "", current_line, current_column));
+
         return tokens;
     }
 
@@ -538,16 +549,16 @@ namespace creek
 
         // parse each token
         auto iter = tokens.cbegin();
-        while (iter < tokens.cend())
+        while (iter->type() != InterpreterTokenType::eof)
         {
             // statement body
-            if (auto e = parse_statement(tokens, iter))
+            if (auto e = parse_statement(iter))
             {
                 expressions.push_back(e);
             }
 
             // optional semicolon at the end
-            if (iter < tokens.cend())
+            if (iter->type() != InterpreterTokenType::eof)
             {
                 if (iter->type() == InterpreterTokenType::semicolon)
                 {
@@ -564,27 +575,20 @@ namespace creek
     }
 
 
-    void Interpreter::check_not_eof(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
+    void Interpreter::check_not_eof(std::vector<InterpreterToken>::const_iterator& iter)
     {
-        if (iter >= tokens.cend())
+        if (iter->type() == InterpreterTokenType::eof)
         {
-            if (iter - 1 < tokens.cend())
-            {
-                throw UnexpectedEof(iter[-1]);
-            }
-            else
-            {
-                throw UnexpectedEof(InterpreterToken(InterpreterTokenType::unknown, "", 1, 1));
-            }
+            throw UnexpectedEof(*iter);
         }
     }
 
 
-    void Interpreter::check_token_type(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter,
+    void Interpreter::check_token_type(std::vector<InterpreterToken>::const_iterator& iter,
                                        const std::set<InterpreterTokenType>& accepted)
     {
         // check not EOF
-        check_not_eof(tokens, iter);
+        check_not_eof(iter);
 
         // check type
         if (accepted.count(iter->type()) == 0)
@@ -594,9 +598,9 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_statement(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
+    Expression* Interpreter::parse_statement(std::vector<InterpreterToken>::const_iterator& iter)
     {
-        check_not_eof(tokens, iter);
+        check_not_eof(iter);
         switch (iter->type())
         {
             case InterpreterTokenType::unknown:            //< Unexpected character.
@@ -624,7 +628,7 @@ namespace creek
             case InterpreterTokenType::close_round:        //< Close round brackets or parentheses ()).
             case InterpreterTokenType::keyword:            //< Identifier used as a keyword.
             {
-                return parse_operation(tokens, iter);
+                return parse_operation(iter);
             }
 
             case InterpreterTokenType::open_square:        //< Open square brackets or crotchets ([).
@@ -665,33 +669,37 @@ namespace creek
         else if (operator_string == "%")    return new ExprMod(lhs, rhs);
         else if (operator_string == "+")    return new ExprAdd(lhs, rhs);
         else if (operator_string == "-")    return new ExprSub(lhs, rhs);
+
         else if (operator_string == "<<")   return new ExprBitLeftShift(lhs, rhs);
         else if (operator_string == ">>")   return new ExprBitRightShift(lhs, rhs);
-//        else if (operator_string == "<")    return new ExprLt(lhs, rhs);
-//        else if (operator_string == "<=")   return new ExprLe(lhs, rhs);
-//        else if (operator_string == ">")    return new ExprGt(lhs, rhs);
-//        else if (operator_string == ">=")   return new ExprGe(lhs, rhs);
-//        else if (operator_string == "==")   return new ExprEq(lhs, rhs);
-//        else if (operator_string == "!=")   return new ExprNe(lhs, rhs);
+
+        else if (operator_string == "<=>")  return new ExprCmp(lhs, rhs);
+        else if (operator_string == "<")    return new ExprLT(lhs, rhs);
+        else if (operator_string == "<=")   return new ExprLE(lhs, rhs);
+        else if (operator_string == ">")    return new ExprGT(lhs, rhs);
+        else if (operator_string == ">=")   return new ExprGE(lhs, rhs);
+        else if (operator_string == "==")   return new ExprEQ(lhs, rhs);
+        else if (operator_string == "!=")   return new ExprNE(lhs, rhs);
+
         else if (operator_string == "&")    return new ExprBitAnd(lhs, rhs);
         else if (operator_string == "^")    return new ExprBitXor(lhs, rhs);
         else if (operator_string == "|")    return new ExprBitOr(lhs, rhs);
+
         else if (operator_string == "&&")   return new ExprBoolAnd(lhs, rhs);
         else if (operator_string == "||")   return new ExprBoolOr(lhs, rhs);
         else throw Undefined(std::string("Binary operator ") + operator_string);
     }
 
-    Expression* Interpreter::parse_operation(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
+    Expression* Interpreter::parse_operation(std::vector<InterpreterToken>::const_iterator& iter)
     {
         // a parameter followed by any number of operation signs and other parameter.
 
         std::vector<Expression*> param_stack;
         std::vector<InterpreterOperator> operator_stack;
 
-        param_stack.push_back(parse_parameter(tokens, iter));
+        param_stack.push_back(parse_parameter(iter));
 
-        while (iter < tokens.cend() &&
-               iter->type() == InterpreterTokenType::operation_sign)
+        while (iter->type() == InterpreterTokenType::operation_sign)
         {
             // operator
             auto o = std::find_if(operators.begin(), operators.end(), [iter](const InterpreterOperator& o){ return o.string() == iter->text(); });
@@ -700,7 +708,8 @@ namespace creek
                 throw UnexpectedToken(*iter, {InterpreterTokenType::operation_sign});
             }
 
-            while (operator_stack.size() > 1 &&
+            // pop operators with higher precedence
+            while (!operator_stack.empty() &&
                    operator_stack.back().precedence() >= o->precedence())
             {
                 auto rhs = param_stack.back();
@@ -712,11 +721,13 @@ namespace creek
                 param_stack.push_back(token_to_operartion(operator_stack.back(), lhs, rhs));
                 operator_stack.pop_back();
             }
+
+            // push
             operator_stack.push_back(*o);
             iter += 1;
 
             // rhs parameter
-            param_stack.push_back(parse_parameter(tokens, iter));
+            param_stack.push_back(parse_parameter(iter));
         }
 
         // pop remaining operators
@@ -736,11 +747,11 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_parameter(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
+    Expression* Interpreter::parse_parameter(std::vector<InterpreterToken>::const_iterator& iter)
     {
         Expression* e = nullptr;
 
-        check_not_eof(tokens, iter);
+        check_not_eof(iter);
         switch (iter->type())
         {
             case InterpreterTokenType::null:               //< Null literal.
@@ -793,11 +804,11 @@ namespace creek
                 VarName var_name = VarName::from_name(iter->identifier());
                 iter += 1;
 
-                if (iter < tokens.cend() && iter->type() == InterpreterTokenType::assign)
+                if (iter->type() == InterpreterTokenType::assign)
                 {
                     iter += 1;
 
-                    Expression* value = parse_operation(tokens, iter);
+                    Expression* value = parse_operation(iter);
 
                     e = new ExprStoreVar(var_name, value);
                 }
@@ -812,7 +823,7 @@ namespace creek
             {
                 iter += 1;
 
-                check_token_type(tokens, iter, {InterpreterTokenType::identifier});
+                check_token_type(iter, {InterpreterTokenType::identifier});
                 VarName var_name = VarName::from_name(iter->identifier());
                 iter += 1;
 
@@ -826,22 +837,22 @@ namespace creek
                 if (iter->text() == "+")
                 {
                     iter += 1;
-                    e = parse_parameter(tokens, iter);
+                    e = parse_parameter(iter);
                 }
                 else if (iter->text() == "-")
                 {
                     iter += 1;
-                    e = new ExprUnm(parse_parameter(tokens, iter));
+                    e = new ExprUnm(parse_parameter(iter));
                 }
                 else if (iter->text() == "~")
                 {
                     iter += 1;
-                    e = new ExprBitNot(parse_parameter(tokens, iter));
+                    e = new ExprBitNot(parse_parameter(iter));
                 }
                 else if (iter->text() == "!")
                 {
                     iter += 1;
-                    e = new ExprBoolNot(parse_parameter(tokens, iter));
+                    e = new ExprBoolNot(parse_parameter(iter));
                 }
                 else
                 {
@@ -852,14 +863,25 @@ namespace creek
 
             case InterpreterTokenType::keyword:            //< Identifier used as a keyword.
             {
-                if (iter->text() == "if")               e = parse_if_block(tokens, iter);
-                else if (iter->text() == "do")          e = parse_do_block(tokens, iter);
-                else if (iter->text() == "while")       e = parse_while_block(tokens, iter);
-                else if (iter->text() == "for")         e = parse_for_block(tokens, iter);
-                else if (iter->text() == "switch")      e = parse_switch_block(tokens, iter);
-                else if (iter->text() == "var")         e = parse_local_var(tokens, iter);
-                else if (iter->text() == "function")    e = parse_lambda(tokens, iter);
-                else throw UnexpectedToken(*iter, {InterpreterTokenType::keyword});
+                if (iter->text() == "if")               e = parse_if_block(iter);
+                else if (iter->text() == "do")          e = parse_do_block(iter);
+                else if (iter->text() == "while")       e = parse_while_block(iter);
+                else if (iter->text() == "for")         e = parse_for_block(iter);
+                else if (iter->text() == "switch")      e = parse_switch_block(iter);
+                else if (iter->text() == "try")         e = parse_try_block(iter);
+                else if (iter->text() == "var")         e = parse_local_var(iter);
+                else if (iter->text() == "function")    e = parse_function(iter);
+                else if (iter->text() == "return")
+                {
+                    iter += 1;
+                    e = new ExprReturn(parse_operation(iter));
+                }
+                else if (iter->text() == "throw")
+                {
+                    iter += 1;
+                    e = new ExprThrow(parse_operation(iter));
+                }
+                else throw UnexpectedToken(*iter);
                 break;
             }
 
@@ -867,9 +889,9 @@ namespace creek
             {
                 iter += 1;
 
-                e = parse_operation(tokens, iter);
+                e = parse_operation(iter);
 
-                check_token_type(tokens, iter, {InterpreterTokenType::close_round});
+                check_token_type(iter, {InterpreterTokenType::close_round});
                 iter += 1;
 
                 break;
@@ -890,7 +912,7 @@ namespace creek
 
         // check suffixes
         bool done = false;
-        while (iter < tokens.cend() && !done)
+        while (!done)
         {
             switch (iter->type())
             {
@@ -898,14 +920,14 @@ namespace creek
                 {
                     iter += 1;
 
-                    check_token_type(tokens, iter, {InterpreterTokenType::identifier});
+                    check_token_type(iter, {InterpreterTokenType::identifier});
                     Expression* index = new ExprIdentifier(VarName::from_name(iter->identifier()));
 
-                    if (iter < tokens.cend() && iter->type() == InterpreterTokenType::assign)
+                    if (iter->type() == InterpreterTokenType::assign)
                     {
                         iter += 1;
 
-                        Expression* value = parse_operation(tokens, iter);
+                        Expression* value = parse_operation(iter);
 
                         e = new ExprIndexSet(e, index, value);
                     }
@@ -922,9 +944,27 @@ namespace creek
                     iter += 1;
 
                     std::vector<Expression*> args;
-                    // TODO: function call arguments
+                    check_not_eof(iter);
+                    while (iter->type() != InterpreterTokenType::close_round)
+                    {
+                        // value
+                        args.push_back(parse_operation(iter));
 
-                    check_token_type(tokens, iter, {InterpreterTokenType::close_round});
+                        // optional comma
+                        if (iter->type() != InterpreterTokenType::close_round)
+                        {
+                            if (iter->type() == InterpreterTokenType::comma)
+                            {
+                                iter += 1;
+                            }
+                            else
+                            {
+                                throw UnexpectedToken(*iter);
+                            }
+                        }
+                    }
+
+                    check_token_type(iter, {InterpreterTokenType::close_round});
                     iter += 1;
 
                     e = new ExprCall(e, args);
@@ -936,16 +976,16 @@ namespace creek
                 {
                     iter += 1;
 
-                    Expression* index = parse_operation(tokens, iter);
+                    Expression* index = parse_operation(iter);
 
-                    check_token_type(tokens, iter, {InterpreterTokenType::close_square});
+                    check_token_type(iter, {InterpreterTokenType::close_square});
                     iter += 1;
 
-                    if (iter < tokens.cend() && iter->type() == InterpreterTokenType::assign)
+                    if (iter->type() == InterpreterTokenType::assign)
                     {
                         iter += 1;
 
-                        Expression* value = parse_operation(tokens, iter);
+                        Expression* value = parse_operation(iter);
 
                         e = new ExprIndexSet(e, index, value);
                     }
@@ -969,141 +1009,250 @@ namespace creek
     }
 
 
-Expression* Interpreter::parse_block_body(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    if (iter->type() == InterpreterTokenType::then)
+    Expression* Interpreter::parse_block_body(std::vector<InterpreterToken>::const_iterator& iter)
     {
-        iter += 1;
-        return parse_operation(tokens, iter);
-    }
-    else if (iter->type() == InterpreterTokenType::open_brace)
-    {
-        iter += 1;
-
-        std::vector<Expression*> expressions;
-        while (iter < tokens.cend() &&
-               iter->type() != InterpreterTokenType::close_brace)
+        check_not_eof(iter);
+        // if (iter->type() == InterpreterTokenType::then)
+        // {
+        //     iter += 1;
+        //     return new ExprBlock({parse_operation(iter)});
+        // }
+        // else
+        if (iter->type() == InterpreterTokenType::open_brace)
         {
-            // statement body
-            if (auto e = parse_statement(tokens, iter)) // may return null if commentary, etc.
+            iter += 1;
+
+            std::vector<Expression*> expressions;
+            while (iter->type() != InterpreterTokenType::close_brace)
             {
-                expressions.push_back(e);
+                // statement body
+                if (auto e = parse_statement(iter)) // may return null if commentary, etc.
+                {
+                    expressions.push_back(e);
+                }
+
+                // optional semicolon at the end
+                if (iter->type() != InterpreterTokenType::close_brace)
+                {
+                    if (iter->type() == InterpreterTokenType::semicolon)
+                    {
+                        iter += 1;
+                    }
+                    else
+                    {
+                        throw UnexpectedToken(*iter, {InterpreterTokenType::semicolon});
+                    }
+                }
             }
 
-            // optional semicolon at the end
-            if (iter < tokens.cend() &&
-                iter->type() != InterpreterTokenType::close_brace)
-            {
-                if (iter->type() == InterpreterTokenType::semicolon)
-                {
-                    iter += 1;
-                }
-                else
-                {
-                    throw UnexpectedToken(*iter, {InterpreterTokenType::semicolon});
-                }
-            }
+            check_token_type(iter, {InterpreterTokenType::close_brace});
+            iter += 1;
+
+            return new ExprBlock(expressions);
         }
+        else
+        {
+            throw UnexpectedToken(*iter, {InterpreterTokenType::then, InterpreterTokenType::open_brace});
+        }
+    }
 
-        check_token_type(tokens, iter, {InterpreterTokenType::close_brace});
+    Expression* Interpreter::parse_do_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
+        return parse_block_body(iter);
+    }
+
+    Expression* Interpreter::parse_if_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
         iter += 1;
 
-        return new ExprBlock(expressions);
-    }
-    else
-    {
-        throw UnexpectedToken(*iter, {InterpreterTokenType::then, InterpreterTokenType::open_brace});
-    }
-}
+        auto condition = parse_operation(iter);
+        auto true_block = parse_block_body(iter);
+        Expression* false_block = nullptr;
 
-Expression* Interpreter::parse_do_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    iter += 1;
-    return parse_block_body(tokens, iter);
-}
-
-Expression* Interpreter::parse_if_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    iter += 1;
-
-    auto condition = parse_operation(tokens, iter);
-    auto true_block = parse_block_body(tokens, iter);
-    Expression* false_block = nullptr;
-
-    if (iter < tokens.cend())
-    {
         if (iter->type() == InterpreterTokenType::keyword &&
             iter->text() == "else")
         {
             iter += 1;
 
-            if (iter < tokens.cend())
+            if (iter->type() == InterpreterTokenType::keyword &&
+                iter->text() == "if")
             {
-                if (iter->type() == InterpreterTokenType::keyword &&
-                    iter->text() == "if")
-                {
-                    false_block = parse_if_block(tokens, iter);
-                }
-                else
-                {
-                    false_block = parse_block_body(tokens, iter);
-                }
+                false_block = parse_if_block(iter);
             }
             else
             {
-                throw UnexpectedEof(iter[-1]);
+                false_block = parse_block_body(iter);
             }
         }
+
+        return new ExprIf(condition, true_block, false_block);
     }
 
-    return new ExprIf(condition, true_block, false_block);
-}
+    Expression* Interpreter::parse_loop_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
+        return new ExprLoop(parse_block_body(iter));
+    }
 
-Expression* Interpreter::parse_loop_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    iter += 1;
-    return new ExprLoop(parse_block_body(tokens, iter));
-}
+    Expression* Interpreter::parse_while_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
 
-Expression* Interpreter::parse_while_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    iter += 1;
+        auto condition = parse_operation(iter);
+        auto body = parse_block_body(iter);
 
-    auto condition = parse_operation(tokens, iter);
-    auto body = parse_block_body(tokens, iter);
+        return new ExprWhile(condition, body);
+    }
 
-    return new ExprWhile(condition, body);
-}
+    Expression* Interpreter::parse_for_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
 
-Expression* Interpreter::parse_for_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    throw Unimplemented("for blocks");
-}
+        check_token_type(iter, {InterpreterTokenType::identifier});
+        auto var_name = VarName::from_name(iter->identifier());
+        iter += 1;
 
-Expression* Interpreter::parse_switch_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    throw Unimplemented("switch blocks");
-}
+        check_not_eof(iter);
+        switch (iter->type())
+        {
+            case InterpreterTokenType::assign:
+            {
+                iter += 1;
 
-Expression* Interpreter::parse_local_var(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    iter += 1;
+                auto initial_value = parse_operation(iter);
 
-    auto var_name = VarName::from_name(iter->identifier());
-    iter += 1;
+                check_token_type(iter, {InterpreterTokenType::comma});
+                iter += 1;
 
-    check_token_type(tokens, iter, {InterpreterTokenType::assign});
-    iter += 1;
+                auto max_value = parse_operation(iter);
 
-    auto value = parse_operation(tokens, iter);
+                Expression* step_value = nullptr;
+                check_not_eof(iter);
+                if (iter->type() == InterpreterTokenType::comma)
+                {
+                    iter += 1;
+                    step_value = parse_operation(iter);
+                }
+                else
+                {
+                    step_value = new ExprNumber(1);
+                }
 
-    return new ExprLocalVar(var_name, value);
-}
+                auto body = parse_block_body(iter);
 
-Expression* Interpreter::parse_lambda(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter)
-{
-    throw Unimplemented("switch blocks");
-}
+                return new ExprFor(var_name, initial_value, max_value, step_value, body);
+            }
+
+            case InterpreterTokenType::keyword:
+            {
+                if (iter->text() == "in")
+                {
+                    iter += 1;
+
+                    auto range = parse_operation(iter);
+                    auto body = parse_block_body(iter);
+
+                    return new ExprForIn(var_name, range, body);
+                }
+                else
+                {
+                    throw UnexpectedToken(*iter);
+                }
+                break;
+            }
+
+            default:
+            {
+                throw UnexpectedToken(*iter, {InterpreterTokenType::assign, InterpreterTokenType::keyword});
+            }
+        }
+
+        throw Unimplemented("for blocks");
+    }
+
+    Expression* Interpreter::parse_switch_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        throw Unimplemented("switch blocks");
+    }
+
+    Expression* Interpreter::parse_try_block(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
+
+        auto try_body = parse_block_body(iter);
+
+        check_token_type(iter, {InterpreterTokenType::keyword});
+        if (iter->text() != "catch")
+        {
+            throw UnexpectedToken(*iter);
+        }
+        iter += 1;
+
+        auto catch_body = parse_block_body(iter);
+
+        return new ExprTry(try_body, catch_body);
+    }
+
+
+    Expression* Interpreter::parse_local_var(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
+
+        auto var_name = VarName::from_name(iter->identifier());
+        iter += 1;
+
+        check_token_type(iter, {InterpreterTokenType::assign});
+        iter += 1;
+
+        auto value = parse_operation(iter);
+
+        return new ExprLocalVar(var_name, value);
+    }
+
+    Expression* Interpreter::parse_function(std::vector<InterpreterToken>::const_iterator& iter)
+    {
+        iter += 1;
+
+        check_token_type(iter, {InterpreterTokenType::open_round});
+        iter += 1;
+
+        // arg names
+        std::vector<VarName> arg_names;
+        while (true)
+        {
+            check_not_eof(iter);
+            if (iter->type() == InterpreterTokenType::close_round)
+            {
+                iter += 1;
+                break;
+            }
+            else if (iter->type() == InterpreterTokenType::identifier)
+            {
+                // name
+                arg_names.push_back(VarName::from_name(iter->identifier()));
+                iter += 1;
+
+                // optional comma
+                if (iter->type() != InterpreterTokenType::close_round)
+                {
+                    if (iter->type() == InterpreterTokenType::comma)
+                    {
+                        iter += 1;
+                    }
+                    else
+                    {
+                        throw UnexpectedToken(*iter);
+                    }
+                }
+            }
+        }
+
+        // body
+        Expression* body = parse_block_body(iter);
+
+        return new ExprFunction(arg_names, body);
+    }
 
 
 
@@ -1157,20 +1306,27 @@ Expression* Interpreter::parse_lambda(const std::vector<InterpreterToken>& token
         stream() << "Unexpected character found `" << token.text() << "`";
     }
 
-    /// `UnexpectedToken` constructor.
-    /// @param  token       Source code token where the exception happened.
-    /// @param  accepted    Set of token types that could be accepted.
+    // `UnexpectedToken` constructor.
+    // @param  token       Source code token where the exception happened.
+    UnexpectedToken::UnexpectedToken(const InterpreterToken& token) : SyntaxError(token)
+    {
+        stream() << "Unexpected " << InterpreterToken::type_names.at(token.type()) << " `" << token.text() << "`";
+    }
+
+    // `UnexpectedToken` constructor.
+    // @param  token       Source code token where the exception happened.
+    // @param  accepted    Set of token types that could be accepted.
     UnexpectedToken::UnexpectedToken(const InterpreterToken& token, const std::set<InterpreterTokenType>& accepted) :
         SyntaxError(token),
         m_accepted(accepted)
     {
-        stream() << "Unexpected token `" << token.text() << "`; expected ";
+        stream() << "Unexpected " << InterpreterToken::type_names.at(token.type()) << " `" << token.text() << "`; expected ";
         int i = 0;
         for (auto& type : accepted)
         {
             if (i > 0)
             {
-                stream() << ", ";
+                stream() << "/";
             }
             stream() << InterpreterToken::type_names.at(type);
             i += 1;

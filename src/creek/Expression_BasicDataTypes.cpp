@@ -17,6 +17,7 @@ namespace creek
         return Variable(new Void());
     }
 
+
     // `ExprBoolean` constructor.
     // @param  value       Boolean value.
     ExprBoolean::ExprBoolean(Boolean::Value value) : m_value(value)
@@ -28,6 +29,7 @@ namespace creek
     {
         return Variable(new Boolean(m_value));
     }
+
 
     // `ExprNumber` constructor.
     // @param  value       Number value.
@@ -41,6 +43,7 @@ namespace creek
         return Variable(new Number(m_value));
     }
 
+
     // `ExprString` constructor.
     // @param  value       String value.
     ExprString::ExprString(String::Value value) : m_value(value)
@@ -52,6 +55,7 @@ namespace creek
     {
         return Variable(new String(m_value));
     }
+
 
     // `ExprIdentifier` constructor.
     // @param  value       Identifier value.
@@ -65,6 +69,7 @@ namespace creek
         return Variable(new Identifier(m_value));
     }
 
+
     // `ExprVector` constructor.
     ExprVector::ExprVector()
     {
@@ -75,5 +80,28 @@ namespace creek
     {
         Vector::Value new_value = std::make_shared< std::vector<Variable> >();
         return Variable(new Vector(new_value));
+    }
+
+
+    // `ExprFunction` constructor.
+    // @param  arg_names   Names of arguments.
+    // @param  body        Function body block.
+    ExprFunction::ExprFunction(const std::vector<VarName>& arg_names, Expression* body) :
+        m_arg_names(arg_names),
+        m_body(body)
+    {
+
+    }
+
+    Variable ExprFunction::eval(Scope& scope)
+    {
+        Function::FunctionDef* def = new Function::FunctionDef
+        {
+            scope,
+            m_arg_names,
+            std::unique_ptr<Expression>(m_body.release()),
+        };
+        Function::Value new_value(def);
+        return Variable(new Function(new_value));
     }
 }

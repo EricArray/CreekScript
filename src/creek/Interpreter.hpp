@@ -17,7 +17,7 @@ namespace creek
     enum class InterpreterTokenType
     {
         unknown,            ///< Unexpected character.
-
+        eof,                ///< End of file.
         space,              ///< Blank space (space, new line, etc.).
         commentary,         ///< Commentary (sigle-line or multi-line).
 
@@ -167,24 +167,24 @@ namespace creek
         std::vector<InterpreterToken> scan(const std::string& code);
         std::vector<Expression*> parse(const std::vector<InterpreterToken>& tokens);
 
-        Expression* parse_body(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_statement(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_operation(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_parameter(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_statement(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_operation(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_parameter(std::vector<InterpreterToken>::const_iterator& iter);
 
-        Expression* parse_block_body(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_do_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_if_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_loop_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_while_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_for_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_switch_block(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_local_var(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_lambda(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_block_body(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_do_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_if_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_loop_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_while_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_for_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_switch_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_try_block(std::vector<InterpreterToken>::const_iterator& iter);
 
-        void check_not_eof(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter);
-        void check_token_type(const std::vector<InterpreterToken>& tokens, std::vector<InterpreterToken>::const_iterator& iter,
-                              const std::set<InterpreterTokenType>& accepted);
+        Expression* parse_local_var(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_function(std::vector<InterpreterToken>::const_iterator& iter);
+
+        void check_not_eof(std::vector<InterpreterToken>::const_iterator& iter);
+        void check_token_type(std::vector<InterpreterToken>::const_iterator& iter, const std::set<InterpreterTokenType>& accepted);
     };
 
 
@@ -245,6 +245,10 @@ namespace creek
     class UnexpectedToken : public SyntaxError
     {
     public:
+        /// `UnexpectedToken` constructor.
+        /// @param  token       Source code token where the exception happened.
+        UnexpectedToken(const InterpreterToken& token);
+
         /// `UnexpectedToken` constructor.
         /// @param  token       Source code token where the exception happened.
         /// @param  accepted    Token types that could be accepted.

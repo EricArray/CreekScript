@@ -3,6 +3,7 @@
 #include <creek/Expression.hpp>
 
 #include <creek/Boolean.hpp>
+#include <creek/Function.hpp>
 #include <creek/Identifier.hpp>
 #include <creek/Number.hpp>
 #include <creek/String.hpp>
@@ -101,6 +102,24 @@ namespace creek
         ExprVector();
 
         Variable eval(Scope& scope) override;
+    };
+
+
+    /// Expression: Create a function data.
+    /// Returns a new `Function`.
+    class ExprFunction : public Expression
+    {
+    public:
+        /// `ExprFunction` constructor.
+        /// @param  arg_names   Names of arguments.
+        /// @param  body        Function body block.
+        ExprFunction(const std::vector<VarName>& arg_names, Expression* body);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::vector<VarName> m_arg_names;
+        std::unique_ptr<Expression> m_body;
     };
 
     /// @}

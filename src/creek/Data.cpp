@@ -141,7 +141,7 @@ namespace creek
         throw Undefined(class_name() + "::cmp");
     }
 
-    Data* Data::call(const std::vector< std::unique_ptr<Data> >& args)
+    Data* Data::call(std::vector< std::unique_ptr<Data> >& args)
     {
         throw Undefined(class_name() + "::call");
     }

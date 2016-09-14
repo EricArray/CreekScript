@@ -30,30 +30,30 @@ namespace creek
         return m_value >= Value(0);
     }
 
-//    void Number::bool_value(bool new_value)
-//    {
-//        m_value = new_value;
-//    }
+    // void Number::bool_value(bool new_value)
+    // {
+        // m_value = new_value;
+    // }
 
     int Number::int_value() const
     {
         return m_value;
     }
 
-//    void Number::int_value(int new_value)
-//    {
-//        m_value = new_value;
-//    }
+    // void Number::int_value(int new_value)
+    // {
+        // m_value = new_value;
+    // }
 
     float Number::float_value() const
     {
         return m_value;
     }
 
-//    void Number::float_value(float new_value)
-//    {
-//        m_value = new_value;
-//    }
+    // void Number::float_value(float new_value)
+    // {
+        // m_value = new_value;
+    // }
 
     // std::string Number::string_value()
     // {

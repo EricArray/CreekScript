@@ -7,3 +7,9 @@ if (!y) {
 } else {
     "don't know";
 };
+
+var times_two = function(num) {
+    2 * num;
+};
+
+times_two(11);

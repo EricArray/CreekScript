@@ -31,7 +31,7 @@ namespace creek
         // float float_value() const override;
         // void float_value(float new_value) override;
         std::string string_value() const override;
-//        void string_value(const std::string& new_value) override;
+        // void string_value(const std::string& new_value) override;
 
         Data* index(Data* key) override;
         Data* index(Data* key, Data* new_value) override;

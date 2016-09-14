@@ -7,62 +7,6 @@
 
 namespace creek
 {
-    // Transform an integer into a string.
-    // @param  integer The number to transform.
-    // @param  base    Any numeric base (eg. 2, 8, 10, 16, 5, 7).
-    // @param  psign   Use positive sign.
-    // @param  digits  Add leading zeros if less that this digits long.
-    std::string int_to_string(int integer, unsigned base, unsigned digits, bool psign)
-    {
-        std::string string = "";
-
-        unsigned unprocessed = std::abs(integer);
-        do
-        {
-            unsigned unit = unprocessed % base;
-
-            char digit = '0';
-            if(unit < 10)
-                digit = '0' + unit;
-            else
-                digit = 'A' + unit - 10;
-
-            string = digit + string;
-
-            unprocessed /= base;
-        }
-        while(unprocessed > 0);
-
-        if(string.size() < digits)
-            string = std::string(digits - string.size(), '0') + string;
-
-        if(integer < 0)
-        {
-            string = std::string("-") + string;
-        }
-        else if(psign)
-        {
-            if (integer > 0)
-                string = std::string(1, '+') + string;
-            else
-                string = std::string(1, char(241)) + string;
-        }
-
-        return string;
-    }
-
-    // Transform a floating-point number into a string.
-    // @param  floatnum    The floating-point number to transform.
-    // @param  base        Any numeric base (eg. 2, 8, 10, 16, 5, 7).
-    std::string float_to_string(float floatnum, unsigned base)
-    {
-        // TODO: float to string
-        std::stringstream ss;
-        ss << floatnum;
-        return ss.str();
-    }
-
-
     // @defgroup   utility_string_escape   String escape and unescape utility
     // Function for escaping and unescaping string using back-slash (\).
     // Implemented escape characters:

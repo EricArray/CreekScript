@@ -127,7 +127,7 @@ namespace creek
         /// Call this object as a function.
         /// @param  args    Arguments.
         /// @return         Value returned from this function.
-        virtual Data* call(const std::vector< std::unique_ptr<Data> >& args);
+        virtual Data* call(std::vector< std::unique_ptr<Data> >& args);
         /// @}
     };
 }

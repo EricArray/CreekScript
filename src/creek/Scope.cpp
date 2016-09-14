@@ -6,14 +6,14 @@
 namespace creek
 {
     // `Scope` constructor.
-    Scope::Scope() : m_parent(nullptr)
+    Scope::Scope() : m_parent(nullptr), m_global(*this)
     {
 
     }
 
     // `Scope` constructor.
     // @param  parent  Parent scope.
-    Scope::Scope(Scope* parent) : m_parent(parent)
+    Scope::Scope(Scope& parent) : m_parent(&parent), m_global(parent.m_global)
     {
 
     }
@@ -57,5 +57,11 @@ namespace creek
             }
         }
         return it->second;
+    }
+
+    // Get the global scope.
+    Scope& Scope::global_scope()
+    {
+        return m_global;
     }
 }

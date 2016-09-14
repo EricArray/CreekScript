@@ -55,6 +55,8 @@
 		<Unit filename="../../src/creek/Expression_Bitwise.hpp" />
 		<Unit filename="../../src/creek/Expression_Boolean.cpp" />
 		<Unit filename="../../src/creek/Expression_Boolean.hpp" />
+		<Unit filename="../../src/creek/Expression_Comparison.cpp" />
+		<Unit filename="../../src/creek/Expression_Comparison.hpp" />
 		<Unit filename="../../src/creek/Expression_ControlFlow.cpp" />
 		<Unit filename="../../src/creek/Expression_ControlFlow.hpp" />
 		<Unit filename="../../src/creek/Expression_Debug.cpp" />
@@ -63,6 +65,8 @@
 		<Unit filename="../../src/creek/Expression_General.hpp" />
 		<Unit filename="../../src/creek/Expression_Variable.cpp" />
 		<Unit filename="../../src/creek/Expression_Variable.hpp" />
+		<Unit filename="../../src/creek/Function.cpp" />
+		<Unit filename="../../src/creek/Function.hpp" />
 		<Unit filename="../../src/creek/Identifier.cpp" />
 		<Unit filename="../../src/creek/Identifier.hpp" />
 		<Unit filename="../../src/creek/Interpreter.cpp" />
