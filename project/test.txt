@@ -1,15 +1,10 @@
-var x = 1;
-var y = x + 10;
-if (!y) {
-    "not y";
-} else if (x - 100) {
-    "yes x minus 100";
-} else {
-    "don't know";
-};
-
-var times_two = function(num) {
+var times_two = func(num) {
     2 * num;
 };
 
-times_two(11);
+for i = 0..4 {
+    debug(times_two(i));
+    print("\n");
+};
+
+exit(123);

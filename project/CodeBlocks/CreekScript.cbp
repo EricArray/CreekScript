@@ -32,15 +32,19 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wnon-virtual-dtor" />
+			<Add option="-Winit-self" />
 			<Add option="-Wfloat-equal" />
 			<Add option="-Wswitch-default" />
 			<Add option="-Wzero-as-null-pointer-constant" />
+			<Add option="-pedantic-errors" />
 			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 			<Add directory="../../src" />
 		</Compiler>
 		<Unit filename="../../src/creek/Boolean.cpp" />
 		<Unit filename="../../src/creek/Boolean.hpp" />
+		<Unit filename="../../src/creek/CFunction.cpp" />
+		<Unit filename="../../src/creek/CFunction.hpp" />
 		<Unit filename="../../src/creek/Data.cpp" />
 		<Unit filename="../../src/creek/Data.hpp" />
 		<Unit filename="../../src/creek/Exception.cpp" />
@@ -49,8 +53,6 @@
 		<Unit filename="../../src/creek/Expression.hpp" />
 		<Unit filename="../../src/creek/Expression_Arithmetic.cpp" />
 		<Unit filename="../../src/creek/Expression_Arithmetic.hpp" />
-		<Unit filename="../../src/creek/Expression_BasicDataTypes.cpp" />
-		<Unit filename="../../src/creek/Expression_BasicDataTypes.hpp" />
 		<Unit filename="../../src/creek/Expression_Bitwise.cpp" />
 		<Unit filename="../../src/creek/Expression_Bitwise.hpp" />
 		<Unit filename="../../src/creek/Expression_Boolean.cpp" />
@@ -59,6 +61,8 @@
 		<Unit filename="../../src/creek/Expression_Comparison.hpp" />
 		<Unit filename="../../src/creek/Expression_ControlFlow.cpp" />
 		<Unit filename="../../src/creek/Expression_ControlFlow.hpp" />
+		<Unit filename="../../src/creek/Expression_DataTypes.cpp" />
+		<Unit filename="../../src/creek/Expression_DataTypes.hpp" />
 		<Unit filename="../../src/creek/Expression_Debug.cpp" />
 		<Unit filename="../../src/creek/Expression_Debug.hpp" />
 		<Unit filename="../../src/creek/Expression_General.cpp" />
@@ -73,10 +77,16 @@
 		<Unit filename="../../src/creek/Interpreter.hpp" />
 		<Unit filename="../../src/creek/Number.cpp" />
 		<Unit filename="../../src/creek/Number.hpp" />
+		<Unit filename="../../src/creek/Resolver.cpp" />
+		<Unit filename="../../src/creek/Resolver.hpp" />
 		<Unit filename="../../src/creek/Scope.cpp" />
 		<Unit filename="../../src/creek/Scope.hpp" />
+		<Unit filename="../../src/creek/StandardLibrary.cpp" />
+		<Unit filename="../../src/creek/StandardLibrary.hpp" />
 		<Unit filename="../../src/creek/String.cpp" />
 		<Unit filename="../../src/creek/String.hpp" />
+		<Unit filename="../../src/creek/Token.cpp" />
+		<Unit filename="../../src/creek/Token.hpp" />
 		<Unit filename="../../src/creek/VarName.cpp" />
 		<Unit filename="../../src/creek/VarName.hpp" />
 		<Unit filename="../../src/creek/Variable.cpp" />

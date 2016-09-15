@@ -26,6 +26,7 @@ namespace creek
 
         bool bool_value() const override;
         // void bool_value(bool new_value) override;
+        char char_value() const override;
         // int int_value() const override;
         // void int_value(int new_value) override;
         // float float_value() const override;

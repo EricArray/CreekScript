@@ -28,6 +28,27 @@ namespace creek
         std::vector< std::unique_ptr<Expression> > m_args;
     };
 
+
+    /// Expression: Call a function with a variadic argument.
+    /// Returns value returned by the function.
+    class ExprVariadicCall : public Expression
+    {
+    public:
+        /// `ExprVariadicCall` constructor.
+        /// @param  function    Function expression.
+        /// @param  args        Arguments to pass to the function.
+        /// @param  vararg      Argument to expand before calling.
+        ExprVariadicCall(Expression* function, const std::vector<Expression*>& args, Expression* vararg);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_function;
+        std::vector< std::unique_ptr<Expression> > m_args;
+        std::unique_ptr<Expression> m_vararg;
+    };
+
+
     /// Expression: Get array subscript.
     /// Returns value of the array at the index.
     class ExprIndexGet : public Expression
@@ -44,6 +65,7 @@ namespace creek
         std::unique_ptr<Expression> m_array;
         std::unique_ptr<Expression> m_index;
     };
+
 
     /// Expression: Set array subscript.
     /// Returns new value of the array at the index.

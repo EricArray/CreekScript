@@ -2,6 +2,7 @@
 
 #include <creek/Expression.hpp>
 #include <creek/Scope.hpp>
+#include <creek/Vector.hpp>
 #include <creek/utility.hpp>
 
 
@@ -28,14 +29,14 @@ namespace creek
     std::string Function::debug_text() const
     {
         return std::string("Function(0x") +
-               int_to_string(uintptr_t(m_value->body.get()), 16, 8) +
+               int_to_string(uintptr_t(m_value.get()), 16, 8) +
                std::string(")");
     }
 
 
     bool Function::bool_value() const
     {
-        return true;
+        return m_value.get();
     }
 
     int Function::cmp(Data* other)
@@ -55,7 +56,20 @@ namespace creek
     {
         auto& arg_names = m_value->arg_names;
 
-        if (arg_names.size() != args.size())
+        // variadic arguments
+        if (m_value->is_variadic)
+        {
+            Vector::Value vararg_vec = std::make_shared< std::vector<Variable> >();
+            for (size_t i = arg_names.size() - 1; i < args.size(); ++i)
+            {
+                vararg_vec->emplace_back(args[i].release());
+            }
+            args.resize(arg_names.size() - 1);
+            args.emplace_back(new Vector(vararg_vec));
+        }
+
+        // execution
+        if (args.size() != arg_names.size())
         {
             throw WrongArgNumber(arg_names.size(), args.size());
         }
@@ -68,16 +82,5 @@ namespace creek
         Variable result = m_value->body->eval(new_scope);
 
         return result.release();
-    }
-
-
-    // `WrongArgNumber` constructor.
-    // @param  expected    Number of expected arguments.
-    // @param  passed      Number of passed arguments.
-    WrongArgNumber::WrongArgNumber(int expected, int passed) :
-        m_expected(expected),
-        m_passed(passed)
-    {
-        stream() << "Wrong number of arguments: expected " << expected << ", passed " << passed;
     }
 }

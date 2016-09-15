@@ -20,15 +20,28 @@ namespace creek
     {
     public:
         /// Shared function definition.
-        struct FunctionDef
+        struct Definition
         {
+            Definition(Scope& parent, const std::vector<VarName>& arg_names, bool is_variadic, Expression* body) :
+                parent(parent),
+                arg_names(arg_names),
+                is_variadic(is_variadic),
+                body(body)
+            {
+                if (is_variadic && arg_names.size() == 0)
+                {
+                    this->arg_names.push_back(VarName::from_name("_"));
+                }
+            }
+
             Scope& parent; ///< Scope where the function was declared.
             std::vector<VarName> arg_names; ///< Arguments name.
-            std::unique_ptr<Expression> body; ///< Function body block.
+            bool is_variadic; ///< Is variadic function.
+            Expression* body; ///< Function body block, in external scope.
         };
 
         /// Stored value type.
-        using Value = std::shared_ptr<FunctionDef>;
+        using Value = std::shared_ptr<Definition>;
 
 
         /// `Function` constructor.
@@ -69,20 +82,6 @@ namespace creek
 
 
     private:
-        std::shared_ptr<FunctionDef> m_value;
-    };
-
-
-    /// Wrong number of arguments in function call.
-    class WrongArgNumber : public Exception
-    {
-    public:
-        /// `WrongArgNumber` constructor.
-        /// @param  expected    Number of expected arguments.
-        /// @param  passed      Number of passed arguments.
-        WrongArgNumber(int expected, int passed);
-    private:
-        int m_expected;
-        int m_passed;
+        Value m_value;
     };
 }

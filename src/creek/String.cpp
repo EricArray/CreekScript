@@ -1,5 +1,7 @@
 #include <creek/String.hpp>
 
+#include <creek/utility.hpp>
+
 
 namespace creek
 {
@@ -20,7 +22,7 @@ namespace creek
 
     std::string String::debug_text() const
     {
-        return std::string("\"") + m_value + std::string("\"");
+        return std::string("\"") + escape_string(m_value) + std::string("\"");
     }
 
     bool String::bool_value() const
@@ -28,20 +30,10 @@ namespace creek
         return true;
     }
 
-    // void String::bool_value(bool new_value)
-    // {
-    //     m_value = new_value;
-    // }
-
-    // float String::float_value()
-    // {
-
-    // }
-
-    // void String::float_value(float new_value)
-    // {
-
-    // }
+    char String::char_value() const
+    {
+        return m_value.size() == 0 ? '\0' : m_value.front();
+    }
 
     std::string String::string_value() const
     {

@@ -3,6 +3,7 @@
 #include <creek/Expression.hpp>
 
 #include <creek/Boolean.hpp>
+#include <creek/CFunction.hpp>
 #include <creek/Function.hpp>
 #include <creek/Identifier.hpp>
 #include <creek/Number.hpp>
@@ -112,14 +113,36 @@ namespace creek
     public:
         /// `ExprFunction` constructor.
         /// @param  arg_names   Names of arguments.
+        /// @param  variadic    Create a variadic function.
         /// @param  body        Function body block.
-        ExprFunction(const std::vector<VarName>& arg_names, Expression* body);
+        ExprFunction(const std::vector<VarName>& arg_names, bool variadic, Expression* body);
 
         Variable eval(Scope& scope) override;
 
     private:
         std::vector<VarName> m_arg_names;
+        bool m_variadic;
         std::unique_ptr<Expression> m_body;
+    };
+
+
+    /// Expression: Create a C function interface data.
+    /// Returns a new `CFunction`.
+    class ExprCFunction : public Expression
+    {
+    public:
+        /// `ExprCFunction` constructor.
+        /// @param  argn            Number of arguments.
+        /// @param  variadic        Create a variadic function.
+        /// @param  function_ptr    C function pointer to call.
+        ExprCFunction(unsigned argn, bool variadic, CFunction::FunctionPointer function_ptr);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        unsigned m_argn;
+        bool m_variadic;
+        CFunction::FunctionPointer m_function_ptr;
     };
 
     /// @}

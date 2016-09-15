@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include <creek/Exception.hpp>
+
 
 namespace creek
 {
@@ -35,6 +37,9 @@ namespace creek
         // /// Set the bool value of this data.
         // virtual void bool_value(bool new_value);
 
+        /// Get the char value of this data.
+        virtual char char_value() const;
+
         /// Get the int value of this data.
         virtual int int_value() const;
 
@@ -52,6 +57,9 @@ namespace creek
 
         // /// Set the string value of this data.
         // virtual void string_value(const std::string& new_value);
+
+        // Get the vector value of this data.
+        virtual const std::vector<Variable>& vector_value() const;
         /// @}
 
 
@@ -129,5 +137,19 @@ namespace creek
         /// @return         Value returned from this function.
         virtual Data* call(std::vector< std::unique_ptr<Data> >& args);
         /// @}
+    };
+
+
+    /// Wrong number of arguments in function call.
+    class WrongArgNumber : public Exception
+    {
+    public:
+        /// `WrongArgNumber` constructor.
+        /// @param  expected    Number of expected arguments.
+        /// @param  passed      Number of passed arguments.
+        WrongArgNumber(int expected, int passed);
+    private:
+        int m_expected;
+        int m_passed;
     };
 }

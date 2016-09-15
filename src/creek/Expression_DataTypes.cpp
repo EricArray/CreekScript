@@ -1,4 +1,4 @@
-#include <creek/Expression_BasicDataTypes.hpp>
+#include <creek/Expression_DataTypes.hpp>
 
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
@@ -85,9 +85,11 @@ namespace creek
 
     // `ExprFunction` constructor.
     // @param  arg_names   Names of arguments.
+    // @param  variadic    Create a variadic function.
     // @param  body        Function body block.
-    ExprFunction::ExprFunction(const std::vector<VarName>& arg_names, Expression* body) :
+    ExprFunction::ExprFunction(const std::vector<VarName>& arg_names, bool variadic, Expression* body) :
         m_arg_names(arg_names),
+        m_variadic(variadic),
         m_body(body)
     {
 
@@ -95,13 +97,28 @@ namespace creek
 
     Variable ExprFunction::eval(Scope& scope)
     {
-        Function::FunctionDef* def = new Function::FunctionDef
-        {
-            scope,
-            m_arg_names,
-            std::unique_ptr<Expression>(m_body.release()),
-        };
+        Function::Definition* def = new Function::Definition(scope, m_arg_names, m_variadic, m_body.release());
         Function::Value new_value(def);
         return Variable(new Function(new_value));
+    }
+
+
+    // `ExprCFunction` constructor.
+    // @param  argn            Number of arguments.
+    // @param  variadic        Create a variadic function.
+    // @param  function_ptr    C function pointer to call.
+    ExprCFunction::ExprCFunction(unsigned argn, bool variadic, CFunction::FunctionPointer function_ptr) :
+        m_argn(argn),
+        m_variadic(variadic),
+        m_function_ptr(function_ptr)
+    {
+
+    }
+
+    Variable ExprCFunction::eval(Scope& scope) 
+    {
+        CFunction::Definition* def = new CFunction::Definition(m_argn, m_variadic, m_function_ptr);
+        CFunction::Value new_value(def);
+        return Variable(new CFunction(new_value));
     }
 }

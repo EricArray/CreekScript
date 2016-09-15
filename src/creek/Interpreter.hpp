@@ -6,114 +6,12 @@
 #include <string>
 
 #include <creek/Exception.hpp>
+#include <creek/Token.hpp>
 
 
 namespace creek
 {
     class Expression;
-
-
-    /// Source code token type.
-    enum class InterpreterTokenType
-    {
-        unknown,            ///< Unexpected character.
-        eof,                ///< End of file.
-        space,              ///< Blank space (space, new line, etc.).
-        commentary,         ///< Commentary (sigle-line or multi-line).
-
-        null,               ///< Null literal.
-        boolean,            ///< Boolean literal.
-        integer,            ///< Integer number literal.
-        floatnum,           ///< Floating-point number literal.
-        character,          ///< Character literal.
-        string,             ///< String literal.
-
-        identifier,         ///< Variable name.
-
-        assign,             ///< Equal sign (=).
-        dot,                ///< Dota (.).
-        colon,              ///< Colon (:).
-        double_colon,       ///< Double colon (::).
-        comma,              ///< Comma (,).
-        semicolon,          ///< Semicolon (;).
-        dollar,             ///< Dollar sign ($).
-        then,               ///< Then arrow (=>).
-        operation_sign,     ///< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
-
-        open_round,         ///< Open round brackets or parentheses (().
-        close_round,        ///< Close round brackets or parentheses ()).
-        open_square,        ///< Open square brackets or crotchets ([).
-        close_square,       ///< Close square brackets or crotchets (]).
-        open_brace,         ///< Open curly brackets or braces ({).
-        close_brace,        ///< Close curly brackets or braces (}).
-
-        keyword,            ///< Identifier used as a keyword.
-    };
-
-
-    /// Source code token.
-    class InterpreterToken
-    {
-    public:
-        /// Token type names.
-        static const std::map<InterpreterTokenType, std::string> type_names;
-
-        /// `InterpreterToken` constructor.
-        /// @param  type    Token type.
-        /// @param  text    Token text.
-        /// @param  line    Line where token was extracted.
-        /// @param  column  Column where token was extracted.
-        InterpreterToken(InterpreterTokenType type, const std::string& text, int line, int column);
-
-        /// `InterpreterToken` copy constructor.
-        InterpreterToken(const InterpreterToken& other);
-
-        /// `InterpreterToken` move constructor.
-        InterpreterToken(InterpreterToken&& other);
-
-        /// Get type.
-        InterpreterTokenType type() const;
-
-        /// Get text.
-        const std::string& text() const;
-
-        /// Get line.
-        int line() const;
-
-        /// Get column.
-        int column() const;
-
-
-        /// @name   Text translation
-        /// @{
-
-        /// Get the identifier this token represents.
-        std::string identifier() const;
-
-        /// Get the boolean this token represents.
-        bool boolean() const;
-
-        /// Get the integer this token represents.
-        int integer() const;
-
-        /// Get the floating-point number this token represents.
-        float floatnum() const;
-
-        /// Get the character this token represents.
-        char character() const;
-
-        /// Get the string this token represents.
-        std::string string() const;
-
-        /// @}
-
-
-    private:
-        InterpreterTokenType m_type;
-        std::string m_text;
-        int m_line;
-        int m_column;
-    };
 
 
     /// Interpreter operator.
@@ -148,10 +46,13 @@ namespace creek
         static const std::set<InterpreterOperator> operators;
 
         /// Regular expressions for tokens.
-        static const std::map<InterpreterTokenType, std::regex> token_regexes;
+        static const std::map<TokenType, std::regex> token_regexes;
 
         /// Keywords.
-        static const std::map<std::string, InterpreterTokenType> keywords;
+        static const std::map<std::string, TokenType> keywords;
+
+        /// Textual token synonyms.
+        static const std::map<std::string, std::string> synonyms;
 
 
         /// `Interpreter` constructor.
@@ -164,27 +65,27 @@ namespace creek
 
     private:
         std::string load(const std::string& path);
-        std::vector<InterpreterToken> scan(const std::string& code);
-        std::vector<Expression*> parse(const std::vector<InterpreterToken>& tokens);
+        std::vector<Token> scan(const std::string& code);
+        std::vector<Expression*> parse(const std::vector<Token>& tokens);
 
-        Expression* parse_statement(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_operation(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_parameter(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_statement(std::vector<Token>::const_iterator& iter);
+        Expression* parse_operation(std::vector<Token>::const_iterator& iter);
+        Expression* parse_parameter(std::vector<Token>::const_iterator& iter);
 
-        Expression* parse_block_body(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_do_block(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_if_block(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_loop_block(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_while_block(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_for_block(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_switch_block(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_try_block(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_block_body(std::vector<Token>::const_iterator& iter);
+        Expression* parse_do_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_if_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_loop_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_while_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_for_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_switch_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_try_block(std::vector<Token>::const_iterator& iter);
 
-        Expression* parse_local_var(std::vector<InterpreterToken>::const_iterator& iter);
-        Expression* parse_function(std::vector<InterpreterToken>::const_iterator& iter);
+        Expression* parse_local_var(std::vector<Token>::const_iterator& iter);
+        Expression* parse_function(std::vector<Token>::const_iterator& iter);
 
-        void check_not_eof(std::vector<InterpreterToken>::const_iterator& iter);
-        void check_token_type(std::vector<InterpreterToken>::const_iterator& iter, const std::set<InterpreterTokenType>& accepted);
+        void check_not_eof(std::vector<Token>::const_iterator& iter);
+        void check_token_type(std::vector<Token>::const_iterator& iter, const std::set<TokenType>& accepted);
     };
 
 
@@ -194,23 +95,13 @@ namespace creek
     public:
         /// `SyntaxError` constructor.
         /// @param  token   Source code token where the exception happened.
-        SyntaxError(const InterpreterToken& token);
+        SyntaxError(const Token& token);
 
         /// Get the token that raised the exception.
-        const InterpreterToken& token() const;
+        const Token& token() const;
 
     private:
-        InterpreterToken m_token;
-    };
-
-
-    /// Bad number format in source code.
-    class BadNumberFormat : public SyntaxError
-    {
-    public:
-        /// `BadNumberFormat` constructor.
-        /// @param  token   Source code token where the exception happened.
-        BadNumberFormat(const InterpreterToken& token);
+        Token m_token;
     };
 
 
@@ -221,13 +112,13 @@ namespace creek
         /// `AmbiguousToken` constructor.
         /// @param  token   Source code token where the exception happened.
         /// @param  types   List of types that the token matched.
-        AmbiguousToken(const InterpreterToken& token, const std::vector<InterpreterTokenType>& types);
+        AmbiguousToken(const Token& token, const std::vector<TokenType>& types);
 
         /// Get types.
-        const std::vector<InterpreterTokenType>& types() const;
+        const std::vector<TokenType>& types() const;
 
     private:
-        std::vector<InterpreterTokenType> m_types;
+        std::vector<TokenType> m_types;
     };
 
 
@@ -237,7 +128,7 @@ namespace creek
     public:
         /// `UnexpectedCharacter` constructor.
         /// @param  token   Source code token where the exception happened.
-        UnexpectedCharacter(const InterpreterToken& token);
+        UnexpectedCharacter(const Token& token);
     };
 
 
@@ -247,15 +138,15 @@ namespace creek
     public:
         /// `UnexpectedToken` constructor.
         /// @param  token       Source code token where the exception happened.
-        UnexpectedToken(const InterpreterToken& token);
+        UnexpectedToken(const Token& token);
 
         /// `UnexpectedToken` constructor.
         /// @param  token       Source code token where the exception happened.
         /// @param  accepted    Token types that could be accepted.
-        UnexpectedToken(const InterpreterToken& token, const std::set<InterpreterTokenType>& accepted);
+        UnexpectedToken(const Token& token, const std::set<TokenType>& accepted);
 
     private:
-        std::set<InterpreterTokenType> m_accepted;
+        std::set<TokenType> m_accepted;
     };
 
 
@@ -265,6 +156,6 @@ namespace creek
     public:
         /// `UnexpectedEof` constructor.
         /// @param  token   Source code token where the exception happened.
-        UnexpectedEof(const InterpreterToken& token);
+        UnexpectedEof(const Token& token);
     };
 }

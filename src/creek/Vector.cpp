@@ -13,19 +13,6 @@ namespace creek
     }
 
 
-    // Get the vector (const).
-    const std::vector<Variable>& Vector::vector_value() const
-    {
-        return *m_value;
-    }
-
-    // Get the vector.
-    std::vector<Variable>& Vector::vector_value()
-    {
-        return *m_value;
-    }
-
-
     Data* Vector::copy() const
     {
         return new Vector(m_value);
@@ -95,6 +82,13 @@ namespace creek
     // {
     //     m_value = new_value;
     // }
+
+    // Get the vector value of this data.
+    std::vector<Variable>& Vector::vector_value() const
+    {
+        return *m_value;
+    }
+
 
 
     Data* Vector::index(Data* key)
