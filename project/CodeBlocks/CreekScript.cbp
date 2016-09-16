@@ -6,53 +6,100 @@
 		<Option pch_mode="2" />
 		<Option compiler="tdm64" />
 		<Build>
-			<Target title="Debug">
-				<Option output="test-d" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+			<Target title="dll-debug">
+				<Option output="../creek-debug" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="obj/dll-debug/" />
+				<Option type="3" />
 				<Option compiler="tdm64" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DCREEK_BUILDING" />
+					<Add option="-DCREEK_DEBUG" />
 				</Compiler>
 			</Target>
-			<Target title="Release">
-				<Option output="test" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
+			<Target title="dll-release">
+				<Option output="../creek" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="obj/dll-debug/" />
+				<Option type="3" />
 				<Option compiler="tdm64" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-g" />
+					<Add option="-DCREEK_BUILDING" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wnon-virtual-dtor" />
-			<Add option="-Wfloat-equal" />
-			<Add option="-Wswitch-default" />
-			<Add option="-Wzero-as-null-pointer-constant" />
-			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 			<Add directory="../../src" />
 		</Compiler>
+		<Linker>
+			<Add directory="." />
+		</Linker>
+		<Unit filename="../../src/creek/Boolean.cpp" />
+		<Unit filename="../../src/creek/Boolean.hpp" />
+		<Unit filename="../../src/creek/CFunction.cpp" />
+		<Unit filename="../../src/creek/CFunction.hpp" />
 		<Unit filename="../../src/creek/Data.cpp" />
 		<Unit filename="../../src/creek/Data.hpp" />
 		<Unit filename="../../src/creek/Exception.cpp" />
 		<Unit filename="../../src/creek/Exception.hpp" />
 		<Unit filename="../../src/creek/Expression.cpp" />
 		<Unit filename="../../src/creek/Expression.hpp" />
+		<Unit filename="../../src/creek/Expression_Arithmetic.cpp" />
+		<Unit filename="../../src/creek/Expression_Arithmetic.hpp" />
+		<Unit filename="../../src/creek/Expression_Bitwise.cpp" />
+		<Unit filename="../../src/creek/Expression_Bitwise.hpp" />
+		<Unit filename="../../src/creek/Expression_Boolean.cpp" />
+		<Unit filename="../../src/creek/Expression_Boolean.hpp" />
+		<Unit filename="../../src/creek/Expression_Comparison.cpp" />
+		<Unit filename="../../src/creek/Expression_Comparison.hpp" />
+		<Unit filename="../../src/creek/Expression_ControlFlow.cpp" />
+		<Unit filename="../../src/creek/Expression_ControlFlow.hpp" />
+		<Unit filename="../../src/creek/Expression_DataTypes.cpp" />
+		<Unit filename="../../src/creek/Expression_DataTypes.hpp" />
+		<Unit filename="../../src/creek/Expression_Debug.cpp" />
+		<Unit filename="../../src/creek/Expression_Debug.hpp" />
+		<Unit filename="../../src/creek/Expression_General.cpp" />
+		<Unit filename="../../src/creek/Expression_General.hpp" />
+		<Unit filename="../../src/creek/Expression_Variable.cpp" />
+		<Unit filename="../../src/creek/Expression_Variable.hpp" />
+		<Unit filename="../../src/creek/Function.cpp" />
+		<Unit filename="../../src/creek/Function.hpp" />
 		<Unit filename="../../src/creek/Identifier.cpp" />
 		<Unit filename="../../src/creek/Identifier.hpp" />
+		<Unit filename="../../src/creek/Interpreter.cpp" />
+		<Unit filename="../../src/creek/Interpreter.hpp" />
 		<Unit filename="../../src/creek/Number.cpp" />
 		<Unit filename="../../src/creek/Number.hpp" />
+		<Unit filename="../../src/creek/Resolver.cpp" />
+		<Unit filename="../../src/creek/Resolver.hpp" />
+		<Unit filename="../../src/creek/Scope.cpp" />
+		<Unit filename="../../src/creek/Scope.hpp" />
+		<Unit filename="../../src/creek/StandardLibrary.cpp" />
+		<Unit filename="../../src/creek/StandardLibrary.hpp" />
 		<Unit filename="../../src/creek/String.cpp" />
 		<Unit filename="../../src/creek/String.hpp" />
+		<Unit filename="../../src/creek/Token.cpp" />
+		<Unit filename="../../src/creek/Token.hpp" />
 		<Unit filename="../../src/creek/VarName.cpp" />
 		<Unit filename="../../src/creek/VarName.hpp" />
 		<Unit filename="../../src/creek/Variable.cpp" />
 		<Unit filename="../../src/creek/Variable.hpp" />
+		<Unit filename="../../src/creek/Vector.cpp" />
+		<Unit filename="../../src/creek/Vector.hpp" />
+		<Unit filename="../../src/creek/Void.cpp" />
+		<Unit filename="../../src/creek/Void.hpp" />
+		<Unit filename="../../src/creek/creek.cpp" />
+		<Unit filename="../../src/creek/creek.hpp" />
+		<Unit filename="../../src/creek/utility.cpp" />
+		<Unit filename="../../src/creek/utility.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

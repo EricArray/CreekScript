@@ -1,16 +1,18 @@
 #pragma once
 
+#include <creek/Data.hpp>
+
 #include <memory>
 #include <vector>
 
-#include <creek/Data.hpp>
+#include <creek/api_mode.hpp>
 #include <creek/Variable.hpp>
 
 
 namespace creek
 {
     /// Data type: description.
-    class Vector : public Data
+    class CREEK_API Vector : public Data
     {
     public:
         /// Stored value type.
@@ -20,13 +22,6 @@ namespace creek
         /// `Vector` constructor.
         /// @param  value   Vector value.
         Vector(const Value& value);
-
-
-        /// Get the vector (const).
-        const std::vector<Variable>& vector_value() const;
-
-        /// Get the vector.
-        std::vector<Variable>& vector_value();
 
 
         /// Get a new reference to the same vector.
@@ -42,6 +37,7 @@ namespace creek
         // void float_value(float new_value) override;
         // std::string string_value() const override;
         // void string_value(const std::string& new_value) override;
+        std::vector<Variable>& vector_value() const override;
 
         Data* index(Data* key) override;
         Data* index(Data* key, Data* new_value) override;

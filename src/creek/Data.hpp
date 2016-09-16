@@ -1,6 +1,11 @@
 #pragma once
 
+#include <memory>
 #include <string>
+#include <vector>
+
+#include <creek/api_mode.hpp>
+#include <creek/Exception.hpp>
 
 
 namespace creek
@@ -9,7 +14,7 @@ namespace creek
 
 
     /// Abstract class for variables' data.
-    class Data
+    class CREEK_API Data
     {
     public:
         virtual ~Data() = default;
@@ -25,31 +30,37 @@ namespace creek
         virtual std::string debug_text() const;
 
 
-        /// @name   Value access.
+        /// @name   Value access
         /// @{
         /// Get the bool value of this data.
         virtual bool bool_value() const;
 
-        /// Set the bool value of this data.
-        virtual void bool_value(bool new_value);
+        // /// Set the bool value of this data.
+        // virtual void bool_value(bool new_value);
+
+        /// Get the char value of this data.
+        virtual char char_value() const;
 
         /// Get the int value of this data.
         virtual int int_value() const;
 
-        /// Set the int value of this data.
-        virtual void int_value(int new_value);
+        // /// Set the int value of this data.
+        // virtual void int_value(int new_value);
 
         /// Get the float value of this data.
         virtual float float_value() const;
 
-        /// Set the float value of this data.
-        virtual void float_value(float new_value);
+        // /// Set the float value of this data.
+        // virtual void float_value(float new_value);
 
         /// Get the string value of this data.
         virtual std::string string_value() const;
 
-        /// Set the string value of this data.
-        virtual void string_value(const std::string& new_value);
+        // /// Set the string value of this data.
+        // virtual void string_value(const std::string& new_value);
+
+        // Get the vector value of this data.
+        virtual const std::vector<Variable>& vector_value() const;
         /// @}
 
 
@@ -118,5 +129,28 @@ namespace creek
         /// @return -1 if less-than, 0 if equal, +1 if greater-than.
         virtual int cmp(Data* other);
         /// @}
+
+
+        /// @name   Functional
+        /// @{
+        /// Call this object as a function.
+        /// @param  args    Arguments.
+        /// @return         Value returned from this function.
+        virtual Data* call(std::vector< std::unique_ptr<Data> >& args);
+        /// @}
+    };
+
+
+    /// Wrong number of arguments in function call.
+    class CREEK_API WrongArgNumber : public Exception
+    {
+    public:
+        /// `WrongArgNumber` constructor.
+        /// @param  expected    Number of expected arguments.
+        /// @param  passed      Number of passed arguments.
+        WrongArgNumber(int expected, int passed);
+    private:
+        int m_expected;
+        int m_passed;
     };
 }

@@ -26,9 +26,14 @@ namespace creek
         throw Undefined(class_name() + "::bool_value");
     }
 
-    void Data::bool_value(bool new_value)
+    // void Data::bool_value(bool new_value)
+    // {
+    //     throw Undefined(class_name() + "::bool_value");
+    // }
+
+    char Data::char_value() const
     {
-        throw Undefined(class_name() + "::bool_value");
+        throw Undefined(class_name() + "::char_value");
     }
 
     int Data::int_value() const
@@ -36,29 +41,34 @@ namespace creek
         throw Undefined(class_name() + "::int_value");
     }
 
-    void Data::int_value(int new_value)
-    {
-        throw Undefined(class_name() + "::int_value");
-    }
+    // void Data::int_value(int new_value)
+    // {
+    //     throw Undefined(class_name() + "::int_value");
+    // }
 
     float Data::float_value() const
     {
         throw Undefined(class_name() + "::float_value");
     }
 
-    void Data::float_value(float new_value)
-    {
-        throw Undefined(class_name() + "::float_value");
-    }
+    // void Data::float_value(float new_value)
+    // {
+    //     throw Undefined(class_name() + "::float_value");
+    // }
 
     std::string Data::string_value() const
     {
         throw Undefined(class_name() + "::string_value");
     }
 
-    void Data::string_value(const std::string& new_value)
+    // void Data::string_value(const std::string& new_value)
+    // {
+    //     throw Undefined(class_name() + "::string_value");
+    // }
+
+    const std::vector<Variable>& Data::vector_value() const
     {
-        throw Undefined(class_name() + "::string_value");
+        throw Undefined(class_name() + "::vector_value");
     }
 
     Data* Data::index(Data* key)
@@ -139,5 +149,21 @@ namespace creek
     int Data::cmp(Data* other)
     {
         throw Undefined(class_name() + "::cmp");
+    }
+
+    Data* Data::call(std::vector< std::unique_ptr<Data> >& args)
+    {
+        throw Undefined(class_name() + "::call");
+    }
+
+
+    // `WrongArgNumber` constructor.
+    // @param  expected    Number of expected arguments.
+    // @param  passed      Number of passed arguments.
+    WrongArgNumber::WrongArgNumber(int expected, int passed) :
+        m_expected(expected),
+        m_passed(passed)
+    {
+        stream() << "Wrong number of arguments: expected " << expected << ", passed " << passed;
     }
 }

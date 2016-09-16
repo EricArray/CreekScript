@@ -5,11 +5,13 @@
 #include <string>
 #include <vector>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// Variable name.
-    class VarName
+    class CREEK_API VarName
     {
     public:
         VarName(const VarName& other);

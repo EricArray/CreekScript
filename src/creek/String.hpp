@@ -4,11 +4,13 @@
 
 #include <string>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// Data type: character string.
-    class String : public Data
+    class CREEK_API String : public Data
     {
     public:
         /// Stored value type.
@@ -26,12 +28,13 @@ namespace creek
 
         bool bool_value() const override;
         // void bool_value(bool new_value) override;
+        char char_value() const override;
         // int int_value() const override;
         // void int_value(int new_value) override;
         // float float_value() const override;
         // void float_value(float new_value) override;
         std::string string_value() const override;
-        void string_value(const std::string& new_value) override;
+        // void string_value(const std::string& new_value) override;
 
         Data* index(Data* key) override;
         Data* index(Data* key, Data* new_value) override;

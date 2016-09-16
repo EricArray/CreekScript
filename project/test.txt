@@ -1,0 +1,10 @@
+var times_two = func(num) {
+    2 * num;
+};
+
+for i = 0..4 {
+    debug(times_two(i));
+    print("\n");
+};
+
+exit(123);

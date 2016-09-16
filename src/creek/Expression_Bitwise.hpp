@@ -4,15 +4,17 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// @defgroup   expression_bitwise  Bitwise operations
     /// @{
-        
+
     /// Expression: Bitwise AND two values.
     /// Returns L & R.
-    class ExprBitAnd : public Expression
+    class CREEK_API ExprBitAnd : public Expression
     {
     public:
         /// `ExprBitAnd` constructor.
@@ -26,11 +28,11 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
+
 
     /// Expression: Bitwise OR two values.
     /// Returns L | R.
-    class ExprBitOr : public Expression
+    class CREEK_API ExprBitOr : public Expression
     {
     public:
         /// `ExprBitOr` constructor.
@@ -44,11 +46,11 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
+
 
     /// Expression: Bitwise XOR two values.
     /// Returns L ^ R.
-    class ExprBitXor : public Expression
+    class CREEK_API ExprBitXor : public Expression
     {
     public:
         /// `ExprBitXor` constructor.
@@ -62,11 +64,11 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
+
 
     /// Expression: Bitwise NOT one value.
     /// Returns ~L.
-    class ExprBitNot : public Expression
+    class CREEK_API ExprBitNot : public Expression
     {
     public:
         /// `ExprBitNot` constructor.
@@ -78,11 +80,11 @@ namespace creek
     private:
         std::unique_ptr<Expression> m_expr;
     };
-        
+
 
     /// Expression: Bitwise left shift two values.
     /// Returns L << R.
-    class ExprBitLeftShift : public Expression
+    class CREEK_API ExprBitLeftShift : public Expression
     {
     public:
         /// `ExprBitLeftShift` constructor.
@@ -96,11 +98,11 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
+
 
     /// Expression: Bitwise right shift two values.
     /// Returns L >> R.
-    class ExprBitRightShift : public Expression
+    class CREEK_API ExprBitRightShift : public Expression
     {
     public:
         /// `ExprBitRightShift` constructor.

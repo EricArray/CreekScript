@@ -1,5 +1,7 @@
 #include <creek/String.hpp>
 
+#include <creek/utility.hpp>
+
 
 namespace creek
 {
@@ -20,7 +22,7 @@ namespace creek
 
     std::string String::debug_text() const
     {
-        return std::string("\"") + m_value + std::string("\"");
+        return std::string("\"") + escape_string(m_value) + std::string("\"");
     }
 
     bool String::bool_value() const
@@ -28,30 +30,20 @@ namespace creek
         return true;
     }
 
-    // void String::bool_value(bool new_value)
-    // {
-    //     m_value = new_value;
-    // }
-
-    // float String::float_value()
-    // {
-
-    // }
-
-    // void String::float_value(float new_value)
-    // {
-
-    // }
+    char String::char_value() const
+    {
+        return m_value.size() == 0 ? '\0' : m_value.front();
+    }
 
     std::string String::string_value() const
     {
         return m_value;
     }
 
-    void String::string_value(const std::string& new_value)
-    {
-        m_value = new_value;
-    }
+    // void String::string_value(const std::string& new_value)
+    // {
+        // m_value = new_value;
+    // }
 
     Data* String::index(Data* key)
     {
@@ -68,16 +60,12 @@ namespace creek
 
     Data* String::index(Data* key, Data* new_data)
     {
-        Value value = this->string_value();
-
         int pos = key->int_value();
         if (pos < 0)
         {
-            pos = value.size() + pos;
+            pos = m_value.size() + pos;
         }
-
-        value[pos] = new_data->int_value();
-        this->string_value(value);
+        m_value[pos] = new_data->int_value();
 
         return new_data;
     }

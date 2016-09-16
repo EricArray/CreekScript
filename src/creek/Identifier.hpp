@@ -1,13 +1,15 @@
 #pragma once
 
 #include <creek/Data.hpp>
+
+#include <creek/api_mode.hpp>
 #include <creek/VarName.hpp>
 
 
 namespace creek
 {
     /// Data type: variable names.
-    class Identifier : public Data
+    class CREEK_API Identifier : public Data
     {
     public:
         /// Stored value type.
