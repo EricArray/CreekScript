@@ -1,2 +1,8 @@
 # Creek Script
-Dynamic-typed scripting language.
+Scripting language.
+## Features:
+* Expression based syntax
+* Dynamic typing
+* Lambda functions
+* Classes
+* Dynamic libraries
