@@ -4,15 +4,17 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// @defgroup   expression_arithmetic   Arithmetic operations
     /// @{
-        
+
     /// Expression: Add two values.
     /// Returns L + R.
-    class ExprAdd : public Expression
+    class CREEK_API ExprAdd : public Expression
     {
     public:
         /// `ExprAdd` constructor.
@@ -26,11 +28,11 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
+
 
     /// Expression: Subtract two values.
     /// Returns L - R.
-    class ExprSub : public Expression
+    class CREEK_API ExprSub : public Expression
     {
     public:
         /// `ExprSub` constructor.
@@ -48,7 +50,7 @@ namespace creek
 
     /// Expression: Multiply two values.
     /// Returns L * R.
-    class ExprMul : public Expression
+    class CREEK_API ExprMul : public Expression
     {
     public:
         /// `ExprMul` constructor.
@@ -63,10 +65,10 @@ namespace creek
         std::unique_ptr<Expression> m_rexpr;
     };
 
-        
+
     /// Expression: Divide two values.
     /// Returns L / R.
-    class ExprDiv : public Expression
+    class CREEK_API ExprDiv : public Expression
     {
     public:
         /// `ExprDiv` constructor.
@@ -81,11 +83,11 @@ namespace creek
         std::unique_ptr<Expression> m_rexpr;
     };
 
-        
+
 
     /// Expression: Modulo two values.
     /// Returns L % R.
-    class ExprMod : public Expression
+    class CREEK_API ExprMod : public Expression
     {
     public:
         /// `ExprMod` constructor.
@@ -100,10 +102,10 @@ namespace creek
         std::unique_ptr<Expression> m_rexpr;
     };
 
-        
+
     /// Expression: Exponentiate two values.
     /// Returns L ** R.
-    class ExprExp : public Expression
+    class CREEK_API ExprExp : public Expression
     {
     public:
         /// `ExprExp` constructor.
@@ -121,7 +123,7 @@ namespace creek
 
     /// Expression: Negate one values.
     /// Returns -L.
-    class ExprUnm : public Expression
+    class CREEK_API ExprUnm : public Expression
     {
     public:
         /// `ExprUnm` constructor.

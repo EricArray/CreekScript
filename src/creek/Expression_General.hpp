@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
@@ -13,7 +15,7 @@ namespace creek
 
     /// Expression: Call a function.
     /// Returns value returned by the function.
-    class ExprCall : public Expression
+    class CREEK_API ExprCall : public Expression
     {
     public:
         /// `ExprCall` constructor.
@@ -31,7 +33,7 @@ namespace creek
 
     /// Expression: Call a function with a variadic argument.
     /// Returns value returned by the function.
-    class ExprVariadicCall : public Expression
+    class CREEK_API ExprVariadicCall : public Expression
     {
     public:
         /// `ExprVariadicCall` constructor.
@@ -51,7 +53,7 @@ namespace creek
 
     /// Expression: Get array subscript.
     /// Returns value of the array at the index.
-    class ExprIndexGet : public Expression
+    class CREEK_API ExprIndexGet : public Expression
     {
     public:
         /// `ExprIndexGet` constructor.
@@ -69,7 +71,7 @@ namespace creek
 
     /// Expression: Set array subscript.
     /// Returns new value of the array at the index.
-    class ExprIndexSet : public Expression
+    class CREEK_API ExprIndexSet : public Expression
     {
     public:
         /// `ExprIndexSet` constructor.

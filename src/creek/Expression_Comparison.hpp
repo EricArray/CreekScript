@@ -4,6 +4,8 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
@@ -13,7 +15,7 @@ namespace creek
     /// Expression: Compare two values.
     /// Returns -1 if less-than, 0 if equal and 1 if greater-than.
     /// Returns L <=> R.
-    class ExprCmp : public Expression
+    class CREEK_API ExprCmp : public Expression
     {
     public:
         /// `ExprCmp` constructor.
@@ -31,7 +33,7 @@ namespace creek
 
     /// Expression: Equal to.
     /// Returns L == R.
-    class ExprEQ : public Expression
+    class CREEK_API ExprEQ : public Expression
     {
     public:
         /// `ExprEQ` constructor.
@@ -49,7 +51,7 @@ namespace creek
 
     /// Expression: Not equal to.
     /// Returns L != R.
-    class ExprNE : public Expression
+    class CREEK_API ExprNE : public Expression
     {
     public:
         /// `ExprNE` constructor.
@@ -67,7 +69,7 @@ namespace creek
 
     /// Expression: Less than.
     /// Returns L < R.
-    class ExprLT : public Expression
+    class CREEK_API ExprLT : public Expression
     {
     public:
         /// `ExprLT` constructor.
@@ -85,7 +87,7 @@ namespace creek
 
     /// Expression: Less than or equal to.
     /// Returns L <= R.
-    class ExprLE : public Expression
+    class CREEK_API ExprLE : public Expression
     {
     public:
         /// `ExprLE` constructor.
@@ -103,7 +105,7 @@ namespace creek
 
     /// Expression: Greater than.
     /// Returns L > R.
-    class ExprGT : public Expression
+    class CREEK_API ExprGT : public Expression
     {
     public:
         /// `ExprGT` constructor.
@@ -121,7 +123,7 @@ namespace creek
 
     /// Expression: Greater than or equal to.
     /// Returns L >= R.
-    class ExprGE : public Expression
+    class CREEK_API ExprGE : public Expression
     {
     public:
         /// `ExprGE` constructor.

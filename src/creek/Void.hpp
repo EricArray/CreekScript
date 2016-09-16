@@ -2,10 +2,12 @@
 
 #include <creek/Data.hpp>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
-    class Void : public Data
+    class CREEK_API Void : public Data
     {
     public:
         /// Stored value type.

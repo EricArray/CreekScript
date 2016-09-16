@@ -3,6 +3,7 @@
 #include <cmath>
 #include <string>
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 
 
@@ -45,7 +46,7 @@ namespace creek
     /// Does not add starting and ending quotes.
     /// @param  source  Character to escape.
     /// @return         Escaped first two characters if needed, else the first character.
-    std::string escape_char(char source);
+    CREEK_API extern std::string escape_char(char source);
 
     /// Translates escaped character.
     /// Does not remove starting and ending quotes.
@@ -53,22 +54,22 @@ namespace creek
     /// @param  pos     Position to start from the string.
     /// @param  len     Pointer to return number of characters taken from source.
     /// @return         Unescaped character where needed, else same character.
-    char unescape_char(const std::string& source, unsigned pos = 0, unsigned* len = nullptr);
+    CREEK_API extern char unescape_char(const std::string& source, unsigned pos = 0, unsigned* len = nullptr);
 
     /// Translates unescaped characters.
     /// Does not add starting and ending quotes.
     /// @param  source  String to escape.
     /// @return         Escaped string where needed, else same string.
-    std::string escape_string(const std::string& source);
+    CREEK_API extern std::string escape_string(const std::string& source);
 
     /// Translates escaped characters.
     /// Does not remove starting and ending quotes.
     /// @param  source  String containing normal characters or escaped sequences.
     /// @return         Unescaped string where needed, else same string.
-    std::string unescape_string(const std::string& source);
+    CREEK_API extern std::string unescape_string(const std::string& source);
 
     /// Bad character escape.
-    class BadCharacterEscape : public Exception
+    class CREEK_API BadCharacterEscape : public Exception
     {
     public:
         /// `BadCharacterEscape` constructor.
@@ -91,7 +92,7 @@ namespace creek
 
 
     /// Clear command line screen.
-    void clear_screen();
+    CREEK_API extern void clear_screen();
 }
 
 

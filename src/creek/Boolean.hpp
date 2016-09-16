@@ -1,12 +1,13 @@
 #pragma once
 
+#include <creek/api_mode.hpp>
 #include <creek/Data.hpp>
 
 
 namespace creek
 {
     /// Data type: boolean.
-    class Boolean : public Data
+    class CREEK_API Boolean : public Data
     {
     public:
         /// Stored value type.

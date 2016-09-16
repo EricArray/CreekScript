@@ -3,13 +3,14 @@
 #include <sstream>
 #include <string>
 
+#include <creek/api_mode.hpp>
 
 namespace creek
 {
     /// Base class for exceptions.
     /// Can be constructed by passing a error message to the constructor or
     /// by appending text to the string stream using `stream` method.
-    class Exception
+    class CREEK_API Exception
     {
     public:
         /// `Exception` constructor.
@@ -40,7 +41,7 @@ namespace creek
 
 
     /// Undefined operation.
-    class Undefined : public Exception
+    class CREEK_API Undefined : public Exception
     {
     public:
         /// `Undefined` constructor.
@@ -50,7 +51,7 @@ namespace creek
 
 
     /// Not yet implemented operation/feature.
-    class Unimplemented : public Exception
+    class CREEK_API Unimplemented : public Exception
     {
     public:
         /// `Unimplemented` constructor.

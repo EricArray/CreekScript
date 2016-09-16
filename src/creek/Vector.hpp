@@ -1,16 +1,18 @@
 #pragma once
 
+#include <creek/Data.hpp>
+
 #include <memory>
 #include <vector>
 
-#include <creek/Data.hpp>
+#include <creek/api_mode.hpp>
 #include <creek/Variable.hpp>
 
 
 namespace creek
 {
     /// Data type: description.
-    class Vector : public Data
+    class CREEK_API Vector : public Data
     {
     public:
         /// Stored value type.

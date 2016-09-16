@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 
+#include <creek/api_mode.hpp>
 #include <creek/VarName.hpp>
 
 
@@ -16,7 +17,7 @@ namespace creek
     /// Expression: Block of expressions.
     /// Begin a new scope and executes each expression.
     /// Returns result of last evaluated expression.
-    class ExprBlock : public Expression
+    class CREEK_API ExprBlock : public Expression
     {
     public:
         /// `ExprBlock` constructor.
@@ -28,11 +29,11 @@ namespace creek
     private:
         std::vector< std::unique_ptr<Expression> > m_expressions;
     };
-    
+
 
     /// Expression: If-else block.
     /// Returns result of last evaluated branch, or void.
-    class ExprIf : public Expression
+    class CREEK_API ExprIf : public Expression
     {
     public:
         /// `ExprIf` constructor.
@@ -48,11 +49,11 @@ namespace creek
         std::unique_ptr<Expression> m_true_branch;
         std::unique_ptr<Expression> m_false_branch;
     };
-    
+
 
     /// Expression: Infinite loop block.
     /// Returns result of last evaluated expression.
-    class ExprLoop : public Expression
+    class CREEK_API ExprLoop : public Expression
     {
     public:
         /// `ExprLoop` constructor.
@@ -64,11 +65,11 @@ namespace creek
     private:
         std::unique_ptr<Expression> m_body;
     };
-    
+
 
     /// Expression: Conditional while block.
     /// Returns result of last evaluated expression in the body, or void.
-    class ExprWhile : public Expression
+    class CREEK_API ExprWhile : public Expression
     {
     public:
         /// `ExprWhile` constructor.
@@ -82,11 +83,11 @@ namespace creek
         std::unique_ptr<Expression> m_condition;
         std::unique_ptr<Expression> m_body;
     };
-    
+
 
     /// Expression: Value based for loop.
     /// Returns result of last evaluated expression in the body, or void.
-    class ExprFor : public Expression
+    class CREEK_API ExprFor : public Expression
     {
     public:
         /// `ExprFor` constructor.
@@ -107,11 +108,11 @@ namespace creek
         std::unique_ptr<Expression> m_step_value;
         std::unique_ptr<Expression> m_body;
     };
-    
+
 
     /// Expression: Range based for loop.
     /// Returns result of last evaluated expression in the body, or void.
-    class ExprForIn : public Expression
+    class CREEK_API ExprForIn : public Expression
     {
     public:
         /// `ExprForIn` constructor.
@@ -127,12 +128,12 @@ namespace creek
         std::unique_ptr<Expression> m_range;
         std::unique_ptr<Expression> m_body;
     };
-    
+
 
     /// Expression: Try-catch block.
     /// Returns result of last expression from the try block if didn't throw;
     /// else from the catch block.
-    class ExprTry : public Expression
+    class CREEK_API ExprTry : public Expression
     {
     public:
         /// `ExprTry` constructor.
@@ -146,11 +147,11 @@ namespace creek
         std::unique_ptr<Expression> m_try_body;
         std::unique_ptr<Expression> m_catch_body;
     };
-    
+
 
     /// Expression: Throw an exception.
     /// Closes scopes until a try-catch block is reached; else program is terminated.
-    class ExprThrow : public Expression
+    class CREEK_API ExprThrow : public Expression
     {
     public:
         /// `ExprThrow` constructor.
@@ -162,11 +163,11 @@ namespace creek
     private:
         std::unique_ptr<Expression> m_value;
     };
-    
+
 
     /// Expression: Return from a function.
     /// Closes scopes until a function block is closed.
-    class ExprReturn : public Expression
+    class CREEK_API ExprReturn : public Expression
     {
     public:
         /// `ExprReturn` constructor.
@@ -178,7 +179,7 @@ namespace creek
     private:
         std::unique_ptr<Expression> m_value;
     };
-    
+
 
     /// @}
 }

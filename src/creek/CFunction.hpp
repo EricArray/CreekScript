@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 #include <creek/Resolver.hpp>
 #include <creek/VarName.hpp>
@@ -17,7 +18,7 @@ namespace creek
 
 
     /// Data type: C or C++ function interface.
-    class CFunction : public Data
+    class CREEK_API CFunction : public Data
     {
     public:
         /// Function header.

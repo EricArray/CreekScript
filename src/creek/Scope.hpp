@@ -2,6 +2,7 @@
 
 #include <map>
 
+#include <creek/api_mode.hpp>
 #include <creek/VarName.hpp>
 #include <creek/Variable.hpp>
 
@@ -9,7 +10,7 @@
 namespace creek
 {
     /// Space for variable names.
-    class Scope
+    class CREEK_API Scope
     {
     public:
         /// `Scope` constructor.

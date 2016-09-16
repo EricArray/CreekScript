@@ -1,18 +1,6 @@
 #include <iostream>
 
-#include <creek/Exception.hpp>
-#include <creek/Expression.hpp>
-#include <creek/Expression_Arithmetic.hpp>
-#include <creek/Expression_Bitwise.hpp>
-#include <creek/Expression_Boolean.hpp>
-#include <creek/Expression_ControlFlow.hpp>
-#include <creek/Expression_DataTypes.hpp>
-#include <creek/Expression_Debug.hpp>
-#include <creek/Expression_Variable.hpp>
-#include <creek/Interpreter.hpp>
-#include <creek/Resolver.hpp>
-#include <creek/Scope.hpp>
-#include <creek/StandardLibrary.hpp>
+#include <creek/creek.hpp>
 using namespace creek;
 
 

@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 #include <creek/utility.hpp>
 
@@ -50,7 +51,7 @@ namespace creek
 
 
     /// Source code token.
-    class Token
+    class CREEK_API Token
     {
     public:
         /// Token type names.
@@ -115,7 +116,7 @@ namespace creek
 
 
     /// Lexic error raised when scanning code.
-    class LexicError : public Exception
+    class CREEK_API LexicError : public Exception
     {
     public:
         /// `LexicError` constructor.
@@ -136,7 +137,7 @@ namespace creek
 
 
     /// Bad number format in source code.
-    class BadNumberFormat : public LexicError
+    class CREEK_API BadNumberFormat : public LexicError
     {
     public:
         /// `BadNumberFormat` constructor.

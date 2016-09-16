@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
 #include <creek/Data.hpp>
 
 
@@ -10,7 +11,7 @@ namespace creek
     /// Stores a data of any type.
     /// Has shortcuts to operate with stored data.
     /// Overloads operator for operations.
-    class Variable
+    class CREEK_API Variable
     {
     public:
         /// `Variable` constructor.

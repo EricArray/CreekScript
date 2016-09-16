@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 #include <creek/VarName.hpp>
 
@@ -16,7 +17,7 @@ namespace creek
 
 
     /// Data type: function.
-    class Function : public Data
+    class CREEK_API Function : public Data
     {
     public:
         /// Shared function definition.

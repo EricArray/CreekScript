@@ -2,11 +2,13 @@
 
 #include <creek/Data.hpp>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// Data type: floating point number.
-    class Number : public Data
+    class CREEK_API Number : public Data
     {
     public:
         /// Stored value type.

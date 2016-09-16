@@ -4,11 +4,13 @@
 
 #include <string>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// Data type: character string.
-    class String : public Data
+    class CREEK_API String : public Data
     {
     public:
         /// Stored value type.

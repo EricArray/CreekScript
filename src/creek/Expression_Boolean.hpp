@@ -4,15 +4,17 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
     /// @defgroup   expression_boolean  Boolean operations
     /// @{
-        
+
     /// Expression: Short circuit boolean AND.
     /// If L is false, returns L, else, returns R.
-    class ExprBoolAnd : public Expression
+    class CREEK_API ExprBoolAnd : public Expression
     {
     public:
         /// `ExprBoolAnd` constructor.
@@ -26,11 +28,11 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
-        
+
+
     /// Expression: Short circuit boolean OR.
     /// If L is true, returns L, else, returns R.
-    class ExprBoolOr : public Expression
+    class CREEK_API ExprBoolOr : public Expression
     {
     public:
         /// `ExprBoolOr` constructor.
@@ -44,12 +46,12 @@ namespace creek
         std::unique_ptr<Expression> m_lexpr;
         std::unique_ptr<Expression> m_rexpr;
     };
-        
-        
+
+
     /// Expression: Boolean XOR.
     /// Creates a new Boolean data.
     /// Returns L XOR R.
-    class ExprBoolXor : public Expression
+    class CREEK_API ExprBoolXor : public Expression
     {
     public:
         /// `ExprBoolXor` constructor.
@@ -67,7 +69,7 @@ namespace creek
 
     /// Expression: Boolean NOT.
     /// Returns NOT L.
-    class ExprBoolNot : public Expression
+    class CREEK_API ExprBoolNot : public Expression
     {
     public:
         /// `ExprBoolNot` constructor.

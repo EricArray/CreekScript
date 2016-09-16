@@ -4,6 +4,7 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
 #include <creek/VarName.hpp>
 
 
@@ -14,7 +15,7 @@ namespace creek
 
     /// Expression: Declare a local variable.
     /// Returns a copy of the evaluated expression.
-    class ExprLocalVar : public Expression
+    class CREEK_API ExprLocalVar : public Expression
     {
     public:
         /// `ExprLocalVar` constructor.
@@ -32,7 +33,7 @@ namespace creek
 
     /// Expression: Copy the value from a variable.
     /// Returns a copy of the value loaded from the variable.
-    class ExprLoadVar : public Expression
+    class CREEK_API ExprLoadVar : public Expression
     {
     public:
         /// `ExprLoadVar` constructor.
@@ -48,7 +49,7 @@ namespace creek
 
     /// Expression: Set the value from a variable.
     /// Returns a copy of the value stored in the variable.
-    class ExprStoreVar : public Expression
+    class CREEK_API ExprStoreVar : public Expression
     {
     public:
         /// `ExprStoreVar` constructor.

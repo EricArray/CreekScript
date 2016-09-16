@@ -5,6 +5,7 @@
 #include <set>
 #include <string>
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 #include <creek/Token.hpp>
 
@@ -15,7 +16,7 @@ namespace creek
 
 
     /// Interpreter operator.
-    class InterpreterOperator
+    class CREEK_API InterpreterOperator
     {
     public:
         /// `InterpreterOperator` constructor.
@@ -39,7 +40,7 @@ namespace creek
 
 
     /// Source code interpreter.
-    class Interpreter
+    class CREEK_API Interpreter
     {
     public:
         /// Operators.
@@ -90,7 +91,7 @@ namespace creek
 
 
     /// Exception raised during interpretion time.
-    class SyntaxError : public Exception
+    class CREEK_API SyntaxError : public Exception
     {
     public:
         /// `SyntaxError` constructor.
@@ -106,7 +107,7 @@ namespace creek
 
 
     /// A token has ambiguous meaning.
-    class AmbiguousToken : public SyntaxError
+    class CREEK_API AmbiguousToken : public SyntaxError
     {
     public:
         /// `AmbiguousToken` constructor.
@@ -123,7 +124,7 @@ namespace creek
 
 
     /// Unexpected character.
-    class UnexpectedCharacter : public SyntaxError
+    class CREEK_API UnexpectedCharacter : public SyntaxError
     {
     public:
         /// `UnexpectedCharacter` constructor.
@@ -133,7 +134,7 @@ namespace creek
 
 
     /// Unexpected token.
-    class UnexpectedToken : public SyntaxError
+    class CREEK_API UnexpectedToken : public SyntaxError
     {
     public:
         /// `UnexpectedToken` constructor.
@@ -151,7 +152,7 @@ namespace creek
 
 
     /// Unexpected EOF.
-    class UnexpectedEof : public SyntaxError
+    class CREEK_API UnexpectedEof : public SyntaxError
     {
     public:
         /// `UnexpectedEof` constructor.

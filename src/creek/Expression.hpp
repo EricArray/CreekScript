@@ -1,5 +1,6 @@
 #pragma once
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 
 
@@ -10,7 +11,7 @@ namespace creek
 
 
     /// Expression statement in a program.
-    class Expression
+    class CREEK_API Expression
     {
     public:
         virtual ~Expression() = default;
@@ -22,7 +23,7 @@ namespace creek
 
 
     /// Exception raised during runtime.
-    class RuntimeError : public Exception
+    class CREEK_API RuntimeError : public Exception
     {
     public:
         /// `RuntimeError` constructor.
@@ -38,7 +39,7 @@ namespace creek
 
 
     /// Bad argument in a function call.
-    class BadArgument : public RuntimeError
+    class CREEK_API BadArgument : public RuntimeError
     {
     public:
         /// `BadArgument` constructor.

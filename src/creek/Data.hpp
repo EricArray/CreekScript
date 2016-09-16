@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
 
 
@@ -13,7 +14,7 @@ namespace creek
 
 
     /// Abstract class for variables' data.
-    class Data
+    class CREEK_API Data
     {
     public:
         virtual ~Data() = default;
@@ -141,7 +142,7 @@ namespace creek
 
 
     /// Wrong number of arguments in function call.
-    class WrongArgNumber : public Exception
+    class CREEK_API WrongArgNumber : public Exception
     {
     public:
         /// `WrongArgNumber` constructor.

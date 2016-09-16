@@ -4,6 +4,8 @@
 
 #include <memory>
 
+#include <creek/api_mode.hpp>
+
 
 namespace creek
 {
@@ -14,7 +16,7 @@ namespace creek
     /// Expression: Print a value to console.
     /// For debugging only.
     /// Returns evaluated expression.
-    class ExprPrint : public Expression
+    class CREEK_API ExprPrint : public Expression
     {
     public:
         /// `ExprPrint` constructor.

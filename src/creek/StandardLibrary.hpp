@@ -1,5 +1,8 @@
 #pragma once
 
+#include <creek/api_mode.hpp>
+
+
 namespace creek
 {
     class Scope;
@@ -7,5 +10,5 @@ namespace creek
 
     /// Load standard library.
     /// @param  scope   Scope where standard variables are created.
-    void load_standard_library(Scope& scope);
+    CREEK_API extern void load_standard_library(Scope& scope);
 }
