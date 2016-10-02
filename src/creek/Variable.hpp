@@ -33,14 +33,14 @@ namespace creek
         /// `Variable` move operator.
         Variable& operator = (Variable&& other);
 
+        /// `Variable` destructor.
+        ~Variable();
+
 
         /// @name   Data access
         /// @{
         /// Get the stored data (const).
         const Data* data() const;
-
-        /// Get the stored data.
-        Data* data();
 
         /// Set the stored data.
         void data(Data* new_data);
@@ -64,6 +64,9 @@ namespace creek
 
         /// Access stored data.
         Data* operator -> ();
+
+        /// Check if not null.
+        operator bool () const;
         /// @}
 
 
@@ -154,6 +157,9 @@ namespace creek
         /// @}
 
     private:
+        /// Get the stored data.
+        Data* data();
+
         std::unique_ptr<Data> m_data = nullptr;
     };
 }

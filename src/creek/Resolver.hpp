@@ -15,18 +15,21 @@
 
 namespace creek
 {
-    /// Template for conversion between dynamic data and static values.
+    class Scope;
+
+
+    /// @brief  Template for conversion between dynamic data and static values.
     struct CREEK_API Resolver
     {
-        /// Convert a data object to a value.
+        /// @brief  Convert a data object to a value.
         /// @param  T       Value type.
         /// @param  data    Data to convert.
         template<class T> static T data_to_value(Data* data);
 
-        /// Convert a value into a data object.
-        /// Can convert C function to CFunction objects.
+        /// @brief  Convert a value into a data object.
         /// @param  T       Value type.
         /// @param  value   Value to convert.
+        /// Can convert C function to CFunction objects.
         template<class T> static Data* value_to_data(const T& value);
 
 
@@ -44,19 +47,30 @@ namespace creek
         using DataVector = std::vector< std::unique_ptr<Data> >;
         using Iterator = DataVector::iterator;
 
-        /// Convert a C function to the format used by `CFunction`.
-        /// @param  c_function  Function to convert.
+        /// @brief  Convert a C function to the format used by `CFunction`.
+        /// @param  c_func  C function to convert.
         template<class R, class... Args>
-        static std::function<Data*(DataVector&)> c_function_to_listener(std::function<R(Args...)> c_function)
-        {
-            return [c_function](DataVector& args) -> Data*
+        static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
+            std::function<R(Args...)> c_func
+        ) {
+            return [c_func](Scope& scope, DataVector& args) -> Data*
             {
                 static const unsigned argn = sizeof...(Args);
-                return runner<argn, R, Args...>::run(c_function, args.begin());
+                return runner<argn, R, Args...>::run(c_func, args.begin());
             };
         }
 
-        /// Execute a C function from an argument vector, used by `data_to_value`.
+        /// @brief  Convert a C function to the format used by `CFunction`.
+        /// @param  c_func  C function to convert.
+        template<class R, class... Args>
+        static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
+            R(*c_func)(Args...)
+        ) {
+            return c_func_to_listener(std::function<R(Args...)>(c_func));
+        }
+
+        /// @brief  Execute a C function from an argument vector.
+        /// @sa     data_to_value
         template<unsigned unresolved, class R, class... Args> struct runner
         {
             template<class F, class... Resolved>

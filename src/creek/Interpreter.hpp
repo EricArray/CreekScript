@@ -98,6 +98,11 @@ namespace creek
         /// @param  token   Source code token where the exception happened.
         SyntaxError(const Token& token);
 
+        /// `SyntaxError` constructor.
+        /// @param  token   Source code token where the exception happened.
+        /// @param  message Description of the error.
+        SyntaxError(const Token& token, const std::string& message);
+
         /// Get the token that raised the exception.
         const Token& token() const;
 

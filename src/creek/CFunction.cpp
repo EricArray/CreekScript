@@ -16,13 +16,21 @@ namespace creek
     }
 
     // `CFunction` constructor.
-    // @param  argn            Number of arguments.
-    // @param  is_variadic     Is variadic.
-    // @param  function_ptr    C or C++ function to call.
-    CFunction::CFunction(int argn, bool is_variadic, FunctionPointer function_ptr) :
-        CFunction(std::make_shared<Definition>(argn, is_variadic, function_ptr))
+    // @param  scope       Scope where this function was created.
+    // @param  argn        Number of arguments.
+    // @param  is_variadic Is variadic.
+    // @param  listener    Listener function to call.
+    CFunction::CFunction(Scope& scope, int argn, bool is_variadic, Listener listener) :
+        CFunction(std::make_shared<Definition>(scope, argn, is_variadic, listener))
     {
 
+    }
+
+
+    // Get value.
+    const CFunction::Value& CFunction::value() const
+    {
+        return m_value;
     }
 
 
@@ -82,6 +90,6 @@ namespace creek
             throw WrongArgNumber(m_value->argn, args.size());
         }
 
-        return m_value->function_ptr(args);
+        return m_value->listener(m_value->scope, args);
     }
 }

@@ -6,6 +6,7 @@
 #include <creek/Boolean.hpp>
 #include <creek/CFunction.hpp>
 #include <creek/Data.hpp>
+#include <creek/DynLibrary.hpp>
 #include <creek/Exception.hpp>
 #include <creek/Expression.hpp>
 #include <creek/Expression_Arithmetic.hpp>
@@ -15,12 +16,12 @@
 #include <creek/Expression_ControlFlow.hpp>
 #include <creek/Expression_DataTypes.hpp>
 #include <creek/Expression_Debug.hpp>
+#include <creek/Expression_DynLoad.hpp>
 #include <creek/Expression_General.hpp>
 #include <creek/Expression_Variable.hpp>
 #include <creek/Function.hpp>
 #include <creek/Identifier.hpp>
 #include <creek/Interpreter.hpp>
-#include <creek/Library.hpp>
 #include <creek/Number.hpp>
 #include <creek/Resolver.hpp>
 #include <creek/Scope.hpp>

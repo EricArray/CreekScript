@@ -67,7 +67,7 @@ namespace creek
         { TokenType::comma,          "comma" },                      //< Comma (,).
         { TokenType::semicolon,      "semicolon" },                  //< Semicolon (;).
         { TokenType::dollar,         "dollar" },                     //< Dollar sign ($).
-        { TokenType::then,           "then arrow" },                 //< Then arrow (=>).
+        { TokenType::then,           "=>" },                         //< Then arrow (=>).
         { TokenType::operation_sign, "operation sign" },             //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
 
         { TokenType::open_round,     "open parentheses" },           //< Open round brackets or parentheses (().

@@ -18,23 +18,43 @@
 #endif
 
 /* Some compilers use a special export keyword */
-#ifndef CREEK_API
+#ifndef CREEK_EXPORT
 # if defined(__WIN32__) || defined(__WINRT__)
 #  ifdef __BORLANDC__
-#   ifdef CREEK_BUILDING
-#    define CREEK_API
-#   else
-#    define CREEK_API   __declspec(dllimport)
-#   endif
+#   define CREEK_EXPORT
 #  else
-#   define CREEK_API __declspec(dllexport)
+#   define CREEK_EXPORT __declspec(dllexport)
 #  endif
 # else
 #  if defined(__GNUC__) && __GNUC__ >= 4
-#   define CREEK_API __attribute__ ((visibility("default")))
+#   define CREEK_EXPORT __attribute__ ((visibility("default")))
 #  else
-#   define CREEK_API
+#   define CREEK_EXPORT
 #  endif
+# endif
+#endif
+
+#ifndef CREEK_IMPORT
+# if defined(__WIN32__) || defined(__WINRT__)
+#  ifdef __BORLANDC__
+#   define CREEK_IMPORT __declspec(dllimport)
+#  else
+#   define CREEK_IMPORT __declspec(dllexport)
+#  endif
+# else
+#  if defined(__GNUC__) && __GNUC__ >= 4
+#   define CREEK_IMPORT __attribute__ ((visibility("default")))
+#  else
+#   define CREEK_IMPORT
+#  endif
+# endif
+#endif
+
+#ifndef CREEK_API
+# ifdef CREEK_BUILDING
+#  define CREEK_API CREEK_EXPORT
+# else
+#  define CREEK_API CREEK_IMPORT
 # endif
 #endif
 
@@ -72,3 +92,10 @@
 #define CREEK_FORCE_INLINE static CREEK_INLINE
 #endif
 #endif /* CREEK_FORCE_INLINE not defined */
+
+// Check if building for windows.
+#ifndef CREEK_WINDOWS
+# if defined(WIN32) || defined(_WIN32) || defined(__CYGWIN__) || defined(__MINGW32__)
+#  define CREEK_WINDOWS  1
+# endif
+#endif

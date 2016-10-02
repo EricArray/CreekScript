@@ -26,14 +26,14 @@ namespace creek
         // check if name is in scope
         if (m_vars.count(var_name) != 0)
         {
-            throw Exception();
+            throw Exception(std::string("Variable ") + var_name.name() + std::string(" already exists"));
         }
 
         // insert new variable
         auto emplaceo = m_vars.emplace(var_name, Variable(data));
         if (!emplaceo.second)   // not inserted
         {
-            throw Exception();
+            throw Exception(std::string("Can't insert variable ") + var_name.name());
         }
         return emplaceo.first->second;
     }
@@ -53,7 +53,7 @@ namespace creek
             }
             else
             {
-                throw Exception();
+                throw Exception(std::string("Can't find variable ") + var_name.name());
             }
         }
         return it->second;

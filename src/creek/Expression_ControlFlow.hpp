@@ -14,10 +14,26 @@ namespace creek
     /// @defgroup   expression_control_flow Control flow expressions
     /// @{
 
+    /// Expression: List of expressions without own scope.
+    /// Executes each expression without beginning a new scope.
+    /// Returns result of last evaluated expression.
+    class CREEK_API ExprBasicBlock : public Expression
+    {
+    public:
+        /// `ExprBasicBlock` constructor.
+        /// @param  expressions  List of expressions to evaluate.
+        ExprBasicBlock(const std::vector<Expression*>& expressions);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::vector< std::unique_ptr<Expression> > m_expressions;
+    };
+
     /// Expression: Block of expressions.
     /// Begin a new scope and executes each expression.
     /// Returns result of last evaluated expression.
-    class CREEK_API ExprBlock : public Expression
+    class CREEK_API ExprBlock : public ExprBasicBlock
     {
     public:
         /// `ExprBlock` constructor.
@@ -25,9 +41,6 @@ namespace creek
         ExprBlock(const std::vector<Expression*>& expressions);
 
         Variable eval(Scope& scope) override;
-
-    private:
-        std::vector< std::unique_ptr<Expression> > m_expressions;
     };
 
 

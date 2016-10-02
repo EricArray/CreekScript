@@ -13,6 +13,7 @@
 #include <creek/Expression_Comparison.hpp>
 #include <creek/Expression_ControlFlow.hpp>
 #include <creek/Expression_Debug.hpp>
+#include <creek/Expression_DynLoad.hpp>
 #include <creek/Expression_General.hpp>
 #include <creek/Expression_Variable.hpp>
 #include <creek/utility.hpp>
@@ -144,6 +145,7 @@ namespace creek
         { "func",       TokenType::keyword },
         { "return",     TokenType::keyword },
         { "throw",      TokenType::keyword },
+        { "extern",     TokenType::keyword },
 
         { "null",       TokenType::null },
         { "false",      TokenType::boolean },
@@ -174,16 +176,16 @@ namespace creek
         auto code = load(path);
         auto tokens = scan(code);
 
-        std::cout << "Scanned tokens\n";
-        for (auto& token : tokens) {
-            std::string type_name = Token::type_names.at(token.type());
-            type_name.resize(23, ' ');
-            std::cout << path << ":" << token.line() << ":" << token.column() << "\t" << type_name << "\t" << token.text() << std::endl;
-        }
+//        std::cout << "Scanned tokens\n";
+//        for (auto& token : tokens) {
+//            std::string type_name = Token::type_names.at(token.type());
+//            type_name.resize(23, ' ');
+//            std::cout << path << ":" << token.line() << ":" << token.column() << "\t" << type_name << "\t" << token.text() << std::endl;
+//        }
 
         auto expressions = parse(tokens);
 
-        return new ExprBlock(expressions);
+        return new ExprBasicBlock(expressions);
     }
 
     std::string Interpreter::load(const std::string& path)
@@ -1010,6 +1012,29 @@ namespace creek
     {
         iter += 1;
 
+        std::vector<VarName> id_chain;
+        Expression* e = nullptr;
+
+        // identifier chain
+        check_not_eof(iter);
+        if (iter->type() == TokenType::identifier)
+        {
+            id_chain.push_back(VarName::from_name(iter->identifier()));
+            iter += 1;
+
+            check_not_eof(iter);
+            while (iter->type() == TokenType::double_colon)
+            {
+                iter += 1;
+
+                check_token_type(iter, {TokenType::identifier});
+                id_chain.push_back(VarName::from_name(iter->identifier()));
+                iter += 1;
+
+                check_not_eof(iter);
+            }
+        }
+
         check_token_type(iter, {TokenType::open_round});
         iter += 1;
 
@@ -1048,10 +1073,51 @@ namespace creek
         check_token_type(iter, {TokenType::close_round});
         iter += 1;
 
-        // body
-        Expression* body = parse_block_body(iter);
 
-        return new ExprFunction(arg_names, is_variadic, body);
+        // extern function
+        check_not_eof(iter);
+        if (iter->type() == TokenType::keyword &&
+            iter->text() == "extern")
+        {
+            iter += 1;
+
+            if (id_chain.empty())
+            {
+                throw SyntaxError(*iter, "extern functions can not be anonymous");
+            }
+
+            check_token_type(iter, {TokenType::string});
+            auto library_path = iter->string();
+            iter += 1;
+
+            // TODO: extern name from last identifier?
+            e = new ExprDynFunc(arg_names, is_variadic, library_path, id_chain.back().name());
+        }
+        // intern function
+        else
+        {
+            Expression* body = parse_block_body(iter);
+
+            e = new ExprFunction(arg_names, is_variadic, body);
+        }
+
+
+        // set local var
+        if (id_chain.size() == 1)
+        {
+            e = new ExprLocalVar(id_chain[0], e);
+        }
+        else if (id_chain.size() > 1)
+        {
+            Expression* getter = new ExprLoadVar(id_chain.front());
+            for (size_t i = 1; i < id_chain.size() - 1; ++i)
+            {
+                getter = new ExprIndexGet(getter, new ExprIdentifier(id_chain[i]));
+            }
+            e = new ExprIndexSet(getter, new ExprIdentifier(id_chain.back()), e);
+        }
+
+        return e;
     }
 
 
@@ -1061,6 +1127,16 @@ namespace creek
     SyntaxError::SyntaxError(const Token& token) : m_token(token)
     {
         stream() << "Syntax error: ";
+    }
+
+    // `SyntaxError` constructor.
+    // @param  token   Source code token where the exception happened.
+    // @param  message Description of the error.
+    SyntaxError::SyntaxError(const Token& token, const std::string& message) :
+        Exception(message),
+        m_token(token)
+    {
+
     }
 
     // Get the token that raised the exception.

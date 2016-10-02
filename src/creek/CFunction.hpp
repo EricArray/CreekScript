@@ -14,24 +14,25 @@
 
 namespace creek
 {
-    class Expression;
-
-
-    /// Data type: C or C++ function interface.
+    /// @brief  Data type: C or C++ function interface.
     class CREEK_API CFunction : public Data
     {
     public:
-        /// Function header.
-        using FunctionPointer = std::function<Data*(std::vector< std::unique_ptr<Data> >&)>;
+        /// @brief  Listener function pointer when this object is called.
+        /// Receives the scope where this function was created and the list of
+        /// arguments passed to it. Must return a pointer to a new `Data`; this
+        /// is the returned value when called from script.
+        using Listener = std::function<Data*(Scope& scope, std::vector< std::unique_ptr<Data> >&)>;
 
 
-        /// Shared function definition.
+        /// @brief  Shared function definition.
         struct Definition
         {
-            Definition(int argn, bool is_variadic, FunctionPointer function_ptr) :
+            Definition(Scope& scope, int argn, bool is_variadic, Listener listener) :
+                scope(scope),
                 argn(argn),
                 is_variadic(is_variadic),
-                function_ptr(function_ptr)
+                listener(listener)
             {
                 if (is_variadic && argn == 0)
                 {
@@ -39,38 +40,37 @@ namespace creek
                 }
             }
 
+            Scope& scope; ///< Scope where this function was created.
             unsigned argn; ///< Number of arguments.
             bool is_variadic; ///< Is variadic function.
-            FunctionPointer function_ptr; /// C or C++ function to call.
+            Listener listener; /// C or C++ function to call.
         };
 
-        /// Stored value type.
+        /// @brief  Stored value type.
         using Value = std::shared_ptr<Definition>;
 
 
-        /// `CFunction` constructor.
+        /// @brief  `CFunction` constructor.
         /// @param  value   CFunction value.
         CFunction(const Value& value);
 
-        /// `CFunction` constructor.
-        /// @param  argn            Number of arguments.
-        /// @param  is_variadic     Is variadic.
-        /// @param  function_ptr    Listener function to call.
-        CFunction(int argn, bool is_variadic, FunctionPointer function_ptr);
+        /// @brief  `CFunction` constructor.
+        /// @param  scope       Scope where this function was created.
+        /// @param  argn        Number of arguments.
+        /// @param  is_variadic Is variadic.
+        /// @param  listener    Listener function to call.
+        CFunction(Scope& scope, int argn, bool is_variadic, Listener listener);
 
-        /// `CFunction` constructor.
+        /// @brief  `CFunction` constructor.
+        /// @param  c_func  Any C function to call.
         /// The C function must take argument as normal instead of a vector
         /// of data objects, and return a C value or void.
-        /// @param  c_function      Any C function to call.
         template<class R, class...Args>
-        CFunction(R(*c_function)(Args...));
+        CFunction(Scope& scope, R(*c_func)(Args...));
 
-//        /// `CFunction` constructor.
-//        /// The C function must take argument as normal instead of a vector
-//        /// of data objects, and return a C value or void.
-//        /// @param  c_function      Any C function to call.
-//        template<class T>
-//        CFunction(T c_function);
+
+        /// @brief  Get value.
+        const Value& value() const;
 
 
         Data* copy() const override;
@@ -111,16 +111,14 @@ namespace creek
 
 
     template<class R, class... Args>
-    CFunction::CFunction(R(*c_function)(Args...)) :
-        CFunction(sizeof...(Args), false, Resolver::c_function_to_listener(std::function<R(Args...)>(c_function)))
+    CFunction::CFunction(Scope& scope, R(*c_func)(Args...)) :
+        CFunction(
+            scope,
+            sizeof...(Args),
+            false,
+            Resolver::c_func_to_listener(std::function<R(Args...)>(c_func))
+        )
     {
 
     }
-
-//    template<class T>
-//    CFunction::CFunction(T c_function) :
-//        CFunction(sizeof...(Args), false, Resolver::c_function_to_listener(c_function))
-//    {
-//
-//    }
 }

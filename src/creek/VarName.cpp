@@ -11,7 +11,7 @@ namespace creek
     {
         if (id >= s_names.size())
         {
-            throw Exception();
+            throw Exception("VarName id not registered");
         }
         return VarName(id);
     }
