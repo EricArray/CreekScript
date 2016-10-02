@@ -8,9 +8,9 @@
 
 namespace creek
 {
-    // ExprBlock constructor.
+    // `ExprBasicBlock` constructor.
     // @param  expressions  List of expressions to evaluate.
-    ExprBlock::ExprBlock(const std::vector<Expression*>& expressions)
+    ExprBasicBlock::ExprBasicBlock(const std::vector<Expression*>& expressions)
     {
         for (auto& expression : expressions)
         {
@@ -18,21 +18,34 @@ namespace creek
         }
     }
 
-    Variable ExprBlock::eval(Scope& scope)
+    Variable ExprBasicBlock::eval(Scope& scope)
     {
-        Scope new_scope(scope);
-
         // TODO: Verify which constructor is called for `result` in each three steps.
         Variable result;
         for (auto& expression : m_expressions)
         {
-            result = expression->eval(new_scope);
+            result = expression->eval(scope);
         }
-        if (!result.data()) // will return void if no expression was run
+        if (!result) // will return void if no expression was run
         {
             result.data(new Void());
         }
         return result;
+    }
+
+
+    // ExprBlock constructor.
+    // @param  expressions  List of expressions to evaluate.
+    ExprBlock::ExprBlock(const std::vector<Expression*>& expressions) :
+        ExprBasicBlock(expressions)
+    {
+
+    }
+
+    Variable ExprBlock::eval(Scope& scope)
+    {
+        Scope new_scope(scope);
+        return ExprBasicBlock::eval(new_scope);
     }
 
 
@@ -110,7 +123,7 @@ namespace creek
                 break;
             }
         }
-        if (!result.data())
+        if (!result)
         {
             result.data(new Void());
         }
@@ -164,7 +177,7 @@ namespace creek
                 i = i + step;
             }
         }
-        if (!result.data())
+        if (!result)
         {
             result.data(new Void());
         }
@@ -216,7 +229,7 @@ namespace creek
         //         i = i + step;
         //     }
         // }
-        if (!result.data())
+        if (!result)
         {
             result.data(new Void());
         }

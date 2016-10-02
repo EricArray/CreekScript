@@ -6,7 +6,13 @@
 namespace creek
 {
     // `Variable` constructor.
-    Variable::Variable()
+    Variable::Variable() : m_data(nullptr)
+    {
+
+    }
+
+    // `Variable` destructor.
+    Variable::~Variable()
     {
 
     }
@@ -96,6 +102,11 @@ namespace creek
 
     // Access stored data.
     Data* Variable::operator -> ()
+    {
+        return data();
+    }
+
+    Variable::operator bool () const
     {
         return data();
     }

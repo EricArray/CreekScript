@@ -20,7 +20,7 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Number(l.data()->cmp(r.data())));
+        return Variable(new Number(l->cmp(*r)));
     }
 
 
@@ -36,7 +36,7 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l.data()->cmp(r.data()) == 0));
+        return Variable(new Boolean(l->cmp(*r) == 0));
     }
 
 
@@ -52,7 +52,7 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l.data()->cmp(r.data()) != 0));
+        return Variable(new Boolean(l->cmp(*r) != 0));
     }
 
 
@@ -68,7 +68,7 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l.data()->cmp(r.data()) < 0));
+        return Variable(new Boolean(l->cmp(*r) < 0));
     }
 
 
@@ -84,7 +84,7 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l.data()->cmp(r.data()) <= 0));
+        return Variable(new Boolean(l->cmp(*r) <= 0));
     }
 
 
@@ -100,7 +100,7 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l.data()->cmp(r.data()) > 0));
+        return Variable(new Boolean(l->cmp(*r) > 0));
     }
 
 
@@ -116,6 +116,6 @@ namespace creek
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l.data()->cmp(r.data()) >= 0));
+        return Variable(new Boolean(l->cmp(*r) >= 0));
     }
 }

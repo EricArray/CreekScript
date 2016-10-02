@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include <creek/utility.hpp>
+
 
 namespace creek
 {
@@ -55,10 +57,10 @@ namespace creek
         // m_value = new_value;
     // }
 
-    // std::string Number::string_value()
-    // {
-
-    // }
+    std::string Number::string_value() const
+    {
+        return float_to_string(m_value, 10);
+    }
 
     // void Number::string_value(const std::string& new_value)
     // {

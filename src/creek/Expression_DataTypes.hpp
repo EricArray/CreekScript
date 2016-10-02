@@ -133,17 +133,17 @@ namespace creek
     {
     public:
         /// `ExprCFunction` constructor.
-        /// @param  argn            Number of arguments.
-        /// @param  variadic        Create a variadic function.
-        /// @param  function_ptr    C function pointer to call.
-        ExprCFunction(unsigned argn, bool variadic, CFunction::FunctionPointer function_ptr);
+        /// @param  argn        Number of arguments.
+        /// @param  variadic    Create a variadic function.
+        /// @param  listener    Listener function to call.
+        ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener);
 
         Variable eval(Scope& scope) override;
 
     private:
         unsigned m_argn;
         bool m_variadic;
-        CFunction::FunctionPointer m_function_ptr;
+        CFunction::Listener m_listener;
     };
 
     /// @}

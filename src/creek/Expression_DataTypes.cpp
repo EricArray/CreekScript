@@ -104,20 +104,20 @@ namespace creek
 
 
     // `ExprCFunction` constructor.
-    // @param  argn            Number of arguments.
-    // @param  variadic        Create a variadic function.
-    // @param  function_ptr    C function pointer to call.
-    ExprCFunction::ExprCFunction(unsigned argn, bool variadic, CFunction::FunctionPointer function_ptr) :
+    // @param  argn        Number of arguments.
+    // @param  variadic    Create a variadic function.
+    // @param  listener    Listener function to call.
+    ExprCFunction::ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener) :
         m_argn(argn),
         m_variadic(variadic),
-        m_function_ptr(function_ptr)
+        m_listener(listener)
     {
 
     }
 
-    Variable ExprCFunction::eval(Scope& scope) 
+    Variable ExprCFunction::eval(Scope& scope)
     {
-        CFunction::Definition* def = new CFunction::Definition(m_argn, m_variadic, m_function_ptr);
+        CFunction::Definition* def = new CFunction::Definition(scope, m_argn, m_variadic, m_listener);
         CFunction::Value new_value(def);
         return Variable(new CFunction(new_value));
     }

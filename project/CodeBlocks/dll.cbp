@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="CreekScript" />
+		<Option title="dll" />
 		<Option pch_mode="2" />
 		<Option compiler="tdm64" />
 		<Build>
@@ -48,6 +48,10 @@
 		<Unit filename="../../src/creek/CFunction.hpp" />
 		<Unit filename="../../src/creek/Data.cpp" />
 		<Unit filename="../../src/creek/Data.hpp" />
+		<Unit filename="../../src/creek/DynCFunction.cpp" />
+		<Unit filename="../../src/creek/DynCFunction.hpp" />
+		<Unit filename="../../src/creek/DynLibrary.cpp" />
+		<Unit filename="../../src/creek/DynLibrary.hpp" />
 		<Unit filename="../../src/creek/Exception.cpp" />
 		<Unit filename="../../src/creek/Exception.hpp" />
 		<Unit filename="../../src/creek/Expression.cpp" />
@@ -66,6 +70,8 @@
 		<Unit filename="../../src/creek/Expression_DataTypes.hpp" />
 		<Unit filename="../../src/creek/Expression_Debug.cpp" />
 		<Unit filename="../../src/creek/Expression_Debug.hpp" />
+		<Unit filename="../../src/creek/Expression_DynLoad.cpp" />
+		<Unit filename="../../src/creek/Expression_DynLoad.hpp" />
 		<Unit filename="../../src/creek/Expression_General.cpp" />
 		<Unit filename="../../src/creek/Expression_General.hpp" />
 		<Unit filename="../../src/creek/Expression_Variable.cpp" />
@@ -96,6 +102,7 @@
 		<Unit filename="../../src/creek/Vector.hpp" />
 		<Unit filename="../../src/creek/Void.cpp" />
 		<Unit filename="../../src/creek/Void.hpp" />
+		<Unit filename="../../src/creek/api_mode.hpp" />
 		<Unit filename="../../src/creek/creek.cpp" />
 		<Unit filename="../../src/creek/creek.hpp" />
 		<Unit filename="../../src/creek/utility.cpp" />

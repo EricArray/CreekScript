@@ -16,9 +16,13 @@ namespace creek
     public:
         virtual ~Expression() = default;
 
-        /// Evaluate this expression.
+        /// @brief  Evaluate this expression.
         /// @return Result of the expression; may be `nullptr`.
         virtual Variable eval(Scope& scope) = 0;
+
+        /// @brief  Check if this expression is constant.
+        /// @return True if this expression can be evaluated at compile time.
+        virtual bool is_const() { return false; }
     };
 
 
