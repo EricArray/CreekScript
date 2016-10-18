@@ -11,6 +11,11 @@ namespace creek
         throw Undefined(class_name() + "::copy");
     }
 
+    Data* Data::clone() const
+    {
+        return copy();
+    }
+
     std::string Data::class_name() const
     {
         return "Data";
@@ -154,6 +159,11 @@ namespace creek
     Data* Data::call(std::vector< std::unique_ptr<Data> >& args)
     {
         throw Undefined(class_name() + "::call");
+    }
+
+    Data* Data::get_class()
+    {
+        throw Undefined(class_name() + "::get_class");
     }
 
 

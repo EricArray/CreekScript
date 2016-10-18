@@ -13,7 +13,7 @@ int main(int argc, char** argv)
     std::unique_ptr<Expression> program;
     try
     {
-        program.reset(interpreter.load_file("test.txt"));
+        program.reset(interpreter.load_file("test.creek"));
     }
     catch (const LexicError& e)
     {
@@ -41,17 +41,17 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    // create global scope
-    Scope global;
+    // create base scope
+    Scope base;
 
     // try to execute the program
     try
     {
         std::cout << "Loading standard library...\n";
-        load_standard_library(global);
+        load_standard_library(base);
 
-        std::cout << "Running program:\n\n";
-        Variable result = program->eval(global);
+        std::cout << "Running program:\n";
+        Variable result = program->eval(base);
 
         std::cout << "\nProgram returned " << result->debug_text() << ".\n";
     }

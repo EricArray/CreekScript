@@ -50,10 +50,7 @@ namespace creek
         static const std::map<TokenType, std::regex> token_regexes;
 
         /// Keywords.
-        static const std::map<std::string, TokenType> keywords;
-
-        /// Textual token synonyms.
-        static const std::map<std::string, std::string> synonyms;
+        static const std::map<std::string, std::pair<std::string, TokenType> > keywords;
 
 
         /// `Interpreter` constructor.
@@ -63,30 +60,58 @@ namespace creek
         /// @param  path    Path to the source file.
         Expression* load_file(const std::string& path);
 
+        /// Interpret a source code.
+        /// @param  code    Source code.
+        Expression* load_code(const std::string& code);
+
 
     private:
+        struct ParseIterator
+        {
+            const Token* operator -> () const
+            {
+                return &*iter;
+            }
+
+            const Token& operator * () const
+            {
+                return *iter;
+            }
+
+            ParseIterator& operator += (int delta)
+            {
+                iter += delta;
+                return *this;
+            }
+
+            std::vector<Token>::const_iterator iter;
+            bool need_semicolon;
+        };
+
+
         std::string load(const std::string& path);
         std::vector<Token> scan(const std::string& code);
         std::vector<Expression*> parse(const std::vector<Token>& tokens);
 
-        Expression* parse_statement(std::vector<Token>::const_iterator& iter);
-        Expression* parse_operation(std::vector<Token>::const_iterator& iter);
-        Expression* parse_parameter(std::vector<Token>::const_iterator& iter);
+        Expression* parse_statement(ParseIterator& iter);
+        Expression* parse_operation(ParseIterator& iter);
+        Expression* parse_parameter(ParseIterator& iter);
 
-        Expression* parse_block_body(std::vector<Token>::const_iterator& iter);
-        Expression* parse_do_block(std::vector<Token>::const_iterator& iter);
-        Expression* parse_if_block(std::vector<Token>::const_iterator& iter);
-        Expression* parse_loop_block(std::vector<Token>::const_iterator& iter);
-        Expression* parse_while_block(std::vector<Token>::const_iterator& iter);
-        Expression* parse_for_block(std::vector<Token>::const_iterator& iter);
-        Expression* parse_switch_block(std::vector<Token>::const_iterator& iter);
-        Expression* parse_try_block(std::vector<Token>::const_iterator& iter);
+        Expression* parse_block_body(ParseIterator& iter);
+        Expression* parse_do_block(ParseIterator& iter);
+        Expression* parse_if_block(ParseIterator& iter);
+        Expression* parse_loop_block(ParseIterator& iter);
+        Expression* parse_while_block(ParseIterator& iter);
+        Expression* parse_for_block(ParseIterator& iter);
+        Expression* parse_switch_block(ParseIterator& iter);
+        Expression* parse_try_block(ParseIterator& iter);
 
-        Expression* parse_local_var(std::vector<Token>::const_iterator& iter);
-        Expression* parse_function(std::vector<Token>::const_iterator& iter);
+        Expression* parse_var(ParseIterator& iter);
+        Expression* parse_function(ParseIterator& iter);
+        Expression* parse_class(ParseIterator& iter);
 
-        void check_not_eof(std::vector<Token>::const_iterator& iter);
-        void check_token_type(std::vector<Token>::const_iterator& iter, const std::set<TokenType>& accepted);
+        void check_not_eof(ParseIterator& iter);
+        void check_token_type(ParseIterator& iter, const std::set<TokenType>& accepted);
     };
 
 

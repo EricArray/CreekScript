@@ -1,0 +1,52 @@
+var title = "Example program";
+
+print("Running ", title, "\n");
+
+print('\n');
+
+/// @brief  Represents a person.
+class Person : Object {
+    /// @brief  Initializer.
+    /// @param  name    Name of the person
+    func init(self, name) {
+        self::name = name;
+    }
+    
+    /// @brief  Get greeting phrase to this person.
+    /// @return     A string.
+    func greeting(self) {
+        switch self::name {
+            case "Ernok" {
+                return "All praise the great greatness of Ernok.";
+            }
+            default {
+                return "Hello, " + self::name + ".";
+            }
+        }
+    }
+}
+
+
+// create a person
+var person = Person(scan("Enter your name: "));
+print(person.greeting(), "\n\n")
+
+
+// create a vector with 3 items
+var persons = [Person("Lon Zyler"), Person("Eternal"), Person("Ernok")]
+
+print("There are ", persons.size(), " persons: ")
+
+// loop from '0' while less than 'persons:size()'
+for i = 0 .. persons.size() {
+    if i > 0 {
+        print(", ");
+    }
+    print(persons[i]::name);
+}
+print("\n\n");
+
+for i = 0 .. persons.size() {
+    print(persons[i].greeting(), '\n');
+}
+

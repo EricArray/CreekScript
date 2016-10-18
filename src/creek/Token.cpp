@@ -49,6 +49,7 @@ namespace creek
         { TokenType::space,          "space" },                      //< Blank space (space, new line, etc.).
         { TokenType::commentary,     "commentary" },                 //< Commentary (sigle-line or multi-line).
 
+        { TokenType::void_l,         "void literal" },               //< Void literal.
         { TokenType::null,           "null literal" },               //< Null literal.
         { TokenType::boolean,        "boolean literal" },            //< Boolean literal.
         { TokenType::integer,        "integer literal" },            //< Integer number literal.
@@ -67,6 +68,7 @@ namespace creek
         { TokenType::comma,          "comma" },                      //< Comma (,).
         { TokenType::semicolon,      "semicolon" },                  //< Semicolon (;).
         { TokenType::dollar,         "dollar" },                     //< Dollar sign ($).
+        { TokenType::arrow,          "->" },                         ///< Return arrow (->).
         { TokenType::then,           "=>" },                         //< Then arrow (=>).
         { TokenType::operation_sign, "operation sign" },             //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
 

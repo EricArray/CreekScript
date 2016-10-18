@@ -1,0 +1,58 @@
+class NumWrapper {
+    func init(self, n) {
+        self::n = n;
+    }
+
+    func add(self, other) {
+        return NumWrapper(self::n + other::n);
+    }
+
+    func sub(self, other) {
+        return NumWrapper(self::n - other::n);
+    }
+
+    func div(self, other) {
+        return NumWrapper(self::n * other::n);
+    }
+
+    func mul(self, other) {
+        return NumWrapper(self::n / other::n);
+    }
+
+    func to_boolean(self) {
+        return true;
+    }
+
+    func to_string(self) {
+        return self::n.to_string();
+    }
+};
+
+var x = NumWrapper(10);
+var y = NumWrapper(20);
+
+print("x + y -> ", x + y, "\n");
+print("x - y -> ", x - y, "\n");
+print("x * y -> ", x * y, "\n");
+print("x / y -> ", x / y, "\n");
+
+
+class FuncWrapper {
+    func init(self, f) {
+        self::f = f;
+    }
+
+    func call(self, args...) {
+        return self::f(args...);
+    }
+};
+
+var g = FuncWrapper(func (args...) {
+    print("args:\n");
+    for i = 0 .. args.size() {
+        print("  arg ", i, ": ", args[i].debug_text(), "\n");
+    };
+});
+
+g("hola\n");
+g("ch", "au", "\n");

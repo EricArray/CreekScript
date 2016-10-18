@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include <creek/GlobalScope.hpp>
 #include <creek/utility.hpp>
 
 
@@ -159,5 +160,10 @@ namespace creek
         {
             return 0;
         }
+    }
+
+    Data* Number::get_class()
+    {
+        return GlobalScope::class_Number->copy();
     }
 }

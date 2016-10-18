@@ -74,7 +74,10 @@ namespace creek
             throw WrongArgNumber(arg_names.size(), args.size());
         }
 
-        Scope new_scope(m_value->parent);
+        // TODO: break point in function?
+        Scope new_scope(m_value->parent,
+                        std::make_shared<Scope::ReturnPoint>(),
+                        std::make_shared<Scope::BreakPoint>());
         for (size_t i = 0; i < arg_names.size(); ++i)
         {
             new_scope.create_local_var(arg_names[i], args[i].release());

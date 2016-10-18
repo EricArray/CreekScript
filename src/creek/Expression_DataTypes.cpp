@@ -1,5 +1,6 @@
 #include <creek/Expression_DataTypes.hpp>
 
+#include <creek/GlobalScope.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
 
@@ -15,6 +16,18 @@ namespace creek
     Variable ExprVoid::eval(Scope& scope)
     {
         return Variable(new Void());
+    }
+
+
+    // `ExprNull` constructor.
+    ExprNull::ExprNull()
+    {
+
+    }
+
+    Variable ExprNull::eval(Scope& scope)
+    {
+        return Variable(new Null());
     }
 
 
@@ -70,15 +83,23 @@ namespace creek
     }
 
 
-    // `ExprVector` constructor.
-    ExprVector::ExprVector()
+    /// @brief  `ExprVector` constructor.
+    /// @param  values  List of initial values.
+    ExprVector::ExprVector(std::vector<Expression*> values)
     {
-
+        for (auto& v : values)
+        {
+            m_values.emplace_back(v);
+        }
     }
 
     Variable ExprVector::eval(Scope& scope)
     {
         Vector::Value new_value = std::make_shared< std::vector<Variable> >();
+        for (auto& v : m_values)
+        {
+            new_value->emplace_back(v->eval(scope));
+        }
         return Variable(new Vector(new_value));
     }
 
@@ -97,7 +118,7 @@ namespace creek
 
     Variable ExprFunction::eval(Scope& scope)
     {
-        Function::Definition* def = new Function::Definition(scope, m_arg_names, m_variadic, m_body.release());
+        Function::Definition* def = new Function::Definition(scope, m_arg_names, m_variadic, m_body);
         Function::Value new_value(def);
         return Variable(new Function(new_value));
     }
@@ -120,5 +141,43 @@ namespace creek
         CFunction::Definition* def = new CFunction::Definition(scope, m_argn, m_variadic, m_listener);
         CFunction::Value new_value(def);
         return Variable(new CFunction(new_value));
+    }
+
+
+    // @brief  `ExprClass` constructor.
+    // @param  id          Class name.
+    // @param  super_class Expression for the super class.
+    // @param  method_defs List of method definitions.
+    ExprClass::ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs) :
+        m_id(id),
+        m_super_class(super_class)
+    {
+        m_method_defs.swap(method_defs);
+    }
+
+    Variable ExprClass::eval(Scope& scope)
+    {
+        Variable new_class;
+
+        {
+            Variable super_class = m_super_class->eval(scope);
+
+            std::vector< std::unique_ptr<Data> > args;
+            args.emplace_back(super_class->copy());
+            args.emplace_back(new Identifier(m_id));
+
+            Variable func_derive = GlobalScope::class_Class.index(new Identifier("derive"));
+            new_class = func_derive->call(args);
+        }
+
+        for (auto& method_def : m_method_defs)
+        {
+            Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
+            Function::Value new_value(def);
+            Variable method = new Function(new_value);
+            new_class.index(new Identifier(method_def.id), method.release());
+        }
+
+        return new_class;
     }
 }

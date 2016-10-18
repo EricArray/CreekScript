@@ -1,5 +1,7 @@
 #include <creek/Boolean.hpp>
 
+#include <creek/GlobalScope.hpp>
+
 
 namespace creek
 {
@@ -151,5 +153,10 @@ namespace creek
         {
             return 0;
         }
+    }
+
+    Data* Boolean::get_class()
+    {
+        return GlobalScope::class_Boolean->copy();
     }
 }

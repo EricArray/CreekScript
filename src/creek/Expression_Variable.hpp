@@ -13,15 +13,15 @@ namespace creek
     /// @defgroup   expression_variable Variable manipulating expressions
     /// @{
 
-    /// Expression: Declare a local variable.
+    /// @brief  Expression: Create a new variable in current scope.
     /// Returns a copy of the evaluated expression.
-    class CREEK_API ExprLocalVar : public Expression
+    class CREEK_API ExprCreateLocal : public Expression
     {
     public:
-        /// `ExprLocalVar` constructor.
+        /// @brief  `ExprCreateLocal` constructor.
         /// @param  var_name    Variable name.
         /// @param  expression  Expression to get value.
-        ExprLocalVar(VarName var_name, Expression* expression);
+        ExprCreateLocal(VarName var_name, Expression* expression);
 
         Variable eval(Scope& scope) override;
 
@@ -31,14 +31,14 @@ namespace creek
     };
 
 
-    /// Expression: Copy the value from a variable.
-    /// Returns a copy of the value loaded from the variable.
-    class CREEK_API ExprLoadVar : public Expression
+    /// @brief  Expression: Copy the value of a variable from current scope.
+    /// Returns a copy of the value stored at the variable.
+    class CREEK_API ExprLoadLocal : public Expression
     {
     public:
-        /// `ExprLoadVar` constructor.
+        /// @brief  `ExprLoadLocal` constructor.
         /// @param  var_name    Variable name.
-        ExprLoadVar(VarName var_name);
+        ExprLoadLocal(VarName var_name);
 
         Variable eval(Scope& scope) override;
 
@@ -47,15 +47,66 @@ namespace creek
     };
 
 
-    /// Expression: Set the value from a variable.
-    /// Returns a copy of the value stored in the variable.
-    class CREEK_API ExprStoreVar : public Expression
+    /// @brief  Expression: Set the value of a variable from current scope.
+    /// Returns a copy of the value stored at the variable.
+    class CREEK_API ExprStoreLocal : public Expression
     {
     public:
-        /// `ExprStoreVar` constructor.
+        /// @brief  `ExprStoreLocal` constructor.
         /// @param  var_name    Variable name.
         /// @param  expression  Expression to get value.
-        ExprStoreVar(VarName var_name, Expression* expression);
+        ExprStoreLocal(VarName var_name, Expression* expression);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        VarName m_var_name;
+        std::unique_ptr<Expression> m_expression;
+    };
+
+    /// @brief  Expression: Create a new variable in global scope.
+    /// Returns a copy of the evaluated expression.
+    class CREEK_API ExprCreateGlobal : public Expression
+    {
+    public:
+        /// @brief  `ExprCreateGlobal` constructor.
+        /// @param  var_name    Variable name.
+        /// @param  expression  Expression to get value.
+        ExprCreateGlobal(VarName var_name, Expression* expression);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        VarName m_var_name;
+        std::unique_ptr<Expression> m_expression;
+    };
+
+
+    /// @brief  Expression: Copy the value of a variable from global scope.
+    /// Returns a copy of the value stored at the variable.
+    class CREEK_API ExprLoadGlobal : public Expression
+    {
+    public:
+        /// @brief  `ExprLoadGlobal` constructor.
+        /// @param  var_name    Variable name.
+        ExprLoadGlobal(VarName var_name);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        VarName m_var_name;
+    };
+
+
+    /// @brief  Expression: Set the value of a variable from global scope.
+    /// Returns a copy of the value stored at the variable.
+    class CREEK_API ExprStoreGlobal : public Expression
+    {
+    public:
+        /// @brief  `ExprStoreGlobal` constructor.
+        /// @param  var_name    Variable name.
+        /// @param  expression  Expression to get value.
+        ExprStoreGlobal(VarName var_name, Expression* expression);
 
         Variable eval(Scope& scope) override;
 

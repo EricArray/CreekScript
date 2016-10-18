@@ -1,5 +1,8 @@
 #include <creek/Void.hpp>
 
+#include <creek/GlobalScope.hpp>
+
+
 namespace creek
 {
     Data* Void::copy() const
@@ -20,5 +23,10 @@ namespace creek
     bool Void::bool_value() const
     {
         return false;
+    }
+
+    Data* Void::get_class()
+    {
+        return GlobalScope::class_Void->copy();
     }
 }

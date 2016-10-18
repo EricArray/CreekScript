@@ -18,6 +18,7 @@ namespace creek
         space,              ///< Blank space (space, new line, etc.).
         commentary,         ///< Commentary (sigle-line or multi-line).
 
+        void_l,             ///< Void literal.
         null,               ///< Null literal.
         boolean,            ///< Boolean literal.
         integer,            ///< Integer number literal.
@@ -35,7 +36,10 @@ namespace creek
         double_colon,       ///< Double colon (::).
         comma,              ///< Comma (,).
         semicolon,          ///< Semicolon (;).
+        at,                 ///< At sign (@).
+        hash,               ///< Hash sign (#).
         dollar,             ///< Dollar sign ($).
+        arrow,              ///< Return arrow (->).
         then,               ///< Then arrow (=>).
         operation_sign,     ///< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
 

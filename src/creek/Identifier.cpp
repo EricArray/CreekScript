@@ -1,5 +1,7 @@
 #include <creek/Identifier.hpp>
 
+#include <creek/GlobalScope.hpp>
+
 namespace creek
 {
     // `Identifier` constructor.
@@ -24,7 +26,7 @@ namespace creek
     // Get debug text.
     std::string Identifier::debug_text() const
     {
-        return std::string("$") + this->string_value();
+        return std::string("@") + this->string_value();
     }
 
 
@@ -93,4 +95,9 @@ namespace creek
         }
     }
     // @}
+
+    Data* Identifier::get_class()
+    {
+        return GlobalScope::class_Identifier->copy();
+    }
 }

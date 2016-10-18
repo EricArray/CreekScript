@@ -5,7 +5,10 @@
 
 #include <creek/CFunction.hpp>
 #include <creek/Expression.hpp>
+#include <creek/Identifier.hpp>
 #include <creek/Interpreter.hpp>
+#include <creek/Number.hpp>
+#include <creek/Object.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Void.hpp>
 
@@ -23,12 +26,22 @@ namespace creek
     }
 
 
+    Data* func_scan(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        delete func_print(scope, args);
+
+        std::string input;
+        std::getline(std::cin, input);
+        return new String(input);
+    }
+
+
     Data* func_debug(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         auto& values = args[0];
         for (auto& value : values->vector_value())
         {
-            std::cout << value->debug_text();
+            std::cout << "\t" << value->debug_text() << "\n";
         }
         return new Void();
     }
@@ -91,7 +104,9 @@ namespace creek
     // @param  scope   Scope where standard variables are created.
     void load_standard_library(Scope& scope)
     {
+        // global functions
         scope.create_local_var(VarName::from_name("print"),     new CFunction(scope, 1, true, &func_print));
+        scope.create_local_var(VarName::from_name("scan"),      new CFunction(scope, 1, true, &func_scan));
         scope.create_local_var(VarName::from_name("debug"),     new CFunction(scope, 1, true, &func_debug));
         scope.create_local_var(VarName::from_name("exit"),      new CFunction(scope, &exit));
         scope.create_local_var(VarName::from_name("require"),   new CFunction(scope, 1, false, &func_require));

@@ -11,7 +11,7 @@
 
 namespace creek
 {
-    /// Data type: description.
+    /// Data type: dynamic array.
     class CREEK_API Vector : public Data
     {
     public:
@@ -22,6 +22,10 @@ namespace creek
         /// `Vector` constructor.
         /// @param  value   Vector value.
         Vector(const Value& value);
+
+
+        /// @brief  Get shared value.
+        const Value& value() const;
 
 
         /// Get a new reference to the same vector.
@@ -56,6 +60,7 @@ namespace creek
 
         int cmp(Data* other) override;
 
+        Data* get_class() override;
 
     private:
         Value m_value;

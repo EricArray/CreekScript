@@ -5,6 +5,45 @@
 
 namespace creek
 {
+    std::map<VarName::Name, VarName::Id> VarName::s_ids = { {"", 0} };
+
+    std::vector<VarName::Name> VarName::s_names = {""};
+
+    // @brief  `VarName` constructor.
+    VarName::VarName() : m_id(0)
+    {
+
+    }
+
+    VarName::VarName(Id id) : m_id(id)
+    {
+
+    }
+
+    // @brief  `VarName` constructor.
+    // @param  name    Name of the variable.
+    VarName::VarName(const std::string& name) : VarName(VarName::from_name(name))
+    {
+
+    }
+
+    // @brief  `VarName` constructor.
+    // @param  name    Name of the variable.
+    VarName::VarName(const char* name) : VarName(VarName::from_name(name))
+    {
+
+    }
+
+    VarName::VarName(const VarName& other) : m_id(other.m_id)
+    {
+
+    }
+
+    VarName::VarName(VarName&& other) : m_id(other.m_id)
+    {
+
+    }
+
     // Create a `VarName` from an id.
     // If the id is not register, throws an exception.
     VarName VarName::from_id(Id id)
@@ -15,6 +54,13 @@ namespace creek
         }
         return VarName(id);
     }
+
+    // @brief  Assignment.
+    VarName& VarName::operator = (const VarName& other)
+    {
+        m_id = other.m_id;
+    }
+
 
     // Create a `VarName` from a name.
     // If the name is not register, creates a new VarName.
@@ -42,25 +88,6 @@ namespace creek
     {
         return s_names[m_id];
     }
-
-    VarName::VarName(Id id) : m_id(id)
-    {
-
-    }
-
-    VarName::VarName(const VarName& other) : m_id(other.m_id)
-    {
-
-    }
-
-    VarName::VarName(VarName&& other) : m_id(other.m_id)
-    {
-
-    }
-
-    std::map<VarName::Name, VarName::Id> VarName::s_ids;
-
-    std::vector<VarName::Name> VarName::s_names;
 
     bool VarName::operator == (const VarName& other) const
     {

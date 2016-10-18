@@ -21,6 +21,12 @@
 
 namespace creek
 {
+    bool is_uppercase(char c)
+    {
+        return 'A' <= c && c <= 'Z';
+    }
+
+
     // `InterpreterOperator` constructor.
     // @param  string      Operator string.
     // @param  precedence  Operator precedence (the more, the faster).
@@ -90,76 +96,75 @@ namespace creek
     // Regular expressions for tokens.
     const std::map<TokenType, std::regex> Interpreter::token_regexes
     {
-        { TokenType::space,          std::regex(R"__(^(\s+))__") },
+        { TokenType::space,             std::regex(R"__(^(\s+))__") },
 
-        { TokenType::commentary,     std::regex(R"__(^(//[^\n]*))__") },
+        { TokenType::commentary,        std::regex(R"__(^(//[^\n]*))__") },
 
         // { TokenType::boolean,        std::regex(R"(true|false)") },
         // { TokenType::integer,        std::regex(R"__(^(0[bB][01]+|0[xX][0-9a-fA-F]+|[0-9]+))__") },
-        { TokenType::integer,        std::regex(R"__(^([0-9]+))__") },
-        { TokenType::floatnum,       std::regex(R"__(^((0[xX][0-9a-fA-F]+\.[0-9a-fA-F]+)|([0-9]+\.[0-9]+)))__") },
-        { TokenType::character,      std::regex(R"__(^('([^'\\]|\\.)'))__") },
-        { TokenType::string,         std::regex(R"__(^("([^"\\]|\\.)*"))__") },
+        { TokenType::integer,           std::regex(R"__(^([0-9]+))__") },
+        { TokenType::floatnum,          std::regex(R"__(^((0[xX][0-9a-fA-F]+\.[0-9a-fA-F]+)|([0-9]+\.[0-9]+)))__") },
+        { TokenType::character,         std::regex(R"__(^('([^'\\]|\\.)'))__") },
+        { TokenType::string,            std::regex(R"__(^("([^"\\]|\\.)*"))__") },
 
-        { TokenType::identifier,     std::regex(R"__(^([_a-zA-Z][_a-zA-Z0-9]*))__") },
-        { TokenType::assign,         std::regex(R"__(^(=))__") },
-        { TokenType::dot,            std::regex(R"__(^(\.))__") },
-        { TokenType::ellipsis_2,     std::regex(R"__(^(\.\.))__") },
-        { TokenType::ellipsis_3,     std::regex(R"__(^(\.\.\.))__") },
-        { TokenType::colon,          std::regex(R"__(^(:))__") },
-        { TokenType::double_colon,   std::regex(R"__(^(::))__") },
-        { TokenType::comma,          std::regex(R"__(^(,))__") },
-        { TokenType::semicolon,      std::regex(R"__(^(;))__") },
-        { TokenType::dollar,         std::regex(R"__(^(\$))__") },
-        { TokenType::then,           std::regex(R"__(^(=>))__") },
+        { TokenType::identifier,        std::regex(R"__(^([_a-zA-Z][_a-zA-Z0-9]*))__") },
+        { TokenType::assign,            std::regex(R"__(^(=))__") },
+        { TokenType::dot,               std::regex(R"__(^(\.))__") },
+        { TokenType::ellipsis_2,        std::regex(R"__(^(\.\.))__") },
+        { TokenType::ellipsis_3,        std::regex(R"__(^(\.\.\.))__") },
+        { TokenType::colon,             std::regex(R"__(^(:))__") },
+        { TokenType::double_colon,      std::regex(R"__(^(::))__") },
+        { TokenType::comma,             std::regex(R"__(^(,))__") },
+        { TokenType::semicolon,         std::regex(R"__(^(;))__") },
+        { TokenType::at,                std::regex(R"__(^(\@))__") },
+        { TokenType::hash,              std::regex(R"__(^(\#))__") },
+        { TokenType::dollar,            std::regex(R"__(^(\$))__") },
+        { TokenType::arrow,             std::regex(R"__(^(\->))__") },
+        { TokenType::then,              std::regex(R"__(^(=>))__") },
 
         // { TokenType::operation_sign, std::regex(R"__(^(\+|\-|/|%|\^|~|!|(\*\*?)|(&&?)|(\|\|?)|(<[<=]?)|(>[>=]?)|(!=)))__") },
-        { TokenType::operation_sign, std::regex(R"__(^(\+|\-|/|%|~|!|\*\*?|&&?|\|\|?|\^\^?|<(=>?)?|>=?|==|!=))__") },
+        { TokenType::operation_sign,    std::regex(R"__(^(\+|\-|/|%|~|!|\*\*?|&&?|\|\|?|\^\^?|<(=>?)?|>=?|==|!=))__") },
 
-        { TokenType::open_round,     std::regex(R"__(^(\())__") },
-        { TokenType::close_round,    std::regex(R"__(^(\)))__") },
-        { TokenType::open_square,    std::regex(R"__(^(\[))__") },
-        { TokenType::close_square,   std::regex(R"__(^(\]))__") },
-        { TokenType::open_brace,     std::regex(R"__(^(\{))__") },
-        { TokenType::close_brace,    std::regex(R"__(^(\}))__") },
+        { TokenType::open_round,        std::regex(R"__(^(\())__") },
+        { TokenType::close_round,       std::regex(R"__(^(\)))__") },
+        { TokenType::open_square,       std::regex(R"__(^(\[))__") },
+        { TokenType::close_square,      std::regex(R"__(^(\]))__") },
+        { TokenType::open_brace,        std::regex(R"__(^(\{))__") },
+        { TokenType::close_brace,       std::regex(R"__(^(\}))__") },
     };
 
     // Keywords.
-    const std::map<std::string, TokenType> Interpreter::keywords
+    const std::map<std::string, std::pair<std::string, TokenType> > Interpreter::keywords
     {
-        { "do",         TokenType::keyword },
-        { "if",         TokenType::keyword },
-        { "else",       TokenType::keyword },
-        { "loop",       TokenType::keyword },
-        { "while",      TokenType::keyword },
-        { "for",        TokenType::keyword },
-        { "in",         TokenType::keyword },
-        { "switch",     TokenType::keyword },
-        { "case",       TokenType::keyword },
-        { "default",    TokenType::keyword },
-        { "break",      TokenType::keyword },
+        { "do",         { "do",         TokenType::keyword } },
+        { "if",         { "if",         TokenType::keyword } },
+        { "else",       { "else",       TokenType::keyword } },
+        { "loop",       { "loop",       TokenType::keyword } },
+        { "while",      { "while",      TokenType::keyword } },
+        { "for",        { "for",        TokenType::keyword } },
+        { "in",         { "in",         TokenType::keyword } },
+        { "switch",     { "switch",     TokenType::keyword } },
+        { "case",       { "case",       TokenType::keyword } },
+        { "default",    { "default",    TokenType::keyword } },
+        { "break",      { "break",      TokenType::keyword } },
 
-        { "var",        TokenType::keyword },
-        { "delete",     TokenType::keyword },
-        { "class",      TokenType::keyword },
-        { "func",       TokenType::keyword },
-        { "return",     TokenType::keyword },
-        { "throw",      TokenType::keyword },
-        { "extern",     TokenType::keyword },
+        { "var",        { "var",        TokenType::keyword } },
+        { "delete",     { "delete",     TokenType::keyword } },
+        { "class",      { "class",      TokenType::keyword } },
+        { "func",       { "func",       TokenType::keyword } },
+        { "return",     { "return",     TokenType::keyword } },
+        { "throw",      { "throw",      TokenType::keyword } },
+        { "extern",     { "extern",     TokenType::keyword } },
 
-        { "null",       TokenType::null },
-        { "false",      TokenType::boolean },
-        { "true",       TokenType::boolean },
-    };
+        { "void",       { "void",       TokenType::void_l } },
+        { "null",       { "null",       TokenType::null } },
+        { "false",      { "false",      TokenType::boolean } },
+        { "true",       { "true",       TokenType::boolean } },
 
-
-    // Textual token synonyms.
-    const std::map<std::string, std::string> Interpreter::synonyms
-    {
-        { "and",        "&&" },
-        { "or",         "||" },
-        { "xor",        "^^" },
-        { "not",        "!" },
+        { "and",        { "&&",         TokenType::operation_sign } },
+        { "or",         { "||",         TokenType::operation_sign } },
+        { "xor",        { "^^",         TokenType::operation_sign } },
+        { "not",        { "!",          TokenType::operation_sign } },
     };
 
 
@@ -174,6 +179,25 @@ namespace creek
     Expression* Interpreter::load_file(const std::string& path)
     {
         auto code = load(path);
+        auto tokens = scan(code);
+
+//        std::cout << "Scanned tokens\n";
+//        for (auto& token : tokens) {
+//            std::string type_name = Token::type_names.at(token.type());
+//            type_name.resize(23, ' ');
+//            std::cout << path << ":" << token.line() << ":" << token.column() << "\t" << type_name << "\t" << token.text() << std::endl;
+//        }
+
+        auto expressions = parse(tokens);
+
+        return new ExprBasicBlock(expressions);
+    }
+
+    // Interpret a source code.
+    // @param  code    Source code.
+    Expression* Interpreter::load_code(const std::string& code)
+    {
+//        auto code = load(path);
         auto tokens = scan(code);
 
 //        std::cout << "Scanned tokens\n";
@@ -273,7 +297,9 @@ namespace creek
                 // keyword replacement
                 if (keywords.count(text))
                 {
-                    type = keywords.at(text);
+                    auto& replacement = keywords.at(text);
+                    text = replacement.first;
+                    type = replacement.second;
                 }
 
                 Token token(type, text, current_line, current_column);
@@ -323,7 +349,9 @@ namespace creek
         std::vector<Expression*> expressions;
 
         // parse each token
-        auto iter = tokens.cbegin();
+        ParseIterator iter;
+        iter.iter = tokens.cbegin();
+        iter.need_semicolon = false;
         while (iter->type() != TokenType::eof)
         {
             // statement body
@@ -350,7 +378,7 @@ namespace creek
     }
 
 
-    void Interpreter::check_not_eof(std::vector<Token>::const_iterator& iter)
+    void Interpreter::check_not_eof(ParseIterator& iter)
     {
         if (iter->type() == TokenType::eof)
         {
@@ -359,7 +387,7 @@ namespace creek
     }
 
 
-    void Interpreter::check_token_type(std::vector<Token>::const_iterator& iter,
+    void Interpreter::check_token_type(ParseIterator& iter,
                                        const std::set<TokenType>& accepted)
     {
         // check not EOF
@@ -373,7 +401,7 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_statement(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_statement(ParseIterator& iter)
     {
         check_not_eof(iter);
         switch (iter->type())
@@ -390,6 +418,7 @@ namespace creek
                 return nullptr;
             }
 
+            case TokenType::void_l:             //< Void literal.
             case TokenType::null:               //< Null literal.
             case TokenType::boolean:            //< Boolean literal.
             case TokenType::integer:            //< Integer number literal.
@@ -397,6 +426,8 @@ namespace creek
             case TokenType::character:          //< Character literal.
             case TokenType::string:             //< String literal.
             case TokenType::identifier:         //< Variable name.
+            case TokenType::at:                 //< At sign (@).
+            case TokenType::hash:               //< Hash sign (#).
             case TokenType::dollar:             //< Dollar sign ($).
             case TokenType::operation_sign:     //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
             case TokenType::open_round:         //< Open round brackets or parentheses (().
@@ -417,6 +448,7 @@ namespace creek
             case TokenType::colon:              //< Colon (:).
             case TokenType::double_colon:       //< Double colon (::).
             case TokenType::comma:              //< Comma (,).
+            case TokenType::arrow:              //< Return arrow (->).
             case TokenType::then:               //< Then arrow (=>).
             {
                 throw UnexpectedCharacter(*iter);
@@ -467,7 +499,7 @@ namespace creek
         else throw Undefined(std::string("Binary operator ") + operator_string);
     }
 
-    Expression* Interpreter::parse_operation(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_operation(ParseIterator& iter)
     {
         // a parameter followed by any number of operation signs and other parameter.
 
@@ -524,16 +556,25 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_parameter(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_parameter(ParseIterator& iter)
     {
         Expression* e = nullptr;
 
         check_not_eof(iter);
         switch (iter->type())
         {
+            case TokenType::void_l:             //< Void literal.
+            {
+                iter += 1;
+                e = new ExprVoid();
+                break;
+            }
+
             case TokenType::null:               //< Null literal.
             {
-                throw Unimplemented("null literal");
+                iter += 1;
+                e = new ExprNull();
+                break;
             }
 
             case TokenType::boolean:            //< Boolean literal.
@@ -587,16 +628,30 @@ namespace creek
 
                     Expression* value = parse_operation(iter);
 
-                    e = new ExprStoreVar(var_name, value);
+                    if (is_uppercase(var_name.name()[0]))
+                    {
+                        e = new ExprStoreGlobal(var_name, value);
+                    }
+                    else
+                    {
+                        e = new ExprStoreLocal(var_name, value);
+                    }
                 }
                 else
                 {
-                    e = new ExprLoadVar(var_name);
+                    if (is_uppercase(var_name.name()[0]))
+                    {
+                        e = new ExprLoadGlobal(var_name);
+                    }
+                    else
+                    {
+                        e = new ExprLoadLocal(var_name);
+                    }
                 }
                 break;
             }
 
-            case TokenType::dollar:             //< Dollar sign ($).
+            case TokenType::at:                 //< At sign (@).
             {
                 iter += 1;
 
@@ -646,8 +701,14 @@ namespace creek
                 else if (iter->text() == "for")         e = parse_for_block(iter);
                 else if (iter->text() == "switch")      e = parse_switch_block(iter);
                 else if (iter->text() == "try")         e = parse_try_block(iter);
-                else if (iter->text() == "var")         e = parse_local_var(iter);
+                else if (iter->text() == "var")         e = parse_var(iter);
                 else if (iter->text() == "func")        e = parse_function(iter);
+                else if (iter->text() == "class")       e = parse_class(iter);
+                else if (iter->text() == "break")
+                {
+                    iter += 1;
+                    e = new ExprBreak(parse_operation(iter));
+                }
                 else if (iter->text() == "return")
                 {
                     iter += 1;
@@ -674,9 +735,33 @@ namespace creek
                 break;
             }
 
-            // TODO: add literal vector and map here:
-            // case TokenType::open_square:        //< Open square brackets or crotchets ([).
-            // case TokenType::close_square:       //< Close square brackets or crotchets (]).
+            case TokenType::open_square:        //< Open square brackets or crotchets ([).
+            {
+                iter += 1;
+
+                std::vector<Expression*> values;
+                while (iter->type() != TokenType::close_square)
+                {
+                    values.emplace_back(parse_operation(iter));
+                    if (iter->type() == TokenType::comma)
+                    {
+                        iter += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                check_token_type(iter, {TokenType::close_square});
+                iter += 1;
+
+                e = new ExprVector(values);
+
+                break;
+            }
+
+            // TODO: add literal map here:
             // case TokenType::open_brace:         //< Open curly brackets or braces ({).
             // case TokenType::close_brace:        //< Close curly brackets or braces (}).
 
@@ -699,6 +784,7 @@ namespace creek
 
                     check_token_type(iter, {TokenType::identifier});
                     Expression* index = new ExprIdentifier(VarName::from_name(iter->identifier()));
+                    iter += 1;
 
                     if (iter->type() == TokenType::assign)
                     {
@@ -711,6 +797,66 @@ namespace creek
                     else
                     {
                         e = new ExprIndexGet(e, index);
+                    }
+
+                    break;
+                }
+
+                case TokenType::dot:                 //< Dot (.).
+                {
+                    iter += 1;
+
+                    check_token_type(iter, {TokenType::identifier});
+                    Expression* index = new ExprIdentifier(VarName::from_name(iter->identifier()));
+                    iter += 1;
+
+                    check_token_type(iter, {TokenType::open_round});
+                    iter += 1;
+
+                    std::vector<Expression*> args;
+                    Expression* vararg = nullptr;
+
+                    check_not_eof(iter);
+                    while (iter->type() != TokenType::close_round && !vararg)
+                    {
+                        // value
+                        auto arg = parse_operation(iter);
+
+                        // variadic
+                        if (iter->type() == TokenType::ellipsis_3)
+                        {
+                            vararg = arg;
+                            iter += 1;
+                        }
+                        else
+                        {
+                            args.push_back(arg);
+                        }
+
+                        // optional comma
+                        if (iter->type() != TokenType::close_round)
+                        {
+                            if (iter->type() == TokenType::comma)
+                            {
+                                iter += 1;
+                            }
+                            else
+                            {
+                                throw UnexpectedToken(*iter);
+                            }
+                        }
+                    }
+
+                    check_token_type(iter, {TokenType::close_round});
+                    iter += 1;
+
+                    if (vararg)
+                    {
+                        e = new ExprVariadicCallMethod(e, index, args, vararg);
+                    }
+                    else
+                    {
+                        e = new ExprCallMethod(e, index, args);
                     }
 
                     break;
@@ -806,7 +952,7 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_block_body(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_block_body(ParseIterator& iter)
     {
         check_not_eof(iter);
         // TODO: token then
@@ -846,7 +992,7 @@ namespace creek
             check_token_type(iter, {TokenType::close_brace});
             iter += 1;
 
-            return new ExprBlock(expressions);
+            return new ExprBasicBlock(expressions);
         }
         else
         {
@@ -854,13 +1000,13 @@ namespace creek
         }
     }
 
-    Expression* Interpreter::parse_do_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_do_block(ParseIterator& iter)
     {
         iter += 1;
-        return parse_block_body(iter);
+        return new ExprDo(parse_block_body(iter));
     }
 
-    Expression* Interpreter::parse_if_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_if_block(ParseIterator& iter)
     {
         iter += 1;
 
@@ -887,13 +1033,13 @@ namespace creek
         return new ExprIf(condition, true_block, false_block);
     }
 
-    Expression* Interpreter::parse_loop_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_loop_block(ParseIterator& iter)
     {
         iter += 1;
         return new ExprLoop(parse_block_body(iter));
     }
 
-    Expression* Interpreter::parse_while_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_while_block(ParseIterator& iter)
     {
         iter += 1;
 
@@ -903,7 +1049,7 @@ namespace creek
         return new ExprWhile(condition, body);
     }
 
-    Expression* Interpreter::parse_for_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_for_block(ParseIterator& iter)
     {
         iter += 1;
 
@@ -965,16 +1111,62 @@ namespace creek
                 throw UnexpectedToken(*iter, {TokenType::assign, TokenType::keyword});
             }
         }
-
-        throw Unimplemented("for blocks");
     }
 
-    Expression* Interpreter::parse_switch_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_switch_block(ParseIterator& iter)
     {
-        throw Unimplemented("switch blocks");
+        iter += 1;
+
+        auto condition = parse_operation(iter);
+
+        check_token_type(iter, {TokenType::open_brace});
+        iter += 1;
+
+        std::vector<ExprSwitch::CaseBranch> case_branches;
+        Expression* default_branch = nullptr;
+        while (iter->type() != TokenType::close_brace)
+        {
+            check_token_type(iter, {TokenType::keyword});
+            if (iter->text() == "case")
+            {
+                iter += 1;
+
+                std::vector<Expression*> values;
+                while (iter->type() != TokenType::open_brace &&
+                       iter->type() != TokenType::then)
+                {
+                    values.push_back(parse_operation(iter));
+                    if (iter->type() == TokenType::comma)
+                    {
+                        iter += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                auto body = parse_block_body(iter);
+
+                case_branches.emplace_back(values, body);
+            }
+            else if (iter->text() == "default")
+            {
+                iter += 1;
+                default_branch = parse_block_body(iter);
+            }
+            else
+            {
+                throw UnexpectedToken(*iter);
+            }
+        }
+
+        check_token_type(iter, {TokenType::close_brace});
+        iter += 1;
+
+        return new ExprSwitch(condition, case_branches, default_branch);
     }
 
-    Expression* Interpreter::parse_try_block(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_try_block(ParseIterator& iter)
     {
         iter += 1;
 
@@ -993,7 +1185,7 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_local_var(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_var(ParseIterator& iter)
     {
         iter += 1;
 
@@ -1005,10 +1197,17 @@ namespace creek
 
         auto value = parse_operation(iter);
 
-        return new ExprLocalVar(var_name, value);
+        if (is_uppercase(var_name.name()[0]))
+        {
+            return new ExprCreateGlobal(var_name, value);
+        }
+        else
+        {
+            return new ExprCreateLocal(var_name, value);
+        }
     }
 
-    Expression* Interpreter::parse_function(std::vector<Token>::const_iterator& iter)
+    Expression* Interpreter::parse_function(ParseIterator& iter)
     {
         iter += 1;
 
@@ -1105,15 +1304,192 @@ namespace creek
         // set local var
         if (id_chain.size() == 1)
         {
-            e = new ExprLocalVar(id_chain[0], e);
+            if (is_uppercase(id_chain.front().name()[0]))
+            {
+                e = new ExprCreateGlobal(id_chain.front(), e);
+            }
+            else
+            {
+                e = new ExprCreateLocal(id_chain.front(), e);
+            }
         }
         else if (id_chain.size() > 1)
         {
-            Expression* getter = new ExprLoadVar(id_chain.front());
+            Expression* getter = nullptr;
+
+            if (is_uppercase(id_chain.front().name()[0]))
+            {
+                getter = new ExprLoadGlobal(id_chain.front());
+            }
+            else
+            {
+                getter = new ExprLoadLocal(id_chain.front());
+            }
+
             for (size_t i = 1; i < id_chain.size() - 1; ++i)
             {
                 getter = new ExprIndexGet(getter, new ExprIdentifier(id_chain[i]));
             }
+
+            e = new ExprIndexSet(getter, new ExprIdentifier(id_chain.back()), e);
+        }
+
+        return e;
+    }
+
+
+    Expression* Interpreter::parse_class(ParseIterator& iter)
+    {
+        iter += 1;
+
+        Expression* e = nullptr;
+
+        // identifier chain
+        std::vector<VarName> id_chain;
+        check_not_eof(iter);
+        if (iter->type() == TokenType::identifier)
+        {
+            id_chain.push_back(VarName::from_name(iter->identifier()));
+            iter += 1;
+
+            check_not_eof(iter);
+            while (iter->type() == TokenType::double_colon)
+            {
+                iter += 1;
+
+                check_token_type(iter, {TokenType::identifier});
+                id_chain.push_back(VarName::from_name(iter->identifier()));
+                iter += 1;
+
+                check_not_eof(iter);
+            }
+        }
+
+
+        // super class
+        Expression* super_class = nullptr;
+        if (iter->type() == TokenType::arrow)
+        {
+            iter += 1;
+            super_class = parse_parameter(iter);
+        }
+        else
+        {
+            super_class = new ExprLoadGlobal(VarName("Object"));
+        }
+
+
+        // extern class
+        check_not_eof(iter);
+        if (iter->type() == TokenType::keyword &&
+            iter->text() == "extern")
+        {
+            throw Unimplemented("extern classes");
+        }
+        // intern class
+        else
+        {
+            check_token_type(iter, {TokenType::open_brace});
+            iter += 1;
+
+            std::vector<ExprClass::MethodDef> method_defs;
+            while (iter->type() != TokenType::close_brace)
+            {
+                // method
+                if (iter->type() == TokenType::keyword &&
+                    iter->text() == "func")
+                {
+                    iter += 1;
+
+                    // method name
+                    check_token_type(iter, {TokenType::identifier});
+                    VarName id = iter->identifier();
+                    iter += 1;
+
+                    // method arguments
+                    std::vector<VarName> arg_names;
+                    bool is_variadic = false;
+
+                    check_token_type(iter, {TokenType::open_round});
+                    iter += 1;
+
+                    while (iter->type() != TokenType::close_round &&
+                           !is_variadic)
+                    {
+                        check_token_type(iter, {TokenType::identifier});
+                        arg_names.emplace_back(iter->identifier());
+                        iter += 1;
+
+                        if (iter->type() == TokenType::ellipsis_3)
+                        {
+                            is_variadic = true;
+                            iter += 1;
+                        }
+
+                        check_token_type(iter, {TokenType::close_round, TokenType::comma});
+                        if (iter->type() == TokenType::comma)
+                        {
+                            iter += 1;
+                        }
+                    }
+
+                    check_token_type(iter, {TokenType::close_round});
+                    iter += 1;
+
+                    // method body
+                    Expression* body = parse_block_body(iter);
+
+                    // save definition
+                    method_defs.emplace_back(id, arg_names, is_variadic, body);
+                }
+                else
+                {
+                    throw UnexpectedToken(*iter);
+                }
+            }
+
+            VarName id;
+            if (id_chain.size() > 0)
+            {
+                id = id_chain.back();
+            }
+            e = new ExprClass(id, super_class, method_defs);
+
+            check_token_type(iter, {TokenType::close_brace});
+            iter += 1;
+        }
+
+
+        // set var
+        if (id_chain.size() == 1)
+        {
+            if (is_uppercase(id_chain.front().name()[0]))
+            {
+                e = new ExprCreateGlobal(id_chain.front(), e);
+            }
+            else
+            {
+                e = new ExprCreateLocal(id_chain.front(), e);
+            }
+        }
+        else if (id_chain.size() > 1)
+        {
+            Expression* getter = nullptr;
+
+            if (is_uppercase(id_chain.front().name()[0]))
+            {
+                getter = new ExprLoadGlobal(id_chain.front());
+            }
+            else
+            {
+                getter = new ExprLoadLocal(id_chain.front());
+            }
+
+            for (size_t i = 1; i < id_chain.size() - 1; ++i)
+            {
+                getter = new ExprIndexGet(getter, new ExprIdentifier(id_chain[i]));
+            }
+
             e = new ExprIndexSet(getter, new ExprIdentifier(id_chain.back()), e);
         }
 

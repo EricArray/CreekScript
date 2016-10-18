@@ -4,7 +4,7 @@
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
 #include <creek/Void.hpp>
-
+#include <iostream> // TODO: remove
 
 namespace creek
 {
@@ -24,6 +24,9 @@ namespace creek
         Variable result;
         for (auto& expression : m_expressions)
         {
+            if (scope.is_breaking())
+                break;
+
             result = expression->eval(scope);
         }
         if (!result) // will return void if no expression was run
@@ -34,18 +37,18 @@ namespace creek
     }
 
 
-    // ExprBlock constructor.
-    // @param  expressions  List of expressions to evaluate.
-    ExprBlock::ExprBlock(const std::vector<Expression*>& expressions) :
-        ExprBasicBlock(expressions)
+    // ExprDo constructor.
+    // @param  value   Expression to evaluate inside new scope.
+    ExprDo::ExprDo(Expression* value) :
+        m_value(value)
     {
 
     }
 
-    Variable ExprBlock::eval(Scope& scope)
+    Variable ExprDo::eval(Scope& scope)
     {
         Scope new_scope(scope);
-        return ExprBasicBlock::eval(new_scope);
+        return m_value->eval(new_scope);
     }
 
 
@@ -77,6 +80,38 @@ namespace creek
     }
 
 
+    /// @brief  `ExprSwitch` constructor.
+    /// @param  condition       Value to compare.
+    /// @param  case_branches   List of case branches.
+    /// @param  default_branch  Default branch.
+    ExprSwitch::ExprSwitch(Expression* condition, std::vector<CaseBranch>& case_branches, Expression* default_branch) :
+        m_condition(condition),
+        m_default_branch(default_branch)
+    {
+        m_case_branches.swap(case_branches);
+    }
+
+    Variable ExprSwitch::eval(Scope& scope)
+    {
+        Scope new_scope(scope);
+
+        Variable condition(m_condition->eval(new_scope));
+        for (auto& case_branch : m_case_branches)
+        {
+            for (auto& case_value : case_branch.values)
+            {
+                Variable v = case_value->eval(new_scope);
+                if (condition.cmp(v) == 0)
+                {
+                    return case_branch.body->eval(new_scope);
+                }
+            }
+        }
+
+        return m_default_branch ? m_default_branch->eval(new_scope) : Variable(new Void());
+    }
+
+
     // `ExprLoop` constructor.
     // @param  block       Expression to execute in each loop.
     ExprLoop::ExprLoop(Expression* body) : m_body(body)
@@ -87,10 +122,21 @@ namespace creek
     Variable ExprLoop::eval(Scope& scope)
     {
         Variable result;
+
+        Scope outer_scope(scope, scope.return_point(), std::make_shared<Scope::BreakPoint>());
         while (true)
         {
-            Scope new_scope(scope);
-            result = m_body->eval(new_scope);
+            Scope inner_scope(outer_scope);
+            result = m_body->eval(inner_scope);
+            if (outer_scope.is_breaking())
+            {
+                break;
+            }
+        }
+
+        if (!result)
+        {
+            result = new Void();
         }
         return result;
     }
@@ -109,20 +155,28 @@ namespace creek
     Variable ExprWhile::eval(Scope& scope)
     {
         Variable result;
+
+        Scope outer_scope(scope, scope.return_point(), std::make_shared<Scope::BreakPoint>());
         while (true)
         {
-            Scope new_scope(scope);
+            Scope inner_scope(outer_scope);
 
-            Variable condition_result(m_condition->eval(new_scope));
+            Variable condition_result(m_condition->eval(inner_scope));
             if (condition_result->bool_value())
             {
-                result = m_body->eval(new_scope);
+                result = m_body->eval(inner_scope);
+
+                if (outer_scope.is_breaking())
+                {
+                    break;
+                }
             }
             else
             {
                 break;
             }
         }
+
         if (!result)
         {
             result.data(new Void());
@@ -152,7 +206,8 @@ namespace creek
     {
         Variable result;
 
-        Scope outer_scope(scope);
+        Scope outer_scope(scope, scope.return_point(), std::make_shared<Scope::BreakPoint>());
+        // variable with initial value
         auto& i = outer_scope.create_local_var(m_var_name, m_initial_value->eval(outer_scope).release());
         while (true)
         {
@@ -169,6 +224,10 @@ namespace creek
             {
                 Scope inner_scope(outer_scope);
                 result = m_body->eval(inner_scope);
+                if (inner_scope.is_breaking())
+                {
+                    break;
+                }
             }
 
             // add step
@@ -177,6 +236,7 @@ namespace creek
                 i = i + step;
             }
         }
+
         if (!result)
         {
             result.data(new Void());
@@ -253,7 +313,7 @@ namespace creek
         {
             return m_try_body->eval(scope);
         }
-        catch(const Exception& e)
+        catch (const Exception& e)
         {
             return m_catch_body->eval(scope);
         }
@@ -270,7 +330,9 @@ namespace creek
     Variable ExprThrow::eval(Scope& scope)
     {
         throw m_value->eval(scope);
+        return new Void(); // just in case
     }
+
 
     // `ExprReturn` constructor.
     // @param  value       Value to return.
@@ -281,6 +343,23 @@ namespace creek
 
     Variable ExprReturn::eval(Scope& scope)
     {
-        throw Unimplemented("return");
+        Variable v = m_value->eval(scope);
+        scope.return_point()->is_returning = true;
+        return v.release();
+    }
+
+
+    // @brief  `ExprBreak` constructor.
+    // @param  value       Value to yield.
+    ExprBreak::ExprBreak(Expression* value) : m_value(value)
+    {
+
+    }
+
+    Variable ExprBreak::eval(Scope& scope)
+    {
+        Variable v = m_value->eval(scope);
+        scope.break_point()->is_breaking = true;
+        return v.release();
     }
 }

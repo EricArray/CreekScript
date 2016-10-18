@@ -118,6 +118,7 @@ namespace creek
         int cmp(Data* other) override;
         /// @}
 
+        Data* get_class() override;
 
     private:
         Value m_value;

@@ -6,12 +6,28 @@
 #include <vector>
 
 #include <creek/api_mode.hpp>
+#include <creek/Data.hpp>
 
 
 namespace creek
 {
     /// @defgroup   expression_general  General expressions.
     /// @{
+
+    /// @brief  Expression: Copy a constant.
+    class CREEK_API ExprConst : public Expression
+    {
+    public:
+        /// @brief  `ExprConst` constructor.
+        /// @param  data    Constant data to be copied.
+        ExprConst(Data* data);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Data> m_data;
+    };
+
 
     /// Expression: Call a function.
     /// Returns value returned by the function.
@@ -46,6 +62,47 @@ namespace creek
 
     private:
         std::unique_ptr<Expression> m_function;
+        std::vector< std::unique_ptr<Expression> > m_args;
+        std::unique_ptr<Expression> m_vararg;
+    };
+
+    /// Expression: Call a method.
+    /// Returns value returned by the function.
+    class CREEK_API ExprCallMethod : public Expression
+    {
+    public:
+        /// `ExprCallMethod` constructor.
+        /// @param  object      Object expression.
+        /// @param  index       Index to the method.
+        /// @param  args        Arguments to pass to the method.
+        ExprCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_object;
+        std::unique_ptr<Expression> m_index;
+        std::vector< std::unique_ptr<Expression> > m_args;
+    };
+
+
+    /// Expression: Call a method with a variadic argument.
+    /// Returns value returned by the function.
+    class CREEK_API ExprVariadicCallMethod : public Expression
+    {
+    public:
+        /// `ExprVariadicCallMethod` constructor.
+        /// @param  object      Object expression.
+        /// @param  index       Index to the method.
+        /// @param  args        Arguments to pass to the method.
+        /// @param  vararg      Argument to expand before calling.
+        ExprVariadicCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args, Expression* vararg);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_object;
+        std::unique_ptr<Expression> m_index;
         std::vector< std::unique_ptr<Expression> > m_args;
         std::unique_ptr<Expression> m_vararg;
     };

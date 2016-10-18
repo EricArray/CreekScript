@@ -1,5 +1,6 @@
 #include <creek/String.hpp>
 
+#include <creek/GlobalScope.hpp>
 #include <creek/utility.hpp>
 
 
@@ -146,5 +147,10 @@ namespace creek
     int String::cmp(Data* other)
     {
         return this->string_value().compare(other->string_value());
+    }
+
+    Data* String::get_class()
+    {
+        return GlobalScope::class_String->copy();
     }
 }

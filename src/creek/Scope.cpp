@@ -6,14 +6,32 @@
 namespace creek
 {
     // `Scope` constructor.
-    Scope::Scope() : m_parent(nullptr), m_global(*this)
+    Scope::Scope() :
+        m_parent(nullptr),
+        m_return_point(new ReturnPoint()),
+        m_break_point(new BreakPoint())
     {
 
     }
 
     // `Scope` constructor.
     // @param  parent  Parent scope.
-    Scope::Scope(Scope& parent) : m_parent(&parent), m_global(parent.m_global)
+    Scope::Scope(Scope& parent) :
+        Scope(parent, parent.m_return_point, parent.m_break_point)
+    {
+
+    }
+
+    /// @brief  `Scope` constructor.
+    /// @param  parent      Parent scope (can be the global scope).
+    /// @param  return_pt   Return point.
+    /// @param  break_pt    Break point.
+    Scope::Scope(Scope& parent,
+                 const std::shared_ptr<ReturnPoint>& return_pt,
+                 const std::shared_ptr<BreakPoint>& break_pt) :
+        m_parent(&parent),
+        m_return_point(return_pt),
+        m_break_point(break_pt)
     {
 
     }
@@ -59,9 +77,27 @@ namespace creek
         return it->second;
     }
 
-    // Get the global scope.
-    Scope& Scope::global_scope()
+    // @brief  Is the function returning?
+    bool Scope::is_returning() const
     {
-        return m_global;
+        return m_return_point->is_returning;
+    }
+
+    // @brief  Is the loop breaking?
+    bool Scope::is_breaking() const
+    {
+        return m_break_point->is_breaking || m_return_point->is_returning;
+    }
+
+    // @brief  Get the return point.
+    const std::shared_ptr<Scope::ReturnPoint>& Scope::return_point() const
+    {
+        return m_return_point;
+    }
+
+    // @brief  Get the break point.
+    const std::shared_ptr<Scope::BreakPoint>& Scope::break_point() const
+    {
+        return m_break_point;
     }
 }

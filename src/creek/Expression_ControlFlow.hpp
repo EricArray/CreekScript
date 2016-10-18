@@ -30,22 +30,24 @@ namespace creek
         std::vector< std::unique_ptr<Expression> > m_expressions;
     };
 
-    /// Expression: Block of expressions.
-    /// Begin a new scope and executes each expression.
-    /// Returns result of last evaluated expression.
-    class CREEK_API ExprBlock : public ExprBasicBlock
+    /// Expression: Do block.
+    /// Begin a new scope and evaluates the expression.
+    class CREEK_API ExprDo : public Expression
     {
     public:
-        /// `ExprBlock` constructor.
-        /// @param  expressions  List of expressions to evaluate.
-        ExprBlock(const std::vector<Expression*>& expressions);
+        /// @brief `ExprDo` constructor.
+        /// @param value    Expression to evaluate inside new scope.
+        ExprDo(Expression* value);
 
         Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_value;
     };
 
 
     /// Expression: If-else block.
-    /// Returns result of last evaluated branch, or void.
+    /// Returns result of evaluated branch, or void.
     class CREEK_API ExprIf : public Expression
     {
     public:
@@ -61,6 +63,42 @@ namespace creek
         std::unique_ptr<Expression> m_condition;
         std::unique_ptr<Expression> m_true_branch;
         std::unique_ptr<Expression> m_false_branch;
+    };
+
+
+    /// @brief  Expression: Switch-case block.
+    /// Returns result of evaluated branch, or void.
+    class CREEK_API ExprSwitch : public Expression
+    {
+    public:
+        /// @brief  Switch case branch.
+        struct CaseBranch
+        {
+            CaseBranch(const std::vector<Expression*>& values, Expression* body) :
+                body(body)
+            {
+                for (auto& v : values)
+                {
+                    this->values.emplace_back(v);
+                }
+            }
+
+            std::vector< std::unique_ptr<Expression> > values; ///< Values to campare to the condition.
+            std::unique_ptr<Expression> body; ///< Expression to execute.
+        };
+
+        /// @brief  `ExprSwitch` constructor.
+        /// @param  condition       Value to compare.
+        /// @param  case_branches   List of case branches.
+        /// @param  default_branch  Default branch.
+        ExprSwitch(Expression* condition, std::vector<CaseBranch>& case_branches, Expression* default_branch);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_condition;
+        std::vector<CaseBranch> m_case_branches;
+        std::unique_ptr<Expression> m_default_branch;
     };
 
 
@@ -193,6 +231,22 @@ namespace creek
         std::unique_ptr<Expression> m_value;
     };
 
+
+    /// @brief  Expression: Break from a loop.
+    /// Closes scopes until a loop block is closed.
+    /// Can yield a value, just like returning.
+    class CREEK_API ExprBreak : public Expression
+    {
+    public:
+        /// `ExprBreak` constructor.
+        /// @param  value       Value to yield.
+        ExprBreak(Expression* value);
+
+        Variable eval(Scope& scope) override;
+
+    private:
+        std::unique_ptr<Expression> m_value;
+    };
 
     /// @}
 }

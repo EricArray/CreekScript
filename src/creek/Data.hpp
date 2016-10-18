@@ -19,8 +19,12 @@ namespace creek
     public:
         virtual ~Data() = default;
 
-        /// Create a copy from this data.
+        /// Create a copy of this data.
         virtual Data* copy() const;
+
+        /// Create a shallow copy of this data.
+        /// By default, calls `copy`.
+        virtual Data* clone() const;
 
         /// Get data class name.
         virtual std::string class_name() const;
@@ -35,29 +39,17 @@ namespace creek
         /// Get the bool value of this data.
         virtual bool bool_value() const;
 
-        // /// Set the bool value of this data.
-        // virtual void bool_value(bool new_value);
-
         /// Get the char value of this data.
         virtual char char_value() const;
 
         /// Get the int value of this data.
         virtual int int_value() const;
 
-        // /// Set the int value of this data.
-        // virtual void int_value(int new_value);
-
         /// Get the float value of this data.
         virtual float float_value() const;
 
-        // /// Set the float value of this data.
-        // virtual void float_value(float new_value);
-
         /// Get the string value of this data.
         virtual std::string string_value() const;
-
-        // /// Set the string value of this data.
-        // virtual void string_value(const std::string& new_value);
 
         // Get the vector value of this data.
         virtual const std::vector<Variable>& vector_value() const;
@@ -137,6 +129,14 @@ namespace creek
         /// @param  args    Arguments.
         /// @return         Value returned from this function.
         virtual Data* call(std::vector< std::unique_ptr<Data> >& args);
+        /// @}
+
+
+        /// @name   OOP
+        /// @{
+        /// @brief  Get the class of this object.
+        /// @return A new reference.
+        virtual Data* get_class();
         /// @}
     };
 

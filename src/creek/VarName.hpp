@@ -14,14 +14,32 @@ namespace creek
     class CREEK_API VarName
     {
     public:
-        VarName(const VarName& other);
-        VarName(VarName&& other);
-
         /// Type used for the name.
         using Name = std::string;
 
         /// Type used for the id.
         using Id = uintptr_t;
+
+
+        /// @brief  `VarName` constructor.
+        VarName();
+
+        /// @brief  `VarName` constructor.
+        /// @param  name    Name of the variable.
+        VarName(const std::string& name);
+
+        /// @brief  `VarName` constructor.
+        /// @param  name    Name of the variable.
+        VarName(const char* name);
+
+        /// @brief  `VarName` copy constructor.
+        VarName(const VarName& other);
+
+        /// @brief  `VarName` move constructor.
+        VarName(VarName&& other);
+
+        /// @brief  Assignment.
+        VarName& operator = (const VarName& other);
 
 
         /// Get a `VarName` from an id.
@@ -52,7 +70,7 @@ namespace creek
 
 
     private:
-        VarName(Id id);
+        explicit VarName(Id id);
 
         static std::map<Name, Id> s_ids;
         static std::vector<Name> s_names;

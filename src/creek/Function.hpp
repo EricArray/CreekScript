@@ -23,7 +23,8 @@ namespace creek
         /// Shared function definition.
         struct Definition
         {
-            Definition(Scope& parent, const std::vector<VarName>& arg_names, bool is_variadic, Expression* body) :
+            Definition(Scope& parent, const std::vector<VarName>& arg_names,
+                       bool is_variadic, const std::shared_ptr<Expression>& body) :
                 parent(parent),
                 arg_names(arg_names),
                 is_variadic(is_variadic),
@@ -38,7 +39,7 @@ namespace creek
             Scope& parent; ///< Scope where the function was declared.
             std::vector<VarName> arg_names; ///< Arguments name.
             bool is_variadic; ///< Is variadic function.
-            Expression* body; ///< Function body block, in external scope.
+            std::shared_ptr<Expression> body; ///< Function body block.
         };
 
         /// Stored value type.

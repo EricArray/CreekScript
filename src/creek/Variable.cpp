@@ -1,6 +1,7 @@
 #include <creek/Variable.hpp>
 
 #include <creek/Data.hpp>
+#include <creek/utility.hpp>
 
 
 namespace creek
@@ -97,18 +98,20 @@ namespace creek
     // Access stored data (const).
     const Data* Variable::operator -> () const
     {
+        assert(data());
         return data();
     }
 
     // Access stored data.
     Data* Variable::operator -> ()
     {
+        assert(data());
         return data();
     }
 
     Variable::operator bool () const
     {
-        return data();
+        return data() && data()->bool_value();
     }
 
 
@@ -117,12 +120,17 @@ namespace creek
     // Get the data at index.
     Variable Variable::index(Variable key)
     {
+        assert(data());
+        assert(key.data());
         return Variable(data()->index(key.data()));
     }
 
     // Set the data at index.
     Variable Variable::index(Variable key, Variable new_data)
     {
+        assert(data());
+        assert(key.data());
+        assert(new_data.data());
         return Variable(data()->index(key.data(), new_data.release()));
     }
     // @}
@@ -133,42 +141,55 @@ namespace creek
     // Addition.
     Variable Variable::add(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->add(other.data()));
     }
 
     // Subtraction.
     Variable Variable::sub(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->sub(other.data()));
     }
 
     // Multiplication.
     Variable Variable::mul(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->mul(other.data()));
     }
 
     // Divison.
     Variable Variable::div(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->div(other.data()));
     }
 
     // Modulo.
     Variable Variable::mod(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->mod(other.data()));
     }
 
     // Exponentiation.
     Variable Variable::exp(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->exp(other.data()));
     }
 
     // Unary minus.
     Variable Variable::unm()
     {
+        assert(data());
         return Variable(data()->unm());
     }
     // @}
@@ -179,36 +200,47 @@ namespace creek
     // Bitwise and.
     Variable Variable::bit_and(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->bit_and(other.data()));
     }
 
     // Bitwise or.
     Variable Variable::bit_or(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->bit_or(other.data()));
     }
 
     // Bitwise xor.
     Variable Variable::bit_xor(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->bit_xor(other.data()));
     }
 
     // Bitwise not.
     Variable Variable::bit_not()
     {
+        assert(data());
         return Variable(data()->bit_not());
     }
 
     // Bitwise left shift.
     Variable Variable::bit_left_shift(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->bit_left_shift(other.data()));
     }
 
     // Bitwise right shift.
     Variable Variable::bit_right_shift(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return Variable(data()->bit_right_shift(other.data()));
     }
     // @}
@@ -222,6 +254,8 @@ namespace creek
     // @return -1 if less-than, 0 if equal, +1 if greater-than.
     int Variable::cmp(Variable& other)
     {
+        assert(data());
+        assert(other.data());
         return data()->cmp(other.data());
     }
     // @}
