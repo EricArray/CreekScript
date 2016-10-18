@@ -2,7 +2,7 @@
 Scripting language.
 ## Features:
 * Expression based syntax
-* Dynamic typing
+* Duck typing
 * Lambda functions
 * Classes
 * Dynamic libraries
