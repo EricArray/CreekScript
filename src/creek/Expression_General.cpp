@@ -20,6 +20,11 @@ namespace creek
         return m_data->copy();
     }
 
+    Bytecode ExprConst::bytecode(VarNameMap& var_name_map) const
+    {
+        throw Unimplemented("ExprConst::bytecode");
+    }
+
 
     // `ExprCall` constructor.
     // @param  function    Function expression.
@@ -44,6 +49,19 @@ namespace creek
         }
 
         return function->call(args);
+    }
+
+    Bytecode ExprCall::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::call);
+        b << m_function->bytecode(var_name_map);
+        b << static_cast<uint32_t>(m_args.size());
+        for (auto& arg : m_args)
+        {
+            b << arg->bytecode(var_name_map);
+        }
+        return b;
     }
 
 
@@ -82,6 +100,20 @@ namespace creek
         return function->call(args);
     }
 
+    Bytecode ExprVariadicCall::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::variadic_call);
+        b << m_function->bytecode(var_name_map);
+        b << static_cast<uint32_t>(m_args.size());
+        for (auto& arg : m_args)
+        {
+            b << arg->bytecode(var_name_map);
+        }
+        b << m_vararg->bytecode(var_name_map);
+        return b;
+    }
+
 
     // `ExprCallMethod` constructor.
     // @param  object      Object expression.
@@ -112,6 +144,20 @@ namespace creek
         }
 
         return method->call(args);
+    }
+
+    Bytecode ExprCallMethod::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::call_method);
+        b << m_object->bytecode(var_name_map);
+        b << m_index->bytecode(var_name_map);
+        b << static_cast<uint32_t>(m_args.size());
+        for (auto& arg : m_args)
+        {
+            b << arg->bytecode(var_name_map);
+        }
+        return b;
     }
 
 
@@ -155,6 +201,21 @@ namespace creek
         return method->call(args);
     }
 
+    Bytecode ExprVariadicCallMethod::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::variadic_call_method);
+        b << m_object->bytecode(var_name_map);
+        b << m_index->bytecode(var_name_map);
+        b << static_cast<uint32_t>(m_args.size());
+        for (auto& arg : m_args)
+        {
+            b << arg->bytecode(var_name_map);
+        }
+        b << m_vararg->bytecode(var_name_map);
+        return b;
+    }
+
 
     // `ExprIndexGet` constructor.
     // @param  array   Expression for the array object.
@@ -171,6 +232,11 @@ namespace creek
         Variable a = m_array->eval(scope);
         Variable i = m_index->eval(scope);
         return a.index(i);
+    }
+
+    Bytecode ExprIndexGet::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::index_get) << m_array->bytecode(var_name_map) << m_index->bytecode(var_name_map);
     }
 
 
@@ -192,5 +258,10 @@ namespace creek
         Variable i = m_index->eval(scope);
         Variable v = m_value->eval(scope);
         return a.index(i, v);
+    }
+
+    Bytecode ExprIndexSet::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::index_set) << m_array->bytecode(var_name_map) << m_index->bytecode(var_name_map) << m_value->bytecode(var_name_map);
     }
 }

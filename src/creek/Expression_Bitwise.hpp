@@ -23,6 +23,7 @@ namespace creek
         ExprBitAnd(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -41,6 +42,7 @@ namespace creek
         ExprBitOr(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -59,6 +61,7 @@ namespace creek
         ExprBitXor(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -76,6 +79,7 @@ namespace creek
         ExprBitNot(Expression* expr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_expr;
@@ -93,6 +97,7 @@ namespace creek
         ExprBitLeftShift(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -111,6 +116,7 @@ namespace creek
         ExprBitRightShift(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;

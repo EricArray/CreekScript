@@ -1,0 +1,38 @@
+\hypertarget{_dyn_library_8hpp}{}\section{C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/\+Dyn\+Library.hpp File Reference}
+\label{_dyn_library_8hpp}\index{C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/\+Dyn\+Library.\+hpp@{C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/\+Dyn\+Library.\+hpp}}
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$creek/api\+\_\+mode.\+hpp$>$}\\*
+{\ttfamily \#include $<$creek/\+C\+Function.\+hpp$>$}\\*
+{\ttfamily \#include $<$creek/\+Exception.\+hpp$>$}\\*
+{\ttfamily \#include $<$creek/\+Resolver.\+hpp$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func}
+\begin{DoxyCompactList}\small\item\em Dynamic-\/load function info. The source dynamic library must remain in scope. \end{DoxyCompactList}\item 
+class \hyperlink{classcreek_1_1_dyn_library}{creek\+::\+Dyn\+Library}
+\begin{DoxyCompactList}\small\item\em Handle for dinamically-\/loaded libraries. \end{DoxyCompactList}\item 
+class \hyperlink{classcreek_1_1_dyn_library_error}{creek\+::\+Dyn\+Library\+Error}
+\begin{DoxyCompactList}\small\item\em Error opening dynamic library. \end{DoxyCompactList}\item 
+class \hyperlink{classcreek_1_1_dyn_symbol_not_found}{creek\+::\+Dyn\+Symbol\+Not\+Found}
+\begin{DoxyCompactList}\small\item\em Symbol not found in dynamic library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__library__macros_ga6b8b4625f72926d8655165b82910b4ed}{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER}(F\+U\+NC)~extern \char`\"{}C\char`\"{} C\+R\+E\+E\+K\+\_\+\+E\+X\+P\+O\+RT const \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC
+\begin{DoxyCompactList}\small\item\em Header for a function interface in a dynamic library. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__library__macros_ga3fdb5f0d7473238997dd1fa7b796c916}{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL}(F\+U\+NC)~const \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC(\&F\+U\+NC)
+\begin{DoxyCompactList}\small\item\em Implementation for a function interface in a dynamic library. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__library__macros_ga294c8253110f0c928a7c4b37a95f8f15}{C\+R\+E\+E\+K\+\_\+\+F\+U\+NC}(F\+U\+NC)~extern \char`\"{}C\char`\"{} C\+R\+E\+E\+K\+\_\+\+E\+X\+P\+O\+RT const \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC(\&F\+U\+NC)
+\begin{DoxyCompactList}\small\item\em Header + implementation for a function interface in a dynamic library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{_dyn_library_8hpp_a4fec434a5f916d15ffc1fc2c6bc60a97}{creek\+::\+Dyn\+Class} = std\+::map$<$ std\+::string, C\+Function\+::\+Listener $>$\hypertarget{_dyn_library_8hpp_a4fec434a5f916d15ffc1fc2c6bc60a97}{}\label{_dyn_library_8hpp_a4fec434a5f916d15ffc1fc2c6bc60a97}
+
+\begin{DoxyCompactList}\small\item\em Definition of a class in a library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Dynamically-\/loaded libraries. 

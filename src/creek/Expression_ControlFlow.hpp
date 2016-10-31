@@ -25,6 +25,7 @@ namespace creek
         ExprBasicBlock(const std::vector<Expression*>& expressions);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::vector< std::unique_ptr<Expression> > m_expressions;
@@ -40,6 +41,7 @@ namespace creek
         ExprDo(Expression* value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_value;
@@ -58,6 +60,7 @@ namespace creek
         ExprIf(Expression* condition, Expression* true_branch, Expression* false_branch);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_condition;
@@ -94,6 +97,7 @@ namespace creek
         ExprSwitch(Expression* condition, std::vector<CaseBranch>& case_branches, Expression* default_branch);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_condition;
@@ -112,6 +116,7 @@ namespace creek
         ExprLoop(Expression* body);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_body;
@@ -129,6 +134,7 @@ namespace creek
         ExprWhile(Expression* condition, Expression* body);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_condition;
@@ -151,6 +157,7 @@ namespace creek
                 Expression* step_value, Expression* body);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -173,6 +180,7 @@ namespace creek
         ExprForIn(VarName var_name, Expression* range, Expression* body);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -193,6 +201,7 @@ namespace creek
         ExprTry(Expression* try_body, Expression* catch_body);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_try_body;
@@ -210,6 +219,7 @@ namespace creek
         ExprThrow(Expression* value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_value;
@@ -226,6 +236,7 @@ namespace creek
         ExprReturn(Expression* value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_value;
@@ -243,6 +254,7 @@ namespace creek
         ExprBreak(Expression* value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_value;

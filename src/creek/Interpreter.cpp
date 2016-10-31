@@ -401,23 +401,10 @@ namespace creek
     }
 
 
-    Expression* Interpreter::parse_statement(ParseIterator& iter)
+    bool Interpreter::is_operation(ParseIterator& iter)
     {
-        check_not_eof(iter);
         switch (iter->type())
         {
-            case TokenType::unknown:            //< Unexpected character.
-            {
-                throw UnexpectedCharacter(*iter);
-            }
-
-            case TokenType::space:              //< Blank space (space, new line, etc.).
-            case TokenType::commentary:         //< Commentary (sigle-line or multi-line).
-            {
-                iter += 1;
-                return nullptr;
-            }
-
             case TokenType::void_l:             //< Void literal.
             case TokenType::null:               //< Null literal.
             case TokenType::boolean:            //< Boolean literal.
@@ -431,13 +418,61 @@ namespace creek
             case TokenType::dollar:             //< Dollar sign ($).
             case TokenType::operation_sign:     //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
             case TokenType::open_round:         //< Open round brackets or parentheses (().
-            case TokenType::close_round:        //< Close round brackets or parentheses ()).
+            case TokenType::open_square:        //< Open square brackets ([).
             case TokenType::keyword:            //< Identifier used as a keyword.
             {
-                return parse_operation(iter);
+                return true;
             }
 
-            case TokenType::open_square:        //< Open square brackets or crotchets ([).
+            default:
+            {
+                return false;
+            }
+        }
+    }
+
+
+    Expression* Interpreter::parse_statement(ParseIterator& iter)
+    {
+        check_not_eof(iter);
+        if (is_operation(iter))
+        {
+            return parse_operation(iter);
+        }
+        else switch (iter->type())
+        {
+            case TokenType::unknown:            //< Unexpected character.
+            {
+                throw UnexpectedCharacter(*iter);
+            }
+
+            case TokenType::space:              //< Blank space (space, new line, etc.).
+            case TokenType::commentary:         //< Commentary (sigle-line or multi-line).
+            {
+                iter += 1;
+                return nullptr;
+            }
+
+            // case TokenType::void_l:             //< Void literal.
+            // case TokenType::null:               //< Null literal.
+            // case TokenType::boolean:            //< Boolean literal.
+            // case TokenType::integer:            //< Integer number literal.
+            // case TokenType::floatnum:           //< Floating-point number literal.
+            // case TokenType::character:          //< Character literal.
+            // case TokenType::string:             //< String literal.
+            // case TokenType::identifier:         //< Variable name.
+            // case TokenType::at:                 //< At sign (@).
+            // case TokenType::hash:               //< Hash sign (#).
+            // case TokenType::dollar:             //< Dollar sign ($).
+            // case TokenType::operation_sign:     //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
+            // case TokenType::open_round:         //< Open round brackets or parentheses (().
+            // case TokenType::open_square:        //< Open square brackets ([).
+            // case TokenType::keyword:            //< Identifier used as a keyword.
+            // {
+            //     return parse_operation(iter);
+            // }
+
+            case TokenType::close_round:
             case TokenType::close_square:       //< Close square brackets or crotchets (]).
             case TokenType::open_brace:         //< Open curly brackets or braces ({).
             case TokenType::close_brace:        //< Close curly brackets or braces (}).
@@ -697,6 +732,7 @@ namespace creek
             {
                 if (iter->text() == "if")               e = parse_if_block(iter);
                 else if (iter->text() == "do")          e = parse_do_block(iter);
+                else if (iter->text() == "loop")        e = parse_loop_block(iter);
                 else if (iter->text() == "while")       e = parse_while_block(iter);
                 else if (iter->text() == "for")         e = parse_for_block(iter);
                 else if (iter->text() == "switch")      e = parse_switch_block(iter);
@@ -707,12 +743,26 @@ namespace creek
                 else if (iter->text() == "break")
                 {
                     iter += 1;
-                    e = new ExprBreak(parse_operation(iter));
+                    if (is_operation(iter))
+                    {
+                        e = new ExprBreak(parse_operation(iter));
+                    }
+                    else
+                    {
+                        e = new ExprBreak(new ExprVoid());
+                    }
                 }
                 else if (iter->text() == "return")
                 {
                     iter += 1;
-                    e = new ExprReturn(parse_operation(iter));
+                    if (is_operation(iter))
+                    {
+                        e = new ExprReturn(parse_operation(iter));
+                    }
+                    else
+                    {
+                        e = new ExprReturn(new ExprVoid());
+                    }
                 }
                 else if (iter->text() == "throw")
                 {

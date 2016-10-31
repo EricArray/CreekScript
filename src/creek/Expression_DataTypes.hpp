@@ -29,6 +29,7 @@ namespace creek
         ExprVoid();
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
     };
 
 
@@ -41,6 +42,7 @@ namespace creek
         ExprNull();
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
     };
 
 
@@ -54,6 +56,7 @@ namespace creek
         ExprBoolean(Boolean::Value value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         Boolean::Value m_value;
@@ -70,6 +73,7 @@ namespace creek
         ExprNumber(Number::Value value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         Number::Value m_value;
@@ -86,6 +90,7 @@ namespace creek
         ExprString(String::Value value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         String::Value m_value;
@@ -102,6 +107,7 @@ namespace creek
         ExprIdentifier(Identifier::Value value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         Identifier::Value m_value;
@@ -118,6 +124,7 @@ namespace creek
         ExprVector(std::vector<Expression*> values);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::vector< std::unique_ptr<Expression> > m_values;
@@ -136,6 +143,7 @@ namespace creek
         ExprFunction(const std::vector<VarName>& arg_names, bool variadic, Expression* body);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::vector<VarName> m_arg_names;
@@ -144,24 +152,25 @@ namespace creek
     };
 
 
-    /// @brief  Expression: Create a C function interface data.
-    /// Returns a new `CFunction`.
-    class CREEK_API ExprCFunction : public Expression
-    {
-    public:
-        /// `ExprCFunction` constructor.
-        /// @param  argn        Number of arguments.
-        /// @param  variadic    Create a variadic function.
-        /// @param  listener    Listener function to call.
-        ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener);
+    // /// @brief  Expression: Create a C function interface data.
+    // /// Returns a new `CFunction`.
+    // class CREEK_API ExprCFunction : public Expression
+    // {
+    // public:
+    //     /// `ExprCFunction` constructor.
+    //     /// @param  argn        Number of arguments.
+    //     /// @param  variadic    Create a variadic function.
+    //     /// @param  listener    Listener function to call.
+    //     ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener);
 
-        Variable eval(Scope& scope) override;
+    //     Variable eval(Scope& scope) override;
+    //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
-    private:
-        unsigned m_argn;
-        bool m_variadic;
-        CFunction::Listener m_listener;
-    };
+    // private:
+    //     unsigned m_argn;
+    //     bool m_variadic;
+    //     CFunction::Listener m_listener;
+    // };
 
 
     /// @brief  Expression: Create a class data.
@@ -195,6 +204,7 @@ namespace creek
         ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_id;

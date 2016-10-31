@@ -1,7 +1,10 @@
 #pragma once
 
 #include <creek/api_mode.hpp>
+#include <creek/Bytecode.hpp>
 #include <creek/Exception.hpp>
+#include <creek/OpCode.hpp>
+#include <creek/VarNameMap.hpp>
 
 
 namespace creek
@@ -23,6 +26,9 @@ namespace creek
         /// @brief  Check if this expression is constant.
         /// @return True if this expression can be evaluated at compile time.
         virtual bool is_const() { return false; }
+
+        /// @brief  Get the bytecode of this expression.
+        virtual Bytecode bytecode(VarNameMap& var_name_map) const = 0;
     };
 
 

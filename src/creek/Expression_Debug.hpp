@@ -24,6 +24,7 @@ namespace creek
         ExprPrint(Expression* expression);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_expression;

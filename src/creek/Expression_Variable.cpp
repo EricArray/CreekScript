@@ -24,6 +24,15 @@ namespace creek
         return new_value;
     }
 
+    Bytecode ExprCreateLocal::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::var_create_local) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_expression->bytecode(var_name_map);
+    }
+
+
     // @brief  `ExprLoadLocal` constructor.
     // @param  var_name    Variable name.
     ExprLoadLocal::ExprLoadLocal(VarName var_name) :
@@ -36,6 +45,14 @@ namespace creek
     {
         return Variable(scope.find_var(m_var_name)->copy());
     }
+
+    Bytecode ExprLoadLocal::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::var_load_local) <<
+            var_name_map.id_from_name(m_var_name.name());
+    }
+
 
     // @brief  `ExprStoreLocal` constructor.
     // @param  var_name    Variable name.
@@ -55,6 +72,15 @@ namespace creek
         return new_value;
     }
 
+    Bytecode ExprStoreLocal::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::var_store_local) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_expression->bytecode(var_name_map);
+    }
+
+
     // @brief  `ExprCreateGlobal` constructor.
     // @param  var_name    Variable name.
     // @param  expression  Expression to get value.
@@ -72,6 +98,15 @@ namespace creek
         return new_value;
     }
 
+    Bytecode ExprCreateGlobal::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::var_create_global) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_expression->bytecode(var_name_map);
+    }
+
+
     // @brief  `ExprLoadGlobal` constructor.
     // @param  var_name    Variable name.
     ExprLoadGlobal::ExprLoadGlobal(VarName var_name) :
@@ -84,6 +119,14 @@ namespace creek
     {
         return Variable(GlobalScope::instance.find_var(m_var_name)->copy());
     }
+
+    Bytecode ExprLoadGlobal::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::var_load_global) <<
+            var_name_map.id_from_name(m_var_name.name());
+    }
+
 
     // @brief  `ExprStoreGlobal` constructor.
     // @param  var_name    Variable name.
@@ -101,5 +144,13 @@ namespace creek
         Variable& var = GlobalScope::instance.find_var(m_var_name);
         var.data(new_value->copy());
         return new_value;
+    }
+
+    Bytecode ExprStoreGlobal::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::var_store_global) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_expression->bytecode(var_name_map);
     }
 }

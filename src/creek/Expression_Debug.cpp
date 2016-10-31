@@ -24,4 +24,9 @@ namespace creek
         std::cout << v->debug_text() << std::endl;
         return v;
     }
+
+    Bytecode ExprPrint::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::print) << m_expression->bytecode(var_name_map);
+    }
 }

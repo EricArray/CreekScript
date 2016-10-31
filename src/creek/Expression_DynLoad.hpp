@@ -28,6 +28,7 @@ namespace creek
                     const std::string& func_name);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::vector<VarName> m_arg_names;

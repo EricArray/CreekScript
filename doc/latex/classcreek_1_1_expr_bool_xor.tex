@@ -1,0 +1,70 @@
+\hypertarget{classcreek_1_1_expr_bool_xor}{}\section{creek\+:\+:Expr\+Bool\+Xor Class Reference}
+\label{classcreek_1_1_expr_bool_xor}\index{creek\+::\+Expr\+Bool\+Xor@{creek\+::\+Expr\+Bool\+Xor}}
+
+
+{\ttfamily \#include $<$Expression\+\_\+\+Boolean.\+hpp$>$}
+
+Inheritance diagram for creek\+:\+:Expr\+Bool\+Xor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcreek_1_1_expr_bool_xor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_expr_bool_xor_a57041816285855aed8a5e081c8d81f83}{Expr\+Bool\+Xor} (\hyperlink{classcreek_1_1_expression}{Expression} $\ast$lexpr, \hyperlink{classcreek_1_1_expression}{Expression} $\ast$rexpr)
+\item 
+\hyperlink{classcreek_1_1_variable}{Variable} \hyperlink{classcreek_1_1_expr_bool_xor_a16d8f13d6c8393ef58bf30b0bd9c53ae}{eval} (\hyperlink{classcreek_1_1_scope}{Scope} \&scope) override
+\begin{DoxyCompactList}\small\item\em Evaluate this expression. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \hyperlink{classcreek_1_1_expr_bool_xor_a424a17a2d1d8a1a5f07e812bbceb383f}{bytecode} (\hyperlink{classcreek_1_1_var_name_map}{Var\+Name\+Map} \&var\+\_\+name\+\_\+map) const  override\hypertarget{classcreek_1_1_expr_bool_xor_a424a17a2d1d8a1a5f07e812bbceb383f}{}\label{classcreek_1_1_expr_bool_xor_a424a17a2d1d8a1a5f07e812bbceb383f}
+
+\begin{DoxyCompactList}\small\item\em Get the bytecode of this expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_expression}{Expression}\+: \hyperlink{classcreek_1_1_boolean}{Boolean} X\+OR. Creates a new \hyperlink{classcreek_1_1_boolean}{Boolean} data. Returns L X\+OR R. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Expr\+Bool\+Xor@{creek\+::\+Expr\+Bool\+Xor}!Expr\+Bool\+Xor@{Expr\+Bool\+Xor}}
+\index{Expr\+Bool\+Xor@{Expr\+Bool\+Xor}!creek\+::\+Expr\+Bool\+Xor@{creek\+::\+Expr\+Bool\+Xor}}
+\subsubsection[{\texorpdfstring{Expr\+Bool\+Xor(\+Expression $\ast$lexpr, Expression $\ast$rexpr)}{ExprBoolXor(Expression *lexpr, Expression *rexpr)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Expr\+Bool\+Xor\+::\+Expr\+Bool\+Xor (
+\begin{DoxyParamCaption}
+\item[{{\bf Expression} $\ast$}]{lexpr, }
+\item[{{\bf Expression} $\ast$}]{rexpr}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_expr_bool_xor_a57041816285855aed8a5e081c8d81f83}{}\label{classcreek_1_1_expr_bool_xor_a57041816285855aed8a5e081c8d81f83}
+{\ttfamily \hyperlink{classcreek_1_1_expr_bool_xor}{Expr\+Bool\+Xor}} constructor. 
+\begin{DoxyParams}{Parameters}
+{\em lexpr} & \hyperlink{classcreek_1_1_expression}{Expression} for left parameter. \\
+\hline
+{\em rexpr} & \hyperlink{classcreek_1_1_expression}{Expression} for right parameter. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Expr\+Bool\+Xor@{creek\+::\+Expr\+Bool\+Xor}!eval@{eval}}
+\index{eval@{eval}!creek\+::\+Expr\+Bool\+Xor@{creek\+::\+Expr\+Bool\+Xor}}
+\subsubsection[{\texorpdfstring{eval(\+Scope \&scope) override}{eval(Scope &scope) override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Variable} creek\+::\+Expr\+Bool\+Xor\+::eval (
+\begin{DoxyParamCaption}
+\item[{{\bf Scope} \&}]{scope}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classcreek_1_1_expr_bool_xor_a16d8f13d6c8393ef58bf30b0bd9c53ae}{}\label{classcreek_1_1_expr_bool_xor_a16d8f13d6c8393ef58bf30b0bd9c53ae}
+
+
+Evaluate this expression. 
+
+\begin{DoxyReturn}{Returns}
+Result of the expression; may be {\ttfamily nullptr}. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classcreek_1_1_expression_a3c7fe4a04e24c8d907f918240e2bf43d}{creek\+::\+Expression}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Boolean.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Boolean.\+cpp\end{DoxyCompactItemize}

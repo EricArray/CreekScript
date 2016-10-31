@@ -23,6 +23,11 @@ namespace creek
         return Variable(new Number(l->cmp(*r)));
     }
 
+    Bytecode ExprCmp::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::cmp) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprEQ` constructor.
     // @param  lexpr   Expression for left parameter.
@@ -37,6 +42,11 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return Variable(new Boolean(l->cmp(*r) == 0));
+    }
+
+    Bytecode ExprEQ::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::eq) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
     }
 
 
@@ -55,6 +65,11 @@ namespace creek
         return Variable(new Boolean(l->cmp(*r) != 0));
     }
 
+    Bytecode ExprNE::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::ne) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprLT` constructor.
     // @param  lexpr   Expression for left parameter.
@@ -69,6 +84,11 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return Variable(new Boolean(l->cmp(*r) < 0));
+    }
+
+    Bytecode ExprLT::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::lt) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
     }
 
 
@@ -87,6 +107,11 @@ namespace creek
         return Variable(new Boolean(l->cmp(*r) <= 0));
     }
 
+    Bytecode ExprLE::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::le) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprGT` constructor.
     // @param  lexpr   Expression for left parameter.
@@ -103,6 +128,11 @@ namespace creek
         return Variable(new Boolean(l->cmp(*r) > 0));
     }
 
+    Bytecode ExprGT::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::gt) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprGE` constructor.
     // @param  lexpr   Expression for left parameter.
@@ -117,5 +147,10 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return Variable(new Boolean(l->cmp(*r) >= 0));
+    }
+
+    Bytecode ExprGE::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::ge) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
     }
 }

@@ -1,0 +1,70 @@
+\hypertarget{classcreek_1_1_expr_bit_or}{}\section{creek\+:\+:Expr\+Bit\+Or Class Reference}
+\label{classcreek_1_1_expr_bit_or}\index{creek\+::\+Expr\+Bit\+Or@{creek\+::\+Expr\+Bit\+Or}}
+
+
+{\ttfamily \#include $<$Expression\+\_\+\+Bitwise.\+hpp$>$}
+
+Inheritance diagram for creek\+:\+:Expr\+Bit\+Or\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcreek_1_1_expr_bit_or}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_expr_bit_or_abd83c2cc1d407ff2144adae0f4fe91a3}{Expr\+Bit\+Or} (\hyperlink{classcreek_1_1_expression}{Expression} $\ast$lexpr, \hyperlink{classcreek_1_1_expression}{Expression} $\ast$rexpr)
+\item 
+\hyperlink{classcreek_1_1_variable}{Variable} \hyperlink{classcreek_1_1_expr_bit_or_a9066c33c5d0f95d39d4bab927dfd9a93}{eval} (\hyperlink{classcreek_1_1_scope}{Scope} \&scope) override
+\begin{DoxyCompactList}\small\item\em Evaluate this expression. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \hyperlink{classcreek_1_1_expr_bit_or_a20322a55b746c8c80e3d983e5fd1ffe3}{bytecode} (\hyperlink{classcreek_1_1_var_name_map}{Var\+Name\+Map} \&var\+\_\+name\+\_\+map) const  override\hypertarget{classcreek_1_1_expr_bit_or_a20322a55b746c8c80e3d983e5fd1ffe3}{}\label{classcreek_1_1_expr_bit_or_a20322a55b746c8c80e3d983e5fd1ffe3}
+
+\begin{DoxyCompactList}\small\item\em Get the bytecode of this expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Bitwise OR two values. Returns L $\vert$ R. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Expr\+Bit\+Or@{creek\+::\+Expr\+Bit\+Or}!Expr\+Bit\+Or@{Expr\+Bit\+Or}}
+\index{Expr\+Bit\+Or@{Expr\+Bit\+Or}!creek\+::\+Expr\+Bit\+Or@{creek\+::\+Expr\+Bit\+Or}}
+\subsubsection[{\texorpdfstring{Expr\+Bit\+Or(\+Expression $\ast$lexpr, Expression $\ast$rexpr)}{ExprBitOr(Expression *lexpr, Expression *rexpr)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Expr\+Bit\+Or\+::\+Expr\+Bit\+Or (
+\begin{DoxyParamCaption}
+\item[{{\bf Expression} $\ast$}]{lexpr, }
+\item[{{\bf Expression} $\ast$}]{rexpr}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_expr_bit_or_abd83c2cc1d407ff2144adae0f4fe91a3}{}\label{classcreek_1_1_expr_bit_or_abd83c2cc1d407ff2144adae0f4fe91a3}
+{\ttfamily \hyperlink{classcreek_1_1_expr_bit_or}{Expr\+Bit\+Or}} constructor. 
+\begin{DoxyParams}{Parameters}
+{\em lexpr} & \hyperlink{classcreek_1_1_expression}{Expression} for left parameter. \\
+\hline
+{\em rexpr} & \hyperlink{classcreek_1_1_expression}{Expression} for right parameter. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Expr\+Bit\+Or@{creek\+::\+Expr\+Bit\+Or}!eval@{eval}}
+\index{eval@{eval}!creek\+::\+Expr\+Bit\+Or@{creek\+::\+Expr\+Bit\+Or}}
+\subsubsection[{\texorpdfstring{eval(\+Scope \&scope) override}{eval(Scope &scope) override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Variable} creek\+::\+Expr\+Bit\+Or\+::eval (
+\begin{DoxyParamCaption}
+\item[{{\bf Scope} \&}]{scope}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classcreek_1_1_expr_bit_or_a9066c33c5d0f95d39d4bab927dfd9a93}{}\label{classcreek_1_1_expr_bit_or_a9066c33c5d0f95d39d4bab927dfd9a93}
+
+
+Evaluate this expression. 
+
+\begin{DoxyReturn}{Returns}
+Result of the expression; may be {\ttfamily nullptr}. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classcreek_1_1_expression_a3c7fe4a04e24c8d907f918240e2bf43d}{creek\+::\+Expression}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Bitwise.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Bitwise.\+cpp\end{DoxyCompactItemize}

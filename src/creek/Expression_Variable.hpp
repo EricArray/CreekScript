@@ -24,6 +24,7 @@ namespace creek
         ExprCreateLocal(VarName var_name, Expression* expression);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -41,6 +42,7 @@ namespace creek
         ExprLoadLocal(VarName var_name);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -58,6 +60,7 @@ namespace creek
         ExprStoreLocal(VarName var_name, Expression* expression);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -75,6 +78,7 @@ namespace creek
         ExprCreateGlobal(VarName var_name, Expression* expression);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -92,6 +96,7 @@ namespace creek
         ExprLoadGlobal(VarName var_name);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;
@@ -109,6 +114,7 @@ namespace creek
         ExprStoreGlobal(VarName var_name, Expression* expression);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_var_name;

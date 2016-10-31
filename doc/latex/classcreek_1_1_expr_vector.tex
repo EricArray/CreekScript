@@ -1,0 +1,76 @@
+\hypertarget{classcreek_1_1_expr_vector}{}\section{creek\+:\+:Expr\+Vector Class Reference}
+\label{classcreek_1_1_expr_vector}\index{creek\+::\+Expr\+Vector@{creek\+::\+Expr\+Vector}}
+
+
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Create a vector data. Returns a new, empty {\ttfamily \hyperlink{classcreek_1_1_vector}{Vector}}.  
+
+
+
+
+{\ttfamily \#include $<$Expression\+\_\+\+Data\+Types.\+hpp$>$}
+
+Inheritance diagram for creek\+:\+:Expr\+Vector\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcreek_1_1_expr_vector}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_expr_vector_ac3aa0f9efb744cde52cf8bf7c3fc6f27}{Expr\+Vector} (std\+::vector$<$ \hyperlink{classcreek_1_1_expression}{Expression} $\ast$ $>$ values)
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_expr_vector}{Expr\+Vector}} constructor. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_variable}{Variable} \hyperlink{classcreek_1_1_expr_vector_a10281fdb5c4f552c8f7d2abf85067315}{eval} (\hyperlink{classcreek_1_1_scope}{Scope} \&scope) override
+\begin{DoxyCompactList}\small\item\em Evaluate this expression. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \hyperlink{classcreek_1_1_expr_vector_a1f7035f837651f6c0c37d4b2d700636b}{bytecode} (\hyperlink{classcreek_1_1_var_name_map}{Var\+Name\+Map} \&var\+\_\+name\+\_\+map) const  override\hypertarget{classcreek_1_1_expr_vector_a1f7035f837651f6c0c37d4b2d700636b}{}\label{classcreek_1_1_expr_vector_a1f7035f837651f6c0c37d4b2d700636b}
+
+\begin{DoxyCompactList}\small\item\em Get the bytecode of this expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Create a vector data. Returns a new, empty {\ttfamily \hyperlink{classcreek_1_1_vector}{Vector}}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Expr\+Vector@{creek\+::\+Expr\+Vector}!Expr\+Vector@{Expr\+Vector}}
+\index{Expr\+Vector@{Expr\+Vector}!creek\+::\+Expr\+Vector@{creek\+::\+Expr\+Vector}}
+\subsubsection[{\texorpdfstring{Expr\+Vector(std\+::vector$<$ Expression $\ast$ $>$ values)}{ExprVector(std::vector< Expression * > values)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Expr\+Vector\+::\+Expr\+Vector (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf Expression} $\ast$ $>$}]{values}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_expr_vector_ac3aa0f9efb744cde52cf8bf7c3fc6f27}{}\label{classcreek_1_1_expr_vector_ac3aa0f9efb744cde52cf8bf7c3fc6f27}
+
+
+{\ttfamily \hyperlink{classcreek_1_1_expr_vector}{Expr\+Vector}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & List of initial values. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Expr\+Vector@{creek\+::\+Expr\+Vector}!eval@{eval}}
+\index{eval@{eval}!creek\+::\+Expr\+Vector@{creek\+::\+Expr\+Vector}}
+\subsubsection[{\texorpdfstring{eval(\+Scope \&scope) override}{eval(Scope &scope) override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Variable} creek\+::\+Expr\+Vector\+::eval (
+\begin{DoxyParamCaption}
+\item[{{\bf Scope} \&}]{scope}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classcreek_1_1_expr_vector_a10281fdb5c4f552c8f7d2abf85067315}{}\label{classcreek_1_1_expr_vector_a10281fdb5c4f552c8f7d2abf85067315}
+
+
+Evaluate this expression. 
+
+\begin{DoxyReturn}{Returns}
+Result of the expression; may be {\ttfamily nullptr}. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classcreek_1_1_expression_a3c7fe4a04e24c8d907f918240e2bf43d}{creek\+::\+Expression}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Data\+Types.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Data\+Types.\+cpp\end{DoxyCompactItemize}

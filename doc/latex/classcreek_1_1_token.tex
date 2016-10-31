@@ -1,0 +1,104 @@
+\hypertarget{classcreek_1_1_token}{}\section{creek\+:\+:Token Class Reference}
+\label{classcreek_1_1_token}\index{creek\+::\+Token@{creek\+::\+Token}}
+
+
+Source code token.  
+
+
+
+
+{\ttfamily \#include $<$Token.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_token_a054f86d9deefc56074e7b0d338cc7e28}{Token} (Token\+Type \hyperlink{classcreek_1_1_token_a6c83b9d98841cef562114e744663db6a}{type}, const std\+::string \&\hyperlink{classcreek_1_1_token_ac3424fac9fc566a59984039e36e40cb0}{text}, int \hyperlink{classcreek_1_1_token_a293d56647d5058c4ae7ecd0031d124b8}{line}, int \hyperlink{classcreek_1_1_token_ae790088c46659553c0233fe9505ac58a}{column})
+\item 
+\hyperlink{classcreek_1_1_token_aa2bed48bec164de7ce851468a5f8478d}{Token} (const \hyperlink{classcreek_1_1_token}{Token} \&other)\hypertarget{classcreek_1_1_token_aa2bed48bec164de7ce851468a5f8478d}{}\label{classcreek_1_1_token_aa2bed48bec164de7ce851468a5f8478d}
+
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_token}{Token}} copy constructor. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_token_ac6f060f5bbfd30458d0b52dc5a05a837}{Token} (\hyperlink{classcreek_1_1_token}{Token} \&\&other)\hypertarget{classcreek_1_1_token_ac6f060f5bbfd30458d0b52dc5a05a837}{}\label{classcreek_1_1_token_ac6f060f5bbfd30458d0b52dc5a05a837}
+
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_token}{Token}} move constructor. \end{DoxyCompactList}\item 
+Token\+Type \hyperlink{classcreek_1_1_token_a6c83b9d98841cef562114e744663db6a}{type} () const \hypertarget{classcreek_1_1_token_a6c83b9d98841cef562114e744663db6a}{}\label{classcreek_1_1_token_a6c83b9d98841cef562114e744663db6a}
+
+\begin{DoxyCompactList}\small\item\em Get type. \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classcreek_1_1_token_ac3424fac9fc566a59984039e36e40cb0}{text} () const \hypertarget{classcreek_1_1_token_ac3424fac9fc566a59984039e36e40cb0}{}\label{classcreek_1_1_token_ac3424fac9fc566a59984039e36e40cb0}
+
+\begin{DoxyCompactList}\small\item\em Get text. \end{DoxyCompactList}\item 
+int \hyperlink{classcreek_1_1_token_a293d56647d5058c4ae7ecd0031d124b8}{line} () const \hypertarget{classcreek_1_1_token_a293d56647d5058c4ae7ecd0031d124b8}{}\label{classcreek_1_1_token_a293d56647d5058c4ae7ecd0031d124b8}
+
+\begin{DoxyCompactList}\small\item\em Get line. \end{DoxyCompactList}\item 
+int \hyperlink{classcreek_1_1_token_ae790088c46659553c0233fe9505ac58a}{column} () const \hypertarget{classcreek_1_1_token_ae790088c46659553c0233fe9505ac58a}{}\label{classcreek_1_1_token_ae790088c46659553c0233fe9505ac58a}
+
+\begin{DoxyCompactList}\small\item\em Get column. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}{\bf Text translation}\par
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{classcreek_1_1_token_aceb57c53ccbf083b958a55f5252d3d41}{identifier} () const \hypertarget{classcreek_1_1_token_aceb57c53ccbf083b958a55f5252d3d41}{}\label{classcreek_1_1_token_aceb57c53ccbf083b958a55f5252d3d41}
+
+\begin{DoxyCompactList}\small\item\em Get the identifier this token represents. \end{DoxyCompactList}\item 
+bool \hyperlink{classcreek_1_1_token_ac80a8a60201fb03bf38d2f91b2b305f5}{boolean} () const \hypertarget{classcreek_1_1_token_ac80a8a60201fb03bf38d2f91b2b305f5}{}\label{classcreek_1_1_token_ac80a8a60201fb03bf38d2f91b2b305f5}
+
+\begin{DoxyCompactList}\small\item\em Get the boolean this token represents. \end{DoxyCompactList}\item 
+int \hyperlink{classcreek_1_1_token_ad362f2b190c7c0df69fc1b652e19d123}{integer} () const \hypertarget{classcreek_1_1_token_ad362f2b190c7c0df69fc1b652e19d123}{}\label{classcreek_1_1_token_ad362f2b190c7c0df69fc1b652e19d123}
+
+\begin{DoxyCompactList}\small\item\em Get the integer this token represents. \end{DoxyCompactList}\item 
+float \hyperlink{classcreek_1_1_token_ab6f426aaef285a3e1d863b4572617caf}{floatnum} () const \hypertarget{classcreek_1_1_token_ab6f426aaef285a3e1d863b4572617caf}{}\label{classcreek_1_1_token_ab6f426aaef285a3e1d863b4572617caf}
+
+\begin{DoxyCompactList}\small\item\em Get the floating-\/point number this token represents. \end{DoxyCompactList}\item 
+char \hyperlink{classcreek_1_1_token_a0914dd73f7dbc94d6c316bb4464ba288}{character} () const \hypertarget{classcreek_1_1_token_a0914dd73f7dbc94d6c316bb4464ba288}{}\label{classcreek_1_1_token_a0914dd73f7dbc94d6c316bb4464ba288}
+
+\begin{DoxyCompactList}\small\item\em Get the character this token represents. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classcreek_1_1_token_a929d6edefa9fb93584f8a511051ddf80}{string} () const \hypertarget{classcreek_1_1_token_a929d6edefa9fb93584f8a511051ddf80}{}\label{classcreek_1_1_token_a929d6edefa9fb93584f8a511051ddf80}
+
+\begin{DoxyCompactList}\small\item\em Get the string this token represents. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::map$<$ Token\+Type, std\+::string $>$ \hyperlink{classcreek_1_1_token_ae929ae6967f5a1d22a341a7cf02e183d}{type\+\_\+names}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classcreek_1_1_token}{Token} type names. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Source code token. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Token@{creek\+::\+Token}!Token@{Token}}
+\index{Token@{Token}!creek\+::\+Token@{creek\+::\+Token}}
+\subsubsection[{\texorpdfstring{Token(\+Token\+Type type, const std\+::string \&text, int line, int column)}{Token(TokenType type, const std::string &text, int line, int column)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Token\+::\+Token (
+\begin{DoxyParamCaption}
+\item[{Token\+Type}]{type, }
+\item[{const std\+::string \&}]{text, }
+\item[{int}]{line, }
+\item[{int}]{column}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_token_a054f86d9deefc56074e7b0d338cc7e28}{}\label{classcreek_1_1_token_a054f86d9deefc56074e7b0d338cc7e28}
+{\ttfamily \hyperlink{classcreek_1_1_token}{Token}} constructor. 
+\begin{DoxyParams}{Parameters}
+{\em type} & \hyperlink{classcreek_1_1_token}{Token} type. \\
+\hline
+{\em text} & \hyperlink{classcreek_1_1_token}{Token} text. \\
+\hline
+{\em line} & Line where token was extracted. \\
+\hline
+{\em column} & Column where token was extracted. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{creek\+::\+Token@{creek\+::\+Token}!type\+\_\+names@{type\+\_\+names}}
+\index{type\+\_\+names@{type\+\_\+names}!creek\+::\+Token@{creek\+::\+Token}}
+\subsubsection[{\texorpdfstring{type\+\_\+names}{type_names}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::map$<$ Token\+Type, std\+::string $>$ creek\+::\+Token\+::type\+\_\+names\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classcreek_1_1_token_ae929ae6967f5a1d22a341a7cf02e183d}{}\label{classcreek_1_1_token_ae929ae6967f5a1d22a341a7cf02e183d}
+
+
+\hyperlink{classcreek_1_1_token}{Token} type names. 
+
+Return arrow (-\/$>$). 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Token.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Token.\+cpp\end{DoxyCompactItemize}

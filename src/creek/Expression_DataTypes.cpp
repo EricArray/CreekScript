@@ -18,6 +18,11 @@ namespace creek
         return Variable(new Void());
     }
 
+    Bytecode ExprVoid::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::data_void);
+    }
+
 
     // `ExprNull` constructor.
     ExprNull::ExprNull()
@@ -28,6 +33,11 @@ namespace creek
     Variable ExprNull::eval(Scope& scope)
     {
         return Variable(new Null());
+    }
+
+    Bytecode ExprNull::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::data_null);
     }
 
 
@@ -43,6 +53,11 @@ namespace creek
         return Variable(new Boolean(m_value));
     }
 
+    Bytecode ExprBoolean::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::data_boolean) << m_value;
+    }
+
 
     // `ExprNumber` constructor.
     // @param  value       Number value.
@@ -54,6 +69,11 @@ namespace creek
     Variable ExprNumber::eval(Scope& scope)
     {
         return Variable(new Number(m_value));
+    }
+
+    Bytecode ExprNumber::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::data_number) << m_value;
     }
 
 
@@ -69,6 +89,11 @@ namespace creek
         return Variable(new String(m_value));
     }
 
+    Bytecode ExprString::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::data_string) << m_value;
+    }
+
 
     // `ExprIdentifier` constructor.
     // @param  value       Identifier value.
@@ -80,6 +105,11 @@ namespace creek
     Variable ExprIdentifier::eval(Scope& scope)
     {
         return Variable(new Identifier(m_value));
+    }
+
+    Bytecode ExprIdentifier::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::data_identifier) << var_name_map.id_from_name(m_value.name());
     }
 
 
@@ -103,6 +133,18 @@ namespace creek
         return Variable(new Vector(new_value));
     }
 
+    Bytecode ExprVector::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::data_vector);
+        b << static_cast<uint32_t>(m_values.size());
+        for (auto& value : m_values)
+        {
+            b << value->bytecode(var_name_map);
+        }
+        return b;
+    }
+
 
     // `ExprFunction` constructor.
     // @param  arg_names   Names of arguments.
@@ -123,25 +165,44 @@ namespace creek
         return Variable(new Function(new_value));
     }
 
-
-    // `ExprCFunction` constructor.
-    // @param  argn        Number of arguments.
-    // @param  variadic    Create a variadic function.
-    // @param  listener    Listener function to call.
-    ExprCFunction::ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener) :
-        m_argn(argn),
-        m_variadic(variadic),
-        m_listener(listener)
+    Bytecode ExprFunction::bytecode(VarNameMap& var_name_map) const
     {
-
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::data_function);
+        b << static_cast<uint32_t>(m_arg_names.size());
+        for (auto& arg_name : m_arg_names)
+        {
+            b << var_name_map.id_from_name(arg_name.name());
+        }
+        b << m_variadic;
+        b << m_body->bytecode(var_name_map);
+        return b;
     }
 
-    Variable ExprCFunction::eval(Scope& scope)
-    {
-        CFunction::Definition* def = new CFunction::Definition(scope, m_argn, m_variadic, m_listener);
-        CFunction::Value new_value(def);
-        return Variable(new CFunction(new_value));
-    }
+
+    // // `ExprCFunction` constructor.
+    // // @param  argn        Number of arguments.
+    // // @param  variadic    Create a variadic function.
+    // // @param  listener    Listener function to call.
+    // ExprCFunction::ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener) :
+    //     m_argn(argn),
+    //     m_variadic(variadic),
+    //     m_listener(listener)
+    // {
+
+    // }
+
+    // Variable ExprCFunction::eval(Scope& scope)
+    // {
+    //     CFunction::Definition* def = new CFunction::Definition(scope, m_argn, m_variadic, m_listener);
+    //     CFunction::Value new_value(def);
+    //     return Variable(new CFunction(new_value));
+    // }
+
+    // Bytecode ExprCFunction::bytecode(VarNameMap& var_name_map) const
+    // {
+    //     return Bytecode() << static_cast<uint8_t>(OpCode::expr_c_function)
+    // }
 
 
     // @brief  `ExprClass` constructor.
@@ -179,5 +240,26 @@ namespace creek
         }
 
         return new_class;
+    }
+
+    Bytecode ExprClass::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::data_class);
+        b << var_name_map.id_from_name(m_id.name());
+        b << m_super_class->bytecode(var_name_map);
+        b << static_cast<uint32_t>(m_method_defs.size());
+        for (auto& method_def : m_method_defs)
+        {
+            b << var_name_map.id_from_name(method_def.id.name());
+            b << static_cast<uint32_t>(method_def.arg_names.size());
+            for (auto& arg_name : method_def.arg_names)
+            {
+                b << var_name_map.id_from_name(arg_name.name());
+            }
+            b << method_def.is_variadic;
+            b << method_def.body->bytecode(var_name_map);
+        }
+        return b;
     }
 }

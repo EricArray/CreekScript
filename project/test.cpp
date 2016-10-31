@@ -1,6 +1,9 @@
 #include <iostream>
+#include <fstream>
 
 #include <creek/creek.hpp>
+#include <creek/VarNameMap.hpp>
+#include <creek/BytecodeInterpreter.hpp>
 using namespace creek;
 
 
@@ -14,6 +17,17 @@ int main(int argc, char** argv)
     try
     {
         program.reset(interpreter.load_file("test.creek"));
+
+        {
+            std::cout << "saving program\n";
+
+            VarNameMap var_name_map;
+            auto bytecode = program->bytecode(var_name_map);
+            auto bytes = bytecode.bytes();
+
+            std::ofstream file("test.creekb", std::ios_base::binary|std::ios_base::trunc);
+            file.write(bytes.c_str(), bytes.size());
+        }
     }
     catch (const LexicError& e)
     {
@@ -40,6 +54,11 @@ int main(int argc, char** argv)
         std::cerr << "Unknown exception throw while loading\n";
         return -1;
     }
+
+    BytecodeInterpreter bi;
+    bi.save_file("test.creek.b", program.get());
+
+    program.reset(bi.load_file("test.creek.b"));
 
     // create base scope
     Scope base;
