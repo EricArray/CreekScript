@@ -110,6 +110,8 @@ namespace creek
         Expression* parse_function(ParseIterator& iter);
         Expression* parse_class(ParseIterator& iter);
 
+        static bool is_operation(ParseIterator& iter);
+
         void check_not_eof(ParseIterator& iter);
         void check_token_type(ParseIterator& iter, const std::set<TokenType>& accepted);
     };

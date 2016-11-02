@@ -1,0 +1,147 @@
+\hypertarget{structcreek_1_1_resolver}{}\section{creek\+:\+:Resolver Struct Reference}
+\label{structcreek_1_1_resolver}\index{creek\+::\+Resolver@{creek\+::\+Resolver}}
+
+
+Template for conversion between dynamic data and static values.  
+
+
+
+
+{\ttfamily \#include $<$Resolver.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct}{data\+\_\+to\+\_\+value\+\_\+struct}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct_3_01bool_01_4}{data\+\_\+to\+\_\+value\+\_\+struct$<$ bool $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct_3_01char_01_4}{data\+\_\+to\+\_\+value\+\_\+struct$<$ char $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct_3_01float_01_4}{data\+\_\+to\+\_\+value\+\_\+struct$<$ float $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct_3_01int_01_4}{data\+\_\+to\+\_\+value\+\_\+struct$<$ int $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct_3_01std_1_1string_01_4}{data\+\_\+to\+\_\+value\+\_\+struct$<$ std\+::string $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1data__to__value__struct_3_01std_1_1vector_3_01_t_01_4_01_4}{data\+\_\+to\+\_\+value\+\_\+struct$<$ std\+::vector$<$ T $>$ $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1runner}{runner}
+\begin{DoxyCompactList}\small\item\em Execute a C function from an argument vector. \end{DoxyCompactList}\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1runner_3_010_00_01_r_00_01_args_8_8_8_01_4}{runner$<$ 0, R, Args... $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1runner_3_010_00_01void_00_01_args_8_8_8_01_4}{runner$<$ 0, void, Args... $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct}{value\+\_\+to\+\_\+data\+\_\+struct}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct_3_01bool_01_4}{value\+\_\+to\+\_\+data\+\_\+struct$<$ bool $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct_3_01char_01_4}{value\+\_\+to\+\_\+data\+\_\+struct$<$ char $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct_3_01float_01_4}{value\+\_\+to\+\_\+data\+\_\+struct$<$ float $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct_3_01int_01_4}{value\+\_\+to\+\_\+data\+\_\+struct$<$ int $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct_3_01std_1_1string_01_4}{value\+\_\+to\+\_\+data\+\_\+struct$<$ std\+::string $>$}
+\item 
+struct \hyperlink{structcreek_1_1_resolver_1_1value__to__data__struct_3_01std_1_1vector_3_01_t_01_4_01_4}{value\+\_\+to\+\_\+data\+\_\+struct$<$ std\+::vector$<$ T $>$ $>$}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries Data\+Vector} = std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \hyperlink{classcreek_1_1_data}{Data} $>$ $>$\hypertarget{structcreek_1_1_resolver_a671f67c35342e52a8e34031ca8fae444}{}\label{structcreek_1_1_resolver_a671f67c35342e52a8e34031ca8fae444}
+
+\item 
+using {\bfseries Iterator} = Data\+Vector\+::iterator\hypertarget{structcreek_1_1_resolver_aef4666c716334ba950c6bd947ac52e7f}{}\label{structcreek_1_1_resolver_aef4666c716334ba950c6bd947ac52e7f}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\static T \hyperlink{structcreek_1_1_resolver_a5cd23dbbade2472d7cb5ef9407f16963}{data\+\_\+to\+\_\+value} (\hyperlink{classcreek_1_1_data}{Data} $\ast$data)
+\begin{DoxyCompactList}\small\item\em Convert a data object to a value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\static \hyperlink{classcreek_1_1_data}{Data} $\ast$ \hyperlink{structcreek_1_1_resolver_abd3d044471c8d44073bc41bf235b4c39}{value\+\_\+to\+\_\+data} (const T \&value)
+\begin{DoxyCompactList}\small\item\em Convert a value into a data object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class R , class... Args$>$ }\\static std\+::function$<$ \hyperlink{classcreek_1_1_data}{Data} $\ast$(\hyperlink{classcreek_1_1_scope}{Scope} \&scope, Data\+Vector \&)$>$ \hyperlink{structcreek_1_1_resolver_aa2ae4cfdfa4dfe12d6c5eb303900e668}{c\+\_\+func\+\_\+to\+\_\+listener} (std\+::function$<$ R(Args...)$>$ c\+\_\+func)
+\begin{DoxyCompactList}\small\item\em Convert a C function to the format used by {\ttfamily \hyperlink{classcreek_1_1_c_function}{C\+Function}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class R , class... Args$>$ }\\static std\+::function$<$ \hyperlink{classcreek_1_1_data}{Data} $\ast$(\hyperlink{classcreek_1_1_scope}{Scope} \&scope, Data\+Vector \&)$>$ \hyperlink{structcreek_1_1_resolver_a769f63813a3e39feebc61f4101a08932}{c\+\_\+func\+\_\+to\+\_\+listener} (R($\ast$c\+\_\+func)(Args...))
+\begin{DoxyCompactList}\small\item\em Convert a C function to the format used by {\ttfamily \hyperlink{classcreek_1_1_c_function}{C\+Function}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Template for conversion between dynamic data and static values. 
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Resolver@{creek\+::\+Resolver}!c\+\_\+func\+\_\+to\+\_\+listener@{c\+\_\+func\+\_\+to\+\_\+listener}}
+\index{c\+\_\+func\+\_\+to\+\_\+listener@{c\+\_\+func\+\_\+to\+\_\+listener}!creek\+::\+Resolver@{creek\+::\+Resolver}}
+\subsubsection[{\texorpdfstring{c\+\_\+func\+\_\+to\+\_\+listener(std\+::function$<$ R(\+Args...)$>$ c\+\_\+func)}{c_func_to_listener(std::function< R(Args...)> c_func)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class R , class... Args$>$ static std\+::function$<${\bf Data}$\ast$({\bf Scope}\& scope, Data\+Vector\&)$>$ creek\+::\+Resolver\+::c\+\_\+func\+\_\+to\+\_\+listener (
+\begin{DoxyParamCaption}
+\item[{std\+::function$<$ R(Args...)$>$}]{c\+\_\+func}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{structcreek_1_1_resolver_aa2ae4cfdfa4dfe12d6c5eb303900e668}{}\label{structcreek_1_1_resolver_aa2ae4cfdfa4dfe12d6c5eb303900e668}
+
+
+Convert a C function to the format used by {\ttfamily \hyperlink{classcreek_1_1_c_function}{C\+Function}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c\+\_\+func} & C function to convert. \\
+\hline
+\end{DoxyParams}
+\index{creek\+::\+Resolver@{creek\+::\+Resolver}!c\+\_\+func\+\_\+to\+\_\+listener@{c\+\_\+func\+\_\+to\+\_\+listener}}
+\index{c\+\_\+func\+\_\+to\+\_\+listener@{c\+\_\+func\+\_\+to\+\_\+listener}!creek\+::\+Resolver@{creek\+::\+Resolver}}
+\subsubsection[{\texorpdfstring{c\+\_\+func\+\_\+to\+\_\+listener(\+R($\ast$c\+\_\+func)(\+Args...))}{c_func_to_listener(R(*c_func)(Args...))}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class R , class... Args$>$ static std\+::function$<${\bf Data}$\ast$({\bf Scope}\& scope, Data\+Vector\&)$>$ creek\+::\+Resolver\+::c\+\_\+func\+\_\+to\+\_\+listener (
+\begin{DoxyParamCaption}
+\item[{R($\ast$)(Args...)}]{c\+\_\+func}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{structcreek_1_1_resolver_a769f63813a3e39feebc61f4101a08932}{}\label{structcreek_1_1_resolver_a769f63813a3e39feebc61f4101a08932}
+
+
+Convert a C function to the format used by {\ttfamily \hyperlink{classcreek_1_1_c_function}{C\+Function}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c\+\_\+func} & C function to convert. \\
+\hline
+\end{DoxyParams}
+\index{creek\+::\+Resolver@{creek\+::\+Resolver}!data\+\_\+to\+\_\+value@{data\+\_\+to\+\_\+value}}
+\index{data\+\_\+to\+\_\+value@{data\+\_\+to\+\_\+value}!creek\+::\+Resolver@{creek\+::\+Resolver}}
+\subsubsection[{\texorpdfstring{data\+\_\+to\+\_\+value(\+Data $\ast$data)}{data_to_value(Data *data)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ T creek\+::\+Resolver\+::data\+\_\+to\+\_\+value (
+\begin{DoxyParamCaption}
+\item[{{\bf Data} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{structcreek_1_1_resolver_a5cd23dbbade2472d7cb5ef9407f16963}{}\label{structcreek_1_1_resolver_a5cd23dbbade2472d7cb5ef9407f16963}
+
+
+Convert a data object to a value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T} & Value type. \\
+\hline
+{\em data} & \hyperlink{classcreek_1_1_data}{Data} to convert. \\
+\hline
+\end{DoxyParams}
+\index{creek\+::\+Resolver@{creek\+::\+Resolver}!value\+\_\+to\+\_\+data@{value\+\_\+to\+\_\+data}}
+\index{value\+\_\+to\+\_\+data@{value\+\_\+to\+\_\+data}!creek\+::\+Resolver@{creek\+::\+Resolver}}
+\subsubsection[{\texorpdfstring{value\+\_\+to\+\_\+data(const T \&value)}{value_to_data(const T &value)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Data} $\ast$ creek\+::\+Resolver\+::value\+\_\+to\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{const T \&}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{structcreek_1_1_resolver_abd3d044471c8d44073bc41bf235b4c39}{}\label{structcreek_1_1_resolver_abd3d044471c8d44073bc41bf235b4c39}
+
+
+Convert a value into a data object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T} & Value type. \\
+\hline
+{\em value} & Value to convert. Can convert C function to \hyperlink{classcreek_1_1_c_function}{C\+Function} objects. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Resolver.\+hpp\end{DoxyCompactItemize}

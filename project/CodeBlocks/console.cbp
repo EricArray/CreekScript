@@ -7,7 +7,7 @@
 		<Option compiler="tdm64" />
 		<Build>
 			<Target title="console-debug">
-				<Option output="../console" prefix_auto="1" extension_auto="1" />
+				<Option output="../creek-debug" prefix_auto="1" extension_auto="1" />
 				<Option object_output="bin/console-debug/" />
 				<Option type="1" />
 				<Option compiler="tdm64" />
@@ -20,7 +20,7 @@
 				</Linker>
 			</Target>
 			<Target title="console-release">
-				<Option output="../console" prefix_auto="1" extension_auto="1" />
+				<Option output="../creek" prefix_auto="1" extension_auto="1" />
 				<Option object_output="bin/console-release/" />
 				<Option type="1" />
 				<Option compiler="tdm64" />

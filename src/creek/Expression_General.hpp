@@ -23,6 +23,7 @@ namespace creek
         ExprConst(Data* data);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Data> m_data;
@@ -40,6 +41,7 @@ namespace creek
         ExprCall(Expression* function, const std::vector<Expression*>& args);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_function;
@@ -59,6 +61,7 @@ namespace creek
         ExprVariadicCall(Expression* function, const std::vector<Expression*>& args, Expression* vararg);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_function;
@@ -78,6 +81,7 @@ namespace creek
         ExprCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_object;
@@ -99,6 +103,7 @@ namespace creek
         ExprVariadicCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args, Expression* vararg);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_object;
@@ -119,6 +124,7 @@ namespace creek
         ExprIndexGet(Expression* array, Expression* index);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_array;
@@ -138,6 +144,7 @@ namespace creek
         ExprIndexSet(Expression* array, Expression* index, Expression* value);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_array;

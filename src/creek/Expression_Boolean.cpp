@@ -1,6 +1,7 @@
 #include <creek/Expression_Boolean.hpp>
 
 #include <creek/Boolean.hpp>
+#include <creek/OpCode.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
 
@@ -31,6 +32,11 @@ namespace creek
         }
     }
 
+    Bytecode ExprBoolAnd::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::bool_and) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprBoolOr` constructor.
     // @param  lexpr       Expression for left parameter.
@@ -56,6 +62,11 @@ namespace creek
         }
     }
 
+    Bytecode ExprBoolOr::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::bool_or) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprBoolXor` constructor.
     // @param  lexpr       Expression for left parameter.
@@ -78,6 +89,11 @@ namespace creek
         return Variable(new Boolean(l_bool != r_bool));
     }
 
+    Bytecode ExprBoolXor::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::bool_xor) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprBoolNot` constructor.
     // @param  expr        Expression to negate.
@@ -90,5 +106,10 @@ namespace creek
     {
         Variable l(m_expr->eval(scope));
         return Variable(new Boolean(!l->bool_value()));
+    }
+
+    Bytecode ExprBoolNot::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::bool_not) << m_expr->bytecode(var_name_map);
     }
 }

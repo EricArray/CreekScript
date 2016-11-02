@@ -1,0 +1,111 @@
+\hypertarget{group__utility__string__escape}{}\section{String escape and unescape utility}
+\label{group__utility__string__escape}\index{String escape and unescape utility@{String escape and unescape utility}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classcreek_1_1_bad_character_escape}{creek\+::\+Bad\+Character\+Escape}
+\begin{DoxyCompactList}\small\item\em Bad character escape. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{group__utility__string__escape_ga8b7a55e4e56ac6a74672ad801774bcc1}{creek\+::escape\+\_\+char} (char source)
+\item 
+char \hyperlink{group__utility__string__escape_ga43eac86df9b1d39b5d244aae74f7785c}{creek\+::unescape\+\_\+char} (const std\+::string \&source, unsigned pos, unsigned $\ast$len)
+\item 
+std\+::string \hyperlink{group__utility__string__escape_ga12182d1374fcd21fa1c7b2555a1f54a5}{creek\+::escape\+\_\+string} (const std\+::string \&source)
+\item 
+std\+::string \hyperlink{group__utility__string__escape_gab8486c78d9dd453b6ffb47996b5043dd}{creek\+::unescape\+\_\+string} (const std\+::string \&source)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_function}{Function} for escaping and unescaping string using back-\/slash (\textbackslash{}). Implemented escape characters\+: \tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*3{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Escaped character }&{\bf Description }&\PBS\raggedleft {\bf Byte in A\+S\+C\+II encoding  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Escaped character }&{\bf Description }&\PBS\raggedleft {\bf Byte in A\+S\+C\+II encoding  }\\\cline{1-3}
+\endhead
+\textbackslash{}\textquotesingle{} &single quote &\PBS\raggedleft 0x27 \\\cline{1-3}
+\textbackslash{}\char`\"{}               $<$td$>$ double quote         $<$td align=\char`\"{}right\char`\"{}$>$ 0x22                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}?               $<$td$>$ question mark        $<$td align=\char`\"{}right\char`\"{}$>$ 0x3f                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}              $<$td$>$ backslash            $<$td align=\char`\"{}right\char`\"{}$>$ 0x5c                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}a               $<$td$>$ audible bell         $<$td align=\char`\"{}right\char`\"{}$>$ 0x07                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}b               $<$td$>$ backspace            $<$td align=\char`\"{}right\char`\"{}$>$ 0x08                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}f               $<$td$>$ form feed -\/ new page $<$td align=\char`\"{}right\char`\"{}$>$ 0x0c                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}n               $<$td$>$ line feed -\/ new line $<$td align=\char`\"{}right\char`\"{}$>$ 0x0a                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}r               $<$td$>$ carriage return      $<$td align=\char`\"{}right\char`\"{}$>$ 0x0d                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}t               $<$td$>$ horizontal tab       $<$td align=\char`\"{}right\char`\"{}$>$ 0x09                   
+$<$tr$>$$<$td$>$ \textbackslash{}\textbackslash{}v               $<$td$>$ vertical tab         $<$td align=\char`\"{}right"$>$ 0x0b \\\cline{1-3}
+\end{longtabu}
+
+
+\subsection{Function Documentation}
+\index{String escape and unescape utility@{String escape and unescape utility}!escape\+\_\+char@{escape\+\_\+char}}
+\index{escape\+\_\+char@{escape\+\_\+char}!String escape and unescape utility@{String escape and unescape utility}}
+\subsubsection[{\texorpdfstring{escape\+\_\+char(char source)}{escape_char(char source)}}]{\setlength{\rightskip}{0pt plus 5cm}C\+R\+E\+E\+K\+\_\+\+A\+PI std\+::string creek\+::escape\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{char}]{source}
+\end{DoxyParamCaption}
+)}\hypertarget{group__utility__string__escape_ga8b7a55e4e56ac6a74672ad801774bcc1}{}\label{group__utility__string__escape_ga8b7a55e4e56ac6a74672ad801774bcc1}
+Translates unescaped character. Does not add starting and ending quotes. 
+\begin{DoxyParams}{Parameters}
+{\em source} & Character to escape. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Escaped first two characters if needed, else the first character. 
+\end{DoxyReturn}
+\index{String escape and unescape utility@{String escape and unescape utility}!escape\+\_\+string@{escape\+\_\+string}}
+\index{escape\+\_\+string@{escape\+\_\+string}!String escape and unescape utility@{String escape and unescape utility}}
+\subsubsection[{\texorpdfstring{escape\+\_\+string(const std\+::string \&source)}{escape_string(const std::string &source)}}]{\setlength{\rightskip}{0pt plus 5cm}C\+R\+E\+E\+K\+\_\+\+A\+PI std\+::string creek\+::escape\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{source}
+\end{DoxyParamCaption}
+)}\hypertarget{group__utility__string__escape_ga12182d1374fcd21fa1c7b2555a1f54a5}{}\label{group__utility__string__escape_ga12182d1374fcd21fa1c7b2555a1f54a5}
+Translates unescaped characters. Does not add starting and ending quotes. 
+\begin{DoxyParams}{Parameters}
+{\em source} & \hyperlink{classcreek_1_1_string}{String} to escape. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Escaped string where needed, else same string. 
+\end{DoxyReturn}
+\index{String escape and unescape utility@{String escape and unescape utility}!unescape\+\_\+char@{unescape\+\_\+char}}
+\index{unescape\+\_\+char@{unescape\+\_\+char}!String escape and unescape utility@{String escape and unescape utility}}
+\subsubsection[{\texorpdfstring{unescape\+\_\+char(const std\+::string \&source, unsigned pos, unsigned $\ast$len)}{unescape_char(const std::string &source, unsigned pos, unsigned *len)}}]{\setlength{\rightskip}{0pt plus 5cm}C\+R\+E\+E\+K\+\_\+\+A\+PI char creek\+::unescape\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{source, }
+\item[{unsigned}]{pos = {\ttfamily 0}, }
+\item[{unsigned $\ast$}]{len = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)}\hypertarget{group__utility__string__escape_ga43eac86df9b1d39b5d244aae74f7785c}{}\label{group__utility__string__escape_ga43eac86df9b1d39b5d244aae74f7785c}
+Translates escaped character. Does not remove starting and ending quotes. 
+\begin{DoxyParams}{Parameters}
+{\em source} & \hyperlink{classcreek_1_1_string}{String} containing a single character or an escape sequence. \\
+\hline
+{\em pos} & Position to start from the string. \\
+\hline
+{\em len} & Pointer to return number of characters taken from source. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Unescaped character where needed, else same character. 
+\end{DoxyReturn}
+\index{String escape and unescape utility@{String escape and unescape utility}!unescape\+\_\+string@{unescape\+\_\+string}}
+\index{unescape\+\_\+string@{unescape\+\_\+string}!String escape and unescape utility@{String escape and unescape utility}}
+\subsubsection[{\texorpdfstring{unescape\+\_\+string(const std\+::string \&source)}{unescape_string(const std::string &source)}}]{\setlength{\rightskip}{0pt plus 5cm}C\+R\+E\+E\+K\+\_\+\+A\+PI std\+::string creek\+::unescape\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{source}
+\end{DoxyParamCaption}
+)}\hypertarget{group__utility__string__escape_gab8486c78d9dd453b6ffb47996b5043dd}{}\label{group__utility__string__escape_gab8486c78d9dd453b6ffb47996b5043dd}
+Translates escaped characters. Does not remove starting and ending quotes. 
+\begin{DoxyParams}{Parameters}
+{\em source} & \hyperlink{classcreek_1_1_string}{String} containing normal characters or escaped sequences. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Unescaped string where needed, else same string. 
+\end{DoxyReturn}

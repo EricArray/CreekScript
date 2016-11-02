@@ -1,0 +1,70 @@
+\hypertarget{classcreek_1_1_expr_g_t}{}\section{creek\+:\+:Expr\+GT Class Reference}
+\label{classcreek_1_1_expr_g_t}\index{creek\+::\+Expr\+GT@{creek\+::\+Expr\+GT}}
+
+
+{\ttfamily \#include $<$Expression\+\_\+\+Comparison.\+hpp$>$}
+
+Inheritance diagram for creek\+:\+:Expr\+GT\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcreek_1_1_expr_g_t}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_expr_g_t_a213248f67e90f13a1859b21f21de70b9}{Expr\+GT} (\hyperlink{classcreek_1_1_expression}{Expression} $\ast$lexpr, \hyperlink{classcreek_1_1_expression}{Expression} $\ast$rexpr)
+\item 
+\hyperlink{classcreek_1_1_variable}{Variable} \hyperlink{classcreek_1_1_expr_g_t_a8207afd8212d5601ff92debfeee6330c}{eval} (\hyperlink{classcreek_1_1_scope}{Scope} \&scope) override
+\begin{DoxyCompactList}\small\item\em Evaluate this expression. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \hyperlink{classcreek_1_1_expr_g_t_a0eda241e2dd10848b1a3a2097ff56cb3}{bytecode} (\hyperlink{classcreek_1_1_var_name_map}{Var\+Name\+Map} \&var\+\_\+name\+\_\+map) const  override\hypertarget{classcreek_1_1_expr_g_t_a0eda241e2dd10848b1a3a2097ff56cb3}{}\label{classcreek_1_1_expr_g_t_a0eda241e2dd10848b1a3a2097ff56cb3}
+
+\begin{DoxyCompactList}\small\item\em Get the bytecode of this expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Greater than. Returns L $>$ R. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Expr\+GT@{creek\+::\+Expr\+GT}!Expr\+GT@{Expr\+GT}}
+\index{Expr\+GT@{Expr\+GT}!creek\+::\+Expr\+GT@{creek\+::\+Expr\+GT}}
+\subsubsection[{\texorpdfstring{Expr\+G\+T(\+Expression $\ast$lexpr, Expression $\ast$rexpr)}{ExprGT(Expression *lexpr, Expression *rexpr)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Expr\+G\+T\+::\+Expr\+GT (
+\begin{DoxyParamCaption}
+\item[{{\bf Expression} $\ast$}]{lexpr, }
+\item[{{\bf Expression} $\ast$}]{rexpr}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_expr_g_t_a213248f67e90f13a1859b21f21de70b9}{}\label{classcreek_1_1_expr_g_t_a213248f67e90f13a1859b21f21de70b9}
+{\ttfamily \hyperlink{classcreek_1_1_expr_g_t}{Expr\+GT}} constructor. 
+\begin{DoxyParams}{Parameters}
+{\em lexpr} & \hyperlink{classcreek_1_1_expression}{Expression} for left parameter. \\
+\hline
+{\em rexpr} & \hyperlink{classcreek_1_1_expression}{Expression} for right parameter. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Expr\+GT@{creek\+::\+Expr\+GT}!eval@{eval}}
+\index{eval@{eval}!creek\+::\+Expr\+GT@{creek\+::\+Expr\+GT}}
+\subsubsection[{\texorpdfstring{eval(\+Scope \&scope) override}{eval(Scope &scope) override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Variable} creek\+::\+Expr\+G\+T\+::eval (
+\begin{DoxyParamCaption}
+\item[{{\bf Scope} \&}]{scope}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classcreek_1_1_expr_g_t_a8207afd8212d5601ff92debfeee6330c}{}\label{classcreek_1_1_expr_g_t_a8207afd8212d5601ff92debfeee6330c}
+
+
+Evaluate this expression. 
+
+\begin{DoxyReturn}{Returns}
+Result of the expression; may be {\ttfamily nullptr}. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classcreek_1_1_expression_a3c7fe4a04e24c8d907f918240e2bf43d}{creek\+::\+Expression}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Comparison.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Comparison.\+cpp\end{DoxyCompactItemize}

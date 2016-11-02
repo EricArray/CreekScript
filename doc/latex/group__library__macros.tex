@@ -1,0 +1,94 @@
+\hypertarget{group__library__macros}{}\section{Dynamic library macros}
+\label{group__library__macros}\index{Dynamic library macros@{Dynamic library macros}}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__library__macros_ga6b8b4625f72926d8655165b82910b4ed}{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER}(F\+U\+NC)~extern \char`\"{}C\char`\"{} C\+R\+E\+E\+K\+\_\+\+E\+X\+P\+O\+RT const \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC
+\begin{DoxyCompactList}\small\item\em Header for a function interface in a dynamic library. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__library__macros_ga3fdb5f0d7473238997dd1fa7b796c916}{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL}(F\+U\+NC)~const \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC(\&F\+U\+NC)
+\begin{DoxyCompactList}\small\item\em Implementation for a function interface in a dynamic library. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__library__macros_ga294c8253110f0c928a7c4b37a95f8f15}{C\+R\+E\+E\+K\+\_\+\+F\+U\+NC}(F\+U\+NC)~extern \char`\"{}C\char`\"{} C\+R\+E\+E\+K\+\_\+\+E\+X\+P\+O\+RT const \hyperlink{classcreek_1_1_dyn_func}{creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC(\&F\+U\+NC)
+\begin{DoxyCompactList}\small\item\em Header + implementation for a function interface in a dynamic library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The following code generates a function interface named {\ttfamily creek\+\_\+func\+\_\+my\+\_\+print}\+: 
+\begin{DoxyCode}
+\textcolor{comment}{// my\_print.hpp}
+\hyperlink{group__library__macros_ga6b8b4625f72926d8655165b82910b4ed}{CREEK\_FUNC\_HEADER}(my\_print);
+
+\textcolor{comment}{// my\_print.cpp}
+\textcolor{keywordtype}{void} my\_print(std::string output) \{
+    std::cout << output;
+\}
+\hyperlink{group__library__macros_ga3fdb5f0d7473238997dd1fa7b796c916}{CREEK\_FUNC\_IMPL}(my\_print);
+\end{DoxyCode}
+
+
+The following code generates a class interface named {\ttfamily creek\+\_\+class\+\_\+\+My\+Class}\+: 
+\begin{DoxyCode}
+\textcolor{comment}{// MyClass.hpp}
+CREEK\_CLASS\_HEADER(MyClass);
+
+\textcolor{comment}{// MyClass.cpp}
+\textcolor{keyword}{struct }MyClass \{
+    \textcolor{keywordtype}{int} value;
+    \textcolor{keywordtype}{void} set\_value(\textcolor{keywordtype}{int} new\_value) \{ value = new\_value; \}
+    \textcolor{keywordtype}{int} get\_value() \{ \textcolor{keywordflow}{return} value; \}
+\};
+CREEK\_CLASS\_IMPL(MyClass) \{
+    CREEK\_CLASS\_FUNC(MyClass, get\_value),
+    CREEK\_CLASS\_FUNC(MyClass, set\_value),
+\};
+\end{DoxyCode}
+ 
+
+\subsection{Macro Definition Documentation}
+\index{Dynamic library macros@{Dynamic library macros}!C\+R\+E\+E\+K\+\_\+\+F\+U\+NC@{C\+R\+E\+E\+K\+\_\+\+F\+U\+NC}}
+\index{C\+R\+E\+E\+K\+\_\+\+F\+U\+NC@{C\+R\+E\+E\+K\+\_\+\+F\+U\+NC}!Dynamic library macros@{Dynamic library macros}}
+\subsubsection[{\texorpdfstring{C\+R\+E\+E\+K\+\_\+\+F\+U\+NC}{CREEK_FUNC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+R\+E\+E\+K\+\_\+\+F\+U\+NC(
+\begin{DoxyParamCaption}
+\item[{}]{F\+U\+NC}
+\end{DoxyParamCaption}
+)~extern \char`\"{}C\char`\"{} C\+R\+E\+E\+K\+\_\+\+E\+X\+P\+O\+RT const {\bf creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC(\&F\+U\+NC)}\hypertarget{group__library__macros_ga294c8253110f0c928a7c4b37a95f8f15}{}\label{group__library__macros_ga294c8253110f0c928a7c4b37a95f8f15}
+
+
+Header + implementation for a function interface in a dynamic library. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em F\+U\+NC} & Function being mapped (identifier). \\
+\hline
+\end{DoxyParams}
+\index{Dynamic library macros@{Dynamic library macros}!C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER@{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER}}
+\index{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER@{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER}!Dynamic library macros@{Dynamic library macros}}
+\subsubsection[{\texorpdfstring{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER}{CREEK_FUNC_HEADER}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+H\+E\+A\+D\+ER(
+\begin{DoxyParamCaption}
+\item[{}]{F\+U\+NC}
+\end{DoxyParamCaption}
+)~extern \char`\"{}C\char`\"{} C\+R\+E\+E\+K\+\_\+\+E\+X\+P\+O\+RT const {\bf creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC}\hypertarget{group__library__macros_ga6b8b4625f72926d8655165b82910b4ed}{}\label{group__library__macros_ga6b8b4625f72926d8655165b82910b4ed}
+
+
+Header for a function interface in a dynamic library. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em F\+U\+NC} & Function being mapped (identifier). Will declare an extern variable with name {\ttfamily creek\+\_\+func\+\_\+$<$F\+U\+NC$>$}, where $<$\+F\+U\+N\+C$>$ is the identifier of the mapped function. \\
+\hline
+\end{DoxyParams}
+\index{Dynamic library macros@{Dynamic library macros}!C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL@{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL}}
+\index{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL@{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL}!Dynamic library macros@{Dynamic library macros}}
+\subsubsection[{\texorpdfstring{C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL}{CREEK_FUNC_IMPL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+R\+E\+E\+K\+\_\+\+F\+U\+N\+C\+\_\+\+I\+M\+PL(
+\begin{DoxyParamCaption}
+\item[{}]{F\+U\+NC}
+\end{DoxyParamCaption}
+)~const {\bf creek\+::\+Dyn\+Func} creek\+\_\+func\+\_\+\#\#F\+U\+NC(\&F\+U\+NC)}\hypertarget{group__library__macros_ga3fdb5f0d7473238997dd1fa7b796c916}{}\label{group__library__macros_ga3fdb5f0d7473238997dd1fa7b796c916}
+
+
+Implementation for a function interface in a dynamic library. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em F\+U\+NC} & Function being mapped (identifier). \\
+\hline
+\end{DoxyParams}

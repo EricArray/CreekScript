@@ -44,6 +44,10 @@
 		</Linker>
 		<Unit filename="../../src/creek/Boolean.cpp" />
 		<Unit filename="../../src/creek/Boolean.hpp" />
+		<Unit filename="../../src/creek/Bytecode.cpp" />
+		<Unit filename="../../src/creek/Bytecode.hpp" />
+		<Unit filename="../../src/creek/BytecodeInterpreter.cpp" />
+		<Unit filename="../../src/creek/BytecodeInterpreter.hpp" />
 		<Unit filename="../../src/creek/CFunction.cpp" />
 		<Unit filename="../../src/creek/CFunction.hpp" />
 		<Unit filename="../../src/creek/Data.cpp" />
@@ -52,10 +56,13 @@
 		<Unit filename="../../src/creek/DynCFunction.hpp" />
 		<Unit filename="../../src/creek/DynLibrary.cpp" />
 		<Unit filename="../../src/creek/DynLibrary.hpp" />
+		<Unit filename="../../src/creek/Endian.cpp" />
+		<Unit filename="../../src/creek/Endian.hpp" />
 		<Unit filename="../../src/creek/Exception.cpp" />
 		<Unit filename="../../src/creek/Exception.hpp" />
 		<Unit filename="../../src/creek/Expression.cpp" />
 		<Unit filename="../../src/creek/Expression.hpp" />
+		<Unit filename="../../src/creek/Expression.hpp.save-failed" />
 		<Unit filename="../../src/creek/Expression_Arithmetic.cpp" />
 		<Unit filename="../../src/creek/Expression_Arithmetic.hpp" />
 		<Unit filename="../../src/creek/Expression_Bitwise.cpp" />
@@ -90,6 +97,7 @@
 		<Unit filename="../../src/creek/Number.hpp" />
 		<Unit filename="../../src/creek/Object.cpp" />
 		<Unit filename="../../src/creek/Object.hpp" />
+		<Unit filename="../../src/creek/OpCode.hpp" />
 		<Unit filename="../../src/creek/Resolver.cpp" />
 		<Unit filename="../../src/creek/Resolver.hpp" />
 		<Unit filename="../../src/creek/Scope.cpp" />
@@ -102,6 +110,8 @@
 		<Unit filename="../../src/creek/Token.hpp" />
 		<Unit filename="../../src/creek/VarName.cpp" />
 		<Unit filename="../../src/creek/VarName.hpp" />
+		<Unit filename="../../src/creek/VarNameMap.cpp" />
+		<Unit filename="../../src/creek/VarNameMap.hpp" />
 		<Unit filename="../../src/creek/Variable.cpp" />
 		<Unit filename="../../src/creek/Variable.hpp" />
 		<Unit filename="../../src/creek/Vector.cpp" />

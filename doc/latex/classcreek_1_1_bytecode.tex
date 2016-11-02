@@ -1,0 +1,155 @@
+\hypertarget{classcreek_1_1_bytecode}{}\section{creek\+:\+:Bytecode Class Reference}
+\label{classcreek_1_1_bytecode}\index{creek\+::\+Bytecode@{creek\+::\+Bytecode}}
+
+
+Portable bynary storage (F\+I\+FO).  
+
+
+
+
+{\ttfamily \#include $<$Bytecode.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_bytecode_a668f341fd5cda5200fb5deef5e17ad81}{Bytecode} ()\hypertarget{classcreek_1_1_bytecode_a668f341fd5cda5200fb5deef5e17ad81}{}\label{classcreek_1_1_bytecode_a668f341fd5cda5200fb5deef5e17ad81}
+
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_bytecode}{Bytecode}} constructor. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode_af97eb4c05bab64a4f8456bb66cb40ed8}{Bytecode} (const \hyperlink{classcreek_1_1_bytecode}{Bytecode} \&other)\hypertarget{classcreek_1_1_bytecode_af97eb4c05bab64a4f8456bb66cb40ed8}{}\label{classcreek_1_1_bytecode_af97eb4c05bab64a4f8456bb66cb40ed8}
+
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_bytecode}{Bytecode}} constructor. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode_ae27bf61cb994242f6ed0fb579214141f}{Bytecode} (\hyperlink{classcreek_1_1_bytecode}{Bytecode} \&\&other)\hypertarget{classcreek_1_1_bytecode_ae27bf61cb994242f6ed0fb579214141f}{}\label{classcreek_1_1_bytecode_ae27bf61cb994242f6ed0fb579214141f}
+
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_bytecode}{Bytecode}} constructor. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode_a4c90af5d5f54c66292a64256b603f159}{Bytecode} (const std\+::string \&\hyperlink{classcreek_1_1_bytecode_a79f346e111024b762d946db5587bc2a3}{bytes})\hypertarget{classcreek_1_1_bytecode_a4c90af5d5f54c66292a64256b603f159}{}\label{classcreek_1_1_bytecode_a4c90af5d5f54c66292a64256b603f159}
+
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_bytecode}{Bytecode}} constructor. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classcreek_1_1_bytecode_a79f346e111024b762d946db5587bc2a3}{bytes} () const \hypertarget{classcreek_1_1_bytecode_a79f346e111024b762d946db5587bc2a3}{}\label{classcreek_1_1_bytecode_a79f346e111024b762d946db5587bc2a3}
+
+\begin{DoxyCompactList}\small\item\em Get bytes. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classcreek_1_1_bytecode_a3cf9c60ac79c33b9a1376345a556be89}{bytes} (unsigned pos, unsigned length) const 
+\begin{DoxyCompactList}\small\item\em Get bytes. \end{DoxyCompactList}\item 
+void \hyperlink{classcreek_1_1_bytecode_aacfff9134215a123c4af0364799e1fd4}{write} (const std\+::string \&\hyperlink{classcreek_1_1_bytecode_a79f346e111024b762d946db5587bc2a3}{bytes})\hypertarget{classcreek_1_1_bytecode_aacfff9134215a123c4af0364799e1fd4}{}\label{classcreek_1_1_bytecode_aacfff9134215a123c4af0364799e1fd4}
+
+\begin{DoxyCompactList}\small\item\em Insert bytes at the end of the bytecode. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classcreek_1_1_bytecode_a97100bc6b3de2fc6632739ce27c8a1f8}{read} (unsigned count)
+\begin{DoxyCompactList}\small\item\em Extract bytes from the beginning of the bytecode. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a0cee39f9534521bcd2484cf9bd992222}{operator$<$$<$} (const \hyperlink{classcreek_1_1_bytecode}{Bytecode} \&other)\hypertarget{classcreek_1_1_bytecode_a0cee39f9534521bcd2484cf9bd992222}{}\label{classcreek_1_1_bytecode_a0cee39f9534521bcd2484cf9bd992222}
+
+\begin{DoxyCompactList}\small\item\em Append another bytecode. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a1e1b0a5b6c36b3946f430d908e9f5a98}{operator$<$$<$} (int8\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a1e1b0a5b6c36b3946f430d908e9f5a98}{}\label{classcreek_1_1_bytecode_a1e1b0a5b6c36b3946f430d908e9f5a98}
+
+\begin{DoxyCompactList}\small\item\em Insert an 8-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a4cdccddae2d7fdf4585b1a583368f268}{operator$<$$<$} (int16\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a4cdccddae2d7fdf4585b1a583368f268}{}\label{classcreek_1_1_bytecode_a4cdccddae2d7fdf4585b1a583368f268}
+
+\begin{DoxyCompactList}\small\item\em Insert a 16-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a6ccc5a28ebc1254e4829beb324bfbe1c}{operator$<$$<$} (int32\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a6ccc5a28ebc1254e4829beb324bfbe1c}{}\label{classcreek_1_1_bytecode_a6ccc5a28ebc1254e4829beb324bfbe1c}
+
+\begin{DoxyCompactList}\small\item\em Insert a 32-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a7aa09d4ed1625c2d460b78e5863dcfbc}{operator$<$$<$} (int64\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a7aa09d4ed1625c2d460b78e5863dcfbc}{}\label{classcreek_1_1_bytecode_a7aa09d4ed1625c2d460b78e5863dcfbc}
+
+\begin{DoxyCompactList}\small\item\em Insert a 64-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a8aff915b79528067070bb43f8db369ff}{operator$<$$<$} (uint8\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a8aff915b79528067070bb43f8db369ff}{}\label{classcreek_1_1_bytecode_a8aff915b79528067070bb43f8db369ff}
+
+\begin{DoxyCompactList}\small\item\em Insert an 8-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a1ebeaa296aad1dae531e34bd86aefb28}{operator$<$$<$} (uint16\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a1ebeaa296aad1dae531e34bd86aefb28}{}\label{classcreek_1_1_bytecode_a1ebeaa296aad1dae531e34bd86aefb28}
+
+\begin{DoxyCompactList}\small\item\em Insert a 16-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_ac6434e518ff6548cc652db9146ce8409}{operator$<$$<$} (uint32\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_ac6434e518ff6548cc652db9146ce8409}{}\label{classcreek_1_1_bytecode_ac6434e518ff6548cc652db9146ce8409}
+
+\begin{DoxyCompactList}\small\item\em Insert a 32-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a18f790121b88063811aeeca6790a59be}{operator$<$$<$} (uint64\+\_\+t value)\hypertarget{classcreek_1_1_bytecode_a18f790121b88063811aeeca6790a59be}{}\label{classcreek_1_1_bytecode_a18f790121b88063811aeeca6790a59be}
+
+\begin{DoxyCompactList}\small\item\em Insert a 64-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a628840beae7c36bb3efb6d1e6b67de1c}{operator$<$$<$} (float value)\hypertarget{classcreek_1_1_bytecode_a628840beae7c36bb3efb6d1e6b67de1c}{}\label{classcreek_1_1_bytecode_a628840beae7c36bb3efb6d1e6b67de1c}
+
+\begin{DoxyCompactList}\small\item\em Insert a 32-\/bit floating point number. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a5ea65c041c1c04a43304807cfd978f62}{operator$<$$<$} (double value)\hypertarget{classcreek_1_1_bytecode_a5ea65c041c1c04a43304807cfd978f62}{}\label{classcreek_1_1_bytecode_a5ea65c041c1c04a43304807cfd978f62}
+
+\begin{DoxyCompactList}\small\item\em Insert a 64-\/bit floating point number. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a8692538df72f15b89516cb7898f857e1}{operator$<$$<$} (const std\+::string \&value)\hypertarget{classcreek_1_1_bytecode_a8692538df72f15b89516cb7898f857e1}{}\label{classcreek_1_1_bytecode_a8692538df72f15b89516cb7898f857e1}
+
+\begin{DoxyCompactList}\small\item\em Insert a string. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a3e1c9bab93f3a2df59153020e8ab0786}{operator$>$$>$} (int8\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_a3e1c9bab93f3a2df59153020e8ab0786}{}\label{classcreek_1_1_bytecode_a3e1c9bab93f3a2df59153020e8ab0786}
+
+\begin{DoxyCompactList}\small\item\em Extract an 8-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a000b7b0f8f4ed23ca088dbcd68593d0b}{operator$>$$>$} (int16\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_a000b7b0f8f4ed23ca088dbcd68593d0b}{}\label{classcreek_1_1_bytecode_a000b7b0f8f4ed23ca088dbcd68593d0b}
+
+\begin{DoxyCompactList}\small\item\em Extract a 16-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_ad9ae822b67aa27189528b90143f717fd}{operator$>$$>$} (int32\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_ad9ae822b67aa27189528b90143f717fd}{}\label{classcreek_1_1_bytecode_ad9ae822b67aa27189528b90143f717fd}
+
+\begin{DoxyCompactList}\small\item\em Extract a 32-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a0800e901821c5a8ae27182c65f51f4e6}{operator$>$$>$} (int64\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_a0800e901821c5a8ae27182c65f51f4e6}{}\label{classcreek_1_1_bytecode_a0800e901821c5a8ae27182c65f51f4e6}
+
+\begin{DoxyCompactList}\small\item\em Extract a 64-\/bit signed integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_ae6c18c5110c1951031e2f726cd68b769}{operator$>$$>$} (uint8\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_ae6c18c5110c1951031e2f726cd68b769}{}\label{classcreek_1_1_bytecode_ae6c18c5110c1951031e2f726cd68b769}
+
+\begin{DoxyCompactList}\small\item\em Extract an 8-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a758745733683bea0e436356676198b78}{operator$>$$>$} (uint16\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_a758745733683bea0e436356676198b78}{}\label{classcreek_1_1_bytecode_a758745733683bea0e436356676198b78}
+
+\begin{DoxyCompactList}\small\item\em Extract a 16-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a20c8718072c6283b18bdc9df91c01e29}{operator$>$$>$} (uint32\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_a20c8718072c6283b18bdc9df91c01e29}{}\label{classcreek_1_1_bytecode_a20c8718072c6283b18bdc9df91c01e29}
+
+\begin{DoxyCompactList}\small\item\em Extract a 32-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a59091ff36d6c548d39d1ad333dd9bfe1}{operator$>$$>$} (uint64\+\_\+t \&value)\hypertarget{classcreek_1_1_bytecode_a59091ff36d6c548d39d1ad333dd9bfe1}{}\label{classcreek_1_1_bytecode_a59091ff36d6c548d39d1ad333dd9bfe1}
+
+\begin{DoxyCompactList}\small\item\em Extract a 64-\/bit unsigned integer. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a2324631f07c6e1c212d53e45df048798}{operator$>$$>$} (float \&value)\hypertarget{classcreek_1_1_bytecode_a2324631f07c6e1c212d53e45df048798}{}\label{classcreek_1_1_bytecode_a2324631f07c6e1c212d53e45df048798}
+
+\begin{DoxyCompactList}\small\item\em Extract a 32-\/bit floating point number. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a3947c8d8cf0574af99187e30b09f5b02}{operator$>$$>$} (double \&value)\hypertarget{classcreek_1_1_bytecode_a3947c8d8cf0574af99187e30b09f5b02}{}\label{classcreek_1_1_bytecode_a3947c8d8cf0574af99187e30b09f5b02}
+
+\begin{DoxyCompactList}\small\item\em Extract a 64-\/bit floating point number. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \& \hyperlink{classcreek_1_1_bytecode_a0fceeb7dc113564ca0b293a88b023745}{operator$>$$>$} (std\+::string \&value)\hypertarget{classcreek_1_1_bytecode_a0fceeb7dc113564ca0b293a88b023745}{}\label{classcreek_1_1_bytecode_a0fceeb7dc113564ca0b293a88b023745}
+
+\begin{DoxyCompactList}\small\item\em Extract a string. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode_ae80b5fa35b26bf0f204b0b6a3c72f276}{operator bool} () const \hypertarget{classcreek_1_1_bytecode_ae80b5fa35b26bf0f204b0b6a3c72f276}{}\label{classcreek_1_1_bytecode_ae80b5fa35b26bf0f204b0b6a3c72f276}
+
+\begin{DoxyCompactList}\small\item\em Check if can extract from this bytecode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Portable bynary storage (F\+I\+FO). 
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Bytecode@{creek\+::\+Bytecode}!bytes@{bytes}}
+\index{bytes@{bytes}!creek\+::\+Bytecode@{creek\+::\+Bytecode}}
+\subsubsection[{\texorpdfstring{bytes(unsigned pos, unsigned length) const }{bytes(unsigned pos, unsigned length) const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string creek\+::\+Bytecode\+::bytes (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{pos, }
+\item[{unsigned}]{length}
+\end{DoxyParamCaption}
+) const}\hypertarget{classcreek_1_1_bytecode_a3cf9c60ac79c33b9a1376345a556be89}{}\label{classcreek_1_1_bytecode_a3cf9c60ac79c33b9a1376345a556be89}
+
+
+Get bytes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & Initial byte. \\
+\hline
+{\em length} & \hyperlink{classcreek_1_1_number}{Number} of bytes to get. \\
+\hline
+\end{DoxyParams}
+\index{creek\+::\+Bytecode@{creek\+::\+Bytecode}!read@{read}}
+\index{read@{read}!creek\+::\+Bytecode@{creek\+::\+Bytecode}}
+\subsubsection[{\texorpdfstring{read(unsigned count)}{read(unsigned count)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string creek\+::\+Bytecode\+::read (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{count}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_bytecode_a97100bc6b3de2fc6632739ce27c8a1f8}{}\label{classcreek_1_1_bytecode_a97100bc6b3de2fc6632739ce27c8a1f8}
+
+
+Extract bytes from the beginning of the bytecode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & \hyperlink{classcreek_1_1_number}{Number} of bytes to read. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Bytecode.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Bytecode.\+cpp\end{DoxyCompactItemize}

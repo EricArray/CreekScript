@@ -1,0 +1,73 @@
+\hypertarget{classcreek_1_1_expr_index_set}{}\section{creek\+:\+:Expr\+Index\+Set Class Reference}
+\label{classcreek_1_1_expr_index_set}\index{creek\+::\+Expr\+Index\+Set@{creek\+::\+Expr\+Index\+Set}}
+
+
+{\ttfamily \#include $<$Expression\+\_\+\+General.\+hpp$>$}
+
+Inheritance diagram for creek\+:\+:Expr\+Index\+Set\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcreek_1_1_expr_index_set}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_expr_index_set_a2bb24c6928b9f3ee6998e16c74fd0315}{Expr\+Index\+Set} (\hyperlink{classcreek_1_1_expression}{Expression} $\ast$array, \hyperlink{classcreek_1_1_expression}{Expression} $\ast$index, \hyperlink{classcreek_1_1_expression}{Expression} $\ast$value)
+\item 
+\hyperlink{classcreek_1_1_variable}{Variable} \hyperlink{classcreek_1_1_expr_index_set_aafd64bba24bfe3b2a1cd6c4fa8dfaaee}{eval} (\hyperlink{classcreek_1_1_scope}{Scope} \&scope) override
+\begin{DoxyCompactList}\small\item\em Evaluate this expression. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \hyperlink{classcreek_1_1_expr_index_set_a73bb1d7d24dc5e6be5ca6967696b7559}{bytecode} (\hyperlink{classcreek_1_1_var_name_map}{Var\+Name\+Map} \&var\+\_\+name\+\_\+map) const  override\hypertarget{classcreek_1_1_expr_index_set_a73bb1d7d24dc5e6be5ca6967696b7559}{}\label{classcreek_1_1_expr_index_set_a73bb1d7d24dc5e6be5ca6967696b7559}
+
+\begin{DoxyCompactList}\small\item\em Get the bytecode of this expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Set array subscript. Returns new value of the array at the index. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Expr\+Index\+Set@{creek\+::\+Expr\+Index\+Set}!Expr\+Index\+Set@{Expr\+Index\+Set}}
+\index{Expr\+Index\+Set@{Expr\+Index\+Set}!creek\+::\+Expr\+Index\+Set@{creek\+::\+Expr\+Index\+Set}}
+\subsubsection[{\texorpdfstring{Expr\+Index\+Set(\+Expression $\ast$array, Expression $\ast$index, Expression $\ast$value)}{ExprIndexSet(Expression *array, Expression *index, Expression *value)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Expr\+Index\+Set\+::\+Expr\+Index\+Set (
+\begin{DoxyParamCaption}
+\item[{{\bf Expression} $\ast$}]{array, }
+\item[{{\bf Expression} $\ast$}]{index, }
+\item[{{\bf Expression} $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_expr_index_set_a2bb24c6928b9f3ee6998e16c74fd0315}{}\label{classcreek_1_1_expr_index_set_a2bb24c6928b9f3ee6998e16c74fd0315}
+{\ttfamily \hyperlink{classcreek_1_1_expr_index_set}{Expr\+Index\+Set}} constructor. 
+\begin{DoxyParams}{Parameters}
+{\em array} & \hyperlink{classcreek_1_1_expression}{Expression} for the array object. \\
+\hline
+{\em index} & \hyperlink{classcreek_1_1_expression}{Expression} for the index. \\
+\hline
+{\em value} & \hyperlink{classcreek_1_1_expression}{Expression} for the new value. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Expr\+Index\+Set@{creek\+::\+Expr\+Index\+Set}!eval@{eval}}
+\index{eval@{eval}!creek\+::\+Expr\+Index\+Set@{creek\+::\+Expr\+Index\+Set}}
+\subsubsection[{\texorpdfstring{eval(\+Scope \&scope) override}{eval(Scope &scope) override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Variable} creek\+::\+Expr\+Index\+Set\+::eval (
+\begin{DoxyParamCaption}
+\item[{{\bf Scope} \&}]{scope}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classcreek_1_1_expr_index_set_aafd64bba24bfe3b2a1cd6c4fa8dfaaee}{}\label{classcreek_1_1_expr_index_set_aafd64bba24bfe3b2a1cd6c4fa8dfaaee}
+
+
+Evaluate this expression. 
+
+\begin{DoxyReturn}{Returns}
+Result of the expression; may be {\ttfamily nullptr}. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classcreek_1_1_expression_a3c7fe4a04e24c8d907f918240e2bf43d}{creek\+::\+Expression}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+General.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+General.\+cpp\end{DoxyCompactItemize}

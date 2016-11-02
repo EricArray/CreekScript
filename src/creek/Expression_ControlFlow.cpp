@@ -8,7 +8,7 @@
 
 namespace creek
 {
-    // `ExprBasicBlock` constructor.
+    // @brief  `ExprBasicBlock` constructor.
     // @param  expressions  List of expressions to evaluate.
     ExprBasicBlock::ExprBasicBlock(const std::vector<Expression*>& expressions)
     {
@@ -36,6 +36,17 @@ namespace creek
         return result;
     }
 
+    Bytecode ExprBasicBlock::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::control_block) << static_cast<uint32_t>(m_expressions.size());
+        for (auto& expr : m_expressions)
+        {
+            b << expr->bytecode(var_name_map);
+        }
+        return b;
+    }
+
 
     // ExprDo constructor.
     // @param  value   Expression to evaluate inside new scope.
@@ -51,8 +62,13 @@ namespace creek
         return m_value->eval(new_scope);
     }
 
+    Bytecode ExprDo::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::control_do) << m_value->bytecode(var_name_map);
+    }
 
-    // `ExprIf` constructor.
+
+    // @brief  `ExprIf` constructor.
     // @param  condition       Contidion expression.
     // @param  true_branch     Expression to evaluate when true.
     // @param  false_branch    Expression to evaluate when false.
@@ -77,6 +93,15 @@ namespace creek
         {
             return m_false_branch ? m_false_branch->eval(new_scope) : Variable(new Void());
         }
+    }
+
+    Bytecode ExprIf::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::control_if) <<
+            m_condition->bytecode(var_name_map) <<
+            m_true_branch->bytecode(var_name_map) <<
+            m_false_branch->bytecode(var_name_map);
     }
 
 
@@ -111,8 +136,26 @@ namespace creek
         return m_default_branch ? m_default_branch->eval(new_scope) : Variable(new Void());
     }
 
+    Bytecode ExprSwitch::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::control_switch);
+        b << m_condition->bytecode(var_name_map);
+        b << static_cast<uint32_t>(m_case_branches.size());
+        for (auto& case_branch : m_case_branches)
+        {
+            b << static_cast<uint32_t>(case_branch.values.size());
+            for (auto& value : case_branch.values)
+            {
+                b << value->bytecode(var_name_map);
+            }
+            b << case_branch.body->bytecode(var_name_map);
+        }
+        return b;
+    }
 
-    // `ExprLoop` constructor.
+
+    // @brief  `ExprLoop` constructor.
     // @param  block       Expression to execute in each loop.
     ExprLoop::ExprLoop(Expression* body) : m_body(body)
     {
@@ -141,8 +184,13 @@ namespace creek
         return result;
     }
 
+    Bytecode ExprLoop::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::control_loop) << m_body->bytecode(var_name_map);
+    }
 
-    // `ExprWhile` constructor.
+
+    // @brief  `ExprWhile` constructor.
     // @param  condition   Contidion expression.
     // @param  block       Expression to execute in each loop.
     ExprWhile::ExprWhile(Expression* condition, Expression* body) :
@@ -184,8 +232,16 @@ namespace creek
         return result;
     }
 
+    Bytecode ExprWhile::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::control_while) <<
+            m_condition->bytecode(var_name_map) <<
+            m_body->bytecode(var_name_map);
+    }
 
-    // `ExprFor` constructor.
+
+    // @brief  `ExprFor` constructor.
     // @param  var_name        Variable name for the iterator.
     // @param  initial_value   Initial value of the iterator.
     // @param  max_value       Iterator must be less-than this.
@@ -244,8 +300,19 @@ namespace creek
         return result;
     }
 
+    Bytecode ExprFor::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::control_for) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_initial_value->bytecode(var_name_map) <<
+            m_max_value->bytecode(var_name_map) <<
+            m_step_value->bytecode(var_name_map) <<
+            m_body->bytecode(var_name_map);
+    }
 
-    // `ExprForIn` constructor.
+
+    // @brief  `ExprForIn` constructor.
     // @param  var_name        Variable name for the iterator.
     // @param  range           Range expression.
     // @param  body            Expression to execute in each loop.
@@ -296,8 +363,13 @@ namespace creek
         return result;
     }
 
+    Bytecode ExprForIn::bytecode(VarNameMap& var_name_map) const
+    {
+        throw Unimplemented("range based for");
+    }
 
-    // `ExprTry` constructor.
+
+    // @brief  `ExprTry` constructor.
     // @param  try_body    Expression to try.
     // @param  catch_body  Expression to execute when catching an exception.
     ExprTry::ExprTry(Expression* try_body, Expression* catch_body) :
@@ -319,8 +391,13 @@ namespace creek
         }
     }
 
+    Bytecode ExprTry::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::control_try) << m_try_body->bytecode(var_name_map) << m_catch_body->bytecode(var_name_map);
+    }
 
-    // `ExprThrow` constructor.
+
+    // @brief  `ExprThrow` constructor.
     // @param  value       Value to throw.
     ExprThrow::ExprThrow(Expression* value) : m_value(value)
     {
@@ -333,8 +410,13 @@ namespace creek
         return new Void(); // just in case
     }
 
+    Bytecode ExprThrow::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::control_throw) << m_value->bytecode(var_name_map);
+    }
 
-    // `ExprReturn` constructor.
+
+    // @brief  `ExprReturn` constructor.
     // @param  value       Value to return.
     ExprReturn::ExprReturn(Expression* value) : m_value(value)
     {
@@ -346,6 +428,11 @@ namespace creek
         Variable v = m_value->eval(scope);
         scope.return_point()->is_returning = true;
         return v.release();
+    }
+
+    Bytecode ExprReturn::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::control_return) << m_value->bytecode(var_name_map);
     }
 
 
@@ -361,5 +448,10 @@ namespace creek
         Variable v = m_value->eval(scope);
         scope.break_point()->is_breaking = true;
         return v.release();
+    }
+
+    Bytecode ExprBreak::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::control_break) << m_value->bytecode(var_name_map);
     }
 }

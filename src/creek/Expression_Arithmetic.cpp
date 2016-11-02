@@ -23,6 +23,11 @@ namespace creek
         return l.add(r);
     }
 
+    Bytecode ExprAdd::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::add) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprSub` constructor.
     // @param  lexpr       Expression for left parameter.
@@ -39,6 +44,11 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return l.sub(r);
+    }
+
+    Bytecode ExprSub::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::sub) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
     }
 
 
@@ -59,6 +69,11 @@ namespace creek
         return l.mul(r);
     }
 
+    Bytecode ExprMul::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::mul) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprDiv` constructor.
     // @param  lexpr       Expression for left parameter.
@@ -75,6 +90,11 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return l.div(r);
+    }
+
+    Bytecode ExprDiv::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::div) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
     }
 
 
@@ -95,6 +115,11 @@ namespace creek
         return l.mod(r);
     }
 
+    Bytecode ExprMod::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::mod) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprExp` constructor.
     // @param  lexpr       Expression for left parameter.
@@ -113,6 +138,11 @@ namespace creek
         return l.exp(r);
     }
 
+    Bytecode ExprExp::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::exp) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
+    }
+
 
     // `ExprUnm` constructor.
     // @param  expr         Expression to negate.
@@ -125,5 +155,10 @@ namespace creek
     {
         Variable l(m_expr->eval(scope));
         return l.unm();
+    }
+
+    Bytecode ExprUnm::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::unm) << m_expr->bytecode(var_name_map);
     }
 }

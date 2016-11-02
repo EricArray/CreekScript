@@ -1,0 +1,79 @@
+\hypertarget{classcreek_1_1_expr_create_global}{}\section{creek\+:\+:Expr\+Create\+Global Class Reference}
+\label{classcreek_1_1_expr_create_global}\index{creek\+::\+Expr\+Create\+Global@{creek\+::\+Expr\+Create\+Global}}
+
+
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Create a new variable in global scope. Returns a copy of the evaluated expression.  
+
+
+
+
+{\ttfamily \#include $<$Expression\+\_\+\+Variable.\+hpp$>$}
+
+Inheritance diagram for creek\+:\+:Expr\+Create\+Global\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcreek_1_1_expr_create_global}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcreek_1_1_expr_create_global_a6af42083554395f193d4b95ca7389381}{Expr\+Create\+Global} (\hyperlink{classcreek_1_1_var_name}{Var\+Name} var\+\_\+name, \hyperlink{classcreek_1_1_expression}{Expression} $\ast$expression)
+\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{classcreek_1_1_expr_create_global}{Expr\+Create\+Global}} constructor. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_variable}{Variable} \hyperlink{classcreek_1_1_expr_create_global_afb61097d41d367ea41be1cd66a3ef2bb}{eval} (\hyperlink{classcreek_1_1_scope}{Scope} \&scope) override
+\begin{DoxyCompactList}\small\item\em Evaluate this expression. \end{DoxyCompactList}\item 
+\hyperlink{classcreek_1_1_bytecode}{Bytecode} \hyperlink{classcreek_1_1_expr_create_global_a35e0b72f7b135ee43e3fd5dd513afedf}{bytecode} (\hyperlink{classcreek_1_1_var_name_map}{Var\+Name\+Map} \&var\+\_\+name\+\_\+map) const  override\hypertarget{classcreek_1_1_expr_create_global_a35e0b72f7b135ee43e3fd5dd513afedf}{}\label{classcreek_1_1_expr_create_global_a35e0b72f7b135ee43e3fd5dd513afedf}
+
+\begin{DoxyCompactList}\small\item\em Get the bytecode of this expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classcreek_1_1_expression}{Expression}\+: Create a new variable in global scope. Returns a copy of the evaluated expression. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{creek\+::\+Expr\+Create\+Global@{creek\+::\+Expr\+Create\+Global}!Expr\+Create\+Global@{Expr\+Create\+Global}}
+\index{Expr\+Create\+Global@{Expr\+Create\+Global}!creek\+::\+Expr\+Create\+Global@{creek\+::\+Expr\+Create\+Global}}
+\subsubsection[{\texorpdfstring{Expr\+Create\+Global(\+Var\+Name var\+\_\+name, Expression $\ast$expression)}{ExprCreateGlobal(VarName var_name, Expression *expression)}}]{\setlength{\rightskip}{0pt plus 5cm}creek\+::\+Expr\+Create\+Global\+::\+Expr\+Create\+Global (
+\begin{DoxyParamCaption}
+\item[{{\bf Var\+Name}}]{var\+\_\+name, }
+\item[{{\bf Expression} $\ast$}]{expression}
+\end{DoxyParamCaption}
+)}\hypertarget{classcreek_1_1_expr_create_global_a6af42083554395f193d4b95ca7389381}{}\label{classcreek_1_1_expr_create_global_a6af42083554395f193d4b95ca7389381}
+
+
+{\ttfamily \hyperlink{classcreek_1_1_expr_create_global}{Expr\+Create\+Global}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var\+\_\+name} & \hyperlink{classcreek_1_1_variable}{Variable} name. \\
+\hline
+{\em expression} & \hyperlink{classcreek_1_1_expression}{Expression} to get value. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{creek\+::\+Expr\+Create\+Global@{creek\+::\+Expr\+Create\+Global}!eval@{eval}}
+\index{eval@{eval}!creek\+::\+Expr\+Create\+Global@{creek\+::\+Expr\+Create\+Global}}
+\subsubsection[{\texorpdfstring{eval(\+Scope \&scope) override}{eval(Scope &scope) override}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Variable} creek\+::\+Expr\+Create\+Global\+::eval (
+\begin{DoxyParamCaption}
+\item[{{\bf Scope} \&}]{scope}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classcreek_1_1_expr_create_global_afb61097d41d367ea41be1cd66a3ef2bb}{}\label{classcreek_1_1_expr_create_global_afb61097d41d367ea41be1cd66a3ef2bb}
+
+
+Evaluate this expression. 
+
+\begin{DoxyReturn}{Returns}
+Result of the expression; may be {\ttfamily nullptr}. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classcreek_1_1_expression_a3c7fe4a04e24c8d907f918240e2bf43d}{creek\+::\+Expression}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Variable.\+hpp\item 
+C\+:/\+Users/\+Eric/\+Projects/\+Creek\+Script/bytecode/\+Creek\+Script/src/creek/Expression\+\_\+\+Variable.\+cpp\end{DoxyCompactItemize}

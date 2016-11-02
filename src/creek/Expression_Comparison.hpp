@@ -24,6 +24,7 @@ namespace creek
         ExprCmp(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -42,6 +43,7 @@ namespace creek
         ExprEQ(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -60,6 +62,7 @@ namespace creek
         ExprNE(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -78,6 +81,7 @@ namespace creek
         ExprLT(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -96,6 +100,7 @@ namespace creek
         ExprLE(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -114,6 +119,7 @@ namespace creek
         ExprGT(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -132,6 +138,7 @@ namespace creek
         ExprGE(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;

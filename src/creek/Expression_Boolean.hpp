@@ -23,6 +23,7 @@ namespace creek
         ExprBoolAnd(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -41,6 +42,7 @@ namespace creek
         ExprBoolOr(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -60,6 +62,7 @@ namespace creek
         ExprBoolXor(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_lexpr;
@@ -77,6 +80,7 @@ namespace creek
         ExprBoolNot(Expression* expr);
 
         Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::unique_ptr<Expression> m_expr;
