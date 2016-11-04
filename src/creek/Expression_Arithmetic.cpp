@@ -23,6 +23,11 @@ namespace creek
         return l.add(r);
     }
 
+    Expression* ExprAdd::to_const() const
+    {
+        
+    }
+
     Bytecode ExprAdd::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(OpCode::add) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
@@ -44,6 +49,11 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return l.sub(r);
+    }
+
+    Expression* ExprSub::to_const() const
+    {
+        
     }
 
     Bytecode ExprSub::bytecode(VarNameMap& var_name_map) const
@@ -69,6 +79,11 @@ namespace creek
         return l.mul(r);
     }
 
+    Expression* ExprMul::to_const() const
+    {
+        
+    }
+
     Bytecode ExprMul::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(OpCode::mul) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
@@ -90,6 +105,11 @@ namespace creek
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
         return l.div(r);
+    }
+
+    Expression* ExprDiv::to_const() const
+    {
+        
     }
 
     Bytecode ExprDiv::bytecode(VarNameMap& var_name_map) const
@@ -115,6 +135,11 @@ namespace creek
         return l.mod(r);
     }
 
+    Expression* ExprMod::to_const() const
+    {
+        
+    }
+
     Bytecode ExprMod::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(OpCode::mod) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
@@ -138,6 +163,11 @@ namespace creek
         return l.exp(r);
     }
 
+    Expression* ExprExp::to_const() const
+    {
+        
+    }
+
     Bytecode ExprExp::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(OpCode::exp) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);
@@ -155,6 +185,11 @@ namespace creek
     {
         Variable l(m_expr->eval(scope));
         return l.unm();
+    }
+
+    Expression* ExprUnm::to_const() const
+    {
+        
     }
 
     Bytecode ExprUnm::bytecode(VarNameMap& var_name_map) const

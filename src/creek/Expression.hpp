@@ -23,9 +23,12 @@ namespace creek
         /// @return Result of the expression; may be `nullptr`.
         virtual Variable eval(Scope& scope) = 0;
 
-        /// @brief  Check if this expression is constant.
-        /// @return True if this expression can be evaluated at compile time.
-        virtual bool is_const() { return false; }
+        /// @brief  Get an equivalent constant expression from this.
+        /// @return If can convert to const at compile time, return a new
+        ///         expression pointer, else, return `nullptr`. Can return
+        ///         `this`, so check before deleting.
+        /// By default, returns `nullptr`.
+        virtual Expression* to_const() const;
 
         /// @brief  Get the bytecode of this expression.
         virtual Bytecode bytecode(VarNameMap& var_name_map) const = 0;

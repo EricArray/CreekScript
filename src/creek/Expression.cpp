@@ -3,6 +3,17 @@
 
 namespace creek
 {
+    /// @brief  Get an equivalent constant expression from this.
+    /// @return If can convert to const at compile time, return a new
+    ///         expression pointer, else, return `nullptr`. Can return
+    ///         `this`, so check before deleting.
+    /// By default, returns `nullptr`.
+    virtual Expression* Expression::to_const() const
+    {
+        return nullptr;
+    }
+
+
     // `RuntimeError` constructor.
     // @param  expr    Expression associated with the error.
     RuntimeError::RuntimeError(const Expression* expr) : m_expr(expr)

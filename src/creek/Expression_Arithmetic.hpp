@@ -12,17 +12,18 @@ namespace creek
     /// @defgroup   expression_arithmetic   Arithmetic operations
     /// @{
 
-    /// Expression: Add two values.
+    /// @brief  Expression: Add two values.
     /// Returns L + R.
     class CREEK_API ExprAdd : public Expression
     {
     public:
-        /// `ExprAdd` constructor.
+        /// @brief  `ExprAdd` constructor.
         /// @param  lexpr       Expression for left parameter.
         /// @param  rexpr       Expression for right parameter.
         ExprAdd(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -42,6 +43,7 @@ namespace creek
         ExprSub(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -61,6 +63,7 @@ namespace creek
         ExprMul(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -80,6 +83,7 @@ namespace creek
         ExprDiv(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -100,6 +104,7 @@ namespace creek
         ExprMod(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -119,6 +124,7 @@ namespace creek
         ExprExp(Expression* lexpr, Expression* rexpr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -137,6 +143,7 @@ namespace creek
         ExprUnm(Expression* expr);
 
         Variable eval(Scope& scope) override;
+        Expression* to_const() const override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
