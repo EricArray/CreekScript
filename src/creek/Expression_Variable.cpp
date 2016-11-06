@@ -17,6 +17,21 @@ namespace creek
 
     }
 
+    Expression* ExprCreateLocal::clone() const
+    {
+        return new ExprCreateLocal(m_var_name, m_expression->clone());
+    }
+
+    bool ExprCreateLocal::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprCreateLocal::const_optimize() const
+    {
+        return new ExprCreateLocal(m_var_name, m_expression->const_optimize());
+    }
+
     Variable ExprCreateLocal::eval(Scope& scope)
     {
         Variable new_value(m_expression->eval(scope));
@@ -41,6 +56,21 @@ namespace creek
 
     }
 
+    Expression* ExprLoadLocal::clone() const
+    {
+        return new ExprLoadLocal(m_var_name);
+    }
+
+    bool ExprLoadLocal::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprLoadLocal::const_optimize() const
+    {
+        return new ExprLoadLocal(m_var_name);
+    }
+
     Variable ExprLoadLocal::eval(Scope& scope)
     {
         return Variable(scope.find_var(m_var_name)->copy());
@@ -62,6 +92,21 @@ namespace creek
         m_expression(expression)
     {
 
+    }
+
+    Expression* ExprStoreLocal::clone() const
+    {
+        return new ExprStoreLocal(m_var_name, m_expression->clone());
+    }
+
+    bool ExprStoreLocal::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprStoreLocal::const_optimize() const
+    {
+        return new ExprStoreLocal(m_var_name, m_expression->const_optimize());
     }
 
     Variable ExprStoreLocal::eval(Scope& scope)
@@ -91,6 +136,21 @@ namespace creek
 
     }
 
+    Expression* ExprCreateGlobal::clone() const
+    {
+        return new ExprCreateGlobal(m_var_name, m_expression->clone());
+    }
+
+    bool ExprCreateGlobal::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprCreateGlobal::const_optimize() const
+    {
+        return new ExprCreateGlobal(m_var_name, m_expression->const_optimize());
+    }
+
     Variable ExprCreateGlobal::eval(Scope& scope)
     {
         Variable new_value(m_expression->eval(scope));
@@ -115,6 +175,21 @@ namespace creek
 
     }
 
+    Expression* ExprLoadGlobal::clone() const
+    {
+        return new ExprLoadGlobal(m_var_name);
+    }
+
+    bool ExprLoadGlobal::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprLoadGlobal::const_optimize() const
+    {
+        return new ExprLoadGlobal(m_var_name);
+    }
+
     Variable ExprLoadGlobal::eval(Scope& scope)
     {
         return Variable(GlobalScope::instance.find_var(m_var_name)->copy());
@@ -136,6 +211,21 @@ namespace creek
         m_expression(expression)
     {
 
+    }
+
+    Expression* ExprStoreGlobal::clone() const
+    {
+        return new ExprStoreGlobal(m_var_name, m_expression->clone());
+    }
+
+    bool ExprStoreGlobal::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprStoreGlobal::const_optimize() const
+    {
+        return new ExprStoreGlobal(m_var_name, m_expression->const_optimize());
     }
 
     Variable ExprStoreGlobal::eval(Scope& scope)

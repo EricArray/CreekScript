@@ -15,6 +15,16 @@ namespace creek
 
     }
 
+    Expression* ExprConst::clone() const
+    {
+        return new ExprConst(m_data->copy());
+    }
+
+    bool ExprConst::is_const() const
+    {
+        return true;
+    }
+
     Variable ExprConst::eval(Scope& scope)
     {
         return m_data->copy();
@@ -22,7 +32,8 @@ namespace creek
 
     Bytecode ExprConst::bytecode(VarNameMap& var_name_map) const
     {
-        throw Unimplemented("ExprConst::bytecode");
+        std::unique_ptr<Expression> e(m_data->to_expression());
+        return e->bytecode(var_name_map);
     }
 
 
@@ -36,6 +47,31 @@ namespace creek
         {
             m_args.emplace_back(arg);
         }
+    }
+
+    Expression* ExprCall::clone() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->clone());
+        }
+        return new ExprCall(m_function->clone(), new_args);
+    }
+
+    bool ExprCall::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprCall::const_optimize() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->const_optimize());
+        }
+        return new ExprCall(m_function->const_optimize(), new_args);
     }
 
     Variable ExprCall::eval(Scope& scope)
@@ -77,6 +113,31 @@ namespace creek
         {
             m_args.emplace_back(arg);
         }
+    }
+
+    Expression* ExprVariadicCall::clone() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->clone());
+        }
+        return new ExprVariadicCall(m_function->clone(), new_args, m_vararg->clone());
+    }
+
+    bool ExprVariadicCall::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprVariadicCall::const_optimize() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->const_optimize());
+        }
+        return new ExprVariadicCall(m_function->const_optimize(), new_args, m_vararg->const_optimize());
     }
 
     Variable ExprVariadicCall::eval(Scope& scope)
@@ -129,6 +190,31 @@ namespace creek
         }
     }
 
+    Expression* ExprCallMethod::clone() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->clone());
+        }
+        return new ExprCallMethod(m_object->clone(), m_index->clone(), new_args);
+    }
+
+    bool ExprCallMethod::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprCallMethod::const_optimize() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->const_optimize());
+        }
+        return new ExprCallMethod(m_object->const_optimize(), m_index->const_optimize(), new_args);
+    }
+    
     Variable ExprCallMethod::eval(Scope& scope)
     {
         Variable object = m_object->eval(scope);
@@ -177,6 +263,31 @@ namespace creek
         }
     }
 
+    Expression* ExprVariadicCallMethod::clone() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->clone());
+        }
+        return new ExprVariadicCallMethod(m_object->clone(), m_index->clone(), new_args, m_vararg->clone());
+    }
+
+    bool ExprVariadicCallMethod::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprVariadicCallMethod::const_optimize() const
+    {
+        std::vector<Expression*> new_args;
+        for (auto& a : m_args)
+        {
+            new_args.push_back(a->const_optimize());
+        }
+        return new ExprVariadicCallMethod(m_object->const_optimize(), m_index->const_optimize(), new_args, m_vararg->const_optimize());
+    }
+    
     Variable ExprVariadicCallMethod::eval(Scope& scope)
     {
         // normal arguments
@@ -227,6 +338,21 @@ namespace creek
 
     }
 
+    Expression* ExprIndexGet::clone() const
+    {
+        return new ExprIndexGet(m_array->clone(), m_index->clone());
+    }
+
+    bool ExprIndexGet::is_const() const
+    {
+        return false;
+    }
+    
+    Expression* ExprIndexGet::const_optimize() const
+    {
+        return new ExprIndexGet(m_array->const_optimize(), m_index->const_optimize());
+    }
+    
     Variable ExprIndexGet::eval(Scope& scope)
     {
         Variable a = m_array->eval(scope);
@@ -252,6 +378,21 @@ namespace creek
 
     }
 
+    Expression* ExprIndexSet::clone() const
+    {
+        return new ExprIndexSet(m_array->clone(), m_index->clone(), m_value->clone());
+    }
+
+    bool ExprIndexSet::is_const() const
+    {
+        return false;
+    }
+    
+    Expression* ExprIndexSet::const_optimize() const
+    {
+        return new ExprIndexSet(m_array->const_optimize(), m_index->const_optimize(), m_value->const_optimize());
+    }
+    
     Variable ExprIndexSet::eval(Scope& scope)
     {
         Variable a = m_array->eval(scope);
@@ -265,3 +406,4 @@ namespace creek
         return Bytecode() << static_cast<uint8_t>(OpCode::index_set) << m_array->bytecode(var_name_map) << m_index->bytecode(var_name_map) << m_value->bytecode(var_name_map);
     }
 }
+

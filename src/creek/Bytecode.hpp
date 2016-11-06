@@ -82,6 +82,9 @@ namespace creek
         /// @brief  Insert a 64-bit floating point number.
         Bytecode& operator<< (double value);
 
+        /// @brief  Insert a boolean.
+        Bytecode& operator<< (bool value);
+
         /// @brief  Insert a string.
         Bytecode& operator<< (const std::string& value);
 
@@ -115,6 +118,9 @@ namespace creek
 
         /// @brief  Extract a 64-bit floating point number.
         Bytecode& operator>> (double& value);
+
+        /// @brief  Extract a boolean.
+        Bytecode& operator>> (bool& value);
 
         /// @brief  Extract a string.
         Bytecode& operator>> (std::string& value);

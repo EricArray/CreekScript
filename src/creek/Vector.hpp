@@ -32,6 +32,7 @@ namespace creek
         Data* copy() const override;
         std::string class_name() const override;
         std::string debug_text() const override;
+        Expression* to_expression() const override;
 
         bool bool_value() const override;
         // void bool_value(bool new_value) override;

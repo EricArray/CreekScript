@@ -18,6 +18,7 @@ namespace creek
         Data* copy() const override;
         std::string class_name() const override;
         std::string debug_text() const override;
+        Expression* to_expression() const override;
 
         bool bool_value() const override;
         int int_value() const override;
@@ -25,7 +26,7 @@ namespace creek
         std::string string_value() const override;
 
         int cmp(Data* other) override;
-        
+
         Data* get_class() override;
     };
 }

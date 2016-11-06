@@ -26,6 +26,14 @@ namespace creek
         throw Undefined(class_name() + "::debug_text");
     }
 
+    /// @brief  Get an expression to duplicate this data.
+    /// By default throws an exception saying this data is not const.
+    Expression* Data::to_expression() const
+    {
+        throw Exception("Can't get expression from non-const data");
+    }
+
+
     bool Data::bool_value() const
     {
         throw Undefined(class_name() + "::bool_value");

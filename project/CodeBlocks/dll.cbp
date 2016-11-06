@@ -116,6 +116,8 @@
 		<Unit filename="../../src/creek/Variable.hpp" />
 		<Unit filename="../../src/creek/Vector.cpp" />
 		<Unit filename="../../src/creek/Vector.hpp" />
+		<Unit filename="../../src/creek/Version.cpp" />
+		<Unit filename="../../src/creek/Version.hpp" />
 		<Unit filename="../../src/creek/Void.cpp" />
 		<Unit filename="../../src/creek/Void.hpp" />
 		<Unit filename="../../src/creek/api_mode.hpp" />

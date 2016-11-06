@@ -1,5 +1,6 @@
 #include <creek/Identifier.hpp>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 
 namespace creek
@@ -27,6 +28,11 @@ namespace creek
     std::string Identifier::debug_text() const
     {
         return std::string("@") + this->string_value();
+    }
+
+    Expression* Identifier::to_expression() const
+    {
+        return new ExprIdentifier(m_value);
     }
 
 

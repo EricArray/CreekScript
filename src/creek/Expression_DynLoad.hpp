@@ -27,6 +27,8 @@ namespace creek
                     const std::string& library_path,
                     const std::string& func_name);
 
+        Expression* clone() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 

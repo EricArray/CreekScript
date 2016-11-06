@@ -128,6 +128,12 @@ namespace creek
         return *this;
     }
 
+    Bytecode& Bytecode::operator<< (bool value)
+    {
+        write(Endian::sint8_to_bytes(value));
+        return *this;
+    }
+
     Bytecode& Bytecode::operator<< (const std::string& value)
     {
         *this << static_cast<int16_t>(value.size());
@@ -203,6 +209,14 @@ namespace creek
     Bytecode& Bytecode::operator>> (double& value)
     {
         value = Endian::bytes_to_float32(read(8));
+        return *this;
+    }
+
+    Bytecode& Bytecode::operator>> (bool& value)
+    {
+        int8_t svalue = 0;
+        *this >> svalue;
+        value = svalue;
         return *this;
     }
 

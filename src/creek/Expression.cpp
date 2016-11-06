@@ -3,6 +3,21 @@
 
 namespace creek
 {
+    /// @brief  Is this expression constant?
+    /// By default returns false.
+    bool Expression::is_const() const
+    {
+        return false;
+    }
+
+    /// @brief  Get an equivalent, optimized expression from this.
+    /// By default, returns a copy of this.
+    Expression* Expression::const_optimize() const
+    {
+        return clone();
+    }
+
+
     // `RuntimeError` constructor.
     // @param  expr    Expression associated with the error.
     RuntimeError::RuntimeError(const Expression* expr) : m_expr(expr)

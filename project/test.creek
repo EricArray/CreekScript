@@ -1,4 +1,1 @@
-var v = [0,1,2,3];
-for i = 0..v.size() {
-    print(v[i], "\n");
-}
+if false {"if"} else {"else"}

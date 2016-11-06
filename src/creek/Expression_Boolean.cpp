@@ -1,6 +1,7 @@
 #include <creek/Expression_Boolean.hpp>
 
 #include <creek/Boolean.hpp>
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/OpCode.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
@@ -16,6 +17,50 @@ namespace creek
         m_rexpr(rexpr)
     {
 
+    }
+
+    Expression* ExprBoolAnd::clone() const
+    {
+        return new ExprBoolAnd(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprBoolAnd::is_const() const
+    {
+        if (m_lexpr->is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            if (l->bool_value() == true)
+            {
+                return true;
+            }
+            else
+            {
+                return m_rexpr->is_const();
+            }
+        }
+        return false;
+    }
+
+    Expression* ExprBoolAnd::const_optimize() const
+    {
+        if (m_lexpr->is_const())
+        {
+            Scope scope;
+            Variable l = m_lexpr->eval(scope);
+            if (l->bool_value() == true)
+            {
+                return m_lexpr->const_optimize();
+            }
+            else
+            {
+                return m_rexpr->const_optimize();
+            }
+        }
+        else
+        {
+            return new ExprBoolAnd(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
     }
 
     Variable ExprBoolAnd::eval(Scope& scope)
@@ -48,6 +93,50 @@ namespace creek
 
     }
 
+    Expression* ExprBoolOr::clone() const
+    {
+        return new ExprBoolOr(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprBoolOr::is_const() const
+    {
+        if (m_lexpr->is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            if (l->bool_value() == false)
+            {
+                return true;
+            }
+            else
+            {
+                return m_rexpr->is_const();
+            }
+        }
+        return false;
+    }
+
+    Expression* ExprBoolOr::const_optimize() const
+    {
+        if (m_lexpr->is_const())
+        {
+            Scope scope;
+            Variable l = m_lexpr->eval(scope);
+            if (l->bool_value() == false)
+            {
+                return m_lexpr->const_optimize();
+            }
+            else
+            {
+                return m_rexpr->const_optimize();
+            }
+        }
+        else
+        {
+            return new ExprBoolOr(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
+    }
+
     Variable ExprBoolOr::eval(Scope& scope)
     {
         Variable l(m_lexpr->eval(scope));
@@ -78,6 +167,31 @@ namespace creek
 
     }
 
+    Expression* ExprBoolXor::clone() const
+    {
+        return new ExprBoolXor(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprBoolXor::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprBoolXor::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->bool_value() != r->bool_value());
+        }
+        else
+        {
+            return new ExprBoolXor(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
+    }
+
     Variable ExprBoolXor::eval(Scope& scope)
     {
         Variable l(m_lexpr->eval(scope));
@@ -100,6 +214,30 @@ namespace creek
     ExprBoolNot::ExprBoolNot(Expression* expr) : m_expr(expr)
     {
 
+    }
+
+    Expression* ExprBoolNot::clone() const
+    {
+        return new ExprBoolNot(m_expr->clone());
+    }
+
+    bool ExprBoolNot::is_const() const
+    {
+        return m_expr->is_const();
+    }
+
+    Expression* ExprBoolNot::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable v(m_expr->eval(scope));
+            return new ExprBoolean(!v->bool_value());
+        }
+        else
+        {
+            return new ExprBoolNot(m_expr->const_optimize());
+        }
     }
 
     Variable ExprBoolNot::eval(Scope& scope)

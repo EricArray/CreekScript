@@ -12,7 +12,7 @@ namespace creek
     /// @defgroup   expression_comparison   Comparison opereations
     /// @{
 
-    /// Expression: Compare two values.
+    /// @brief  Expression: Compare two values.
     /// Returns -1 if less-than, 0 if equal and 1 if greater-than.
     /// Returns L <=> R.
     class CREEK_API ExprCmp : public Expression
@@ -23,6 +23,10 @@ namespace creek
         /// @param  rexpr   Expression for right parameter.
         ExprCmp(Expression* lexpr, Expression* rexpr);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -32,7 +36,8 @@ namespace creek
     };
 
 
-    /// Expression: Equal to.
+
+    /// @brief  Expression: Equal to.
     /// Returns L == R.
     class CREEK_API ExprEQ : public Expression
     {
@@ -42,6 +47,10 @@ namespace creek
         /// @param  rexpr   Expression for right parameter.
         ExprEQ(Expression* lexpr, Expression* rexpr);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -51,7 +60,7 @@ namespace creek
     };
 
 
-    /// Expression: Not equal to.
+    /// @brief  Expression: Not equal to.
     /// Returns L != R.
     class CREEK_API ExprNE : public Expression
     {
@@ -61,6 +70,10 @@ namespace creek
         /// @param  rexpr   Expression for right parameter.
         ExprNE(Expression* lexpr, Expression* rexpr);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -70,7 +83,7 @@ namespace creek
     };
 
 
-    /// Expression: Less than.
+    /// @brief  Expression: Less than.
     /// Returns L < R.
     class CREEK_API ExprLT : public Expression
     {
@@ -80,6 +93,10 @@ namespace creek
         /// @param  rexpr   Expression for right parameter.
         ExprLT(Expression* lexpr, Expression* rexpr);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -89,7 +106,7 @@ namespace creek
     };
 
 
-    /// Expression: Less than or equal to.
+    /// @brief  Expression: Less than or equal to.
     /// Returns L <= R.
     class CREEK_API ExprLE : public Expression
     {
@@ -99,6 +116,10 @@ namespace creek
         /// @param  rexpr   Expression for right parameter.
         ExprLE(Expression* lexpr, Expression* rexpr);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -108,7 +129,7 @@ namespace creek
     };
 
 
-    /// Expression: Greater than.
+    /// @brief  Expression: Greater than.
     /// Returns L > R.
     class CREEK_API ExprGT : public Expression
     {
@@ -118,6 +139,10 @@ namespace creek
         /// @param  rexpr   Expression for right parameter.
         ExprGT(Expression* lexpr, Expression* rexpr);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -127,7 +152,7 @@ namespace creek
     };
 
 
-    /// Expression: Greater than or equal to.
+    /// @brief  Expression: Greater than or equal to.
     /// Returns L >= R.
     class CREEK_API ExprGE : public Expression
     {
@@ -136,6 +161,10 @@ namespace creek
         /// @param  lexpr   Expression for left parameter.
         /// @param  rexpr   Expression for right parameter.
         ExprGE(Expression* lexpr, Expression* rexpr);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;

@@ -28,6 +28,9 @@ namespace creek
         /// `ExprVoid` constructor.
         ExprVoid();
 
+        Expression* clone() const override;
+        bool is_const() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
     };
@@ -40,6 +43,9 @@ namespace creek
     public:
         /// `ExprNull` constructor.
         ExprNull();
+        
+        Expression* clone() const override;
+        bool is_const() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -54,6 +60,9 @@ namespace creek
         /// `ExprBoolean` constructor.
         /// @param  value       Boolean value.
         ExprBoolean(Boolean::Value value);
+        
+        Expression* clone() const override;
+        bool is_const() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -71,6 +80,9 @@ namespace creek
         /// `ExprNumber` constructor.
         /// @param  value       Number value.
         ExprNumber(Number::Value value);
+        
+        Expression* clone() const override;
+        bool is_const() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -88,6 +100,9 @@ namespace creek
         /// `ExprString` constructor.
         /// @param  value       String value.
         ExprString(String::Value value);
+        
+        Expression* clone() const override;
+        bool is_const() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -105,6 +120,9 @@ namespace creek
         /// `ExprIdentifier` constructor.
         /// @param  value       Identifier value.
         ExprIdentifier(Identifier::Value value);
+        
+        Expression* clone() const override;
+        bool is_const() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -122,6 +140,10 @@ namespace creek
         /// @brief  `ExprVector` constructor.
         /// @param  values  List of initial values.
         ExprVector(std::vector<Expression*> values);
+        
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -141,6 +163,23 @@ namespace creek
         /// @param  variadic    Create a variadic function.
         /// @param  body        Function body block.
         ExprFunction(const std::vector<VarName>& arg_names, bool variadic, Expression* body);
+
+        /// `ExprFunction` constructor.
+        /// @param  arg_names   Names of arguments.
+        /// @param  variadic    Create a variadic function.
+        /// @param  body        Function body block.
+        ExprFunction(const std::vector<VarName>& arg_names, bool variadic,
+                     std::shared_ptr<Expression> body);
+
+        /// @brief  Get a copy.
+        /// The cloned expression shares the body expression.
+        Expression* clone() const override;
+
+        bool is_const() const override;
+
+        /// @brief  Get an optimized copy.
+        /// The cloned expression has an optimized body expression.
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -191,6 +230,16 @@ namespace creek
 
             }
 
+            MethodDef(VarName id, const std::vector<VarName>& arg_names,
+                      bool is_variadic, std::shared_ptr<Expression> body) :
+                id(id),
+                arg_names(arg_names),
+                is_variadic(is_variadic),
+                body(body)
+            {
+
+            }
+
             VarName id; ///< Method name.
             std::vector<VarName> arg_names; ///< Argument names.
             bool is_variadic; ///< Is this method variadic?
@@ -202,6 +251,16 @@ namespace creek
         /// @param  super_class Expression for the super class.
         /// @param  method_defs List of method definitions.
         ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs);
+
+        /// @brief  Get a copy.
+        /// The cloned expression shares the body expression.
+        Expression* clone() const override;
+
+        bool is_const() const override;
+
+        /// @brief  Get an optimized copy.
+        /// The cloned expression has an optimized body expression.
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
