@@ -6,33 +6,42 @@
 		<Option pch_mode="2" />
 		<Option compiler="tdm64" />
 		<Build>
-			<Target title="dll-debug">
-				<Option output="../creek-debug" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+			<Target title="dll32-debug">
+				<Option output="../creek32-debug" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
-				<Option object_output="obj/dll-debug/" />
+				<Option object_output="obj/dll32-debug/" />
 				<Option type="3" />
 				<Option compiler="tdm64" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-m32" />
 					<Add option="-g" />
 					<Add option="-DCREEK_BUILDING" />
 					<Add option="-DCREEK_DEBUG" />
 				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+				</Linker>
 			</Target>
-			<Target title="dll-release">
-				<Option output="../creek" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+			<Target title="dll32-release">
+				<Option output="../creek32" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
-				<Option object_output="obj/dll-debug/" />
+				<Option object_output="obj/dll32-debug/" />
 				<Option type="3" />
 				<Option compiler="tdm64" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-g" />
+					<Add option="-O2" />
+					<Add option="-m32" />
 					<Add option="-DCREEK_BUILDING" />
 					<Add option="-DNDEBUG" />
 				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m32" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
@@ -62,7 +71,6 @@
 		<Unit filename="../../src/creek/Exception.hpp" />
 		<Unit filename="../../src/creek/Expression.cpp" />
 		<Unit filename="../../src/creek/Expression.hpp" />
-		<Unit filename="../../src/creek/Expression.hpp.save-failed" />
 		<Unit filename="../../src/creek/Expression_Arithmetic.cpp" />
 		<Unit filename="../../src/creek/Expression_Arithmetic.hpp" />
 		<Unit filename="../../src/creek/Expression_Bitwise.cpp" />
