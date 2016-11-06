@@ -646,8 +646,12 @@ namespace creek
 
             case TokenType::string:             //< String literal.
             {
-                String::Value value = iter->string();
-                iter += 1;
+                String::Value value;
+                while (iter->type() == TokenType::string)
+                {
+                    value += iter->string();
+                    iter += 1;
+                }
                 e = new ExprString(value);
                 break;
             }
@@ -860,45 +864,47 @@ namespace creek
                     Expression* index = new ExprIdentifier(VarName::from_name(iter->identifier()));
                     iter += 1;
 
-                    check_token_type(iter, {TokenType::open_round});
-                    iter += 1;
-
+                    // args
                     std::vector<Expression*> args;
                     Expression* vararg = nullptr;
-
-                    check_not_eof(iter);
-                    while (iter->type() != TokenType::close_round && !vararg)
+                    if (iter->type() == TokenType::open_round)  // optional parenthesis
                     {
-                        // value
-                        auto arg = parse_operation(iter);
+                        iter += 1;
 
-                        // variadic
-                        if (iter->type() == TokenType::ellipsis_3)
+                        check_not_eof(iter);
+                        while (iter->type() != TokenType::close_round && !vararg)
                         {
-                            vararg = arg;
-                            iter += 1;
-                        }
-                        else
-                        {
-                            args.push_back(arg);
-                        }
+                            // value
+                            auto arg = parse_operation(iter);
 
-                        // optional comma
-                        if (iter->type() != TokenType::close_round)
-                        {
-                            if (iter->type() == TokenType::comma)
+                            // variadic
+                            if (iter->type() == TokenType::ellipsis_3)
                             {
+                                vararg = arg;
                                 iter += 1;
                             }
                             else
                             {
-                                throw UnexpectedToken(*iter);
+                                args.push_back(arg);
+                            }
+
+                            // optional comma
+                            if (iter->type() != TokenType::close_round)
+                            {
+                                if (iter->type() == TokenType::comma)
+                                {
+                                    iter += 1;
+                                }
+                                else
+                                {
+                                    throw UnexpectedToken(*iter);
+                                }
                             }
                         }
-                    }
 
-                    check_token_type(iter, {TokenType::close_round});
-                    iter += 1;
+                        check_token_type(iter, {TokenType::close_round});
+                        iter += 1;
+                    }
 
                     if (vararg)
                     {

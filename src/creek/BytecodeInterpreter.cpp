@@ -490,9 +490,12 @@ namespace creek
                 auto body = parse_expression(bytecode, var_name_map);
                 return new ExprFor(var_name, initial_value, max_value, step_value, body);
             }
-            case OpCode::control_for_in:               //< 0x46
+            case OpCode::control_for_in:            //< 0x46
             {
-                throw Unimplemented("OpCode::control_for_in");
+                auto var_name = parse_var_name(bytecode, var_name_map);
+                auto range = parse_expression(bytecode, var_name_map);
+                auto body = parse_expression(bytecode, var_name_map);
+                return new ExprForIn(var_name, range, body);
             }
             case OpCode::control_try:               //< 0x47
             {

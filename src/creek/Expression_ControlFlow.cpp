@@ -71,7 +71,7 @@ namespace creek
 
             result = expression->eval(scope);
         }
-        if (!result) // will return void if no expression was run
+        if (!*result) // will return void if no expression was run
         {
             result.data(new Void());
         }
@@ -385,7 +385,7 @@ namespace creek
             }
         }
 
-        if (!result)
+        if (!*result)
         {
             result = new Void();
         }
@@ -469,7 +469,7 @@ namespace creek
             }
         }
 
-        if (!result)
+        if (!*result)
         {
             result.data(new Void());
         }
@@ -564,7 +564,7 @@ namespace creek
             }
         }
 
-        if (!result)
+        if (!*result)
         {
             result.data(new Void());
         }
@@ -619,34 +619,21 @@ namespace creek
         Variable result;
         Variable range(m_range->eval(scope));
 
-        throw Unimplemented("range based for");
-        // Scope outer_scope(scope);
-        // auto& i = outer_scope.create_local_var(m_var_name, m_initial_value->eval(outer_scope));
-        // while (true)
-        // {
-        //     // check maximum
-        //     {
-        //         Variable max = m_max_value->eval(outer_scope);
-        //         Variable lt = i.lt(max);
-        //         if (!lt->bool_value())
-        //         {
-        //             break;
-        //         }
-        //     }
+        Scope outer_scope(scope);
+        auto& item = outer_scope.create_local_var(m_var_name, nullptr);
+        auto& vector = range->vector_value();
+        for (size_t i = 0; i < vector.size(); ++i)
+        {
+            // item
+            item.reset(vector[i]->copy());
 
-        //     // execute body block
-        //     {
-        //         Scope inner_scope(outer_scope);
-        //         result = m_body->eval(inner_scope);
-        //     }
-
-        //     // add step
-        //     {
-        //         Variable step = m_step_value->eval(outer_scope);
-        //         i = i + step;
-        //     }
-        // }
-        if (!result)
+            // execute body block
+            {
+                Scope inner_scope(outer_scope);
+                result = m_body->eval(inner_scope);
+            }
+        }
+        if (!*result)
         {
             result.data(new Void());
         }
@@ -655,7 +642,11 @@ namespace creek
 
     Bytecode ExprForIn::bytecode(VarNameMap& var_name_map) const
     {
-        throw Unimplemented("range based for");
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::control_for_in) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_range->bytecode(var_name_map) <<
+            m_body->bytecode(var_name_map);
     }
 
 

@@ -69,6 +69,12 @@ namespace creek
         m_data.reset(new_data);
     }
 
+    // Set the stored data.
+    void Variable::reset(Data* new_data)
+    {
+        m_data.reset(new_data);
+    }
+
     // Get the stored data and release ownership.
     Data* Variable::release()
     {

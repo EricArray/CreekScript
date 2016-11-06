@@ -39,7 +39,7 @@
 	<vector>
 	<creek/api_mode.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\variable.hpp
+1478463429 c:\users\eric\projects\creekscript\src\creek\variable.hpp
 	<memory>
 	<creek/api_mode.hpp>
 	<creek/Data.hpp>
@@ -59,7 +59,7 @@
 	<cstdint>
 	<creek/api_mode.hpp>
 
-1478457801 source:c:\users\eric\projects\creekscript\src\creek\bytecodeinterpreter.cpp
+1478463794 source:c:\users\eric\projects\creekscript\src\creek\bytecodeinterpreter.cpp
 	<creek/BytecodeInterpreter.hpp>
 	<fstream>
 	<creek/Expression.hpp>
@@ -359,7 +359,7 @@
 	<creek/Scope.hpp>
 	<creek/Variable.hpp>
 
-1478434496 source:c:\users\eric\projects\creekscript\src\creek\expression_controlflow.cpp
+1478463916 source:c:\users\eric\projects\creekscript\src\creek\expression_controlflow.cpp
 	<creek/Expression_ControlFlow.hpp>
 	<creek/Exception.hpp>
 	<creek/Expression_DataTypes.hpp>
@@ -425,7 +425,7 @@
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 
-1478266094 source:c:\users\eric\projects\creekscript\src\creek\interpreter.cpp
+1478462087 source:c:\users\eric\projects\creekscript\src\creek\interpreter.cpp
 	<creek/Interpreter.hpp>
 	<fstream>
 	<iostream>
@@ -496,7 +496,7 @@
 	<map>
 	<sstream>
 
-1478266094 source:c:\users\eric\projects\creekscript\src\creek\variable.cpp
+1478463416 source:c:\users\eric\projects\creekscript\src\creek\variable.cpp
 	<creek/Variable.hpp>
 	<creek/Data.hpp>
 	<creek/utility.hpp>

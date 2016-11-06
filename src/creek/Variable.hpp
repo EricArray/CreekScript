@@ -43,7 +43,12 @@ namespace creek
         const Data* data() const;
 
         /// Set the stored data.
+        /// The older data is deleted.
         void data(Data* new_data);
+
+        /// Set the stored data.
+        /// The older data is deleted.
+        void reset(Data* new_data);
 
         /// Get the stored data and release ownership.
         Data* release();
