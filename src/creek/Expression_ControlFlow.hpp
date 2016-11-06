@@ -24,6 +24,10 @@ namespace creek
         /// @param  expressions  List of expressions to evaluate.
         ExprBasicBlock(const std::vector<Expression*>& expressions);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -39,6 +43,10 @@ namespace creek
         /// @brief `ExprDo` constructor.
         /// @param value    Expression to evaluate inside new scope.
         ExprDo(Expression* value);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -58,6 +66,10 @@ namespace creek
         /// @param  true_branch     Expression to evaluate when true.
         /// @param  false_branch    Expression to evaluate when false.
         ExprIf(Expression* condition, Expression* true_branch, Expression* false_branch);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -96,6 +108,10 @@ namespace creek
         /// @param  default_branch  Default branch.
         ExprSwitch(Expression* condition, std::vector<CaseBranch>& case_branches, Expression* default_branch);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -115,6 +131,10 @@ namespace creek
         /// @param  body        Expression to execute in each loop.
         ExprLoop(Expression* body);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -132,6 +152,10 @@ namespace creek
         /// @param  condition   Contidion expression.
         /// @param  body        Expression to execute in each loop.
         ExprWhile(Expression* condition, Expression* body);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -156,6 +180,10 @@ namespace creek
         ExprFor(VarName var_name, Expression* initial_value, Expression* max_value,
                 Expression* step_value, Expression* body);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -179,6 +207,10 @@ namespace creek
         /// @param  body            Expression to execute in each loop.
         ExprForIn(VarName var_name, Expression* range, Expression* body);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -200,6 +232,10 @@ namespace creek
         /// @param  catch_body  Expression to execute when catching an exception.
         ExprTry(Expression* try_body, Expression* catch_body);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -218,6 +254,10 @@ namespace creek
         /// @param  value       Value to throw.
         ExprThrow(Expression* value);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -234,6 +274,10 @@ namespace creek
         /// `ExprReturn` constructor.
         /// @param  value       Value to return.
         ExprReturn(Expression* value);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
 
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
@@ -253,6 +297,10 @@ namespace creek
         /// @param  value       Value to yield.
         ExprBreak(Expression* value);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 

@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 #include <creek/utility.hpp>
 
@@ -27,6 +28,12 @@ namespace creek
     {
         return std::to_string(m_value);
     }
+
+    Expression* Number::to_expression() const
+    {
+        return new ExprNumber(m_value);
+    }
+
 
     bool Number::bool_value() const
     {

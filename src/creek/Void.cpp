@@ -1,5 +1,6 @@
 #include <creek/Void.hpp>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 
 
@@ -18,6 +19,11 @@ namespace creek
     std::string Void::debug_text() const
     {
         return "void";
+    }
+
+    Expression* Void::to_expression() const
+    {
+        return new ExprVoid();
     }
 
     bool Void::bool_value() const

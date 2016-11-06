@@ -15,6 +15,21 @@ namespace creek
 
     }
 
+    Expression* ExprPrint::clone() const
+    {
+        return new ExprPrint(m_expression->clone());
+    }
+
+    bool ExprPrint::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprPrint::const_optimize() const
+    {
+        return new ExprPrint(m_expression->const_optimize());
+    }
+
     Variable ExprPrint::eval(Scope& scope)
     {
         // Data* data = m_expression->eval(scope);

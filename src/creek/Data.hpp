@@ -10,6 +10,7 @@
 
 namespace creek
 {
+    class Expression;
     class Variable;
 
 
@@ -19,19 +20,23 @@ namespace creek
     public:
         virtual ~Data() = default;
 
-        /// Create a copy of this data.
+        /// @brief  Create a copy of this data.
         virtual Data* copy() const;
 
-        /// Create a shallow copy of this data.
+        /// @brief  Create a shallow copy of this data.
         /// By default, calls `copy`.
         virtual Data* clone() const;
 
-        /// Get data class name.
+        /// @brief  Get data class name.
         virtual std::string class_name() const;
 
-        /// Get debug text.
+        /// @brief  Get debug text.
         /// Should be same as or more specific than `string_value`.
         virtual std::string debug_text() const;
+
+        /// @brief  Get an expression to duplicate this data.
+        /// By default throws an exception saying this data is not const.
+        virtual Expression* to_expression() const;
 
 
         /// @name   Value access

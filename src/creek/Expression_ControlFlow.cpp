@@ -1,6 +1,7 @@
 #include <creek/Expression_ControlFlow.hpp>
 
 #include <creek/Exception.hpp>
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
 #include <creek/Void.hpp>
@@ -15,6 +16,47 @@ namespace creek
         for (auto& expression : expressions)
         {
             m_expressions.emplace_back(expression);
+        }
+    }
+
+    Expression* ExprBasicBlock::clone() const
+    {
+        std::vector<Expression*> new_exprs;
+        for (auto& e : m_expressions)
+        {
+            new_exprs.push_back(e->clone());
+        }
+        return new ExprBasicBlock(new_exprs);
+    }
+
+    bool ExprBasicBlock::is_const() const
+    {
+        for (auto& e : m_expressions)
+        {
+            if (!e->is_const())
+                return false;
+        }
+        return true;
+    }
+
+    Expression* ExprBasicBlock::const_optimize() const
+    {
+        if (m_expressions.size() == 0)
+        {
+            return new ExprVoid();
+        }
+        else if (is_const())
+        {
+            return m_expressions.back()->const_optimize();
+        }
+        else
+        {
+            std::vector<Expression*> new_exprs;
+            for (auto& e : m_expressions)
+            {
+                new_exprs.push_back(e->const_optimize());
+            }
+            return new ExprBasicBlock(new_exprs);
         }
     }
 
@@ -56,6 +98,28 @@ namespace creek
 
     }
 
+    Expression* ExprDo::clone() const
+    {
+        return new ExprDo(m_value->clone());
+    }
+
+    bool ExprDo::is_const() const
+    {
+        return m_value->is_const();
+    }
+
+    Expression* ExprDo::const_optimize() const
+    {
+        if (is_const())
+        {
+            return m_value->const_optimize();
+        }
+        else
+        {
+            return new ExprDo(m_value->const_optimize());
+        }
+    }
+
     Variable ExprDo::eval(Scope& scope)
     {
         Scope new_scope(scope);
@@ -78,6 +142,52 @@ namespace creek
         m_false_branch(false_branch)
     {
 
+    }
+
+    Expression* ExprIf::clone() const
+    {
+        return new ExprIf(m_condition->clone(), m_true_branch->clone(), m_false_branch->clone());
+    }
+
+    bool ExprIf::is_const() const
+    {
+        if (m_condition->is_const())
+        {
+            Scope scope;
+            Variable c = m_condition->eval(scope);
+            if (c->bool_value() == true)
+            {
+                return m_true_branch->is_const();
+            }
+            else
+            {
+                return m_false_branch->is_const();
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    Expression* ExprIf::const_optimize() const
+    {
+        if (m_condition->is_const())
+        {
+            Scope scope;
+            Variable c = m_condition->eval(scope);
+            if (c->bool_value() == true)
+            {
+                return m_true_branch->const_optimize();
+            }
+            else
+            {
+                return m_false_branch->const_optimize();
+            }
+        }
+        else return new ExprIf(m_condition->const_optimize(),
+                               m_true_branch->const_optimize(),
+                               m_false_branch->const_optimize());
     }
 
     Variable ExprIf::eval(Scope& scope)
@@ -114,6 +224,89 @@ namespace creek
         m_default_branch(default_branch)
     {
         m_case_branches.swap(case_branches);
+    }
+
+    Expression* ExprSwitch::clone() const
+    {
+        std::vector<CaseBranch> new_case_branches;
+        for (auto& b : m_case_branches)
+        {
+            std::vector<Expression*> new_values;
+            for (auto& v : b.values)
+            {
+                new_values.push_back(v->clone());
+            }
+            new_case_branches.emplace_back(new_values, b.body->clone());
+        }
+        return new ExprSwitch(m_condition->clone(), new_case_branches, m_default_branch->clone());
+    }
+
+    bool ExprSwitch::is_const() const
+    {
+        // check condition const, then compare to case values until
+        // a non-const value is reached, or default
+        if (m_condition->is_const())
+        {
+            Scope scope;
+            Variable c = m_condition->eval(scope);
+            for (auto& b : m_case_branches)
+            {
+                for (auto& v : b.values)
+                {
+                    if (!v->is_const())
+                    {
+                        return false;
+                    }
+
+                    Variable e = v->eval(scope);
+                    if (c.cmp(e) == 0)
+                    {
+                        return b.body->is_const();
+                    }
+                }
+            }
+            return m_default_branch->is_const();
+        }
+        else return false;
+    }
+
+    Expression* ExprSwitch::const_optimize() const
+    {
+        // check condition const, then compare to case values until
+        // a non-const value is reached, or default
+        if (is_const())
+        {
+            Scope scope;
+            Variable c = m_condition->eval(scope);
+            for (auto& b : m_case_branches)
+            {
+                for (auto& v : b.values)
+                {
+                    Variable e = v->eval(scope);
+                    if (c.cmp(e) == 0)
+                    {
+                        return b.body->const_optimize();
+                    }
+                }
+            }
+            return m_default_branch->const_optimize();
+        }
+        else
+        {
+            std::vector<CaseBranch> new_case_branches;
+            for (auto& b : m_case_branches)
+            {
+                std::vector<Expression*> new_values;
+                for (auto& v : b.values)
+                {
+                    new_values.push_back(v->const_optimize());
+                }
+                new_case_branches.emplace_back(new_values, b.body->const_optimize());
+            }
+            return new ExprSwitch(m_condition->const_optimize(),
+                                  new_case_branches,
+                                  m_default_branch->const_optimize());
+        }
     }
 
     Variable ExprSwitch::eval(Scope& scope)
@@ -162,6 +355,21 @@ namespace creek
 
     }
 
+    Expression* ExprLoop::clone() const
+    {
+        return new ExprLoop(m_body->clone());
+    }
+
+    bool ExprLoop::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprLoop::const_optimize() const
+    {
+        return new ExprLoop(m_body->const_optimize());
+    }
+
     Variable ExprLoop::eval(Scope& scope)
     {
         Variable result;
@@ -198,6 +406,42 @@ namespace creek
         m_body(body)
     {
 
+    }
+
+    Expression* ExprWhile::clone() const
+    {
+        return new ExprWhile(m_condition->clone(), m_body->clone());
+    }
+
+    bool ExprWhile::is_const() const
+    {
+        if (m_condition->is_const())
+        {
+            Scope scope;
+            Variable c(m_condition->eval(scope));
+            if (c->bool_value() == false)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    Expression* ExprWhile::const_optimize() const
+    {
+        if (m_condition->is_const())
+        {
+            Scope scope;
+            Variable c(m_condition->eval(scope));
+            if (c->bool_value() == false)
+            {
+                return new ExprVoid();
+            }
+        }
+        else
+        {
+            return new ExprWhile(m_condition->const_optimize(), m_body->const_optimize());
+        }
     }
 
     Variable ExprWhile::eval(Scope& scope)
@@ -256,6 +500,33 @@ namespace creek
         m_body(body)
     {
 
+    }
+
+    Expression* ExprFor::clone() const
+    {
+        return new ExprFor(
+            m_var_name,
+            m_initial_value->clone(),
+            m_max_value->clone(),
+            m_step_value->clone(),
+            m_body->clone()
+        );
+    }
+
+    bool ExprFor::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprFor::const_optimize() const
+    {
+        return new ExprFor(
+            m_var_name,
+            m_initial_value->const_optimize(),
+            m_max_value->const_optimize(),
+            m_step_value->const_optimize(),
+            m_body->const_optimize()
+        );
     }
 
     Variable ExprFor::eval(Scope& scope)
@@ -324,6 +595,25 @@ namespace creek
 
     }
 
+    Expression* ExprForIn::clone() const
+    {
+        return new ExprForIn(m_var_name, m_range->clone(), m_body->clone());
+    }
+
+    bool ExprForIn::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprForIn::const_optimize() const
+    {
+        return new ExprForIn(
+            m_var_name,
+            m_range->const_optimize(),
+            m_body->const_optimize()
+        );
+    }
+
     Variable ExprForIn::eval(Scope& scope)
     {
         Variable result;
@@ -379,6 +669,21 @@ namespace creek
 
     }
 
+    Expression* ExprTry::clone() const
+    {
+        return new ExprTry(m_try_body->clone(), m_catch_body->clone());
+    }
+
+    bool ExprTry::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprTry::const_optimize() const
+    {
+        return new ExprTry(m_try_body->const_optimize(), m_catch_body->const_optimize());
+    }
+
     Variable ExprTry::eval(Scope& scope)
     {
         try
@@ -404,6 +709,21 @@ namespace creek
 
     }
 
+    Expression* ExprThrow::clone() const
+    {
+        return new ExprThrow(m_value->clone());
+    }
+
+    bool ExprThrow::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprThrow::const_optimize() const
+    {
+        return new ExprThrow(m_value->const_optimize());
+    }
+
     Variable ExprThrow::eval(Scope& scope)
     {
         throw m_value->eval(scope);
@@ -421,6 +741,21 @@ namespace creek
     ExprReturn::ExprReturn(Expression* value) : m_value(value)
     {
 
+    }
+
+    Expression* ExprReturn::clone() const
+    {
+        return new ExprReturn(m_value->clone());
+    }
+
+    bool ExprReturn::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprReturn::const_optimize() const
+    {
+        return new ExprReturn(m_value->const_optimize());
     }
 
     Variable ExprReturn::eval(Scope& scope)
@@ -441,6 +776,21 @@ namespace creek
     ExprBreak::ExprBreak(Expression* value) : m_value(value)
     {
 
+    }
+
+    Expression* ExprBreak::clone() const
+    {
+        return new ExprBreak(m_value->clone());
+    }
+
+    bool ExprBreak::is_const() const
+    {
+        return false;
+    }
+
+    Expression* ExprBreak::const_optimize() const
+    {
+        return new ExprBreak(m_value->const_optimize());
     }
 
     Variable ExprBreak::eval(Scope& scope)

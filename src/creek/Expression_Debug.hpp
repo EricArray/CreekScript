@@ -23,6 +23,10 @@ namespace creek
         /// @param  expression  Expression to get value.
         ExprPrint(Expression* expression);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 

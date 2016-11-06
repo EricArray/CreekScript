@@ -1,5 +1,6 @@
 #include <creek/String.hpp>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 #include <creek/utility.hpp>
 
@@ -25,6 +26,12 @@ namespace creek
     {
         return std::string("\"") + escape_string(m_value) + std::string("\"");
     }
+
+    Expression* String::to_expression() const
+    {
+        return new ExprString(m_value);
+    }
+
 
     bool String::bool_value() const
     {

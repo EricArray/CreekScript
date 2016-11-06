@@ -23,6 +23,10 @@ namespace creek
         /// @param  expression  Expression to get value.
         ExprCreateLocal(VarName var_name, Expression* expression);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -41,6 +45,10 @@ namespace creek
         /// @param  var_name    Variable name.
         ExprLoadLocal(VarName var_name);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -59,6 +67,10 @@ namespace creek
         /// @param  expression  Expression to get value.
         ExprStoreLocal(VarName var_name, Expression* expression);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -77,6 +89,10 @@ namespace creek
         /// @param  expression  Expression to get value.
         ExprCreateGlobal(VarName var_name, Expression* expression);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -95,6 +111,10 @@ namespace creek
         /// @param  var_name    Variable name.
         ExprLoadGlobal(VarName var_name);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -113,6 +133,10 @@ namespace creek
         /// @param  expression  Expression to get value.
         ExprStoreGlobal(VarName var_name, Expression* expression);
 
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+        
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 

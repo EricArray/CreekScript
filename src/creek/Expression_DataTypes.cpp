@@ -13,6 +13,16 @@ namespace creek
 
     }
 
+    Expression* ExprVoid::clone() const
+    {
+        return new ExprVoid();
+    }
+
+    bool ExprVoid::is_const() const
+    {
+        return true;
+    }
+
     Variable ExprVoid::eval(Scope& scope)
     {
         return Variable(new Void());
@@ -28,6 +38,16 @@ namespace creek
     ExprNull::ExprNull()
     {
 
+    }
+
+    Expression* ExprNull::clone() const
+    {
+        return new ExprNull();
+    }
+
+    bool ExprNull::is_const() const
+    {
+        return true;
     }
 
     Variable ExprNull::eval(Scope& scope)
@@ -48,6 +68,16 @@ namespace creek
 
     }
 
+    Expression* ExprBoolean::clone() const
+    {
+        return new ExprBoolean(m_value);
+    }
+
+    bool ExprBoolean::is_const() const
+    {
+        return true;
+    }
+
     Variable ExprBoolean::eval(Scope& scope)
     {
         return Variable(new Boolean(m_value));
@@ -64,6 +94,16 @@ namespace creek
     ExprNumber::ExprNumber(Number::Value value) : m_value(value)
     {
 
+    }
+
+    Expression* ExprNumber::clone() const
+    {
+        return new ExprNumber(m_value);
+    }
+
+    bool ExprNumber::is_const() const
+    {
+        return true;
     }
 
     Variable ExprNumber::eval(Scope& scope)
@@ -84,6 +124,16 @@ namespace creek
 
     }
 
+    Expression* ExprString::clone() const
+    {
+        return new ExprString(m_value);
+    }
+
+    bool ExprString::is_const() const
+    {
+        return true;
+    }
+
     Variable ExprString::eval(Scope& scope)
     {
         return Variable(new String(m_value));
@@ -100,6 +150,16 @@ namespace creek
     ExprIdentifier::ExprIdentifier(Identifier::Value value) : m_value(value)
     {
 
+    }
+
+    Expression* ExprIdentifier::clone() const
+    {
+        return new ExprIdentifier(m_value);
+    }
+
+    bool ExprIdentifier::is_const() const
+    {
+        return true;
     }
 
     Variable ExprIdentifier::eval(Scope& scope)
@@ -121,6 +181,36 @@ namespace creek
         {
             m_values.emplace_back(v);
         }
+    }
+
+    Expression* ExprVector::clone() const
+    {
+        std::vector<Expression*> new_values;
+        for (auto& v : m_values)
+        {
+            new_values.push_back(v->clone());
+        }
+        return new ExprVector(new_values);
+    }
+
+    bool ExprVector::is_const() const
+    {
+        for (auto& v : m_values)
+        {
+            if (v->is_const() == false)
+                return false;
+        }
+        return true;
+    }
+
+    Expression* ExprVector::const_optimize() const
+    {
+        std::vector<Expression*> new_values;
+        for (auto& v : m_values)
+        {
+            new_values.push_back(v->const_optimize());
+        }
+        return new ExprVector(new_values);
     }
 
     Variable ExprVector::eval(Scope& scope)
@@ -156,6 +246,33 @@ namespace creek
         m_body(body)
     {
 
+    }
+
+    // `ExprFunction` constructor.
+    // @param  arg_names   Names of arguments.
+    // @param  variadic    Create a variadic function.
+    // @param  body        Function body block.
+    ExprFunction::ExprFunction(const std::vector<VarName>& arg_names, bool variadic, std::shared_ptr<Expression> body) :
+        m_arg_names(arg_names),
+        m_variadic(variadic),
+        m_body(body)
+    {
+
+    }
+
+    Expression* ExprFunction::clone() const
+    {
+        return new ExprFunction(m_arg_names, m_variadic, m_body);
+    }
+
+    bool ExprFunction::is_const() const
+    {
+        return true;
+    }
+
+    Expression* ExprFunction::const_optimize() const
+    {
+        return new ExprFunction(m_arg_names, m_variadic, m_body->const_optimize());
     }
 
     Variable ExprFunction::eval(Scope& scope)
@@ -214,6 +331,35 @@ namespace creek
         m_super_class(super_class)
     {
         m_method_defs.swap(method_defs);
+    }
+
+    /// @brief  Get a copy.
+    /// The cloned expression shares the body expression.
+    Expression* ExprClass::clone() const
+    {
+        std::vector<MethodDef> new_method_defs;
+        for (auto& d : m_method_defs)
+        {
+            new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body);
+        }
+        return new ExprClass(m_id, m_super_class->clone(), new_method_defs);
+    }
+
+    bool ExprClass::is_const() const
+    {
+        return false;
+    }
+
+    /// @brief  Get an optimized copy.
+    /// The cloned expression has an optimized body expression.
+    Expression* ExprClass::const_optimize() const
+    {
+        std::vector<MethodDef> new_method_defs;
+        for (auto& d : m_method_defs)
+        {
+            new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body->const_optimize());
+        }
+        return new ExprClass(m_id, m_super_class->const_optimize(), new_method_defs);
     }
 
     Variable ExprClass::eval(Scope& scope)

@@ -3,14 +3,18 @@
 
 namespace creek
 {
-    /// @brief  Get an equivalent constant expression from this.
-    /// @return If can convert to const at compile time, return a new
-    ///         expression pointer, else, return `nullptr`. Can return
-    ///         `this`, so check before deleting.
-    /// By default, returns `nullptr`.
-    virtual Expression* Expression::to_const() const
+    /// @brief  Is this expression constant?
+    /// By default returns false.
+    bool Expression::is_const() const
     {
-        return nullptr;
+        return false;
+    }
+
+    /// @brief  Get an equivalent, optimized expression from this.
+    /// By default, returns a copy of this.
+    Expression* Expression::const_optimize() const
+    {
+        return clone();
     }
 
 

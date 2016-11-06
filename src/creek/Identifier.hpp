@@ -29,6 +29,8 @@ namespace creek
         /// Get debug text.
         std::string debug_text() const override;
 
+        Expression* to_expression() const override;
+
 
         /// @name   Value access.
         /// @{

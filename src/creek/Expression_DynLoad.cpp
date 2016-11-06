@@ -21,6 +21,11 @@ namespace creek
 
     }
 
+    Expression* ExprDynFunc::clone() const
+    {
+        return new ExprDynFunc(m_arg_names, m_is_variadic, m_library_path, m_func_name);
+    }
+
     Variable ExprDynFunc::eval(Scope& scope)
     {
         return Variable(new DynCFunction(scope, m_arg_names, m_is_variadic, m_library_path, m_func_name));

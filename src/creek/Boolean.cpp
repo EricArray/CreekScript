@@ -1,5 +1,6 @@
 #include <creek/Boolean.hpp>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 
 
@@ -26,6 +27,11 @@ namespace creek
     std::string Boolean::debug_text() const
     {
         return string_value();
+    }
+
+    Expression* Boolean::to_expression() const
+    {
+        return new ExprBoolean(m_value);
     }
 
 

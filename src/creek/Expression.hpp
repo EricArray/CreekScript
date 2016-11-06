@@ -19,16 +19,22 @@ namespace creek
     public:
         virtual ~Expression() = default;
 
+
+        /// @brief  Get a copy of this expression.
+        virtual Expression* clone() const = 0;
+
+        /// @brief  Can be evaluated at compile time?
+        /// By default returns false.
+        virtual bool is_const() const;
+
+        /// @brief  Get an equivalent, optimized expression from this.
+        /// By default returns a copy of this.
+        virtual Expression* const_optimize() const;
+
+
         /// @brief  Evaluate this expression.
         /// @return Result of the expression; may be `nullptr`.
         virtual Variable eval(Scope& scope) = 0;
-
-        /// @brief  Get an equivalent constant expression from this.
-        /// @return If can convert to const at compile time, return a new
-        ///         expression pointer, else, return `nullptr`. Can return
-        ///         `this`, so check before deleting.
-        /// By default, returns `nullptr`.
-        virtual Expression* to_const() const;
 
         /// @brief  Get the bytecode of this expression.
         virtual Bytecode bytecode(VarNameMap& var_name_map) const = 0;

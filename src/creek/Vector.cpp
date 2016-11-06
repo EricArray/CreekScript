@@ -2,6 +2,7 @@
 
 #include <sstream>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 
 
@@ -47,6 +48,16 @@ namespace creek
         }
         stream << "]";
         return stream.str();
+    }
+
+    Expression* Vector::to_expression() const
+    {
+        std::vector<Expression*> new_values;
+        for (auto& v : *m_value)
+        {
+            new_values.push_back(v->to_expression());
+        }
+        return new ExprVector(new_values);
     }
 
 

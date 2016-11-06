@@ -1,6 +1,7 @@
 #include <creek/Expression_Comparison.hpp>
 
 #include <creek/Boolean.hpp>
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/Number.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Variable.hpp>
@@ -14,6 +15,31 @@ namespace creek
     ExprCmp::ExprCmp(Expression* lexpr, Expression* rexpr) : m_lexpr(lexpr), m_rexpr(rexpr)
     {
 
+    }
+
+    Expression* ExprCmp::clone() const
+    {
+        return new ExprCmp(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprCmp::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprCmp::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprNumber(l->cmp(*r));
+        }
+        else
+        {
+            return new ExprCmp(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
     }
 
     Variable ExprCmp::eval(Scope& scope)
@@ -37,6 +63,31 @@ namespace creek
 
     }
 
+    Expression* ExprEQ::clone() const
+    {
+        return new ExprEQ(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprEQ::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprEQ::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->cmp(*r) == 0);
+        }
+        else
+        {
+            return new ExprEQ(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
+    }
+
     Variable ExprEQ::eval(Scope& scope)
     {
         Variable l(m_lexpr->eval(scope));
@@ -56,6 +107,31 @@ namespace creek
     ExprNE::ExprNE(Expression* lexpr, Expression* rexpr) : m_lexpr(lexpr), m_rexpr(rexpr)
     {
 
+    }
+
+    Expression* ExprNE::clone() const
+    {
+        return new ExprNE(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprNE::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprNE::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->cmp(*r) != 0);
+        }
+        else
+        {
+            return new ExprNE(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
     }
 
     Variable ExprNE::eval(Scope& scope)
@@ -79,6 +155,31 @@ namespace creek
 
     }
 
+    Expression* ExprLT::clone() const
+    {
+        return new ExprLT(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprLT::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprLT::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->cmp(*r) < 0);
+        }
+        else
+        {
+            return new ExprLT(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
+    }
+
     Variable ExprLT::eval(Scope& scope)
     {
         Variable l(m_lexpr->eval(scope));
@@ -98,6 +199,31 @@ namespace creek
     ExprLE::ExprLE(Expression* lexpr, Expression* rexpr) : m_lexpr(lexpr), m_rexpr(rexpr)
     {
 
+    }
+
+    Expression* ExprLE::clone() const
+    {
+        return new ExprLE(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprLE::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprLE::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->cmp(*r) <= 0);
+        }
+        else
+        {
+            return new ExprLE(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
     }
 
     Variable ExprLE::eval(Scope& scope)
@@ -121,6 +247,31 @@ namespace creek
 
     }
 
+    Expression* ExprGT::clone() const
+    {
+        return new ExprGT(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprGT::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprGT::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->cmp(*r) > 0);
+        }
+        else
+        {
+            return new ExprGT(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
+    }
+
     Variable ExprGT::eval(Scope& scope)
     {
         Variable l(m_lexpr->eval(scope));
@@ -140,6 +291,31 @@ namespace creek
     ExprGE::ExprGE(Expression* lexpr, Expression* rexpr) : m_lexpr(lexpr), m_rexpr(rexpr)
     {
 
+    }
+
+    Expression* ExprGE::clone() const
+    {
+        return new ExprGE(m_lexpr->clone(), m_rexpr->clone());
+    }
+
+    bool ExprGE::is_const() const
+    {
+        return m_lexpr->is_const() && m_rexpr->is_const();
+    }
+
+    Expression* ExprGE::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable l(m_lexpr->eval(scope));
+            Variable r(m_rexpr->eval(scope));
+            return new ExprBoolean(l->cmp(*r) >= 0);
+        }
+        else
+        {
+            return new ExprGE(m_lexpr->const_optimize(), m_rexpr->const_optimize());
+        }
     }
 
     Variable ExprGE::eval(Scope& scope)

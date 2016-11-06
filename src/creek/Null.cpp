@@ -1,5 +1,6 @@
 #include <creek/Null.hpp>
 
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/GlobalScope.hpp>
 
 
@@ -25,6 +26,11 @@ namespace creek
     std::string Null::debug_text() const
     {
         return "null";
+    }
+
+    Expression* Null::to_expression() const
+    {
+        return new ExprNull();
     }
 
 

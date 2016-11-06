@@ -42,7 +42,7 @@ void save_bytecode_file(const std::string& path, const Expression* program);
 void exec_program(Expression* program, Scope& scope);
 
 // execute interactive
-void exec_interactive(Scope& scope);
+void exec_interactive(bool const_optimize, Scope& scope);
 
 
 // main function
@@ -50,6 +50,7 @@ int main(int argc, char** argv)
 {
     const char* output_path = nullptr;
     std::vector<const char*> input_paths;
+    bool const_optimize = false;
     bool interactive = false;
 
 
@@ -63,13 +64,18 @@ int main(int argc, char** argv)
             return 0;
         }
         // version
-        if (strcmp(argv[i], "-v") == 0)
+        else if (strcmp(argv[i], "-v") == 0)
         {
             show_version(argv[i]);
             return 0;
         }
+        // const optimize
+        else if (strcmp(argv[i], "-c") == 0)
+        {
+            const_optimize = true;
+        }
         // set output file
-        if (strcmp(argv[i], "-o") == 0)
+        else if (strcmp(argv[i], "-o") == 0)
         {
             i += 1;
             if (i >= argc)
@@ -113,7 +119,7 @@ int main(int argc, char** argv)
         std::ifstream file(input_path, std::ios_base::binary);
         if (file.fail())
         {
-            std::cerr << "Can't open input file.\n";
+            std::cerr << "Can't open input file " << input_path << ".\n";
             return -1;
         }
 
@@ -153,6 +159,12 @@ int main(int argc, char** argv)
             program.reset(new ExprVoid());
         }
 
+        // const_optimize
+        if (const_optimize)
+        {
+            program.reset(program->const_optimize());
+        }
+
         // output
         if (output_path)
         {
@@ -167,7 +179,7 @@ int main(int argc, char** argv)
     // interactive
     if (interactive)
     {
-        exec_interactive(scope);
+        exec_interactive(const_optimize, scope);
     }
 
     return 0;
@@ -177,10 +189,11 @@ int main(int argc, char** argv)
 // show help
 void show_usage(char* path)
 {
-    std::cout << "Usage: " << path << "  [options] [input files]\n";
+    std::cout << "usage: " << path << "  [options] [input files]\n";
     std::cout << "Available options:\n"
                  "    -h              Display usage.\n"
                  "    -v              Display version.\n"
+                 "    -c              Optimize compile-time constants.\n"
                  "    -o <path>       Set output file.\n"
                  "    -i              Enter interactive mode after executing\n"
                  "                    input files.\n"
@@ -312,7 +325,7 @@ void exec_program(Expression* program, Scope& scope)
 
 
 // execute interactive
-void exec_interactive(Scope& scope)
+void exec_interactive(bool const_optimize, Scope& scope)
 {
     scope.create_local_var(VarName("quit"), new CFunction(scope, &func_quit));
 
@@ -337,6 +350,11 @@ void exec_interactive(Scope& scope)
                 {
                     Interpreter interpreter;
                     program.reset(interpreter.load_code(input));
+
+                    if (const_optimize)
+                    {
+                        program.reset(program->const_optimize());
+                    }
                 }
                 catch (const SyntaxError& e)
                 {

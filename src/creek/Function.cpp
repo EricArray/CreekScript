@@ -1,6 +1,7 @@
 #include <creek/Function.hpp>
 
 #include <creek/Expression.hpp>
+#include <creek/Expression_DataTypes.hpp>
 #include <creek/Scope.hpp>
 #include <creek/Vector.hpp>
 #include <creek/utility.hpp>
@@ -31,6 +32,11 @@ namespace creek
         return std::string("Function(0x") +
                int_to_string(uintptr_t(m_value.get()), 16, 8) +
                std::string(")");
+    }
+
+    Expression* Function::to_expression() const
+    {
+        return new ExprFunction(m_value->arg_names, m_value->is_variadic, m_value->body);
     }
 
 
