@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1478435412 source:c:\users\eric\projects\creekscript\project\console.cpp
+1478455550 source:c:\users\eric\projects\creekscript\project\console.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -25,7 +25,7 @@
 
 1478266094 c:\users\eric\projects\creekscript\src\creek\api_mode.hpp
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\bytecode.hpp
+1478455050 c:\users\eric\projects\creekscript\src\creek\bytecode.hpp
 	<sstream>
 	<creek/api_mode.hpp>
 	<creek/Exception.hpp>

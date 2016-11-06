@@ -85,7 +85,10 @@ namespace creek
 
     Bytecode ExprBoolean::bytecode(VarNameMap& var_name_map) const
     {
-        return Bytecode() << static_cast<uint8_t>(OpCode::data_boolean) << m_value;
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::data_boolean);
+        b << m_value;
+        return b;
     }
 
 

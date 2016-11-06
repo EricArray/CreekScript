@@ -52,7 +52,7 @@ EXPORTS
     _ZN5creek10LexicErrorC1Eii @51
     _ZN5creek10LexicErrorC2Eii @52
     _ZN5creek10VarNameMap12id_from_nameERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @53
-    _ZN5creek10VarNameMap13register_nameEyRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @54
+    _ZN5creek10VarNameMap13register_nameEjRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @54
     _ZN5creek10VarNameMap3mapB5cxx11Ev @55
     _ZN5creek11BadArgumentC1EPKNS_10ExpressionERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @56
     _ZN5creek11BadArgumentC2EPKNS_10ExpressionERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @57
@@ -362,21 +362,21 @@ EXPORTS
     _ZN5creek7ExprTryC1EPNS_10ExpressionES2_ @361
     _ZN5creek7ExprTryC2EPNS_10ExpressionES2_ @362
     _ZN5creek7VarName5s_idsB5cxx11E @363 DATA
-    _ZN5creek7VarName7from_idEy @364
+    _ZN5creek7VarName7from_idEj @364
     _ZN5creek7VarName7s_namesB5cxx11E @365 DATA
     _ZN5creek7VarName9from_nameERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @366
     _ZN5creek7VarNameC1EOS0_ @367
     _ZN5creek7VarNameC1EPKc @368
     _ZN5creek7VarNameC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @369
     _ZN5creek7VarNameC1ERKS0_ @370
-    _ZN5creek7VarNameC1Ev @371
-    _ZN5creek7VarNameC1Ey @372
+    _ZN5creek7VarNameC1Ej @371
+    _ZN5creek7VarNameC1Ev @372
     _ZN5creek7VarNameC2EOS0_ @373
     _ZN5creek7VarNameC2EPKc @374
     _ZN5creek7VarNameC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @375
     _ZN5creek7VarNameC2ERKS0_ @376
-    _ZN5creek7VarNameC2Ev @377
-    _ZN5creek7VarNameC2Ey @378
+    _ZN5creek7VarNameC2Ej @377
+    _ZN5creek7VarNameC2Ev @378
     _ZN5creek7VarNameaSERKS0_ @379
     _ZN5creek7Version6linkedEv @380
     _ZN5creek7Version6loadedEv @381
@@ -397,674 +397,676 @@ EXPORTS
     _ZN5creek8BytecodelsERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @396
     _ZN5creek8BytecodelsERKS0_ @397
     _ZN5creek8BytecodelsEa @398
-    _ZN5creek8BytecodelsEd @399
-    _ZN5creek8BytecodelsEf @400
-    _ZN5creek8BytecodelsEh @401
-    _ZN5creek8BytecodelsEi @402
-    _ZN5creek8BytecodelsEj @403
-    _ZN5creek8BytecodelsEs @404
-    _ZN5creek8BytecodelsEt @405
-    _ZN5creek8BytecodelsEx @406
-    _ZN5creek8BytecodelsEy @407
-    _ZN5creek8BytecodersERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @408
-    _ZN5creek8BytecodersERa @409
-    _ZN5creek8BytecodersERd @410
-    _ZN5creek8BytecodersERf @411
-    _ZN5creek8BytecodersERh @412
-    _ZN5creek8BytecodersERi @413
-    _ZN5creek8BytecodersERj @414
-    _ZN5creek8BytecodersERs @415
-    _ZN5creek8BytecodersERt @416
-    _ZN5creek8BytecodersERx @417
-    _ZN5creek8BytecodersERy @418
-    _ZN5creek8ExprCall4evalERNS_5ScopeE @419
-    _ZN5creek8ExprCallC1EPNS_10ExpressionERKSt6vectorIS2_SaIS2_EE @420
-    _ZN5creek8ExprCallC2EPNS_10ExpressionERKSt6vectorIS2_SaIS2_EE @421
-    _ZN5creek8ExprLoop4evalERNS_5ScopeE @422
-    _ZN5creek8ExprLoopC1EPNS_10ExpressionE @423
-    _ZN5creek8ExprLoopC2EPNS_10ExpressionE @424
-    _ZN5creek8ExprNull4evalERNS_5ScopeE @425
-    _ZN5creek8ExprNullC1Ev @426
-    _ZN5creek8ExprNullC2Ev @427
-    _ZN5creek8ExprVoid4evalERNS_5ScopeE @428
-    _ZN5creek8ExprVoidC1Ev @429
-    _ZN5creek8ExprVoidC2Ev @430
-    _ZN5creek8Function3cmpEPNS_4DataE @431
-    _ZN5creek8Function4callERSt6vectorISt10unique_ptrINS_4DataESt14default_deleteIS3_EESaIS6_EE @432
-    _ZN5creek8FunctionC1ERKSt10shared_ptrINS0_10DefinitionEE @433
-    _ZN5creek8FunctionC2ERKSt10shared_ptrINS0_10DefinitionEE @434
-    _ZN5creek8Variable14bit_left_shiftERS0_ @435
-    _ZN5creek8Variable15bit_right_shiftERS0_ @436
-    _ZN5creek8Variable3addERS0_ @437
-    _ZN5creek8Variable3cmpERS0_ @438
-    _ZN5creek8Variable3divERS0_ @439
-    _ZN5creek8Variable3expERS0_ @440
-    _ZN5creek8Variable3modERS0_ @441
-    _ZN5creek8Variable3mulERS0_ @442
-    _ZN5creek8Variable3subERS0_ @443
-    _ZN5creek8Variable3unmEv @444
-    _ZN5creek8Variable4dataEPNS_4DataE @445
-    _ZN5creek8Variable4dataEv @446
-    _ZN5creek8Variable4swapERS0_ @447
-    _ZN5creek8Variable5indexES0_ @448
-    _ZN5creek8Variable5indexES0_S0_ @449
-    _ZN5creek8Variable6bit_orERS0_ @450
-    _ZN5creek8Variable7bit_andERS0_ @451
-    _ZN5creek8Variable7bit_notEv @452
-    _ZN5creek8Variable7bit_xorERS0_ @453
-    _ZN5creek8Variable7releaseEv @454
-    _ZN5creek8VariableC1EOS0_ @455
-    _ZN5creek8VariableC1EPNS_4DataE @456
-    _ZN5creek8VariableC1ERKS0_ @457
-    _ZN5creek8VariableC1Ev @458
-    _ZN5creek8VariableC2EOS0_ @459
-    _ZN5creek8VariableC2EPNS_4DataE @460
-    _ZN5creek8VariableC2ERKS0_ @461
-    _ZN5creek8VariableC2Ev @462
-    _ZN5creek8VariableD1Ev @463
-    _ZN5creek8VariableD2Ev @464
-    _ZN5creek8VariableaSEOS0_ @465
-    _ZN5creek8VariableaSERKS0_ @466
-    _ZN5creek8VariableanERS0_ @467
-    _ZN5creek8VariablecoEv @468
-    _ZN5creek8VariabledeEv @469
-    _ZN5creek8VariabledvERS0_ @470
-    _ZN5creek8VariableeoERS0_ @471
-    _ZN5creek8VariablemiERS0_ @472
-    _ZN5creek8VariablemlERS0_ @473
-    _ZN5creek8VariablengEv @474
-    _ZN5creek8VariableorERS0_ @475
-    _ZN5creek8VariableplERS0_ @476
-    _ZN5creek8VariableptEv @477
-    _ZN5creek8VariablermERS0_ @478
-    _ZN5creek9CFunction3cmpEPNS_4DataE @479
-    _ZN5creek9CFunction4callERSt6vectorISt10unique_ptrINS_4DataESt14default_deleteIS3_EESaIS6_EE @480
-    _ZN5creek9CFunctionC1ERKSt10shared_ptrINS0_10DefinitionEE @481
-    _ZN5creek9CFunctionC1ERNS_5ScopeEibSt8functionIFPNS_4DataES2_RSt6vectorISt10unique_ptrIS4_St14default_deleteIS4_EESaISA_EEEE @482
-    _ZN5creek9CFunctionC2ERKSt10shared_ptrINS0_10DefinitionEE @483
-    _ZN5creek9CFunctionC2ERNS_5ScopeEibSt8functionIFPNS_4DataES2_RSt6vectorISt10unique_ptrIS4_St14default_deleteIS4_EESaISA_EEEE @484
-    _ZN5creek9Exception6streamB5cxx11Ev @485
-    _ZN5creek9ExceptionC1EOS0_ @486
-    _ZN5creek9ExceptionC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @487
-    _ZN5creek9ExceptionC1ERKS0_ @488
-    _ZN5creek9ExceptionC1Ev @489
-    _ZN5creek9ExceptionC2EOS0_ @490
-    _ZN5creek9ExceptionC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @491
-    _ZN5creek9ExceptionC2ERKS0_ @492
-    _ZN5creek9ExceptionC2Ev @493
-    _ZN5creek9ExprBreak4evalERNS_5ScopeE @494
-    _ZN5creek9ExprBreakC1EPNS_10ExpressionE @495
-    _ZN5creek9ExprBreakC2EPNS_10ExpressionE @496
-    _ZN5creek9ExprClass4evalERNS_5ScopeE @497
-    _ZN5creek9ExprClassC1ENS_7VarNameEPNS_10ExpressionERSt6vectorINS0_9MethodDefESaIS5_EE @498
-    _ZN5creek9ExprClassC2ENS_7VarNameEPNS_10ExpressionERSt6vectorINS0_9MethodDefESaIS5_EE @499
-    _ZN5creek9ExprConst4evalERNS_5ScopeE @500
-    _ZN5creek9ExprConstC1EPNS_4DataE @501
-    _ZN5creek9ExprConstC2EPNS_4DataE @502
-    _ZN5creek9ExprForIn4evalERNS_5ScopeE @503
-    _ZN5creek9ExprForInC1ENS_7VarNameEPNS_10ExpressionES3_ @504
-    _ZN5creek9ExprForInC2ENS_7VarNameEPNS_10ExpressionES3_ @505
-    _ZN5creek9ExprPrint4evalERNS_5ScopeE @506
-    _ZN5creek9ExprPrintC1EPNS_10ExpressionE @507
-    _ZN5creek9ExprPrintC2EPNS_10ExpressionE @508
-    _ZN5creek9ExprThrow4evalERNS_5ScopeE @509
-    _ZN5creek9ExprThrowC1EPNS_10ExpressionE @510
-    _ZN5creek9ExprThrowC2EPNS_10ExpressionE @511
-    _ZN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE4evalERNS_5ScopeE @512
-    _ZN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEEC1EPNS_10ExpressionE @513
-    _ZN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE4evalERNS_5ScopeE @514
-    _ZN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEEC1EPNS_10ExpressionE @515
-    _ZN5creek9ExprWhile4evalERNS_5ScopeE @516
-    _ZN5creek9ExprWhileC1EPNS_10ExpressionES2_ @517
-    _ZN5creek9ExprWhileC2EPNS_10ExpressionES2_ @518
-    _ZN5creek9UndefinedC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @519
-    _ZN5creek9UndefinedC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @520
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE14const_optimizeEv @521
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE5cloneEv @522
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE8bytecodeERNS_10VarNameMapE @523
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE8is_constEv @524
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE14const_optimizeEv @525
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE5cloneEv @526
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE8bytecodeERNS_10VarNameMapE @527
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE8is_constEv @528
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE14const_optimizeEv @529
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE5cloneEv @530
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE8bytecodeERNS_10VarNameMapE @531
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE8is_constEv @532
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE14const_optimizeEv @533
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE5cloneEv @534
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE8bytecodeERNS_10VarNameMapE @535
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE8is_constEv @536
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE14const_optimizeEv @537
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE5cloneEv @538
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE8bytecodeERNS_10VarNameMapE @539
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE8is_constEv @540
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE14const_optimizeEv @541
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE5cloneEv @542
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE8bytecodeERNS_10VarNameMapE @543
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE8is_constEv @544
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE14const_optimizeEv @545
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE5cloneEv @546
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE8bytecodeERNS_10VarNameMapE @547
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE8is_constEv @548
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE14const_optimizeEv @549
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE5cloneEv @550
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE8bytecodeERNS_10VarNameMapE @551
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE8is_constEv @552
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE14const_optimizeEv @553
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE5cloneEv @554
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE8bytecodeERNS_10VarNameMapE @555
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE8is_constEv @556
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE14const_optimizeEv @557
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE5cloneEv @558
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE8bytecodeERNS_10VarNameMapE @559
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE8is_constEv @560
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE14const_optimizeEv @561
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE5cloneEv @562
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE8bytecodeERNS_10VarNameMapE @563
-    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE8is_constEv @564
-    _ZNK5creek10ExprBoolOr14const_optimizeEv @565
-    _ZNK5creek10ExprBoolOr5cloneEv @566
-    _ZNK5creek10ExprBoolOr8bytecodeERNS_10VarNameMapE @567
-    _ZNK5creek10ExprBoolOr8is_constEv @568
-    _ZNK5creek10ExprNumber5cloneEv @569
-    _ZNK5creek10ExprNumber8bytecodeERNS_10VarNameMapE @570
-    _ZNK5creek10ExprNumber8is_constEv @571
-    _ZNK5creek10ExprReturn14const_optimizeEv @572
-    _ZNK5creek10ExprReturn5cloneEv @573
-    _ZNK5creek10ExprReturn8bytecodeERNS_10VarNameMapE @574
-    _ZNK5creek10ExprReturn8is_constEv @575
-    _ZNK5creek10ExprString5cloneEv @576
-    _ZNK5creek10ExprString8bytecodeERNS_10VarNameMapE @577
-    _ZNK5creek10ExprString8is_constEv @578
-    _ZNK5creek10ExprSwitch14const_optimizeEv @579
-    _ZNK5creek10ExprSwitch5cloneEv @580
-    _ZNK5creek10ExprSwitch8bytecodeERNS_10VarNameMapE @581
-    _ZNK5creek10ExprSwitch8is_constEv @582
-    _ZNK5creek10ExprVector14const_optimizeEv @583
-    _ZNK5creek10ExprVector5cloneEv @584
-    _ZNK5creek10ExprVector8bytecodeERNS_10VarNameMapE @585
-    _ZNK5creek10ExprVector8is_constEv @586
-    _ZNK5creek10Expression14const_optimizeEv @587
-    _ZNK5creek10Expression8is_constEv @588
-    _ZNK5creek10Identifier10bool_valueEv @589
-    _ZNK5creek10Identifier10class_nameB5cxx11Ev @590
-    _ZNK5creek10Identifier10debug_textB5cxx11Ev @591
-    _ZNK5creek10Identifier11float_valueEv @592
-    _ZNK5creek10Identifier12string_valueB5cxx11Ev @593
-    _ZNK5creek10Identifier13to_expressionEv @594
-    _ZNK5creek10Identifier4copyEv @595
-    _ZNK5creek10Identifier9int_valueEv @596
-    _ZNK5creek10LexicError4lineEv @597
-    _ZNK5creek10LexicError6columnEv @598
-    _ZNK5creek10VarNameMap12name_from_idB5cxx11Ey @599
-    _ZNK5creek10VarNameMap17global_from_localEy @600
-    _ZNK5creek10VarNameMap3mapB5cxx11Ev @601
-    _ZNK5creek11BadArgument8arg_nameB5cxx11Ev @602
-    _ZNK5creek11ExprBoolAnd14const_optimizeEv @603
-    _ZNK5creek11ExprBoolAnd5cloneEv @604
-    _ZNK5creek11ExprBoolAnd8bytecodeERNS_10VarNameMapE @605
-    _ZNK5creek11ExprBoolAnd8is_constEv @606
-    _ZNK5creek11ExprBoolNot14const_optimizeEv @607
-    _ZNK5creek11ExprBoolNot5cloneEv @608
-    _ZNK5creek11ExprBoolNot8bytecodeERNS_10VarNameMapE @609
-    _ZNK5creek11ExprBoolNot8is_constEv @610
-    _ZNK5creek11ExprBoolXor14const_optimizeEv @611
-    _ZNK5creek11ExprBoolXor5cloneEv @612
-    _ZNK5creek11ExprBoolXor8bytecodeERNS_10VarNameMapE @613
-    _ZNK5creek11ExprBoolXor8is_constEv @614
-    _ZNK5creek11ExprBoolean5cloneEv @615
-    _ZNK5creek11ExprBoolean8bytecodeERNS_10VarNameMapE @616
-    _ZNK5creek11ExprBoolean8is_constEv @617
-    _ZNK5creek11ExprDynFunc5cloneEv @618
-    _ZNK5creek11ExprDynFunc8bytecodeERNS_10VarNameMapE @619
-    _ZNK5creek11SyntaxError5tokenEv @620
-    _ZNK5creek12DynCFunction10class_nameB5cxx11Ev @621
-    _ZNK5creek12DynCFunction10debug_textB5cxx11Ev @622
-    _ZNK5creek12DynCFunction4copyEv @623
-    _ZNK5creek12ExprFunction14const_optimizeEv @624
-    _ZNK5creek12ExprFunction5cloneEv @625
-    _ZNK5creek12ExprFunction8bytecodeERNS_10VarNameMapE @626
-    _ZNK5creek12ExprFunction8is_constEv @627
-    _ZNK5creek12ExprIndexGet14const_optimizeEv @628
-    _ZNK5creek12ExprIndexGet5cloneEv @629
-    _ZNK5creek12ExprIndexGet8bytecodeERNS_10VarNameMapE @630
-    _ZNK5creek12ExprIndexGet8is_constEv @631
-    _ZNK5creek12ExprIndexSet14const_optimizeEv @632
-    _ZNK5creek12ExprIndexSet5cloneEv @633
-    _ZNK5creek12ExprIndexSet8bytecodeERNS_10VarNameMapE @634
-    _ZNK5creek12ExprIndexSet8is_constEv @635
-    _ZNK5creek12RuntimeError4exprEv @636
-    _ZNK5creek13ExprLoadLocal14const_optimizeEv @637
-    _ZNK5creek13ExprLoadLocal5cloneEv @638
-    _ZNK5creek13ExprLoadLocal8bytecodeERNS_10VarNameMapE @639
-    _ZNK5creek13ExprLoadLocal8is_constEv @640
-    _ZNK5creek14AmbiguousToken5typesEv @641
-    _ZNK5creek14ExprBasicBlock14const_optimizeEv @642
-    _ZNK5creek14ExprBasicBlock5cloneEv @643
-    _ZNK5creek14ExprBasicBlock8bytecodeERNS_10VarNameMapE @644
-    _ZNK5creek14ExprBasicBlock8is_constEv @645
-    _ZNK5creek14ExprCallMethod14const_optimizeEv @646
-    _ZNK5creek14ExprCallMethod5cloneEv @647
-    _ZNK5creek14ExprCallMethod8bytecodeERNS_10VarNameMapE @648
-    _ZNK5creek14ExprCallMethod8is_constEv @649
-    _ZNK5creek14ExprIdentifier5cloneEv @650
-    _ZNK5creek14ExprIdentifier8bytecodeERNS_10VarNameMapE @651
-    _ZNK5creek14ExprIdentifier8is_constEv @652
-    _ZNK5creek14ExprLoadGlobal14const_optimizeEv @653
-    _ZNK5creek14ExprLoadGlobal5cloneEv @654
-    _ZNK5creek14ExprLoadGlobal8bytecodeERNS_10VarNameMapE @655
-    _ZNK5creek14ExprLoadGlobal8is_constEv @656
-    _ZNK5creek14ExprStoreLocal14const_optimizeEv @657
-    _ZNK5creek14ExprStoreLocal5cloneEv @658
-    _ZNK5creek14ExprStoreLocal8bytecodeERNS_10VarNameMapE @659
-    _ZNK5creek14ExprStoreLocal8is_constEv @660
-    _ZNK5creek15DynLibraryError4pathB5cxx11Ev @661
-    _ZNK5creek15ExprCreateLocal14const_optimizeEv @662
-    _ZNK5creek15ExprCreateLocal5cloneEv @663
-    _ZNK5creek15ExprCreateLocal8bytecodeERNS_10VarNameMapE @664
-    _ZNK5creek15ExprCreateLocal8is_constEv @665
-    _ZNK5creek15ExprStoreGlobal14const_optimizeEv @666
-    _ZNK5creek15ExprStoreGlobal5cloneEv @667
-    _ZNK5creek15ExprStoreGlobal8bytecodeERNS_10VarNameMapE @668
-    _ZNK5creek15ExprStoreGlobal8is_constEv @669
-    _ZNK5creek16ExprCreateGlobal14const_optimizeEv @670
-    _ZNK5creek16ExprCreateGlobal5cloneEv @671
-    _ZNK5creek16ExprCreateGlobal8bytecodeERNS_10VarNameMapE @672
-    _ZNK5creek16ExprCreateGlobal8is_constEv @673
-    _ZNK5creek16ExprVariadicCall14const_optimizeEv @674
-    _ZNK5creek16ExprVariadicCall5cloneEv @675
-    _ZNK5creek16ExprVariadicCall8bytecodeERNS_10VarNameMapE @676
-    _ZNK5creek16ExprVariadicCall8is_constEv @677
-    _ZNK5creek17DynSymbolNotFound6symbolB5cxx11Ev @678
-    _ZNK5creek18BadCharacterEscape3posEv @679
-    _ZNK5creek18BadCharacterEscape6sourceB5cxx11Ev @680
-    _ZNK5creek19InterpreterOperator10precedenceEv @681
-    _ZNK5creek19InterpreterOperator6stringB5cxx11Ev @682
-    _ZNK5creek19InterpreterOperatorltERKS0_ @683
-    _ZNK5creek22ExprVariadicCallMethod14const_optimizeEv @684
-    _ZNK5creek22ExprVariadicCallMethod5cloneEv @685
-    _ZNK5creek22ExprVariadicCallMethod8bytecodeERNS_10VarNameMapE @686
-    _ZNK5creek22ExprVariadicCallMethod8is_constEv @687
-    _ZNK5creek4Data10bool_valueEv @688
-    _ZNK5creek4Data10char_valueEv @689
-    _ZNK5creek4Data10class_nameB5cxx11Ev @690
-    _ZNK5creek4Data10debug_textB5cxx11Ev @691
-    _ZNK5creek4Data11float_valueEv @692
-    _ZNK5creek4Data12string_valueB5cxx11Ev @693
-    _ZNK5creek4Data12vector_valueEv @694
-    _ZNK5creek4Data13to_expressionEv @695
-    _ZNK5creek4Data4copyEv @696
-    _ZNK5creek4Data5cloneEv @697
-    _ZNK5creek4Data9int_valueEv @698
-    _ZNK5creek4Null10bool_valueEv @699
-    _ZNK5creek4Null10class_nameB5cxx11Ev @700
-    _ZNK5creek4Null10debug_textB5cxx11Ev @701
-    _ZNK5creek4Null11float_valueEv @702
-    _ZNK5creek4Null12string_valueB5cxx11Ev @703
-    _ZNK5creek4Null13to_expressionEv @704
-    _ZNK5creek4Null4copyEv @705
-    _ZNK5creek4Null9int_valueEv @706
-    _ZNK5creek4Void10bool_valueEv @707
-    _ZNK5creek4Void10class_nameB5cxx11Ev @708
-    _ZNK5creek4Void10debug_textB5cxx11Ev @709
-    _ZNK5creek4Void13to_expressionEv @710
-    _ZNK5creek4Void4copyEv @711
-    _ZNK5creek5Scope11break_pointEv @712
-    _ZNK5creek5Scope11is_breakingEv @713
-    _ZNK5creek5Scope12is_returningEv @714
-    _ZNK5creek5Scope12return_pointEv @715
-    _ZNK5creek5Token10identifierB5cxx11Ev @716
-    _ZNK5creek5Token4lineEv @717
-    _ZNK5creek5Token4textB5cxx11Ev @718
-    _ZNK5creek5Token4typeEv @719
-    _ZNK5creek5Token6columnEv @720
-    _ZNK5creek5Token6stringB5cxx11Ev @721
-    _ZNK5creek5Token7booleanEv @722
-    _ZNK5creek5Token7integerEv @723
-    _ZNK5creek5Token8floatnumEv @724
-    _ZNK5creek5Token9characterEv @725
-    _ZNK5creek6ExprDo14const_optimizeEv @726
-    _ZNK5creek6ExprDo5cloneEv @727
-    _ZNK5creek6ExprDo8bytecodeERNS_10VarNameMapE @728
-    _ZNK5creek6ExprDo8is_constEv @729
-    _ZNK5creek6ExprEQ14const_optimizeEv @730
-    _ZNK5creek6ExprEQ5cloneEv @731
-    _ZNK5creek6ExprEQ8bytecodeERNS_10VarNameMapE @732
-    _ZNK5creek6ExprEQ8is_constEv @733
-    _ZNK5creek6ExprGE14const_optimizeEv @734
-    _ZNK5creek6ExprGE5cloneEv @735
-    _ZNK5creek6ExprGE8bytecodeERNS_10VarNameMapE @736
-    _ZNK5creek6ExprGE8is_constEv @737
-    _ZNK5creek6ExprGT14const_optimizeEv @738
-    _ZNK5creek6ExprGT5cloneEv @739
-    _ZNK5creek6ExprGT8bytecodeERNS_10VarNameMapE @740
-    _ZNK5creek6ExprGT8is_constEv @741
-    _ZNK5creek6ExprIf14const_optimizeEv @742
-    _ZNK5creek6ExprIf5cloneEv @743
-    _ZNK5creek6ExprIf8bytecodeERNS_10VarNameMapE @744
-    _ZNK5creek6ExprIf8is_constEv @745
-    _ZNK5creek6ExprLE14const_optimizeEv @746
-    _ZNK5creek6ExprLE5cloneEv @747
-    _ZNK5creek6ExprLE8bytecodeERNS_10VarNameMapE @748
-    _ZNK5creek6ExprLE8is_constEv @749
-    _ZNK5creek6ExprLT14const_optimizeEv @750
-    _ZNK5creek6ExprLT5cloneEv @751
-    _ZNK5creek6ExprLT8bytecodeERNS_10VarNameMapE @752
-    _ZNK5creek6ExprLT8is_constEv @753
-    _ZNK5creek6ExprNE14const_optimizeEv @754
-    _ZNK5creek6ExprNE5cloneEv @755
-    _ZNK5creek6ExprNE8bytecodeERNS_10VarNameMapE @756
-    _ZNK5creek6ExprNE8is_constEv @757
-    _ZNK5creek6Number10bool_valueEv @758
-    _ZNK5creek6Number10class_nameB5cxx11Ev @759
-    _ZNK5creek6Number10debug_textB5cxx11Ev @760
-    _ZNK5creek6Number11float_valueEv @761
-    _ZNK5creek6Number12string_valueB5cxx11Ev @762
-    _ZNK5creek6Number13to_expressionEv @763
-    _ZNK5creek6Number4copyEv @764
-    _ZNK5creek6Number9int_valueEv @765
-    _ZNK5creek6Object10bool_valueEv @766
-    _ZNK5creek6Object10char_valueEv @767
-    _ZNK5creek6Object10class_nameB5cxx11Ev @768
-    _ZNK5creek6Object10debug_textB5cxx11Ev @769
-    _ZNK5creek6Object11float_valueEv @770
-    _ZNK5creek6Object12string_valueB5cxx11Ev @771
-    _ZNK5creek6Object12vector_valueEv @772
-    _ZNK5creek6Object4copyEv @773
-    _ZNK5creek6Object5cloneEv @774
-    _ZNK5creek6Object9int_valueEv @775
-    _ZNK5creek6String10bool_valueEv @776
-    _ZNK5creek6String10char_valueEv @777
-    _ZNK5creek6String10class_nameB5cxx11Ev @778
-    _ZNK5creek6String10debug_textB5cxx11Ev @779
-    _ZNK5creek6String12string_valueB5cxx11Ev @780
-    _ZNK5creek6String13to_expressionEv @781
-    _ZNK5creek6String4copyEv @782
-    _ZNK5creek6Vector10bool_valueEv @783
-    _ZNK5creek6Vector10class_nameB5cxx11Ev @784
-    _ZNK5creek6Vector10debug_textB5cxx11Ev @785
-    _ZNK5creek6Vector12vector_valueEv @786
-    _ZNK5creek6Vector13to_expressionEv @787
-    _ZNK5creek6Vector4copyEv @788
-    _ZNK5creek6Vector5valueEv @789
-    _ZNK5creek7Boolean10bool_valueEv @790
-    _ZNK5creek7Boolean10class_nameB5cxx11Ev @791
-    _ZNK5creek7Boolean10debug_textB5cxx11Ev @792
-    _ZNK5creek7Boolean11float_valueEv @793
-    _ZNK5creek7Boolean12string_valueB5cxx11Ev @794
-    _ZNK5creek7Boolean13to_expressionEv @795
-    _ZNK5creek7Boolean4copyEv @796
-    _ZNK5creek7Boolean9int_valueEv @797
-    _ZNK5creek7DynFunc11is_variadicEv @798
-    _ZNK5creek7DynFunc4argnEv @799
-    _ZNK5creek7DynFunc8listenerEv @800
-    _ZNK5creek7ExprCmp14const_optimizeEv @801
-    _ZNK5creek7ExprCmp5cloneEv @802
-    _ZNK5creek7ExprCmp8bytecodeERNS_10VarNameMapE @803
-    _ZNK5creek7ExprCmp8is_constEv @804
-    _ZNK5creek7ExprFor14const_optimizeEv @805
-    _ZNK5creek7ExprFor5cloneEv @806
-    _ZNK5creek7ExprFor8bytecodeERNS_10VarNameMapE @807
-    _ZNK5creek7ExprFor8is_constEv @808
-    _ZNK5creek7ExprTry14const_optimizeEv @809
-    _ZNK5creek7ExprTry5cloneEv @810
-    _ZNK5creek7ExprTry8bytecodeERNS_10VarNameMapE @811
-    _ZNK5creek7ExprTry8is_constEv @812
-    _ZNK5creek7VarName2idEv @813
-    _ZNK5creek7VarName4nameB5cxx11Ev @814
-    _ZNK5creek7VarNameeqERKS0_ @815
-    _ZNK5creek7VarNamegeERKS0_ @816
-    _ZNK5creek7VarNamegtERKS0_ @817
-    _ZNK5creek7VarNameleERKS0_ @818
-    _ZNK5creek7VarNameltERKS0_ @819
-    _ZNK5creek7VarNameneERKS0_ @820
-    _ZNK5creek7Version3strB5cxx11Ei @821
-    _ZNK5creek7Version5majorEv @822
-    _ZNK5creek7Version5minorEv @823
-    _ZNK5creek7Version5patchEv @824
-    _ZNK5creek8Bytecode5bytesB5cxx11Ejj @825
-    _ZNK5creek8Bytecode5bytesB5cxx11Ev @826
-    _ZNK5creek8BytecodecvbEv @827
-    _ZNK5creek8ExprCall14const_optimizeEv @828
-    _ZNK5creek8ExprCall5cloneEv @829
-    _ZNK5creek8ExprCall8bytecodeERNS_10VarNameMapE @830
-    _ZNK5creek8ExprCall8is_constEv @831
-    _ZNK5creek8ExprLoop14const_optimizeEv @832
-    _ZNK5creek8ExprLoop5cloneEv @833
-    _ZNK5creek8ExprLoop8bytecodeERNS_10VarNameMapE @834
-    _ZNK5creek8ExprLoop8is_constEv @835
-    _ZNK5creek8ExprNull5cloneEv @836
-    _ZNK5creek8ExprNull8bytecodeERNS_10VarNameMapE @837
-    _ZNK5creek8ExprNull8is_constEv @838
-    _ZNK5creek8ExprVoid5cloneEv @839
-    _ZNK5creek8ExprVoid8bytecodeERNS_10VarNameMapE @840
-    _ZNK5creek8ExprVoid8is_constEv @841
-    _ZNK5creek8Function10bool_valueEv @842
-    _ZNK5creek8Function10class_nameB5cxx11Ev @843
-    _ZNK5creek8Function10debug_textB5cxx11Ev @844
-    _ZNK5creek8Function13to_expressionEv @845
-    _ZNK5creek8Function4copyEv @846
-    _ZNK5creek8Variable4dataEv @847
-    _ZNK5creek8VariablecvbEv @848
-    _ZNK5creek8VariabledeEv @849
-    _ZNK5creek8VariableptEv @850
-    _ZNK5creek9CFunction10bool_valueEv @851
-    _ZNK5creek9CFunction10class_nameB5cxx11Ev @852
-    _ZNK5creek9CFunction10debug_textB5cxx11Ev @853
-    _ZNK5creek9CFunction4copyEv @854
-    _ZNK5creek9CFunction5valueEv @855
-    _ZNK5creek9Exception7messageB5cxx11Ev @856
-    _ZNK5creek9ExprBreak14const_optimizeEv @857
-    _ZNK5creek9ExprBreak5cloneEv @858
-    _ZNK5creek9ExprBreak8bytecodeERNS_10VarNameMapE @859
-    _ZNK5creek9ExprBreak8is_constEv @860
-    _ZNK5creek9ExprClass14const_optimizeEv @861
-    _ZNK5creek9ExprClass5cloneEv @862
-    _ZNK5creek9ExprClass8bytecodeERNS_10VarNameMapE @863
-    _ZNK5creek9ExprClass8is_constEv @864
-    _ZNK5creek9ExprConst5cloneEv @865
-    _ZNK5creek9ExprConst8bytecodeERNS_10VarNameMapE @866
-    _ZNK5creek9ExprConst8is_constEv @867
-    _ZNK5creek9ExprForIn14const_optimizeEv @868
-    _ZNK5creek9ExprForIn5cloneEv @869
-    _ZNK5creek9ExprForIn8bytecodeERNS_10VarNameMapE @870
-    _ZNK5creek9ExprForIn8is_constEv @871
-    _ZNK5creek9ExprPrint14const_optimizeEv @872
-    _ZNK5creek9ExprPrint5cloneEv @873
-    _ZNK5creek9ExprPrint8bytecodeERNS_10VarNameMapE @874
-    _ZNK5creek9ExprPrint8is_constEv @875
-    _ZNK5creek9ExprThrow14const_optimizeEv @876
-    _ZNK5creek9ExprThrow5cloneEv @877
-    _ZNK5creek9ExprThrow8bytecodeERNS_10VarNameMapE @878
-    _ZNK5creek9ExprThrow8is_constEv @879
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE14const_optimizeEv @880
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE5cloneEv @881
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE8bytecodeERNS_10VarNameMapE @882
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE8is_constEv @883
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE14const_optimizeEv @884
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE5cloneEv @885
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE8bytecodeERNS_10VarNameMapE @886
-    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE8is_constEv @887
-    _ZNK5creek9ExprWhile14const_optimizeEv @888
-    _ZNK5creek9ExprWhile5cloneEv @889
-    _ZNK5creek9ExprWhile8bytecodeERNS_10VarNameMapE @890
-    _ZNK5creek9ExprWhile8is_constEv @891
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEEE @892 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEEE @893 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEEE @894 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEEE @895 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEEE @896 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEEE @897 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEEE @898 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEEE @899 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEEE @900 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEEE @901 DATA
-    _ZTIN5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEEE @902 DATA
-    _ZTIN5creek10ExprBoolOrE @903 DATA
-    _ZTIN5creek10ExprNumberE @904 DATA
-    _ZTIN5creek10ExprReturnE @905 DATA
-    _ZTIN5creek10ExprStringE @906 DATA
-    _ZTIN5creek10ExprSwitchE @907 DATA
-    _ZTIN5creek10ExprVectorE @908 DATA
-    _ZTIN5creek10ExpressionE @909 DATA
-    _ZTIN5creek10IdentifierE @910 DATA
-    _ZTIN5creek10LexicErrorE @911 DATA
-    _ZTIN5creek11BadArgumentE @912 DATA
-    _ZTIN5creek11ExprBoolAndE @913 DATA
-    _ZTIN5creek11ExprBoolNotE @914 DATA
-    _ZTIN5creek11ExprBoolXorE @915 DATA
-    _ZTIN5creek11ExprBooleanE @916 DATA
-    _ZTIN5creek11ExprDynFuncE @917 DATA
-    _ZTIN5creek11SyntaxErrorE @918 DATA
-    _ZTIN5creek12DynCFunctionE @919 DATA
-    _ZTIN5creek12ExprFunctionE @920 DATA
-    _ZTIN5creek12ExprIndexGetE @921 DATA
-    _ZTIN5creek12ExprIndexSetE @922 DATA
-    _ZTIN5creek12RuntimeErrorE @923 DATA
-    _ZTIN5creek13ExprLoadLocalE @924 DATA
-    _ZTIN5creek13UnexpectedEofE @925 DATA
-    _ZTIN5creek13UnimplementedE @926 DATA
-    _ZTIN5creek14AmbiguousTokenE @927 DATA
-    _ZTIN5creek14ExprBasicBlockE @928 DATA
-    _ZTIN5creek14ExprCallMethodE @929 DATA
-    _ZTIN5creek14ExprIdentifierE @930 DATA
-    _ZTIN5creek14ExprLoadGlobalE @931 DATA
-    _ZTIN5creek14ExprStoreLocalE @932 DATA
-    _ZTIN5creek14WrongArgNumberE @933 DATA
-    _ZTIN5creek15BadNumberFormatE @934 DATA
-    _ZTIN5creek15DynLibraryErrorE @935 DATA
-    _ZTIN5creek15ExprCreateLocalE @936 DATA
-    _ZTIN5creek15ExprStoreGlobalE @937 DATA
-    _ZTIN5creek15UnexpectedTokenE @938 DATA
-    _ZTIN5creek16ExprCreateGlobalE @939 DATA
-    _ZTIN5creek16ExprVariadicCallE @940 DATA
-    _ZTIN5creek17DynSymbolNotFoundE @941 DATA
-    _ZTIN5creek18BadCharacterEscapeE @942 DATA
-    _ZTIN5creek19UnexpectedCharacterE @943 DATA
-    _ZTIN5creek22ExprVariadicCallMethodE @944 DATA
-    _ZTIN5creek4DataE @945 DATA
-    _ZTIN5creek4NullE @946 DATA
-    _ZTIN5creek4VoidE @947 DATA
-    _ZTIN5creek6ExprDoE @948 DATA
-    _ZTIN5creek6ExprEQE @949 DATA
-    _ZTIN5creek6ExprGEE @950 DATA
-    _ZTIN5creek6ExprGTE @951 DATA
-    _ZTIN5creek6ExprIfE @952 DATA
-    _ZTIN5creek6ExprLEE @953 DATA
-    _ZTIN5creek6ExprLTE @954 DATA
-    _ZTIN5creek6ExprNEE @955 DATA
-    _ZTIN5creek6NumberE @956 DATA
-    _ZTIN5creek6ObjectE @957 DATA
-    _ZTIN5creek6StringE @958 DATA
-    _ZTIN5creek6VectorE @959 DATA
-    _ZTIN5creek7BooleanE @960 DATA
-    _ZTIN5creek7ExprCmpE @961 DATA
-    _ZTIN5creek7ExprForE @962 DATA
-    _ZTIN5creek7ExprTryE @963 DATA
-    _ZTIN5creek8ExprCallE @964 DATA
-    _ZTIN5creek8ExprLoopE @965 DATA
-    _ZTIN5creek8ExprNullE @966 DATA
-    _ZTIN5creek8ExprVoidE @967 DATA
-    _ZTIN5creek8FunctionE @968 DATA
-    _ZTIN5creek9CFunctionE @969 DATA
-    _ZTIN5creek9ExceptionE @970 DATA
-    _ZTIN5creek9ExprBreakE @971 DATA
-    _ZTIN5creek9ExprClassE @972 DATA
-    _ZTIN5creek9ExprConstE @973 DATA
-    _ZTIN5creek9ExprForInE @974 DATA
-    _ZTIN5creek9ExprPrintE @975 DATA
-    _ZTIN5creek9ExprThrowE @976 DATA
-    _ZTIN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEEE @977 DATA
-    _ZTIN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEEE @978 DATA
-    _ZTIN5creek9ExprWhileE @979 DATA
-    _ZTIN5creek9UndefinedE @980 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEEE @981 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEEE @982 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEEE @983 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEEE @984 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEEE @985 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEEE @986 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEEE @987 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEEE @988 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEEE @989 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEEE @990 DATA
-    _ZTVN5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEEE @991 DATA
-    _ZTVN5creek10ExprBoolOrE @992 DATA
-    _ZTVN5creek10ExprNumberE @993 DATA
-    _ZTVN5creek10ExprReturnE @994 DATA
-    _ZTVN5creek10ExprStringE @995 DATA
-    _ZTVN5creek10ExprSwitchE @996 DATA
-    _ZTVN5creek10ExprVectorE @997 DATA
-    _ZTVN5creek10ExpressionE @998 DATA
-    _ZTVN5creek10IdentifierE @999 DATA
-    _ZTVN5creek10LexicErrorE @1000 DATA
-    _ZTVN5creek11BadArgumentE @1001 DATA
-    _ZTVN5creek11ExprBoolAndE @1002 DATA
-    _ZTVN5creek11ExprBoolNotE @1003 DATA
-    _ZTVN5creek11ExprBoolXorE @1004 DATA
-    _ZTVN5creek11ExprBooleanE @1005 DATA
-    _ZTVN5creek11ExprDynFuncE @1006 DATA
-    _ZTVN5creek11SyntaxErrorE @1007 DATA
-    _ZTVN5creek12DynCFunctionE @1008 DATA
-    _ZTVN5creek12ExprFunctionE @1009 DATA
-    _ZTVN5creek12ExprIndexGetE @1010 DATA
-    _ZTVN5creek12ExprIndexSetE @1011 DATA
-    _ZTVN5creek12RuntimeErrorE @1012 DATA
-    _ZTVN5creek13ExprLoadLocalE @1013 DATA
-    _ZTVN5creek13UnexpectedEofE @1014 DATA
-    _ZTVN5creek13UnimplementedE @1015 DATA
-    _ZTVN5creek14AmbiguousTokenE @1016 DATA
-    _ZTVN5creek14ExprBasicBlockE @1017 DATA
-    _ZTVN5creek14ExprCallMethodE @1018 DATA
-    _ZTVN5creek14ExprIdentifierE @1019 DATA
-    _ZTVN5creek14ExprLoadGlobalE @1020 DATA
-    _ZTVN5creek14ExprStoreLocalE @1021 DATA
-    _ZTVN5creek14WrongArgNumberE @1022 DATA
-    _ZTVN5creek15BadNumberFormatE @1023 DATA
-    _ZTVN5creek15DynLibraryErrorE @1024 DATA
-    _ZTVN5creek15ExprCreateLocalE @1025 DATA
-    _ZTVN5creek15ExprStoreGlobalE @1026 DATA
-    _ZTVN5creek15UnexpectedTokenE @1027 DATA
-    _ZTVN5creek16ExprCreateGlobalE @1028 DATA
-    _ZTVN5creek16ExprVariadicCallE @1029 DATA
-    _ZTVN5creek17DynSymbolNotFoundE @1030 DATA
-    _ZTVN5creek18BadCharacterEscapeE @1031 DATA
-    _ZTVN5creek19UnexpectedCharacterE @1032 DATA
-    _ZTVN5creek22ExprVariadicCallMethodE @1033 DATA
-    _ZTVN5creek4DataE @1034 DATA
-    _ZTVN5creek4NullE @1035 DATA
-    _ZTVN5creek4VoidE @1036 DATA
-    _ZTVN5creek6ExprDoE @1037 DATA
-    _ZTVN5creek6ExprEQE @1038 DATA
-    _ZTVN5creek6ExprGEE @1039 DATA
-    _ZTVN5creek6ExprGTE @1040 DATA
-    _ZTVN5creek6ExprIfE @1041 DATA
-    _ZTVN5creek6ExprLEE @1042 DATA
-    _ZTVN5creek6ExprLTE @1043 DATA
-    _ZTVN5creek6ExprNEE @1044 DATA
-    _ZTVN5creek6NumberE @1045 DATA
-    _ZTVN5creek6ObjectE @1046 DATA
-    _ZTVN5creek6StringE @1047 DATA
-    _ZTVN5creek6VectorE @1048 DATA
-    _ZTVN5creek7BooleanE @1049 DATA
-    _ZTVN5creek7ExprCmpE @1050 DATA
-    _ZTVN5creek7ExprForE @1051 DATA
-    _ZTVN5creek7ExprTryE @1052 DATA
-    _ZTVN5creek8ExprCallE @1053 DATA
-    _ZTVN5creek8ExprLoopE @1054 DATA
-    _ZTVN5creek8ExprNullE @1055 DATA
-    _ZTVN5creek8ExprVoidE @1056 DATA
-    _ZTVN5creek8FunctionE @1057 DATA
-    _ZTVN5creek9CFunctionE @1058 DATA
-    _ZTVN5creek9ExceptionE @1059 DATA
-    _ZTVN5creek9ExprBreakE @1060 DATA
-    _ZTVN5creek9ExprClassE @1061 DATA
-    _ZTVN5creek9ExprConstE @1062 DATA
-    _ZTVN5creek9ExprForInE @1063 DATA
-    _ZTVN5creek9ExprPrintE @1064 DATA
-    _ZTVN5creek9ExprThrowE @1065 DATA
-    _ZTVN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEEE @1066 DATA
-    _ZTVN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEEE @1067 DATA
-    _ZTVN5creek9ExprWhileE @1068 DATA
-    _ZTVN5creek9UndefinedE @1069 DATA
+    _ZN5creek8BytecodelsEb @399
+    _ZN5creek8BytecodelsEd @400
+    _ZN5creek8BytecodelsEf @401
+    _ZN5creek8BytecodelsEh @402
+    _ZN5creek8BytecodelsEi @403
+    _ZN5creek8BytecodelsEj @404
+    _ZN5creek8BytecodelsEs @405
+    _ZN5creek8BytecodelsEt @406
+    _ZN5creek8BytecodelsEx @407
+    _ZN5creek8BytecodelsEy @408
+    _ZN5creek8BytecodersERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @409
+    _ZN5creek8BytecodersERa @410
+    _ZN5creek8BytecodersERb @411
+    _ZN5creek8BytecodersERd @412
+    _ZN5creek8BytecodersERf @413
+    _ZN5creek8BytecodersERh @414
+    _ZN5creek8BytecodersERi @415
+    _ZN5creek8BytecodersERj @416
+    _ZN5creek8BytecodersERs @417
+    _ZN5creek8BytecodersERt @418
+    _ZN5creek8BytecodersERx @419
+    _ZN5creek8BytecodersERy @420
+    _ZN5creek8ExprCall4evalERNS_5ScopeE @421
+    _ZN5creek8ExprCallC1EPNS_10ExpressionERKSt6vectorIS2_SaIS2_EE @422
+    _ZN5creek8ExprCallC2EPNS_10ExpressionERKSt6vectorIS2_SaIS2_EE @423
+    _ZN5creek8ExprLoop4evalERNS_5ScopeE @424
+    _ZN5creek8ExprLoopC1EPNS_10ExpressionE @425
+    _ZN5creek8ExprLoopC2EPNS_10ExpressionE @426
+    _ZN5creek8ExprNull4evalERNS_5ScopeE @427
+    _ZN5creek8ExprNullC1Ev @428
+    _ZN5creek8ExprNullC2Ev @429
+    _ZN5creek8ExprVoid4evalERNS_5ScopeE @430
+    _ZN5creek8ExprVoidC1Ev @431
+    _ZN5creek8ExprVoidC2Ev @432
+    _ZN5creek8Function3cmpEPNS_4DataE @433
+    _ZN5creek8Function4callERSt6vectorISt10unique_ptrINS_4DataESt14default_deleteIS3_EESaIS6_EE @434
+    _ZN5creek8FunctionC1ERKSt10shared_ptrINS0_10DefinitionEE @435
+    _ZN5creek8FunctionC2ERKSt10shared_ptrINS0_10DefinitionEE @436
+    _ZN5creek8Variable14bit_left_shiftERS0_ @437
+    _ZN5creek8Variable15bit_right_shiftERS0_ @438
+    _ZN5creek8Variable3addERS0_ @439
+    _ZN5creek8Variable3cmpERS0_ @440
+    _ZN5creek8Variable3divERS0_ @441
+    _ZN5creek8Variable3expERS0_ @442
+    _ZN5creek8Variable3modERS0_ @443
+    _ZN5creek8Variable3mulERS0_ @444
+    _ZN5creek8Variable3subERS0_ @445
+    _ZN5creek8Variable3unmEv @446
+    _ZN5creek8Variable4dataEPNS_4DataE @447
+    _ZN5creek8Variable4dataEv @448
+    _ZN5creek8Variable4swapERS0_ @449
+    _ZN5creek8Variable5indexES0_ @450
+    _ZN5creek8Variable5indexES0_S0_ @451
+    _ZN5creek8Variable6bit_orERS0_ @452
+    _ZN5creek8Variable7bit_andERS0_ @453
+    _ZN5creek8Variable7bit_notEv @454
+    _ZN5creek8Variable7bit_xorERS0_ @455
+    _ZN5creek8Variable7releaseEv @456
+    _ZN5creek8VariableC1EOS0_ @457
+    _ZN5creek8VariableC1EPNS_4DataE @458
+    _ZN5creek8VariableC1ERKS0_ @459
+    _ZN5creek8VariableC1Ev @460
+    _ZN5creek8VariableC2EOS0_ @461
+    _ZN5creek8VariableC2EPNS_4DataE @462
+    _ZN5creek8VariableC2ERKS0_ @463
+    _ZN5creek8VariableC2Ev @464
+    _ZN5creek8VariableD1Ev @465
+    _ZN5creek8VariableD2Ev @466
+    _ZN5creek8VariableaSEOS0_ @467
+    _ZN5creek8VariableaSERKS0_ @468
+    _ZN5creek8VariableanERS0_ @469
+    _ZN5creek8VariablecoEv @470
+    _ZN5creek8VariabledeEv @471
+    _ZN5creek8VariabledvERS0_ @472
+    _ZN5creek8VariableeoERS0_ @473
+    _ZN5creek8VariablemiERS0_ @474
+    _ZN5creek8VariablemlERS0_ @475
+    _ZN5creek8VariablengEv @476
+    _ZN5creek8VariableorERS0_ @477
+    _ZN5creek8VariableplERS0_ @478
+    _ZN5creek8VariableptEv @479
+    _ZN5creek8VariablermERS0_ @480
+    _ZN5creek9CFunction3cmpEPNS_4DataE @481
+    _ZN5creek9CFunction4callERSt6vectorISt10unique_ptrINS_4DataESt14default_deleteIS3_EESaIS6_EE @482
+    _ZN5creek9CFunctionC1ERKSt10shared_ptrINS0_10DefinitionEE @483
+    _ZN5creek9CFunctionC1ERNS_5ScopeEibSt8functionIFPNS_4DataES2_RSt6vectorISt10unique_ptrIS4_St14default_deleteIS4_EESaISA_EEEE @484
+    _ZN5creek9CFunctionC2ERKSt10shared_ptrINS0_10DefinitionEE @485
+    _ZN5creek9CFunctionC2ERNS_5ScopeEibSt8functionIFPNS_4DataES2_RSt6vectorISt10unique_ptrIS4_St14default_deleteIS4_EESaISA_EEEE @486
+    _ZN5creek9Exception6streamB5cxx11Ev @487
+    _ZN5creek9ExceptionC1EOS0_ @488
+    _ZN5creek9ExceptionC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @489
+    _ZN5creek9ExceptionC1ERKS0_ @490
+    _ZN5creek9ExceptionC1Ev @491
+    _ZN5creek9ExceptionC2EOS0_ @492
+    _ZN5creek9ExceptionC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @493
+    _ZN5creek9ExceptionC2ERKS0_ @494
+    _ZN5creek9ExceptionC2Ev @495
+    _ZN5creek9ExprBreak4evalERNS_5ScopeE @496
+    _ZN5creek9ExprBreakC1EPNS_10ExpressionE @497
+    _ZN5creek9ExprBreakC2EPNS_10ExpressionE @498
+    _ZN5creek9ExprClass4evalERNS_5ScopeE @499
+    _ZN5creek9ExprClassC1ENS_7VarNameEPNS_10ExpressionERSt6vectorINS0_9MethodDefESaIS5_EE @500
+    _ZN5creek9ExprClassC2ENS_7VarNameEPNS_10ExpressionERSt6vectorINS0_9MethodDefESaIS5_EE @501
+    _ZN5creek9ExprConst4evalERNS_5ScopeE @502
+    _ZN5creek9ExprConstC1EPNS_4DataE @503
+    _ZN5creek9ExprConstC2EPNS_4DataE @504
+    _ZN5creek9ExprForIn4evalERNS_5ScopeE @505
+    _ZN5creek9ExprForInC1ENS_7VarNameEPNS_10ExpressionES3_ @506
+    _ZN5creek9ExprForInC2ENS_7VarNameEPNS_10ExpressionES3_ @507
+    _ZN5creek9ExprPrint4evalERNS_5ScopeE @508
+    _ZN5creek9ExprPrintC1EPNS_10ExpressionE @509
+    _ZN5creek9ExprPrintC2EPNS_10ExpressionE @510
+    _ZN5creek9ExprThrow4evalERNS_5ScopeE @511
+    _ZN5creek9ExprThrowC1EPNS_10ExpressionE @512
+    _ZN5creek9ExprThrowC2EPNS_10ExpressionE @513
+    _ZN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE4evalERNS_5ScopeE @514
+    _ZN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEEC1EPNS_10ExpressionE @515
+    _ZN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE4evalERNS_5ScopeE @516
+    _ZN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEEC1EPNS_10ExpressionE @517
+    _ZN5creek9ExprWhile4evalERNS_5ScopeE @518
+    _ZN5creek9ExprWhileC1EPNS_10ExpressionES2_ @519
+    _ZN5creek9ExprWhileC2EPNS_10ExpressionES2_ @520
+    _ZN5creek9UndefinedC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @521
+    _ZN5creek9UndefinedC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE @522
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE14const_optimizeEv @523
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE5cloneEv @524
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE8bytecodeERNS_10VarNameMapE @525
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEE8is_constEv @526
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE14const_optimizeEv @527
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE5cloneEv @528
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE8bytecodeERNS_10VarNameMapE @529
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEE8is_constEv @530
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE14const_optimizeEv @531
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE5cloneEv @532
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE8bytecodeERNS_10VarNameMapE @533
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEE8is_constEv @534
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE14const_optimizeEv @535
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE5cloneEv @536
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE8bytecodeERNS_10VarNameMapE @537
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEE8is_constEv @538
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE14const_optimizeEv @539
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE5cloneEv @540
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE8bytecodeERNS_10VarNameMapE @541
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEE8is_constEv @542
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE14const_optimizeEv @543
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE5cloneEv @544
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE8bytecodeERNS_10VarNameMapE @545
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEE8is_constEv @546
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE14const_optimizeEv @547
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE5cloneEv @548
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE8bytecodeERNS_10VarNameMapE @549
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEE8is_constEv @550
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE14const_optimizeEv @551
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE5cloneEv @552
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE8bytecodeERNS_10VarNameMapE @553
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEE8is_constEv @554
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE14const_optimizeEv @555
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE5cloneEv @556
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE8bytecodeERNS_10VarNameMapE @557
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEE8is_constEv @558
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE14const_optimizeEv @559
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE5cloneEv @560
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE8bytecodeERNS_10VarNameMapE @561
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEE8is_constEv @562
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE14const_optimizeEv @563
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE5cloneEv @564
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE8bytecodeERNS_10VarNameMapE @565
+    _ZNK5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEE8is_constEv @566
+    _ZNK5creek10ExprBoolOr14const_optimizeEv @567
+    _ZNK5creek10ExprBoolOr5cloneEv @568
+    _ZNK5creek10ExprBoolOr8bytecodeERNS_10VarNameMapE @569
+    _ZNK5creek10ExprBoolOr8is_constEv @570
+    _ZNK5creek10ExprNumber5cloneEv @571
+    _ZNK5creek10ExprNumber8bytecodeERNS_10VarNameMapE @572
+    _ZNK5creek10ExprNumber8is_constEv @573
+    _ZNK5creek10ExprReturn14const_optimizeEv @574
+    _ZNK5creek10ExprReturn5cloneEv @575
+    _ZNK5creek10ExprReturn8bytecodeERNS_10VarNameMapE @576
+    _ZNK5creek10ExprReturn8is_constEv @577
+    _ZNK5creek10ExprString5cloneEv @578
+    _ZNK5creek10ExprString8bytecodeERNS_10VarNameMapE @579
+    _ZNK5creek10ExprString8is_constEv @580
+    _ZNK5creek10ExprSwitch14const_optimizeEv @581
+    _ZNK5creek10ExprSwitch5cloneEv @582
+    _ZNK5creek10ExprSwitch8bytecodeERNS_10VarNameMapE @583
+    _ZNK5creek10ExprSwitch8is_constEv @584
+    _ZNK5creek10ExprVector14const_optimizeEv @585
+    _ZNK5creek10ExprVector5cloneEv @586
+    _ZNK5creek10ExprVector8bytecodeERNS_10VarNameMapE @587
+    _ZNK5creek10ExprVector8is_constEv @588
+    _ZNK5creek10Expression14const_optimizeEv @589
+    _ZNK5creek10Expression8is_constEv @590
+    _ZNK5creek10Identifier10bool_valueEv @591
+    _ZNK5creek10Identifier10class_nameB5cxx11Ev @592
+    _ZNK5creek10Identifier10debug_textB5cxx11Ev @593
+    _ZNK5creek10Identifier11float_valueEv @594
+    _ZNK5creek10Identifier12string_valueB5cxx11Ev @595
+    _ZNK5creek10Identifier13to_expressionEv @596
+    _ZNK5creek10Identifier4copyEv @597
+    _ZNK5creek10Identifier9int_valueEv @598
+    _ZNK5creek10LexicError4lineEv @599
+    _ZNK5creek10LexicError6columnEv @600
+    _ZNK5creek10VarNameMap12name_from_idB5cxx11Ej @601
+    _ZNK5creek10VarNameMap17global_from_localEj @602
+    _ZNK5creek10VarNameMap3mapB5cxx11Ev @603
+    _ZNK5creek11BadArgument8arg_nameB5cxx11Ev @604
+    _ZNK5creek11ExprBoolAnd14const_optimizeEv @605
+    _ZNK5creek11ExprBoolAnd5cloneEv @606
+    _ZNK5creek11ExprBoolAnd8bytecodeERNS_10VarNameMapE @607
+    _ZNK5creek11ExprBoolAnd8is_constEv @608
+    _ZNK5creek11ExprBoolNot14const_optimizeEv @609
+    _ZNK5creek11ExprBoolNot5cloneEv @610
+    _ZNK5creek11ExprBoolNot8bytecodeERNS_10VarNameMapE @611
+    _ZNK5creek11ExprBoolNot8is_constEv @612
+    _ZNK5creek11ExprBoolXor14const_optimizeEv @613
+    _ZNK5creek11ExprBoolXor5cloneEv @614
+    _ZNK5creek11ExprBoolXor8bytecodeERNS_10VarNameMapE @615
+    _ZNK5creek11ExprBoolXor8is_constEv @616
+    _ZNK5creek11ExprBoolean5cloneEv @617
+    _ZNK5creek11ExprBoolean8bytecodeERNS_10VarNameMapE @618
+    _ZNK5creek11ExprBoolean8is_constEv @619
+    _ZNK5creek11ExprDynFunc5cloneEv @620
+    _ZNK5creek11ExprDynFunc8bytecodeERNS_10VarNameMapE @621
+    _ZNK5creek11SyntaxError5tokenEv @622
+    _ZNK5creek12DynCFunction10class_nameB5cxx11Ev @623
+    _ZNK5creek12DynCFunction10debug_textB5cxx11Ev @624
+    _ZNK5creek12DynCFunction4copyEv @625
+    _ZNK5creek12ExprFunction14const_optimizeEv @626
+    _ZNK5creek12ExprFunction5cloneEv @627
+    _ZNK5creek12ExprFunction8bytecodeERNS_10VarNameMapE @628
+    _ZNK5creek12ExprFunction8is_constEv @629
+    _ZNK5creek12ExprIndexGet14const_optimizeEv @630
+    _ZNK5creek12ExprIndexGet5cloneEv @631
+    _ZNK5creek12ExprIndexGet8bytecodeERNS_10VarNameMapE @632
+    _ZNK5creek12ExprIndexGet8is_constEv @633
+    _ZNK5creek12ExprIndexSet14const_optimizeEv @634
+    _ZNK5creek12ExprIndexSet5cloneEv @635
+    _ZNK5creek12ExprIndexSet8bytecodeERNS_10VarNameMapE @636
+    _ZNK5creek12ExprIndexSet8is_constEv @637
+    _ZNK5creek12RuntimeError4exprEv @638
+    _ZNK5creek13ExprLoadLocal14const_optimizeEv @639
+    _ZNK5creek13ExprLoadLocal5cloneEv @640
+    _ZNK5creek13ExprLoadLocal8bytecodeERNS_10VarNameMapE @641
+    _ZNK5creek13ExprLoadLocal8is_constEv @642
+    _ZNK5creek14AmbiguousToken5typesEv @643
+    _ZNK5creek14ExprBasicBlock14const_optimizeEv @644
+    _ZNK5creek14ExprBasicBlock5cloneEv @645
+    _ZNK5creek14ExprBasicBlock8bytecodeERNS_10VarNameMapE @646
+    _ZNK5creek14ExprBasicBlock8is_constEv @647
+    _ZNK5creek14ExprCallMethod14const_optimizeEv @648
+    _ZNK5creek14ExprCallMethod5cloneEv @649
+    _ZNK5creek14ExprCallMethod8bytecodeERNS_10VarNameMapE @650
+    _ZNK5creek14ExprCallMethod8is_constEv @651
+    _ZNK5creek14ExprIdentifier5cloneEv @652
+    _ZNK5creek14ExprIdentifier8bytecodeERNS_10VarNameMapE @653
+    _ZNK5creek14ExprIdentifier8is_constEv @654
+    _ZNK5creek14ExprLoadGlobal14const_optimizeEv @655
+    _ZNK5creek14ExprLoadGlobal5cloneEv @656
+    _ZNK5creek14ExprLoadGlobal8bytecodeERNS_10VarNameMapE @657
+    _ZNK5creek14ExprLoadGlobal8is_constEv @658
+    _ZNK5creek14ExprStoreLocal14const_optimizeEv @659
+    _ZNK5creek14ExprStoreLocal5cloneEv @660
+    _ZNK5creek14ExprStoreLocal8bytecodeERNS_10VarNameMapE @661
+    _ZNK5creek14ExprStoreLocal8is_constEv @662
+    _ZNK5creek15DynLibraryError4pathB5cxx11Ev @663
+    _ZNK5creek15ExprCreateLocal14const_optimizeEv @664
+    _ZNK5creek15ExprCreateLocal5cloneEv @665
+    _ZNK5creek15ExprCreateLocal8bytecodeERNS_10VarNameMapE @666
+    _ZNK5creek15ExprCreateLocal8is_constEv @667
+    _ZNK5creek15ExprStoreGlobal14const_optimizeEv @668
+    _ZNK5creek15ExprStoreGlobal5cloneEv @669
+    _ZNK5creek15ExprStoreGlobal8bytecodeERNS_10VarNameMapE @670
+    _ZNK5creek15ExprStoreGlobal8is_constEv @671
+    _ZNK5creek16ExprCreateGlobal14const_optimizeEv @672
+    _ZNK5creek16ExprCreateGlobal5cloneEv @673
+    _ZNK5creek16ExprCreateGlobal8bytecodeERNS_10VarNameMapE @674
+    _ZNK5creek16ExprCreateGlobal8is_constEv @675
+    _ZNK5creek16ExprVariadicCall14const_optimizeEv @676
+    _ZNK5creek16ExprVariadicCall5cloneEv @677
+    _ZNK5creek16ExprVariadicCall8bytecodeERNS_10VarNameMapE @678
+    _ZNK5creek16ExprVariadicCall8is_constEv @679
+    _ZNK5creek17DynSymbolNotFound6symbolB5cxx11Ev @680
+    _ZNK5creek18BadCharacterEscape3posEv @681
+    _ZNK5creek18BadCharacterEscape6sourceB5cxx11Ev @682
+    _ZNK5creek19InterpreterOperator10precedenceEv @683
+    _ZNK5creek19InterpreterOperator6stringB5cxx11Ev @684
+    _ZNK5creek19InterpreterOperatorltERKS0_ @685
+    _ZNK5creek22ExprVariadicCallMethod14const_optimizeEv @686
+    _ZNK5creek22ExprVariadicCallMethod5cloneEv @687
+    _ZNK5creek22ExprVariadicCallMethod8bytecodeERNS_10VarNameMapE @688
+    _ZNK5creek22ExprVariadicCallMethod8is_constEv @689
+    _ZNK5creek4Data10bool_valueEv @690
+    _ZNK5creek4Data10char_valueEv @691
+    _ZNK5creek4Data10class_nameB5cxx11Ev @692
+    _ZNK5creek4Data10debug_textB5cxx11Ev @693
+    _ZNK5creek4Data11float_valueEv @694
+    _ZNK5creek4Data12string_valueB5cxx11Ev @695
+    _ZNK5creek4Data12vector_valueEv @696
+    _ZNK5creek4Data13to_expressionEv @697
+    _ZNK5creek4Data4copyEv @698
+    _ZNK5creek4Data5cloneEv @699
+    _ZNK5creek4Data9int_valueEv @700
+    _ZNK5creek4Null10bool_valueEv @701
+    _ZNK5creek4Null10class_nameB5cxx11Ev @702
+    _ZNK5creek4Null10debug_textB5cxx11Ev @703
+    _ZNK5creek4Null11float_valueEv @704
+    _ZNK5creek4Null12string_valueB5cxx11Ev @705
+    _ZNK5creek4Null13to_expressionEv @706
+    _ZNK5creek4Null4copyEv @707
+    _ZNK5creek4Null9int_valueEv @708
+    _ZNK5creek4Void10bool_valueEv @709
+    _ZNK5creek4Void10class_nameB5cxx11Ev @710
+    _ZNK5creek4Void10debug_textB5cxx11Ev @711
+    _ZNK5creek4Void13to_expressionEv @712
+    _ZNK5creek4Void4copyEv @713
+    _ZNK5creek5Scope11break_pointEv @714
+    _ZNK5creek5Scope11is_breakingEv @715
+    _ZNK5creek5Scope12is_returningEv @716
+    _ZNK5creek5Scope12return_pointEv @717
+    _ZNK5creek5Token10identifierB5cxx11Ev @718
+    _ZNK5creek5Token4lineEv @719
+    _ZNK5creek5Token4textB5cxx11Ev @720
+    _ZNK5creek5Token4typeEv @721
+    _ZNK5creek5Token6columnEv @722
+    _ZNK5creek5Token6stringB5cxx11Ev @723
+    _ZNK5creek5Token7booleanEv @724
+    _ZNK5creek5Token7integerEv @725
+    _ZNK5creek5Token8floatnumEv @726
+    _ZNK5creek5Token9characterEv @727
+    _ZNK5creek6ExprDo14const_optimizeEv @728
+    _ZNK5creek6ExprDo5cloneEv @729
+    _ZNK5creek6ExprDo8bytecodeERNS_10VarNameMapE @730
+    _ZNK5creek6ExprDo8is_constEv @731
+    _ZNK5creek6ExprEQ14const_optimizeEv @732
+    _ZNK5creek6ExprEQ5cloneEv @733
+    _ZNK5creek6ExprEQ8bytecodeERNS_10VarNameMapE @734
+    _ZNK5creek6ExprEQ8is_constEv @735
+    _ZNK5creek6ExprGE14const_optimizeEv @736
+    _ZNK5creek6ExprGE5cloneEv @737
+    _ZNK5creek6ExprGE8bytecodeERNS_10VarNameMapE @738
+    _ZNK5creek6ExprGE8is_constEv @739
+    _ZNK5creek6ExprGT14const_optimizeEv @740
+    _ZNK5creek6ExprGT5cloneEv @741
+    _ZNK5creek6ExprGT8bytecodeERNS_10VarNameMapE @742
+    _ZNK5creek6ExprGT8is_constEv @743
+    _ZNK5creek6ExprIf14const_optimizeEv @744
+    _ZNK5creek6ExprIf5cloneEv @745
+    _ZNK5creek6ExprIf8bytecodeERNS_10VarNameMapE @746
+    _ZNK5creek6ExprIf8is_constEv @747
+    _ZNK5creek6ExprLE14const_optimizeEv @748
+    _ZNK5creek6ExprLE5cloneEv @749
+    _ZNK5creek6ExprLE8bytecodeERNS_10VarNameMapE @750
+    _ZNK5creek6ExprLE8is_constEv @751
+    _ZNK5creek6ExprLT14const_optimizeEv @752
+    _ZNK5creek6ExprLT5cloneEv @753
+    _ZNK5creek6ExprLT8bytecodeERNS_10VarNameMapE @754
+    _ZNK5creek6ExprLT8is_constEv @755
+    _ZNK5creek6ExprNE14const_optimizeEv @756
+    _ZNK5creek6ExprNE5cloneEv @757
+    _ZNK5creek6ExprNE8bytecodeERNS_10VarNameMapE @758
+    _ZNK5creek6ExprNE8is_constEv @759
+    _ZNK5creek6Number10bool_valueEv @760
+    _ZNK5creek6Number10class_nameB5cxx11Ev @761
+    _ZNK5creek6Number10debug_textB5cxx11Ev @762
+    _ZNK5creek6Number11float_valueEv @763
+    _ZNK5creek6Number12string_valueB5cxx11Ev @764
+    _ZNK5creek6Number13to_expressionEv @765
+    _ZNK5creek6Number4copyEv @766
+    _ZNK5creek6Number9int_valueEv @767
+    _ZNK5creek6Object10bool_valueEv @768
+    _ZNK5creek6Object10char_valueEv @769
+    _ZNK5creek6Object10class_nameB5cxx11Ev @770
+    _ZNK5creek6Object10debug_textB5cxx11Ev @771
+    _ZNK5creek6Object11float_valueEv @772
+    _ZNK5creek6Object12string_valueB5cxx11Ev @773
+    _ZNK5creek6Object12vector_valueEv @774
+    _ZNK5creek6Object4copyEv @775
+    _ZNK5creek6Object5cloneEv @776
+    _ZNK5creek6Object9int_valueEv @777
+    _ZNK5creek6String10bool_valueEv @778
+    _ZNK5creek6String10char_valueEv @779
+    _ZNK5creek6String10class_nameB5cxx11Ev @780
+    _ZNK5creek6String10debug_textB5cxx11Ev @781
+    _ZNK5creek6String12string_valueB5cxx11Ev @782
+    _ZNK5creek6String13to_expressionEv @783
+    _ZNK5creek6String4copyEv @784
+    _ZNK5creek6Vector10bool_valueEv @785
+    _ZNK5creek6Vector10class_nameB5cxx11Ev @786
+    _ZNK5creek6Vector10debug_textB5cxx11Ev @787
+    _ZNK5creek6Vector12vector_valueEv @788
+    _ZNK5creek6Vector13to_expressionEv @789
+    _ZNK5creek6Vector4copyEv @790
+    _ZNK5creek6Vector5valueEv @791
+    _ZNK5creek7Boolean10bool_valueEv @792
+    _ZNK5creek7Boolean10class_nameB5cxx11Ev @793
+    _ZNK5creek7Boolean10debug_textB5cxx11Ev @794
+    _ZNK5creek7Boolean11float_valueEv @795
+    _ZNK5creek7Boolean12string_valueB5cxx11Ev @796
+    _ZNK5creek7Boolean13to_expressionEv @797
+    _ZNK5creek7Boolean4copyEv @798
+    _ZNK5creek7Boolean9int_valueEv @799
+    _ZNK5creek7DynFunc11is_variadicEv @800
+    _ZNK5creek7DynFunc4argnEv @801
+    _ZNK5creek7DynFunc8listenerEv @802
+    _ZNK5creek7ExprCmp14const_optimizeEv @803
+    _ZNK5creek7ExprCmp5cloneEv @804
+    _ZNK5creek7ExprCmp8bytecodeERNS_10VarNameMapE @805
+    _ZNK5creek7ExprCmp8is_constEv @806
+    _ZNK5creek7ExprFor14const_optimizeEv @807
+    _ZNK5creek7ExprFor5cloneEv @808
+    _ZNK5creek7ExprFor8bytecodeERNS_10VarNameMapE @809
+    _ZNK5creek7ExprFor8is_constEv @810
+    _ZNK5creek7ExprTry14const_optimizeEv @811
+    _ZNK5creek7ExprTry5cloneEv @812
+    _ZNK5creek7ExprTry8bytecodeERNS_10VarNameMapE @813
+    _ZNK5creek7ExprTry8is_constEv @814
+    _ZNK5creek7VarName2idEv @815
+    _ZNK5creek7VarName4nameB5cxx11Ev @816
+    _ZNK5creek7VarNameeqERKS0_ @817
+    _ZNK5creek7VarNamegeERKS0_ @818
+    _ZNK5creek7VarNamegtERKS0_ @819
+    _ZNK5creek7VarNameleERKS0_ @820
+    _ZNK5creek7VarNameltERKS0_ @821
+    _ZNK5creek7VarNameneERKS0_ @822
+    _ZNK5creek7Version3strB5cxx11Ei @823
+    _ZNK5creek7Version5majorEv @824
+    _ZNK5creek7Version5minorEv @825
+    _ZNK5creek7Version5patchEv @826
+    _ZNK5creek8Bytecode5bytesB5cxx11Ejj @827
+    _ZNK5creek8Bytecode5bytesB5cxx11Ev @828
+    _ZNK5creek8BytecodecvbEv @829
+    _ZNK5creek8ExprCall14const_optimizeEv @830
+    _ZNK5creek8ExprCall5cloneEv @831
+    _ZNK5creek8ExprCall8bytecodeERNS_10VarNameMapE @832
+    _ZNK5creek8ExprCall8is_constEv @833
+    _ZNK5creek8ExprLoop14const_optimizeEv @834
+    _ZNK5creek8ExprLoop5cloneEv @835
+    _ZNK5creek8ExprLoop8bytecodeERNS_10VarNameMapE @836
+    _ZNK5creek8ExprLoop8is_constEv @837
+    _ZNK5creek8ExprNull5cloneEv @838
+    _ZNK5creek8ExprNull8bytecodeERNS_10VarNameMapE @839
+    _ZNK5creek8ExprNull8is_constEv @840
+    _ZNK5creek8ExprVoid5cloneEv @841
+    _ZNK5creek8ExprVoid8bytecodeERNS_10VarNameMapE @842
+    _ZNK5creek8ExprVoid8is_constEv @843
+    _ZNK5creek8Function10bool_valueEv @844
+    _ZNK5creek8Function10class_nameB5cxx11Ev @845
+    _ZNK5creek8Function10debug_textB5cxx11Ev @846
+    _ZNK5creek8Function13to_expressionEv @847
+    _ZNK5creek8Function4copyEv @848
+    _ZNK5creek8Variable4dataEv @849
+    _ZNK5creek8VariablecvbEv @850
+    _ZNK5creek8VariabledeEv @851
+    _ZNK5creek8VariableptEv @852
+    _ZNK5creek9CFunction10bool_valueEv @853
+    _ZNK5creek9CFunction10class_nameB5cxx11Ev @854
+    _ZNK5creek9CFunction10debug_textB5cxx11Ev @855
+    _ZNK5creek9CFunction4copyEv @856
+    _ZNK5creek9CFunction5valueEv @857
+    _ZNK5creek9Exception7messageB5cxx11Ev @858
+    _ZNK5creek9ExprBreak14const_optimizeEv @859
+    _ZNK5creek9ExprBreak5cloneEv @860
+    _ZNK5creek9ExprBreak8bytecodeERNS_10VarNameMapE @861
+    _ZNK5creek9ExprBreak8is_constEv @862
+    _ZNK5creek9ExprClass14const_optimizeEv @863
+    _ZNK5creek9ExprClass5cloneEv @864
+    _ZNK5creek9ExprClass8bytecodeERNS_10VarNameMapE @865
+    _ZNK5creek9ExprClass8is_constEv @866
+    _ZNK5creek9ExprConst5cloneEv @867
+    _ZNK5creek9ExprConst8bytecodeERNS_10VarNameMapE @868
+    _ZNK5creek9ExprConst8is_constEv @869
+    _ZNK5creek9ExprForIn14const_optimizeEv @870
+    _ZNK5creek9ExprForIn5cloneEv @871
+    _ZNK5creek9ExprForIn8bytecodeERNS_10VarNameMapE @872
+    _ZNK5creek9ExprForIn8is_constEv @873
+    _ZNK5creek9ExprPrint14const_optimizeEv @874
+    _ZNK5creek9ExprPrint5cloneEv @875
+    _ZNK5creek9ExprPrint8bytecodeERNS_10VarNameMapE @876
+    _ZNK5creek9ExprPrint8is_constEv @877
+    _ZNK5creek9ExprThrow14const_optimizeEv @878
+    _ZNK5creek9ExprThrow5cloneEv @879
+    _ZNK5creek9ExprThrow8bytecodeERNS_10VarNameMapE @880
+    _ZNK5creek9ExprThrow8is_constEv @881
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE14const_optimizeEv @882
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE5cloneEv @883
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE8bytecodeERNS_10VarNameMapE @884
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEE8is_constEv @885
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE14const_optimizeEv @886
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE5cloneEv @887
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE8bytecodeERNS_10VarNameMapE @888
+    _ZNK5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEE8is_constEv @889
+    _ZNK5creek9ExprWhile14const_optimizeEv @890
+    _ZNK5creek9ExprWhile5cloneEv @891
+    _ZNK5creek9ExprWhile8bytecodeERNS_10VarNameMapE @892
+    _ZNK5creek9ExprWhile8is_constEv @893
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEEE @894 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEEE @895 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEEE @896 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEEE @897 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEEE @898 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEEE @899 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEEE @900 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEEE @901 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEEE @902 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEEE @903 DATA
+    _ZTIN5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEEE @904 DATA
+    _ZTIN5creek10ExprBoolOrE @905 DATA
+    _ZTIN5creek10ExprNumberE @906 DATA
+    _ZTIN5creek10ExprReturnE @907 DATA
+    _ZTIN5creek10ExprStringE @908 DATA
+    _ZTIN5creek10ExprSwitchE @909 DATA
+    _ZTIN5creek10ExprVectorE @910 DATA
+    _ZTIN5creek10ExpressionE @911 DATA
+    _ZTIN5creek10IdentifierE @912 DATA
+    _ZTIN5creek10LexicErrorE @913 DATA
+    _ZTIN5creek11BadArgumentE @914 DATA
+    _ZTIN5creek11ExprBoolAndE @915 DATA
+    _ZTIN5creek11ExprBoolNotE @916 DATA
+    _ZTIN5creek11ExprBoolXorE @917 DATA
+    _ZTIN5creek11ExprBooleanE @918 DATA
+    _ZTIN5creek11ExprDynFuncE @919 DATA
+    _ZTIN5creek11SyntaxErrorE @920 DATA
+    _ZTIN5creek12DynCFunctionE @921 DATA
+    _ZTIN5creek12ExprFunctionE @922 DATA
+    _ZTIN5creek12ExprIndexGetE @923 DATA
+    _ZTIN5creek12ExprIndexSetE @924 DATA
+    _ZTIN5creek12RuntimeErrorE @925 DATA
+    _ZTIN5creek13ExprLoadLocalE @926 DATA
+    _ZTIN5creek13UnexpectedEofE @927 DATA
+    _ZTIN5creek13UnimplementedE @928 DATA
+    _ZTIN5creek14AmbiguousTokenE @929 DATA
+    _ZTIN5creek14ExprBasicBlockE @930 DATA
+    _ZTIN5creek14ExprCallMethodE @931 DATA
+    _ZTIN5creek14ExprIdentifierE @932 DATA
+    _ZTIN5creek14ExprLoadGlobalE @933 DATA
+    _ZTIN5creek14ExprStoreLocalE @934 DATA
+    _ZTIN5creek14WrongArgNumberE @935 DATA
+    _ZTIN5creek15BadNumberFormatE @936 DATA
+    _ZTIN5creek15DynLibraryErrorE @937 DATA
+    _ZTIN5creek15ExprCreateLocalE @938 DATA
+    _ZTIN5creek15ExprStoreGlobalE @939 DATA
+    _ZTIN5creek15UnexpectedTokenE @940 DATA
+    _ZTIN5creek16ExprCreateGlobalE @941 DATA
+    _ZTIN5creek16ExprVariadicCallE @942 DATA
+    _ZTIN5creek17DynSymbolNotFoundE @943 DATA
+    _ZTIN5creek18BadCharacterEscapeE @944 DATA
+    _ZTIN5creek19UnexpectedCharacterE @945 DATA
+    _ZTIN5creek22ExprVariadicCallMethodE @946 DATA
+    _ZTIN5creek4DataE @947 DATA
+    _ZTIN5creek4NullE @948 DATA
+    _ZTIN5creek4VoidE @949 DATA
+    _ZTIN5creek6ExprDoE @950 DATA
+    _ZTIN5creek6ExprEQE @951 DATA
+    _ZTIN5creek6ExprGEE @952 DATA
+    _ZTIN5creek6ExprGTE @953 DATA
+    _ZTIN5creek6ExprIfE @954 DATA
+    _ZTIN5creek6ExprLEE @955 DATA
+    _ZTIN5creek6ExprLTE @956 DATA
+    _ZTIN5creek6ExprNEE @957 DATA
+    _ZTIN5creek6NumberE @958 DATA
+    _ZTIN5creek6ObjectE @959 DATA
+    _ZTIN5creek6StringE @960 DATA
+    _ZTIN5creek6VectorE @961 DATA
+    _ZTIN5creek7BooleanE @962 DATA
+    _ZTIN5creek7ExprCmpE @963 DATA
+    _ZTIN5creek7ExprForE @964 DATA
+    _ZTIN5creek7ExprTryE @965 DATA
+    _ZTIN5creek8ExprCallE @966 DATA
+    _ZTIN5creek8ExprLoopE @967 DATA
+    _ZTIN5creek8ExprNullE @968 DATA
+    _ZTIN5creek8ExprVoidE @969 DATA
+    _ZTIN5creek8FunctionE @970 DATA
+    _ZTIN5creek9CFunctionE @971 DATA
+    _ZTIN5creek9ExceptionE @972 DATA
+    _ZTIN5creek9ExprBreakE @973 DATA
+    _ZTIN5creek9ExprClassE @974 DATA
+    _ZTIN5creek9ExprConstE @975 DATA
+    _ZTIN5creek9ExprForInE @976 DATA
+    _ZTIN5creek9ExprPrintE @977 DATA
+    _ZTIN5creek9ExprThrowE @978 DATA
+    _ZTIN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEEE @979 DATA
+    _ZTIN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEEE @980 DATA
+    _ZTIN5creek9ExprWhileE @981 DATA
+    _ZTIN5creek9UndefinedE @982 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE16EXadL_ZNS_4Data3addEPS2_EEEE @983 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE17EXadL_ZNS_4Data3subEPS2_EEEE @984 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE18EXadL_ZNS_4Data3mulEPS2_EEEE @985 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE19EXadL_ZNS_4Data3divEPS2_EEEE @986 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE20EXadL_ZNS_4Data3modEPS2_EEEE @987 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE21EXadL_ZNS_4Data3expEPS2_EEEE @988 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE23EXadL_ZNS_4Data7bit_andEPS2_EEEE @989 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE24EXadL_ZNS_4Data6bit_orEPS2_EEEE @990 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE25EXadL_ZNS_4Data7bit_xorEPS2_EEEE @991 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE27EXadL_ZNS_4Data14bit_left_shiftEPS2_EEEE @992 DATA
+    _ZTVN5creek10ExprBinaryILNS_6OpCodeE28EXadL_ZNS_4Data15bit_right_shiftEPS2_EEEE @993 DATA
+    _ZTVN5creek10ExprBoolOrE @994 DATA
+    _ZTVN5creek10ExprNumberE @995 DATA
+    _ZTVN5creek10ExprReturnE @996 DATA
+    _ZTVN5creek10ExprStringE @997 DATA
+    _ZTVN5creek10ExprSwitchE @998 DATA
+    _ZTVN5creek10ExprVectorE @999 DATA
+    _ZTVN5creek10ExpressionE @1000 DATA
+    _ZTVN5creek10IdentifierE @1001 DATA
+    _ZTVN5creek10LexicErrorE @1002 DATA
+    _ZTVN5creek11BadArgumentE @1003 DATA
+    _ZTVN5creek11ExprBoolAndE @1004 DATA
+    _ZTVN5creek11ExprBoolNotE @1005 DATA
+    _ZTVN5creek11ExprBoolXorE @1006 DATA
+    _ZTVN5creek11ExprBooleanE @1007 DATA
+    _ZTVN5creek11ExprDynFuncE @1008 DATA
+    _ZTVN5creek11SyntaxErrorE @1009 DATA
+    _ZTVN5creek12DynCFunctionE @1010 DATA
+    _ZTVN5creek12ExprFunctionE @1011 DATA
+    _ZTVN5creek12ExprIndexGetE @1012 DATA
+    _ZTVN5creek12ExprIndexSetE @1013 DATA
+    _ZTVN5creek12RuntimeErrorE @1014 DATA
+    _ZTVN5creek13ExprLoadLocalE @1015 DATA
+    _ZTVN5creek13UnexpectedEofE @1016 DATA
+    _ZTVN5creek13UnimplementedE @1017 DATA
+    _ZTVN5creek14AmbiguousTokenE @1018 DATA
+    _ZTVN5creek14ExprBasicBlockE @1019 DATA
+    _ZTVN5creek14ExprCallMethodE @1020 DATA
+    _ZTVN5creek14ExprIdentifierE @1021 DATA
+    _ZTVN5creek14ExprLoadGlobalE @1022 DATA
+    _ZTVN5creek14ExprStoreLocalE @1023 DATA
+    _ZTVN5creek14WrongArgNumberE @1024 DATA
+    _ZTVN5creek15BadNumberFormatE @1025 DATA
+    _ZTVN5creek15DynLibraryErrorE @1026 DATA
+    _ZTVN5creek15ExprCreateLocalE @1027 DATA
+    _ZTVN5creek15ExprStoreGlobalE @1028 DATA
+    _ZTVN5creek15UnexpectedTokenE @1029 DATA
+    _ZTVN5creek16ExprCreateGlobalE @1030 DATA
+    _ZTVN5creek16ExprVariadicCallE @1031 DATA
+    _ZTVN5creek17DynSymbolNotFoundE @1032 DATA
+    _ZTVN5creek18BadCharacterEscapeE @1033 DATA
+    _ZTVN5creek19UnexpectedCharacterE @1034 DATA
+    _ZTVN5creek22ExprVariadicCallMethodE @1035 DATA
+    _ZTVN5creek4DataE @1036 DATA
+    _ZTVN5creek4NullE @1037 DATA
+    _ZTVN5creek4VoidE @1038 DATA
+    _ZTVN5creek6ExprDoE @1039 DATA
+    _ZTVN5creek6ExprEQE @1040 DATA
+    _ZTVN5creek6ExprGEE @1041 DATA
+    _ZTVN5creek6ExprGTE @1042 DATA
+    _ZTVN5creek6ExprIfE @1043 DATA
+    _ZTVN5creek6ExprLEE @1044 DATA
+    _ZTVN5creek6ExprLTE @1045 DATA
+    _ZTVN5creek6ExprNEE @1046 DATA
+    _ZTVN5creek6NumberE @1047 DATA
+    _ZTVN5creek6ObjectE @1048 DATA
+    _ZTVN5creek6StringE @1049 DATA
+    _ZTVN5creek6VectorE @1050 DATA
+    _ZTVN5creek7BooleanE @1051 DATA
+    _ZTVN5creek7ExprCmpE @1052 DATA
+    _ZTVN5creek7ExprForE @1053 DATA
+    _ZTVN5creek7ExprTryE @1054 DATA
+    _ZTVN5creek8ExprCallE @1055 DATA
+    _ZTVN5creek8ExprLoopE @1056 DATA
+    _ZTVN5creek8ExprNullE @1057 DATA
+    _ZTVN5creek8ExprVoidE @1058 DATA
+    _ZTVN5creek8FunctionE @1059 DATA
+    _ZTVN5creek9CFunctionE @1060 DATA
+    _ZTVN5creek9ExceptionE @1061 DATA
+    _ZTVN5creek9ExprBreakE @1062 DATA
+    _ZTVN5creek9ExprClassE @1063 DATA
+    _ZTVN5creek9ExprConstE @1064 DATA
+    _ZTVN5creek9ExprForInE @1065 DATA
+    _ZTVN5creek9ExprPrintE @1066 DATA
+    _ZTVN5creek9ExprThrowE @1067 DATA
+    _ZTVN5creek9ExprUnaryILNS_6OpCodeE22EXadL_ZNS_4Data3unmEvEEEE @1068 DATA
+    _ZTVN5creek9ExprUnaryILNS_6OpCodeE26EXadL_ZNS_4Data7bit_notEvEEEE @1069 DATA
+    _ZTVN5creek9ExprWhileE @1070 DATA
+    _ZTVN5creek9UndefinedE @1071 DATA

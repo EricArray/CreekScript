@@ -1,1 +1,1 @@
-print(if (false) {"if"} else {"else"});
+if false {"if"} else {"else"}

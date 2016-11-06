@@ -307,7 +307,7 @@ void exec_program(Expression* program, Scope& scope)
         // std::cout << "Running program:\n";
         Variable result = program->eval(scope);
 
-        std::cout << "\nProgram returned " << result->debug_text() << ".\n";
+        std::cout << "Program returned " << result->debug_text() << ".\n";
     }
     catch(const Exception& e)
     {

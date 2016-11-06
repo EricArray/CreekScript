@@ -14,6 +14,7 @@
 #include <creek/Expression_General.hpp>
 #include <creek/Expression_Variable.hpp>
 #include <creek/OpCode.hpp>
+#include <creek/utility.hpp>
 
 
 namespace creek
@@ -41,6 +42,9 @@ namespace creek
 
         // magic
         bytecode.write(magic_number);
+
+        // pointer length in bytes
+        bytecode << static_cast<uint8_t>(sizeof(intptr_t));
 
         // var name map
         bytecode << static_cast<uint32_t>(var_name_map.map().size());
@@ -110,6 +114,15 @@ namespace creek
         if (magic != magic_number)
         {
             throw InvalidBytecode();
+        }
+
+        // pointer length in bytes
+        uint8_t ptr_len = 0;
+        bytecode >> ptr_len;
+        if (ptr_len != sizeof(intptr_t))
+        {
+            std::string msg = std::string("Bytecode architecture is ") + int_to_string(ptr_len * 8) + std::string("-bit, using ") + int_to_string(sizeof(intptr_t) * 8);
+            throw Exception(msg);
         }
 
         // var name map
