@@ -45,7 +45,7 @@ namespace creek
     class CREEK_API RuntimeError : public Exception
     {
     public:
-        /// `RuntimeError` constructor.
+        /// @brief  `RuntimeError` constructor..
         /// @param  expr    Expression associated with the error.
         RuntimeError(const Expression* expr);
 
@@ -61,7 +61,7 @@ namespace creek
     class CREEK_API BadArgument : public RuntimeError
     {
     public:
-        /// `BadArgument` constructor.
+        /// @brief  `BadArgument` constructor..
         /// @param  expr        Expression associated with the error.
         /// @param  arg_name    Name of the argument.
         BadArgument(const Expression* expr, const std::string& arg_name);

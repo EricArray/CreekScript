@@ -19,7 +19,7 @@ namespace creek
         using Value = std::shared_ptr< std::vector<Variable> >;
 
 
-        /// `Vector` constructor.
+        /// @brief  `Vector` constructor..
         /// @param  value   Vector value.
         Vector(const Value& value);
 

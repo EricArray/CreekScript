@@ -22,7 +22,7 @@ namespace creek
     const std::string BytecodeInterpreter::magic_number = {0x00, 0x11, 0x22, 'C', 'R', 'E', 'E', 'K'};
 
 
-    /// `Interpreter` constructor.
+    /// @brief  `Interpreter` constructor..
     BytecodeInterpreter::BytecodeInterpreter()
     {
 
@@ -593,7 +593,22 @@ namespace creek
                 auto value = parse_expression(bytecode, var_name_map);
                 return new ExprIndexSet(array, index, value);
             }
+            case OpCode::attr_get:                  //< 0x56
+            {
+                auto object = parse_expression(bytecode, var_name_map);
+                auto attr   = parse_var_name(bytecode, var_name_map);
+                return new ExprAttrGet(object, attr);
+            }
+            case OpCode::attr_set:                  //< 0x57
+            {
+                auto object = parse_expression(bytecode, var_name_map);
+                auto attr   = parse_var_name(bytecode, var_name_map);
+                auto value  = parse_expression(bytecode, var_name_map);
+                return new ExprAttrSet(object, attr, value);
+            }
 
+
+            // variable
             case OpCode::var_create_local:          //< 0x60
             {
                 auto var_name = parse_var_name(bytecode, var_name_map);
@@ -652,6 +667,7 @@ namespace creek
             }
 
 
+            // invalid
             default:
             {
                 throw InvalidBytecode();

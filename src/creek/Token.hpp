@@ -10,7 +10,7 @@
 
 namespace creek
 {
-    /// Source code token type.
+    /// @brief  Source code token type.
     enum class TokenType
     {
         unknown,            ///< Unexpected character.
@@ -54,58 +54,58 @@ namespace creek
     };
 
 
-    /// Source code token.
+    /// @brief  Source code token.
     class CREEK_API Token
     {
     public:
-        /// Token type names.
+        /// @brief  Token type names.
         static const std::map<TokenType, std::string> type_names;
 
-        /// `Token` constructor.
+        /// @brief  `Token` constructor..
         /// @param  type    Token type.
         /// @param  text    Token text.
         /// @param  line    Line where token was extracted.
         /// @param  column  Column where token was extracted.
         Token(TokenType type, const std::string& text, int line, int column);
 
-        /// `Token` copy constructor.
+        /// @brief  `Token` copy constructor.
         Token(const Token& other);
 
-        /// `Token` move constructor.
+        /// @brief  `Token` move constructor.
         Token(Token&& other);
 
-        /// Get type.
+        /// @brief  Get type.
         TokenType type() const;
 
-        /// Get text.
+        /// @brief  Get text.
         const std::string& text() const;
 
-        /// Get line.
+        /// @brief  Get line.
         int line() const;
 
-        /// Get column.
+        /// @brief  Get column.
         int column() const;
 
 
         /// @name   Text translation
         /// @{
 
-        /// Get the identifier this token represents.
+        /// @brief  Get the identifier this token represents.
         std::string identifier() const;
 
-        /// Get the boolean this token represents.
+        /// @brief  Get the boolean this token represents.
         bool boolean() const;
 
-        /// Get the integer this token represents.
-        int integer() const;
+        /// @brief  Get the integer this token represents.
+        template<class T = int> T integer() const;
 
-        /// Get the floating-point number this token represents.
-        float floatnum() const;
+        /// @brief  Get the floating-point number this token represents.
+        template<class T = float> T floatnum() const;
 
-        /// Get the character this token represents.
+        /// @brief  Get the character this token represents.
         char character() const;
 
-        /// Get the string this token represents.
+        /// @brief  Get the string this token represents.
         std::string string() const;
 
         /// @}
@@ -119,19 +119,19 @@ namespace creek
     };
 
 
-    /// Lexic error raised when scanning code.
+    /// @brief  Lexic error raised when scanning code.
     class CREEK_API LexicError : public Exception
     {
     public:
-        /// `LexicError` constructor.
+        /// @brief  `LexicError` constructor..
         /// @param  line    Line in source code where the exception happened.
         /// @param  column  Line in source code where the exception happened.
         LexicError(int line, int column);
 
-        /// Get line.
+        /// @brief  Get line.
         int line() const;
 
-        /// Get column.
+        /// @brief  Get column.
         int column() const;
 
     private:
@@ -140,13 +140,88 @@ namespace creek
     };
 
 
-    /// Bad number format in source code.
+    /// @brief  Bad number format in source code.
     class CREEK_API BadNumberFormat : public LexicError
     {
     public:
-        /// `BadNumberFormat` constructor.
+        /// @brief  `BadNumberFormat` constructor..
         /// @param  line    Line in source code where the exception happened.
         /// @param  column  Line in source code where the exception happened.
         BadNumberFormat(int line, int column);
     };
+}
+
+
+// Template implementation
+namespace creek
+{
+    // Get the integer this token represents.
+    template<class T> T Token::integer() const
+    {
+        std::size_t pos = 0;
+        T result = 0;
+
+        std::string value;
+
+        try
+        {
+            if(text()[0] == '0' && (text()[1] == 'b' || text()[1] == 'B'))
+            {
+                value = text().substr(2);
+                result = stoi<T>(value, &pos, 2);
+            }
+            else if(text()[0] == '0' && (text()[1] == 'x' || text()[1] == 'X'))
+            {
+                value = text().substr(2);
+                result = stoi<T>(value, &pos, 16);
+            }
+            else
+            {
+                value = text();
+                result = stoi<T>(value, &pos, 10);
+            }
+        }
+        catch(const std::invalid_argument& e)
+        {
+            throw BadNumberFormat(m_line, m_column);
+        }
+        catch(const std::out_of_range& e)
+        {
+            throw BadNumberFormat(m_line, m_column);
+        }
+
+        if(pos != value.size())
+        {
+            throw BadNumberFormat(m_line, m_column);
+        }
+
+        return result;
+    }
+
+    // Get the floating-point number this token represents.
+    template<class T> T Token::floatnum() const
+    {
+        std::size_t pos = 0;
+        T result = 0;
+
+        try
+        {
+            result = stof<T>(text(), &pos);
+        }
+        catch (const std::invalid_argument& e)
+        {
+            throw BadNumberFormat(m_line, m_column);
+        }
+        catch (const std::out_of_range& e)
+        {
+            throw BadNumberFormat(m_line, m_column);
+        }
+
+        if(pos != text().size())
+        {
+            throw BadNumberFormat(m_line, m_column);
+        }
+
+        return result;
+    }
 }

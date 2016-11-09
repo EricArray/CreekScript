@@ -142,6 +142,28 @@ namespace creek
     // @}
 
 
+    /// @name   Object attribute
+    /// @{
+    /// @brief  Get the attribute.
+    /// @brief  key         Attribute key.
+    Variable Variable::attr(VarName key)
+    {
+        assert(data());
+        return Variable(data()->attr(key));
+    }
+
+    /// @brief  Set the attribute.
+    /// @brief  key         Attribute key.
+    /// @brief  new_data    New data to save in attribute.
+    Variable Variable::attr(VarName key, Variable new_data)
+    {
+        assert(data());
+        assert(new_data.data());
+        return Variable(data()->attr(key, new_data.release()));
+    }
+    /// @}
+
+
     // @name   Arithmetic operations
     // @{
     // Addition.

@@ -84,12 +84,12 @@ namespace creek
     };
 
 
-    /// Expression: Call a function.
+    /// @brief  Expression: Call a function.
     /// Returns value returned by the function.
     class CREEK_API ExprCall : public Expression
     {
     public:
-        /// `ExprCall` constructor.
+        /// @brief  `ExprCall` constructor.
         /// @param  function    Function expression.
         /// @param  args        Arguments to pass to the function.
         ExprCall(Expression* function, const std::vector<Expression*>& args);
@@ -107,12 +107,12 @@ namespace creek
     };
 
 
-    /// Expression: Call a function with a variadic argument.
+    /// @brief  Expression: Call a function with a variadic argument.
     /// Returns value returned by the function.
     class CREEK_API ExprVariadicCall : public Expression
     {
     public:
-        /// `ExprVariadicCall` constructor.
+        /// @brief  `ExprVariadicCall` constructor.
         /// @param  function    Function expression.
         /// @param  args        Arguments to pass to the function.
         /// @param  vararg      Argument to expand before calling.
@@ -131,12 +131,12 @@ namespace creek
         std::unique_ptr<Expression> m_vararg;
     };
 
-    /// Expression: Call a method.
+    /// @brief  Expression: Call a method.
     /// Returns value returned by the function.
     class CREEK_API ExprCallMethod : public Expression
     {
     public:
-        /// `ExprCallMethod` constructor.
+        /// @brief  `ExprCallMethod` constructor.
         /// @param  object      Object expression.
         /// @param  index       Index to the method.
         /// @param  args        Arguments to pass to the method.
@@ -156,12 +156,12 @@ namespace creek
     };
 
 
-    /// Expression: Call a method with a variadic argument.
+    /// @brief  Expression: Call a method with a variadic argument.
     /// Returns value returned by the function.
     class CREEK_API ExprVariadicCallMethod : public Expression
     {
     public:
-        /// `ExprVariadicCallMethod` constructor.
+        /// @brief  `ExprVariadicCallMethod` constructor.
         /// @param  object      Object expression.
         /// @param  index       Index to the method.
         /// @param  args        Arguments to pass to the method.
@@ -183,12 +183,12 @@ namespace creek
     };
 
 
-    /// Expression: Get array subscript.
+    /// @brief  Expression: Get array subscript.
     /// Returns value of the array at the index.
     class CREEK_API ExprIndexGet : public Expression
     {
     public:
-        /// `ExprIndexGet` constructor.
+        /// @brief  `ExprIndexGet` constructor.
         /// @param  array   Expression for the array object.
         /// @param  index   Expression for the index.
         ExprIndexGet(Expression* array, Expression* index);
@@ -206,12 +206,12 @@ namespace creek
     };
 
 
-    /// Expression: Set array subscript.
+    /// @brief  Expression: Set array subscript.
     /// Returns new value of the array at the index.
     class CREEK_API ExprIndexSet : public Expression
     {
     public:
-        /// `ExprIndexSet` constructor.
+        /// @brief  `ExprIndexSet` constructor.
         /// @param  array       Expression for the array object.
         /// @param  index       Expression for the index.
         /// @param  value       Expression for the new value.
@@ -227,6 +227,54 @@ namespace creek
     private:
         std::unique_ptr<Expression> m_array;
         std::unique_ptr<Expression> m_index;
+        std::unique_ptr<Expression> m_value;
+    };
+
+
+    /// @brief  Expression: Get object attribute.
+    /// Returns value of the attribute in the object.
+    class CREEK_API ExprAttrGet : public Expression
+    {
+    public:
+        /// @brief  `ExprAttrGet` constructor.
+        /// @param  object  Expression for the object.
+        /// @param  attr    Attribute name.
+        ExprAttrGet(Expression* object, VarName attr);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
+        Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    private:
+        std::unique_ptr<Expression> m_object;
+        VarName m_attr;
+    };
+
+
+    /// @brief  Expression: Set object attribute.
+    /// Returns value of the attribute in the object.
+    class CREEK_API ExprAttrSet : public Expression
+    {
+    public:
+        /// @brief  `ExprAttrSet` constructor.
+        /// @param  object  Expression for the object.
+        /// @param  attr    Attribute name.
+        /// @param  value   Expression for the new value.
+        ExprAttrSet(Expression* object, VarName attr, Expression* value);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
+        Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    private:
+        std::unique_ptr<Expression> m_object;
+        VarName m_attr;
         std::unique_ptr<Expression> m_value;
     };
 

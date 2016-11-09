@@ -19,7 +19,7 @@ namespace creek
     class CREEK_API InterpreterOperator
     {
     public:
-        /// `InterpreterOperator` constructor.
+        /// @brief  `InterpreterOperator` constructor..
         /// @param  string      Operator string.
         /// @param  precedence  Operator precedence (the more, the faster).
         InterpreterOperator(const std::string& string, int precedence);
@@ -53,7 +53,7 @@ namespace creek
         static const std::map<std::string, std::pair<std::string, TokenType> > keywords;
 
 
-        /// `Interpreter` constructor.
+        /// @brief  `Interpreter` constructor..
         Interpreter();
 
         /// Interpret a source file.
@@ -121,11 +121,11 @@ namespace creek
     class CREEK_API SyntaxError : public Exception
     {
     public:
-        /// `SyntaxError` constructor.
+        /// @brief  `SyntaxError` constructor..
         /// @param  token   Source code token where the exception happened.
         SyntaxError(const Token& token);
 
-        /// `SyntaxError` constructor.
+        /// @brief  `SyntaxError` constructor..
         /// @param  token   Source code token where the exception happened.
         /// @param  message Description of the error.
         SyntaxError(const Token& token, const std::string& message);
@@ -142,7 +142,7 @@ namespace creek
     class CREEK_API AmbiguousToken : public SyntaxError
     {
     public:
-        /// `AmbiguousToken` constructor.
+        /// @brief  `AmbiguousToken` constructor..
         /// @param  token   Source code token where the exception happened.
         /// @param  types   List of types that the token matched.
         AmbiguousToken(const Token& token, const std::vector<TokenType>& types);
@@ -159,7 +159,7 @@ namespace creek
     class CREEK_API UnexpectedCharacter : public SyntaxError
     {
     public:
-        /// `UnexpectedCharacter` constructor.
+        /// @brief  `UnexpectedCharacter` constructor..
         /// @param  token   Source code token where the exception happened.
         UnexpectedCharacter(const Token& token);
     };
@@ -169,11 +169,11 @@ namespace creek
     class CREEK_API UnexpectedToken : public SyntaxError
     {
     public:
-        /// `UnexpectedToken` constructor.
+        /// @brief  `UnexpectedToken` constructor..
         /// @param  token       Source code token where the exception happened.
         UnexpectedToken(const Token& token);
 
-        /// `UnexpectedToken` constructor.
+        /// @brief  `UnexpectedToken` constructor..
         /// @param  token       Source code token where the exception happened.
         /// @param  accepted    Token types that could be accepted.
         UnexpectedToken(const Token& token, const std::set<TokenType>& accepted);
@@ -187,7 +187,7 @@ namespace creek
     class CREEK_API UnexpectedEof : public SyntaxError
     {
     public:
-        /// `UnexpectedEof` constructor.
+        /// @brief  `UnexpectedEof` constructor..
         /// @param  token   Source code token where the exception happened.
         UnexpectedEof(const Token& token);
     };

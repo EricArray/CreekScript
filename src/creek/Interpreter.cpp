@@ -102,7 +102,7 @@ namespace creek
 
         // { TokenType::boolean,        std::regex(R"(true|false)") },
         // { TokenType::integer,        std::regex(R"__(^(0[bB][01]+|0[xX][0-9a-fA-F]+|[0-9]+))__") },
-        { TokenType::integer,           std::regex(R"__(^([0-9]+))__") },
+        { TokenType::integer,           std::regex(R"__(^((0[xX][0-9a-fA-F]+)|(0[bB][01]+)|([0-9]+)))__") },
         { TokenType::floatnum,          std::regex(R"__(^((0[xX][0-9a-fA-F]+\.[0-9a-fA-F]+)|([0-9]+\.[0-9]+)))__") },
         { TokenType::character,         std::regex(R"__(^('([^'\\]|\\.)'))__") },
         { TokenType::string,            std::regex(R"__(^("([^"\\]|\\.)*"))__") },
@@ -122,8 +122,8 @@ namespace creek
         { TokenType::arrow,             std::regex(R"__(^(\->))__") },
         { TokenType::then,              std::regex(R"__(^(=>))__") },
 
-        // { TokenType::operation_sign, std::regex(R"__(^(\+|\-|/|%|\^|~|!|(\*\*?)|(&&?)|(\|\|?)|(<[<=]?)|(>[>=]?)|(!=)))__") },
-        { TokenType::operation_sign,    std::regex(R"__(^(\+|\-|/|%|~|!|\*\*?|&&?|\|\|?|\^\^?|<(=>?)?|>=?|==|!=))__") },
+        { TokenType::operation_sign,    std::regex(R"__(^(\+|\-|/|%|\^|~|(\*\*?)|(&&?)|(\|\|?)|==|(<[<=]?)|(>[>=]?)|(!(=))))__") },
+        // { TokenType::operation_sign,    std::regex(R"__(^(\+|\-|/|%|~|!|\*\*?|&&?|\|\|?|\^\^?|<(=>?)?|>=?|==|!=))__") },
 
         { TokenType::open_round,        std::regex(R"__(^(\())__") },
         { TokenType::close_round,       std::regex(R"__(^(\)))__") },
@@ -146,15 +146,18 @@ namespace creek
         { "switch",     { "switch",     TokenType::keyword } },
         { "case",       { "case",       TokenType::keyword } },
         { "default",    { "default",    TokenType::keyword } },
-        { "break",      { "break",      TokenType::keyword } },
+        { "try",        { "try",        TokenType::keyword } },
+        { "catch",      { "catch",      TokenType::keyword } },
 
         { "var",        { "var",        TokenType::keyword } },
         { "delete",     { "delete",     TokenType::keyword } },
         { "class",      { "class",      TokenType::keyword } },
         { "func",       { "func",       TokenType::keyword } },
+        { "extern",     { "extern",     TokenType::keyword } },
+
+        { "break",      { "break",      TokenType::keyword } },
         { "return",     { "return",     TokenType::keyword } },
         { "throw",      { "throw",      TokenType::keyword } },
-        { "extern",     { "extern",     TokenType::keyword } },
 
         { "void",       { "void",       TokenType::void_l } },
         { "null",       { "null",       TokenType::null } },
@@ -360,18 +363,18 @@ namespace creek
                 expressions.push_back(e);
             }
 
-            // optional semicolon at the end
-            if (iter->type() != TokenType::eof)
-            {
-                if (iter->type() == TokenType::semicolon)
-                {
-                    iter += 1;
-                }
-                else
-                {
-                    throw UnexpectedToken(*iter, {TokenType::semicolon});
-                }
-            }
+            // // optional semicolon at the end
+            // if (iter->type() != TokenType::eof)
+            // {
+            //     if (iter->type() == TokenType::semicolon)
+            //     {
+            //         iter += 1;
+            //     }
+            //     else
+            //     {
+            //         throw UnexpectedToken(*iter, {TokenType::semicolon});
+            //     }
+            // }
         }
 
         return expressions;
@@ -435,7 +438,17 @@ namespace creek
     Expression* Interpreter::parse_statement(ParseIterator& iter)
     {
         check_not_eof(iter);
-        if (is_operation(iter))
+        if (iter->text() == "if")               return parse_if_block(iter);
+        else if (iter->text() == "do")          return parse_do_block(iter);
+        else if (iter->text() == "loop")        return parse_loop_block(iter);
+        else if (iter->text() == "while")       return parse_while_block(iter);
+        else if (iter->text() == "for")         return parse_for_block(iter);
+        else if (iter->text() == "switch")      return parse_switch_block(iter);
+        else if (iter->text() == "try")         return parse_try_block(iter);
+        else if (iter->text() == "var")         return parse_var(iter);
+        else if (iter->text() == "func")        return parse_function(iter);
+        else if (iter->text() == "class")       return parse_class(iter);
+        else if (is_operation(iter))
         {
             return parse_operation(iter);
         }
@@ -837,7 +850,7 @@ namespace creek
                     iter += 1;
 
                     check_token_type(iter, {TokenType::identifier});
-                    Expression* index = new ExprIdentifier(VarName::from_name(iter->identifier()));
+                    VarName attr = VarName::from_name(iter->identifier());
                     iter += 1;
 
                     if (iter->type() == TokenType::assign)
@@ -846,11 +859,11 @@ namespace creek
 
                         Expression* value = parse_operation(iter);
 
-                        e = new ExprIndexSet(e, index, value);
+                        e = new ExprAttrSet(e, attr, value);
                     }
                     else
                     {
-                        e = new ExprIndexGet(e, index);
+                        e = new ExprAttrGet(e, attr);
                     }
 
                     break;
@@ -1011,13 +1024,12 @@ namespace creek
     Expression* Interpreter::parse_block_body(ParseIterator& iter)
     {
         check_not_eof(iter);
-        // TODO: token then
-        // if (iter->type() == TokenType::then)
-        // {
-        //     iter += 1;
-        //     return new ExprBlock({parse_operation(iter)});
-        // }
-        // else
+        if (iter->type() == TokenType::then)
+        {
+            iter += 1;
+            return parse_operation(iter);
+        }
+        else
         if (iter->type() == TokenType::open_brace)
         {
             iter += 1;
@@ -1031,18 +1043,18 @@ namespace creek
                     expressions.push_back(e);
                 }
 
-                // optional semicolon at the end
-                if (iter->type() != TokenType::close_brace)
-                {
-                    if (iter->type() == TokenType::semicolon)
-                    {
-                        iter += 1;
-                    }
-                    else
-                    {
-                        throw UnexpectedToken(*iter, {TokenType::semicolon});
-                    }
-                }
+                // // optional semicolon at the end
+                // if (iter->type() != TokenType::close_brace)
+                // {
+                //     if (iter->type() == TokenType::semicolon)
+                //     {
+                //         iter += 1;
+                //     }
+                //     else
+                //     {
+                //         throw UnexpectedToken(*iter, {TokenType::semicolon});
+                //     }
+                // }
             }
 
             check_token_type(iter, {TokenType::close_brace});
@@ -1451,9 +1463,14 @@ namespace creek
             std::vector<ExprClass::MethodDef> method_defs;
             while (iter->type() != TokenType::close_brace)
             {
+                // semicolon, skip
+                if (iter->type() == TokenType::semicolon)
+                {
+                    iter += 1;
+                }
                 // method
-                if (iter->type() == TokenType::keyword &&
-                    iter->text() == "func")
+                else if (iter->type() == TokenType::keyword &&
+                         iter->text() == "func")
                 {
                     iter += 1;
 
@@ -1498,6 +1515,7 @@ namespace creek
                     // save definition
                     method_defs.emplace_back(id, arg_names, is_variadic, body);
                 }
+                // unexpected
                 else
                 {
                     throw UnexpectedToken(*iter);

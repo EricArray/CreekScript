@@ -6,6 +6,7 @@
 
 #include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
+#include <creek/VarName.hpp>
 
 
 namespace creek
@@ -14,7 +15,7 @@ namespace creek
     class Variable;
 
 
-    /// Abstract class for variables' data.
+    /// @brief  Abstract class for variable's data.
     class CREEK_API Data
     {
     public:
@@ -41,79 +42,98 @@ namespace creek
 
         /// @name   Value access
         /// @{
-        /// Get the bool value of this data.
+        /// @brief  Get the bool value of this data.
         virtual bool bool_value() const;
 
-        /// Get the char value of this data.
+        /// @brief  Get the char value of this data.
         virtual char char_value() const;
 
-        /// Get the int value of this data.
+        /// @brief  Get the int value of this data.
         virtual int int_value() const;
 
-        /// Get the float value of this data.
+        /// @brief  Get the float value of this data.
         virtual float float_value() const;
 
-        /// Get the string value of this data.
+        /// @brief  Get the string value of this data.
         virtual std::string string_value() const;
 
-        // Get the vector value of this data.
+        /// @brief  Get the identifier value of this data.
+        virtual VarName identifier_value() const;
+
+        // @brief   Get the vector value of this data.
         virtual const std::vector<Variable>& vector_value() const;
         /// @}
 
 
         /// @name   Container index
         /// @{
-        /// Get the data at index.
+        /// @brief  Get the data at index.
+        /// @param  key         Index key.
         virtual Data* index(Data* key);
 
-        /// Set the data at index.
+        /// @brief  Set the data at index.
+        /// @param  key         Index key.
+        /// @param  new_data    New data to save in index.
         virtual Data* index(Data* key, Data* new_data);
+        /// @}
+
+
+        /// @name   Object attribute
+        /// @{
+        /// @brief  Get the attribute.
+        /// @brief  key         Attribute key.
+        virtual Data* attr(VarName key);
+
+        /// @brief  Set the attribute.
+        /// @brief  key         Attribute key.
+        /// @brief  new_data    New data to save in attribute.
+        virtual Data* attr(VarName key, Data* new_data);
         /// @}
 
 
         /// @name   Arithmetic operations
         /// @{
-        /// Addition.
+        /// @brief  Addition.
         virtual Data* add(Data* other);
 
-        /// Subtraction.
+        /// @brief  Subtraction.
         virtual Data* sub(Data* other);
 
-        /// Multiplication.
+        /// @brief  Multiplication.
         virtual Data* mul(Data* other);
 
-        /// Divison.
+        /// @brief  Divison.
         virtual Data* div(Data* other);
 
-        /// Modulo.
+        /// @brief  Modulo.
         virtual Data* mod(Data* other);
 
-        /// Exponentiation.
+        /// @brief  Exponentiation.
         virtual Data* exp(Data* other);
 
-        /// Unary minus.
+        /// @brief  Unary minus.
         virtual Data* unm();
         /// @}
 
 
         /// @name   Bitwise operations
         /// @{
-        /// Bitwise AND.
+        /// @brief  Bitwise AND.
         virtual Data* bit_and(Data* other);
 
-        /// Bitwise OR.
+        /// @brief  Bitwise OR.
         virtual Data* bit_or(Data* other);
 
-        /// Bitwise XOR.
+        /// @brief  Bitwise XOR.
         virtual Data* bit_xor(Data* other);
 
-        /// Bitwise NOT.
+        /// @brief  Bitwise NOT.
         virtual Data* bit_not();
 
-        /// Bitwise left shift.
+        /// @brief  Bitwise left shift.
         virtual Data* bit_left_shift(Data* other);
 
-        /// Bitwise right shift.
+        /// @brief  Bitwise right shift.
         virtual Data* bit_right_shift(Data* other);
         /// @}
 
@@ -150,7 +170,7 @@ namespace creek
     class CREEK_API WrongArgNumber : public Exception
     {
     public:
-        /// `WrongArgNumber` constructor.
+        /// @brief  `WrongArgNumber` constructor..
         /// @param  expected    Number of expected arguments.
         /// @param  passed      Number of passed arguments.
         WrongArgNumber(int expected, int passed);

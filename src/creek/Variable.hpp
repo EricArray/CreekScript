@@ -14,10 +14,10 @@ namespace creek
     class CREEK_API Variable
     {
     public:
-        /// `Variable` constructor.
+        /// @brief  `Variable` constructor..
         Variable();
 
-        /// `Variable` constructor.
+        /// @brief  `Variable` constructor..
         /// @param  data        Initial data.
         Variable(Data* data);
 
@@ -82,6 +82,19 @@ namespace creek
 
         /// Set the data at index.
         Variable index(Variable key, Variable new_data);
+        /// @}
+
+
+        /// @name   Object attribute
+        /// @{
+        /// @brief  Get the attribute.
+        /// @brief  key         Attribute key.
+        Variable attr(VarName key);
+
+        /// @brief  Set the attribute.
+        /// @brief  key         Attribute key.
+        /// @brief  new_data    New data to save in attribute.
+        Variable attr(VarName key, Variable new_data);
         /// @}
 
 

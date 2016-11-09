@@ -73,6 +73,12 @@ namespace creek
 
     // // Set the string value of this data.
     // void Identifier::string_value(const std::string& new_value);
+
+    // Get the identifier value of this data.
+    VarName Identifier::identifier_value() const
+    {
+        return m_value;
+    }
     // @}
 
 

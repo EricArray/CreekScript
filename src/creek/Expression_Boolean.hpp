@@ -13,12 +13,12 @@ namespace creek
     /// @{
 
 
-    /// Expression: Short circuit boolean AND.
+    /// @brief  Expression: Short circuit boolean AND.
     /// If L is false, returns L, else, returns R.
     class CREEK_API ExprBoolAnd : public Expression
     {
     public:
-        /// `ExprBoolAnd` constructor.
+        /// @brief  `ExprBoolAnd` constructor..
         /// @param  lexpr       Expression for left parameter.
         /// @param  rexpr       Expression for right parameter.
         ExprBoolAnd(Expression* lexpr, Expression* rexpr);
@@ -36,12 +36,12 @@ namespace creek
     };
 
 
-    /// Expression: Short circuit boolean OR.
+    /// @brief  Expression: Short circuit boolean OR.
     /// If L is true, returns L, else, returns R.
     class CREEK_API ExprBoolOr : public Expression
     {
     public:
-        /// `ExprBoolOr` constructor.
+        /// @brief  `ExprBoolOr` constructor..
         /// @param  lexpr       Expression for left parameter.
         /// @param  rexpr       Expression for right parameter.
         ExprBoolOr(Expression* lexpr, Expression* rexpr);
@@ -59,13 +59,13 @@ namespace creek
     };
 
 
-    /// Expression: Boolean XOR.
+    /// @brief  Expression: Boolean XOR.
     /// Creates a new Boolean data.
     /// Returns L XOR R.
     class CREEK_API ExprBoolXor : public Expression
     {
     public:
-        /// `ExprBoolXor` constructor.
+        /// @brief  `ExprBoolXor` constructor..
         /// @param  lexpr       Expression for left parameter.
         /// @param  rexpr       Expression for right parameter.
         ExprBoolXor(Expression* lexpr, Expression* rexpr);
@@ -83,12 +83,12 @@ namespace creek
     };
 
 
-    /// Expression: Boolean NOT.
+    /// @brief  Expression: Boolean NOT.
     /// Returns NOT L.
     class CREEK_API ExprBoolNot : public Expression
     {
     public:
-        /// `ExprBoolNot` constructor.
+        /// @brief  `ExprBoolNot` constructor..
         /// @param  expr        Expression to negate.
         ExprBoolNot(Expression* expr);
 

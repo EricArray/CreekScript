@@ -13,13 +13,13 @@ namespace creek
     /// To be used only in debugging only.
     /// @{
 
-    /// Expression: Print a value to console.
+    /// @brief  Expression: Print a value to console.
     /// For debugging only.
     /// Returns evaluated expression.
     class CREEK_API ExprPrint : public Expression
     {
     public:
-        /// `ExprPrint` constructor.
+        /// @brief  `ExprPrint` constructor..
         /// @param  expression  Expression to get value.
         ExprPrint(Expression* expression);
 

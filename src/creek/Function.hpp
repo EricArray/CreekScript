@@ -46,7 +46,7 @@ namespace creek
         using Value = std::shared_ptr<Definition>;
 
 
-        /// `Function` constructor.
+        /// @brief  `Function` constructor..
         /// @param  value   Function value.
         Function(const Value& value);
 

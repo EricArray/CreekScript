@@ -59,8 +59,8 @@ namespace creek
         Data* func_Data_to_boolean(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_to_string(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Data_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Data_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Data_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Data_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_sub(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_mul(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
@@ -87,8 +87,8 @@ namespace creek
         Data* func_Object_to_boolean(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_to_string(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Object_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Object_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Object_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Object_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_sub(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_mul(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
@@ -158,8 +158,8 @@ namespace creek
                 attrs["to_boolean"]     = new CFunction(*this, 1, false, &func_Data_to_boolean);
                 attrs["to_number"]      = new CFunction(*this, 1, false, &func_Data_to_number);
                 attrs["to_string"]      = new CFunction(*this, 1, false, &func_Data_to_string);
-                attrs["index"]          = new CFunction(*this, 2, false, &func_Data_index);
-                attrs["set_index"]      = new CFunction(*this, 3, false, &func_Data_set_index);
+                attrs["index_get"]      = new CFunction(*this, 2, false, &func_Data_index_get);
+                attrs["index_set"]      = new CFunction(*this, 3, false, &func_Data_index_set);
                 attrs["add"]                = new CFunction(*this, 2, false, &func_Data_add);
                 attrs["sub"]                = new CFunction(*this, 2, false, &func_Data_sub);
                 attrs["mul"]                = new CFunction(*this, 2, false, &func_Data_mul);
@@ -188,8 +188,8 @@ namespace creek
                 attrs["to_boolean"]     = new CFunction(*this, 1, false, &func_Object_to_boolean);
                 attrs["to_number"]      = new CFunction(*this, 1, false, &func_Object_to_number);
                 attrs["to_string"]      = new CFunction(*this, 1, false, &func_Object_to_string);
-                attrs["index"]          = new CFunction(*this, 2, false, &func_Object_index);
-                attrs["set_index"]      = new CFunction(*this, 3, false, &func_Object_set_index);
+                attrs["index_get"]      = new CFunction(*this, 2, false, &func_Object_index_get);
+                attrs["index_set"]      = new CFunction(*this, 3, false, &func_Object_index_set);
                 attrs["add"]                = new CFunction(*this, 2, false, &func_Object_add);
                 attrs["sub"]                = new CFunction(*this, 2, false, &func_Object_sub);
                 attrs["mul"]                = new CFunction(*this, 2, false, &func_Object_mul);
@@ -357,12 +357,12 @@ namespace creek
         return new String(args[0]->string_value());
     }
 
-    Data* func_Data_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Data_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         return args[0]->index(args[1].get());
     }
 
-    Data* func_Data_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Data_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         return args[0]->index(args[1].get(), args[2].release());
     }
@@ -481,7 +481,7 @@ namespace creek
             Vector::Value new_value = std::make_shared< std::vector<Variable> >();
             for (auto& attr : self->value()->attrs)
             {
-                new_value->emplace_back(std::get<0>(attr)->copy());
+                new_value->emplace_back(new Identifier(attr.first));
             }
             return new Vector(new_value);
         }
@@ -506,14 +506,14 @@ namespace creek
         throw Undefined("Object conversion to string");
     }
 
-    Data* func_Object_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Object_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        throw Undefined("Object element index");
+        throw Undefined("Object element index_get");
     }
 
-    Data* func_Object_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Object_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        throw Undefined("Object element set_index");
+        throw Undefined("Object element index_set");
     }
 
     Data* func_Object_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args)

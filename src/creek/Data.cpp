@@ -79,6 +79,11 @@ namespace creek
     //     throw Undefined(class_name() + "::string_value");
     // }
 
+    VarName Data::identifier_value() const
+    {
+        throw Undefined(class_name() + "::identifier_value");
+    }
+
     const std::vector<Variable>& Data::vector_value() const
     {
         throw Undefined(class_name() + "::vector_value");
@@ -86,13 +91,30 @@ namespace creek
 
     Data* Data::index(Data* key)
     {
-        throw Undefined(class_name() + "::index");
+        throw Undefined(class_name() + "::index get");
     }
 
     Data* Data::index(Data* key, Data* new_data)
     {
-        throw Undefined(class_name() + "::index");
+        throw Undefined(class_name() + "::index set");
     }
+    
+
+    /// @name   Object attribute
+    /// @{
+    /// @brief  Get the attribute.
+    Data* Data::attr(VarName key)
+    {
+        throw Undefined(class_name() + "::attr get");
+    }
+
+    /// @brief  Set the attribute.
+    Data* Data::attr(VarName key, Data* new_data)
+    {
+        throw Undefined(class_name() + "::attr set");
+    }
+    /// @}
+
 
     Data* Data::add(Data* other)
     {

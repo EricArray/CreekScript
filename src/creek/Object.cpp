@@ -31,8 +31,9 @@ namespace creek
         Value new_value = std::make_shared<Definition>(Definition(class_obj, {}));
         for (auto& attr : attrs)
         {
-            new_value->attrs.emplace_back(
-                std::make_tuple<Variable, Variable>(new Identifier(attr.first), attr.second->copy()));
+//            new_value->attrs.emplace_back(
+//                std::make_tuple<Variable, Variable>(new Identifier(attr.first), attr.second->copy()));
+            new_value->attrs[attr.first] = attr.second->copy();
         }
         return new Object(new_value);
     }
@@ -142,34 +143,65 @@ namespace creek
     // Get the data at index.
     Data* Object::index(Data* key)
     {
-        // TODO: rework
-        for (auto& attr : m_value->attrs)
-        {
-            if (key->cmp(*std::get<0>(attr)) == 0)
-            {
-                return std::get<1>(attr)->copy();
-            }
-        }
-        throw Exception(std::string("Index not found: ") + key->debug_text());
+        // // TODO: rework
+        // for (auto& attr : m_value->attrs)
+        // {
+        //     if (key->cmp(*std::get<0>(attr)) == 0)
+        //     {
+        //         return std::get<1>(attr)->copy();
+        //     }
+        // }
+        // throw Exception(std::string("Index not found: ") + key->debug_text());
+
+        // return attr(key->identifier_value());
+        return call_method("index_get", {this->copy(), key->copy()});
     }
 
     // Set the data at index.
     Data* Object::index(Data* key, Data* new_data)
     {
-        // TODO: rework
-        for (auto& attr : m_value->attrs)
-        {
-            if (key->cmp(*std::get<0>(attr)) == 0)
-            {
-                auto& v = std::get<1>(attr);
-                v.data(new_data);
-                return new_data->copy();
-            }
-        }
-        m_value->attrs.push_back(std::make_tuple(Variable(key->copy()), Variable(new_data)));
-        return new_data->copy();
+        // // TODO: rework
+        // for (auto& attr : m_value->attrs)
+        // {
+        //     if (key->cmp(*std::get<0>(attr)) == 0)
+        //     {
+        //         auto& v = std::get<1>(attr);
+        //         v.data(new_data);
+        //         return new_data->copy();
+        //     }
+        // }
+        // m_value->attrs.push_back(std::make_tuple(Variable(key->copy()), Variable(new_data)));
+        // return new_data->copy();
+
+        // return attr(key->identifier_value(), new_data);
+        return call_method("index_set", {this->copy(), key->copy(), new_data->copy()});
     }
     // @}
+
+
+    /// @name   Object attribute
+    /// @{
+    /// @brief  Get the attribute.
+    /// @brief  key         Attribute key.
+    Data* Object::attr(VarName key)
+    {
+        auto iter = m_value->attrs.find(key);
+        if (iter == m_value->attrs.end())
+        {
+            throw Exception(std::string("Attribute not found: ") + key.name());
+        }
+        return iter->second->copy();
+    }
+
+    /// @brief  Set the attribute.
+    /// @brief  key         Attribute key.
+    /// @brief  new_data    New data to save in attribute.
+    Data* Object::attr(VarName key, Data* new_data)
+    {
+        m_value->attrs[key].reset(new_data);
+        return new_data->copy();
+    }
+    /// @}
 
 
     // @name   Arithmetic operations

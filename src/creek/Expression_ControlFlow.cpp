@@ -681,7 +681,8 @@ namespace creek
         {
             return m_try_body->eval(scope);
         }
-        catch (const Exception& e)
+        // catch (const Exception& e)
+        catch (...)
         {
             return m_catch_body->eval(scope);
         }

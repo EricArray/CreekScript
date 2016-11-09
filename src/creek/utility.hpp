@@ -10,7 +10,21 @@
 
 namespace creek
 {
-    /// Transform an integer into a string.
+    /// @brief  Find correct std::stoi function
+    template<class T> T stoi(const std::string& source, std::size_t* pos, int base);
+    template<> int stoi<int>(const std::string& source, std::size_t* pos, int base);
+    template<> long stoi<long>(const std::string& source, std::size_t* pos, int base);
+    template<> long long stoi<long long>(const std::string& source, std::size_t* pos, int base);
+
+
+    /// @brief  Find correct std::stof function
+    template<class T> T stof(const std::string& source, std::size_t* pos);
+    template<> float stof<float>(const std::string& source, std::size_t* pos);
+    template<> double stof<double>(const std::string& source, std::size_t* pos);
+    template<> long double stof<long double>(const std::string& source, std::size_t* pos);
+
+
+    /// @brief  Transform an integer into a string.
     /// @param  integer The number to transform.
     /// @param  base    Any numeric base (eg. 2, 8, 10, 16, 5, 7).
     /// @param  psign   Use positive sign.
@@ -18,7 +32,7 @@ namespace creek
     template<class T>
     std::string int_to_string(T integer, unsigned base = 10, unsigned digits = 0, bool psign = false);
 
-    /// Transform a floating-point number into a string.
+    /// @brief  Transform a floating-point number into a string.
     /// @param  floatnum    The floating-point number to transform.
     /// @param  base        Any numeric base (eg. 2, 8, 10, 16, 5, 7).
     template<class T>
@@ -43,13 +57,13 @@ namespace creek
     /// | \\v               | vertical tab         | 0x0b                   |
     /// @{
 
-    /// Translates unescaped character.
+    /// @brief  Translates unescaped character.
     /// Does not add starting and ending quotes.
     /// @param  source  Character to escape.
     /// @return         Escaped first two characters if needed, else the first character.
     CREEK_API extern std::string escape_char(char source);
 
-    /// Translates escaped character.
+    /// @brief  Translates escaped character.
     /// Does not remove starting and ending quotes.
     /// @param  source  String containing a single character or an escape sequence.
     /// @param  pos     Position to start from the string.
@@ -57,31 +71,31 @@ namespace creek
     /// @return         Unescaped character where needed, else same character.
     CREEK_API extern char unescape_char(const std::string& source, unsigned pos = 0, unsigned* len = nullptr);
 
-    /// Translates unescaped characters.
+    /// @brief  Translates unescaped characters.
     /// Does not add starting and ending quotes.
     /// @param  source  String to escape.
     /// @return         Escaped string where needed, else same string.
     CREEK_API extern std::string escape_string(const std::string& source);
 
-    /// Translates escaped characters.
+    /// @brief  Translates escaped characters.
     /// Does not remove starting and ending quotes.
     /// @param  source  String containing normal characters or escaped sequences.
     /// @return         Unescaped string where needed, else same string.
     CREEK_API extern std::string unescape_string(const std::string& source);
 
-    /// Bad character escape.
+    /// @brief  Bad character escape.
     class CREEK_API BadCharacterEscape : public Exception
     {
     public:
-        /// `BadCharacterEscape` constructor.
+        /// @brief  `BadCharacterEscape` constructor..
         /// @param  source  Escaped source string.
         /// @param  pos     Position of the bad escape in source.
         BadCharacterEscape(const std::string& source, unsigned pos);
 
-        /// Get escaped source.
+        /// @brief  Get escaped source.
         const std::string& source() const;
 
-        /// Get escape position.
+        /// @brief  Get escape position.
         unsigned pos() const;
 
     private:
@@ -92,14 +106,14 @@ namespace creek
     /// @}
 
 
-    /// Clear command line screen.
+    /// @brief  Clear command line screen.
     CREEK_API extern void clear_screen();
 }
 
 
 namespace creek
 {
-    // Transform an integer into a string.
+    // @brief  Transform an integer into a string.
     // @param  integer The number to transform.
     // @param  base    Any numeric base (eg. 2, 8, 10, 16, 5, 7).
     // @param  psign   Use positive sign.
@@ -144,7 +158,7 @@ namespace creek
     }
 
 
-    // Transform a floating-point number into a string.
+    // @brief  Transform a floating-point number into a string.
     // @param  floatnum    The floating-point number to transform.
     // @param  base        Any numeric base (eg. 2, 8, 10, 16, 5, 7).
     template<class T> std::string float_to_string(T floatnum, unsigned base)

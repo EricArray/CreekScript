@@ -37,7 +37,7 @@ namespace creek
     }
 
 
-    // `ExprCall` constructor.
+    // @brief  `ExprCall` constructor.
     // @param  function    Function expression.
     // @param  args        Arguments to pass to the function.
     ExprCall::ExprCall(Expression* function, const std::vector<Expression*>& args) :
@@ -101,7 +101,7 @@ namespace creek
     }
 
 
-    // `ExprVariadicCall` constructor.
+    // @brief  `ExprVariadicCall` constructor.
     // @param  function    Function expression.
     // @param  args        Arguments to pass to the function.
     // @param  vararg      Argument to expand before calling.
@@ -176,7 +176,7 @@ namespace creek
     }
 
 
-    // `ExprCallMethod` constructor.
+    // @brief  `ExprCallMethod` constructor.
     // @param  object      Object expression.
     // @param  index       Index to the method.
     // @param  args        Arguments to pass to the method.
@@ -247,7 +247,7 @@ namespace creek
     }
 
 
-    // `ExprVariadicCallMethod` constructor.
+    // @brief  `ExprVariadicCallMethod` constructor.
     // @param  object      Object expression.
     // @param  index       Index to the method.
     // @param  args        Arguments to pass to the method.
@@ -328,7 +328,7 @@ namespace creek
     }
 
 
-    // `ExprIndexGet` constructor.
+    // @brief  `ExprIndexGet` constructor.
     // @param  array   Expression for the array object.
     // @param  index   Expression for the index.
     ExprIndexGet::ExprIndexGet(Expression* array, Expression* index) :
@@ -366,7 +366,7 @@ namespace creek
     }
 
 
-    // `ExprIndexSet` constructor.
+    // @brief  `ExprIndexSet` constructor.
     // @param  array       Expression for the array object.
     // @param  index       Expression for the index.
     // @param  value       Expression for the new value.
@@ -404,6 +404,96 @@ namespace creek
     Bytecode ExprIndexSet::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(OpCode::index_set) << m_array->bytecode(var_name_map) << m_index->bytecode(var_name_map) << m_value->bytecode(var_name_map);
+    }
+
+
+    /// @brief  `ExprAttrGet` constructor.
+    /// @param  object  Expression for the object.
+    /// @param  attr    Attribute name.
+    ExprAttrGet::ExprAttrGet(Expression* object, VarName attr) :
+        m_object(object),
+        m_attr(attr)
+    {
+
+    }
+
+    Expression* ExprAttrGet::clone() const
+    {
+        return new ExprAttrGet(m_object->clone(), m_attr);
+    }
+
+    bool ExprAttrGet::is_const() const
+    {
+        return m_object->is_const();
+    }
+    
+    Expression* ExprAttrGet::const_optimize() const
+    {
+        if (is_const())
+        {
+            Scope scope;
+            Variable object = m_object->eval(scope);
+            return new ExprConst(object->attr(m_attr));
+        }
+        else
+        {
+            return new ExprAttrGet(m_object->const_optimize(), m_attr);
+        }
+    }
+    
+    Variable ExprAttrGet::eval(Scope& scope)
+    {
+        Variable o = m_object->eval(scope);
+        return o.attr(m_attr);
+    }
+
+    Bytecode ExprAttrGet::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() << static_cast<uint8_t>(OpCode::attr_get) << m_object->bytecode(var_name_map) << var_name_map.id_from_name(m_attr.name());
+    }
+
+
+    /// @brief  `ExprAttrSet` constructor.
+    /// @param  object  Expression for the object.
+    /// @param  attr    Attribute name.
+    /// @param  value   Expression for the new value.
+    ExprAttrSet::ExprAttrSet(Expression* object, VarName attr, Expression* value) :
+        m_object(object),
+        m_attr(attr),
+        m_value(value)
+    {
+
+    }
+
+    Expression* ExprAttrSet::clone() const
+    {
+        return new ExprAttrSet(m_object->clone(), m_attr, m_value->clone());
+    }
+
+    bool ExprAttrSet::is_const() const
+    {
+        return false;
+    }
+    
+    Expression* ExprAttrSet::const_optimize() const
+    {
+        return new ExprAttrSet(m_object->const_optimize(), m_attr, m_value->const_optimize());
+    }
+    
+    Variable ExprAttrSet::eval(Scope& scope)
+    {
+        Variable o = m_object->eval(scope);
+        Variable v = m_value->eval(scope);
+        return o.attr(m_attr, v);
+    }
+
+    Bytecode ExprAttrSet::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::attr_set) <<
+            m_object->bytecode(var_name_map) <<
+            var_name_map.id_from_name(m_attr.name()) <<
+            m_value->bytecode(var_name_map);
     }
 }
 
