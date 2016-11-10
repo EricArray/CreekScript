@@ -78,6 +78,11 @@ namespace creek
                 return *iter;
             }
 
+            ParseIterator operator + (int delta)
+            {
+                return { iter + delta, false };
+            }
+
             ParseIterator& operator += (int delta)
             {
                 iter += delta;

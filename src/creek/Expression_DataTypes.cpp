@@ -178,7 +178,7 @@ namespace creek
 
     /// @brief  `ExprVector` constructor.
     /// @param  values  List of initial values.
-    ExprVector::ExprVector(std::vector<Expression*> values)
+    ExprVector::ExprVector(const std::vector<Expression*>& values)
     {
         for (auto& v : values)
         {
@@ -234,6 +234,71 @@ namespace creek
         for (auto& value : m_values)
         {
             b << value->bytecode(var_name_map);
+        }
+        return b;
+    }
+
+
+    /// @brief  `ExprMap` constructor.
+    /// @param  values  List of initial values.
+    ExprMap::ExprMap(std::vector<Pair>& pairs)
+    {
+        m_pairs.swap(pairs);
+    }
+
+    Expression* ExprMap::clone() const
+    {
+        std::vector<Pair> new_pairs;
+        new_pairs.reserve(m_pairs.size());
+        for (auto& p : m_pairs)
+        {
+            new_pairs.emplace_back(p.key->clone(), p.value->clone());
+        }
+        return new ExprMap(new_pairs);
+    }
+
+    bool ExprMap::is_const() const
+    {
+        for (auto& p : m_pairs)
+        {
+            if (!p.key->is_const() or !p.value->is_const())
+                return false;
+        }
+        return true;
+    }
+
+    Expression* ExprMap::const_optimize() const
+    {
+        std::vector<Pair> new_pairs;
+        new_pairs.reserve(m_pairs.size());
+        for (auto& p : m_pairs)
+        {
+            new_pairs.emplace_back(p.key->const_optimize(), p.value->const_optimize());
+        }
+        return new ExprMap(new_pairs);
+    }
+
+    Variable ExprMap::eval(Scope& scope)
+    {
+        Map::Value new_value = std::make_shared<Map::Definition>();
+        for (auto& p : m_pairs)
+        {
+            Variable key = p.key->eval(scope);
+            Variable value = p.value->eval(scope);
+            (*new_value)[Map::Key(key.release())] = value;
+        }
+        return Variable(new Map(new_value));
+    }
+
+    Bytecode ExprMap::bytecode(VarNameMap& var_name_map) const
+    {
+        Bytecode b;
+        b << static_cast<uint8_t>(OpCode::data_map);
+        b << static_cast<uint32_t>(m_pairs.size());
+        for (auto& p : m_pairs)
+        {
+            b << p.key->bytecode(var_name_map);
+            b << p.value->bytecode(var_name_map);
         }
         return b;
     }

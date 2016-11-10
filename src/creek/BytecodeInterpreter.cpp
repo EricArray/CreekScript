@@ -370,7 +370,23 @@ namespace creek
 
                 return new ExprVector(values);
             }
-            case OpCode::data_function:             //< 0x37
+            case OpCode::data_map:                  //< 0x37
+            {
+                uint32_t size = 0;
+                bytecode >> size;
+
+                std::vector<ExprMap::Pair> pairs;
+                pairs.reserve(size);
+                for (uint32_t i = 0; i < size; i += 1)
+                {
+                    auto key = parse_expression(bytecode, var_name_map);
+                    auto value = parse_expression(bytecode, var_name_map);
+                    pairs.emplace_back(key, value);
+                }
+
+                return new ExprMap(pairs);
+            }
+            case OpCode::data_function:             //< 0x38
             {
                 uint32_t nargs = 0;
                 bytecode >> nargs;
@@ -389,7 +405,7 @@ namespace creek
 
                 return new ExprFunction(arg_names, variadic, body);
             }
-            case OpCode::data_class:                //< 0x38
+            case OpCode::data_class:                //< 0x39
             {
                 VarName class_name = parse_var_name(bytecode, var_name_map);
                 Expression* super_class = parse_expression(bytecode, var_name_map);

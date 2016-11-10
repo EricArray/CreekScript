@@ -1,1 +1,8 @@
-if false {"if"} else {"else"}
+var vec = ["a", 0x61, "b", 0x62, "c", 0x63];
+var map = {"d": 0x64};
+for i = 0 .. vec.size(), 2 {
+    var key = vec[i];
+    var val = vec[i+1];
+    map[key] = val;
+}
+debug(map);

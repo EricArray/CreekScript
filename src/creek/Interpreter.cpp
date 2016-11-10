@@ -422,6 +422,7 @@ namespace creek
             case TokenType::operation_sign:     //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
             case TokenType::open_round:         //< Open round brackets or parentheses (().
             case TokenType::open_square:        //< Open square brackets ([).
+            case TokenType::open_brace :        //< Open curly brackets or braces ({).
             case TokenType::keyword:            //< Identifier used as a keyword.
             {
                 return true;
@@ -487,7 +488,6 @@ namespace creek
 
             case TokenType::close_round:
             case TokenType::close_square:       //< Close square brackets or crotchets (]).
-            case TokenType::open_brace:         //< Open curly brackets or braces ({).
             case TokenType::close_brace:        //< Close curly brackets or braces (}).
             case TokenType::assign:             //< Equal sign (=).
             case TokenType::dot:                //< Dot (.).
@@ -828,9 +828,47 @@ namespace creek
                 break;
             }
 
-            // TODO: add literal map here:
-            // case TokenType::open_brace:         //< Open curly brackets or braces ({).
-            // case TokenType::close_brace:        //< Close curly brackets or braces (}).
+            case TokenType::open_brace:         //< Open curly brackets or braces ({).
+            {
+                iter += 1;
+
+                std::vector<ExprMap::Pair> pairs;
+                while (iter->type() != TokenType::close_brace)
+                {
+                    if (iter->type() == TokenType::identifier && (iter+1)->type() == TokenType::assign)
+                    {
+                        auto key = new ExprIdentifier(iter->identifier());
+                        iter += 1;
+                        iter += 1;
+                        auto value = parse_operation(iter);
+                        pairs.emplace_back(key, value);
+                    }
+                    else
+                    {
+                        auto key = parse_operation(iter);
+                        check_token_type(iter, {TokenType::colon});
+                        iter += 1;
+                        auto value = parse_operation(iter);
+                        pairs.emplace_back(key, value);
+                    }
+
+                    if (iter->type() == TokenType::comma)
+                    {
+                        iter += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                check_token_type(iter, {TokenType::close_brace});
+                iter += 1;
+
+                e = new ExprMap(pairs);
+
+                break;
+            }
 
             default:
             {

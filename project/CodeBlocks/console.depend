@@ -97,7 +97,7 @@
 	<creek/api_mode.hpp>
 	<creek/Variable.hpp>
 
-1478618997 c:\users\eric\projects\creekscript\src\creek\variable.hpp
+1478749702 c:\users\eric\projects\creekscript\src\creek\variable.hpp
 	<memory>
 	<creek/api_mode.hpp>
 	<creek/Data.hpp>
@@ -113,7 +113,7 @@
 	<creek/OpCode.hpp>
 	<creek/VarNameMap.hpp>
 
-1478617748 c:\users\eric\projects\creekscript\src\creek\opcode.hpp
+1478747261 c:\users\eric\projects\creekscript\src\creek\opcode.hpp
 	<cstdio>
 
 1478618199 c:\users\eric\projects\creekscript\src\creek\expression_controlflow.hpp
@@ -123,13 +123,14 @@
 	<creek/api_mode.hpp>
 	<creek/VarName.hpp>
 
-1478618199 c:\users\eric\projects\creekscript\src\creek\expression_datatypes.hpp
+1478747648 c:\users\eric\projects\creekscript\src\creek\expression_datatypes.hpp
 	<creek/Expression.hpp>
 	<creek/api_mode.hpp>
 	<creek/Boolean.hpp>
 	<creek/CFunction.hpp>
 	<creek/Function.hpp>
 	<creek/Identifier.hpp>
+	<creek/Map.hpp>
 	<creek/Null.hpp>
 	<creek/Number.hpp>
 	<creek/String.hpp>
@@ -154,7 +155,7 @@
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
-1478618199 c:\users\eric\projects\creekscript\src\creek\interpreter.hpp
+1478748512 c:\users\eric\projects\creekscript\src\creek\interpreter.hpp
 	<map>
 	<regex>
 	<set>
@@ -170,7 +171,7 @@
 	<creek/Exception.hpp>
 	<creek/utility.hpp>
 
-1478618268 c:\users\eric\projects\creekscript\src\creek\utility.hpp
+1478750636 c:\users\eric\projects\creekscript\src\creek\utility.hpp
 	<cassert>
 	<cmath>
 	<string>
@@ -186,7 +187,26 @@
 1478266094 c:\users\eric\projects\creekscript\src\creek\standardlibrary.hpp
 	<creek/api_mode.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\version.hpp
+1478750714 c:\users\eric\projects\creekscript\src\creek\version.hpp
 	<string>
 	<creek/api_mode.hpp>
+
+1478749984 c:\users\eric\projects\creekscript\src\creek\map.hpp
+	<creek/Data.hpp>
+	<memory>
+	<map>
+	<creek/api_mode.hpp>
+	<creek/Object.hpp>
+	<creek/Variable.hpp>
+
+1478743412 c:\users\eric\projects\creekscript\src\creek\object.hpp
+	<creek/Data.hpp>
+	<map>
+	<memory>
+	<string>
+	<vector>
+	<creek/api_mode.hpp>
+	<creek/Exception.hpp>
+	<creek/Variable.hpp>
+	<creek/VarName.hpp>
 

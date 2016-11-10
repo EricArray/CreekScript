@@ -3,6 +3,7 @@
 #include <creek/CFunction.hpp>
 #include <creek/Exception.hpp>
 #include <creek/Identifier.hpp>
+#include <creek/Map.hpp>
 #include <creek/Null.hpp>
 #include <creek/Object.hpp>
 #include <creek/Void.hpp>
@@ -22,6 +23,9 @@ namespace creek
 
     // @brief  Global class: Identifier.
     Variable GlobalScope::class_Identifier;
+
+    // @brief  Global class: Map.
+    Variable GlobalScope::class_Map;
 
     // @brief  Global class: Null.
     Variable GlobalScope::class_Null;
@@ -139,6 +143,12 @@ namespace creek
         Data* func_Vector_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
     // }
 
+    // class Map
+    // {
+        Data* func_Map_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Map_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+    // }
+
 
     // @brief  `GlobalScope` constructor.
     GlobalScope::GlobalScope()
@@ -243,6 +253,16 @@ namespace creek
             class_Identifier = func_Class_derive(*this, args);
         }
 
+        // class_Map
+        {
+            std::vector< std::unique_ptr<Data> > args;
+            args.emplace_back(class_Data->copy());
+            args.emplace_back(new Identifier("Map"));
+            class_Map = func_Class_derive(*this, args);
+            class_Map.attr(VarName("size"), new CFunction(*this, 1, false, &func_Map_size));
+            class_Map.attr(VarName("keys"), new CFunction(*this, 1, false, &func_Map_keys));
+        }
+
         // class_Null
         {
             std::vector< std::unique_ptr<Data> > args;
@@ -293,6 +313,7 @@ namespace creek
         create_local_var(VarName("Class"),      class_Class->copy());
         create_local_var(VarName("Data"),       class_Data->copy());
         create_local_var(VarName("Identifier"), class_Identifier->copy());
+        create_local_var(VarName("Map"),        class_Map->copy());
         create_local_var(VarName("Null"),       class_Null->copy());
         create_local_var(VarName("Number"),     class_Number->copy());
         create_local_var(VarName("Object"),     class_Object->copy());
@@ -723,6 +744,36 @@ namespace creek
             for (size_t i = 0; i < size; ++i)
             {
                 value->push_back(new Number(i));
+            }
+
+            return new Vector(value);
+        }
+        return new Void();
+    }
+    // }
+
+
+    // class Map
+    // {
+    Data* func_Map_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        if (auto map = dynamic_cast<Map*>(args[0].get()))
+        {
+            return new Number(map->value()->size());
+        }
+        return new Void();
+    }
+
+    Data* func_Map_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        if (auto map = dynamic_cast<Map*>(args[0].get()))
+        {
+            Vector::Value value = std::make_shared< std::vector<Variable> >();
+
+            value->reserve(map->value()->size());
+            for (auto& pair : *map->value())
+            {
+                value->emplace_back(pair.first->copy());
             }
 
             return new Vector(value);

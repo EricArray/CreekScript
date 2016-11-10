@@ -7,7 +7,7 @@
 
 #define CREEK_LINKED_MAJOR  0
 #define CREEK_LINKED_MINOR  1
-#define CREEK_LINKED_PATCH  2
+#define CREEK_LINKED_PATCH  3
 
 
 namespace creek
@@ -17,7 +17,7 @@ namespace creek
     {
     public:
         /// @brief  Get version when it was linked.
-        static Version linked();
+        static inline Version linked();
 
         /// @brief  Get version of the loaded dynamic library.
         static Version loaded();

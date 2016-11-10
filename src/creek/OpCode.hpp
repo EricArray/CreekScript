@@ -52,8 +52,9 @@ namespace creek
         data_string             = 0x34,
         data_identifier         = 0x35,
         data_vector             = 0x36,
-        data_function           = 0x37,
-        data_class              = 0x38,
+        data_map                = 0x37,
+        data_function           = 0x38,
+        data_class              = 0x39,
 
         // control flow
         control_block           = 0x40,
