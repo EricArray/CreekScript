@@ -59,8 +59,10 @@ namespace creek
         Data* func_Data_to_boolean(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_to_string(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Data_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Data_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Data_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Data_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Data_attr_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Data_attr_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_sub(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_mul(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
@@ -87,8 +89,8 @@ namespace creek
         Data* func_Object_to_boolean(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_to_string(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Object_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Object_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Object_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Object_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_sub(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Object_mul(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
@@ -158,8 +160,8 @@ namespace creek
                 attrs["to_boolean"]     = new CFunction(*this, 1, false, &func_Data_to_boolean);
                 attrs["to_number"]      = new CFunction(*this, 1, false, &func_Data_to_number);
                 attrs["to_string"]      = new CFunction(*this, 1, false, &func_Data_to_string);
-                attrs["index"]          = new CFunction(*this, 2, false, &func_Data_index);
-                attrs["set_index"]      = new CFunction(*this, 3, false, &func_Data_set_index);
+                attrs["index_get"]      = new CFunction(*this, 2, false, &func_Data_index_get);
+                attrs["index_set"]      = new CFunction(*this, 3, false, &func_Data_index_set);
                 attrs["add"]                = new CFunction(*this, 2, false, &func_Data_add);
                 attrs["sub"]                = new CFunction(*this, 2, false, &func_Data_sub);
                 attrs["mul"]                = new CFunction(*this, 2, false, &func_Data_mul);
@@ -188,8 +190,8 @@ namespace creek
                 attrs["to_boolean"]     = new CFunction(*this, 1, false, &func_Object_to_boolean);
                 attrs["to_number"]      = new CFunction(*this, 1, false, &func_Object_to_number);
                 attrs["to_string"]      = new CFunction(*this, 1, false, &func_Object_to_string);
-                attrs["index"]          = new CFunction(*this, 2, false, &func_Object_index);
-                attrs["set_index"]      = new CFunction(*this, 3, false, &func_Object_set_index);
+                attrs["index_get"]      = new CFunction(*this, 2, false, &func_Object_index_get);
+                attrs["index_set"]      = new CFunction(*this, 3, false, &func_Object_index_set);
                 attrs["add"]                = new CFunction(*this, 2, false, &func_Object_add);
                 attrs["sub"]                = new CFunction(*this, 2, false, &func_Object_sub);
                 attrs["mul"]                = new CFunction(*this, 2, false, &func_Object_mul);
@@ -255,7 +257,7 @@ namespace creek
             args.emplace_back(class_Data->copy());
             args.emplace_back(new Identifier("Number"));
             class_Number = func_Class_derive(*this, args);
-            class_Number.index(new Identifier("format"), new CFunction(*this, &func_Number_format));
+            class_Number.attr(VarName("format"), new CFunction(*this, &func_Number_format));
         }
 
         // class_String
@@ -264,7 +266,7 @@ namespace creek
             args.emplace_back(class_Data->copy());
             args.emplace_back(new Identifier("String"));
             class_String = func_Class_derive(*this, args);
-            class_String.index(new Identifier("size"), new CFunction(*this, &func_String_size));
+            class_String.attr(VarName("size"), new CFunction(*this, &func_String_size));
         }
 
         // class_Vector
@@ -273,10 +275,10 @@ namespace creek
             args.emplace_back(class_Data->copy());
             args.emplace_back(new Identifier("Vector"));
             class_Vector = func_Class_derive(*this, args);
-            class_Vector.index(new Identifier("size"), new CFunction(*this, 1, false, &func_Vector_size));
-            class_Vector.index(new Identifier("push"), new CFunction(*this, 2, false, &func_Vector_push));
-            class_Vector.index(new Identifier("pop"),  new CFunction(*this, 1, false, &func_Vector_pop));
-            class_Vector.index(new Identifier("keys"), new CFunction(*this, 1, false, &func_Vector_keys));
+            class_Vector.attr(VarName("size"), new CFunction(*this, 1, false, &func_Vector_size));
+            class_Vector.attr(VarName("push"), new CFunction(*this, 2, false, &func_Vector_push));
+            class_Vector.attr(VarName("pop"),  new CFunction(*this, 1, false, &func_Vector_pop));
+            class_Vector.attr(VarName("keys"), new CFunction(*this, 1, false, &func_Vector_keys));
         }
 
         // class_Void
@@ -306,15 +308,13 @@ namespace creek
     Data* func_Data_class_id(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         Variable class_obj(args[0]->get_class());
-        Variable key(new Identifier(VarName::from_name("id")));
-        return class_obj->index(*key);
+        return class_obj->attr(VarName("id"));
     }
 
     Data* func_Data_class_name(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         Variable class_obj(args[0]->get_class());
-        Variable key(new Identifier(VarName::from_name("id")));
-        Variable id(class_obj->index(*key));
+        Variable id(class_obj->attr(VarName("id")));
         return new String(id->string_value());
     }
 
@@ -357,14 +357,24 @@ namespace creek
         return new String(args[0]->string_value());
     }
 
-    Data* func_Data_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Data_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         return args[0]->index(args[1].get());
     }
 
-    Data* func_Data_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Data_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         return args[0]->index(args[1].get(), args[2].release());
+    }
+
+    Data* func_Data_attr_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        return args[0]->attr(args[1]->identifier_value());
+    }
+
+    Data* func_Data_attr_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        return args[0]->attr(args[1]->identifier_value(), args[2].release());
     }
 
     Data* func_Data_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
@@ -457,7 +467,7 @@ namespace creek
     {
         Variable c(args[0].release());
         Variable instance = new Object(c->copy(), {});
-        Variable func_init = c.index(new Identifier("init"));
+        Variable func_init = c.attr(VarName("init"));
 
         std::vector< std::unique_ptr<Data> > init_args;
         init_args.emplace_back(instance->copy());
@@ -481,7 +491,7 @@ namespace creek
             Vector::Value new_value = std::make_shared< std::vector<Variable> >();
             for (auto& attr : self->value()->attrs)
             {
-                new_value->emplace_back(std::get<0>(attr)->copy());
+                new_value->emplace_back(new Identifier(attr.first));
             }
             return new Vector(new_value);
         }
@@ -506,14 +516,14 @@ namespace creek
         throw Undefined("Object conversion to string");
     }
 
-    Data* func_Object_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Object_index_get(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        throw Undefined("Object element index");
+        throw Undefined("Object element index_get");
     }
 
-    Data* func_Object_set_index(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Object_index_set(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        throw Undefined("Object element set_index");
+        throw Undefined("Object element index_set");
     }
 
     Data* func_Object_add(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
@@ -596,7 +606,7 @@ namespace creek
         Variable self = args[0].release();
 
         Variable class_obj = self->get_class();
-        Variable method = class_obj->index(args[1].get());
+        Variable method = class_obj->attr(args[1]->identifier_value());
 
         std::vector< std::unique_ptr<Data> > call_args;
         call_args.emplace_back(self->copy());
@@ -630,18 +640,16 @@ namespace creek
     Data* func_Class_init(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         Variable self(args[0].release());
-        self.index(new Identifier("super_class"),   args[1].release());
-        self.index(new Identifier("id"),            args[2].release());
+        self.attr(VarName("super_class"),   args[1].release());
+        self.attr(VarName("id"),            args[2].release());
         return new Void();
     }
 
     // args = {self, init_args...}
     Data* func_Class_new(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        // TODO: make other static Variable identifiers.
-        static Variable id_instantiate = new Identifier("instantiate");
-
-        Variable instantiate = args[0]->index(id_instantiate->copy());
+        // TODO: make other static identifiers.
+        Variable instantiate = args[0]->attr(VarName("instantiate"));
         std::vector< std::unique_ptr<Data> > instantiate_args;
         instantiate_args.emplace_back(args[0]->copy());
         for (auto& i : args[1]->vector_value())

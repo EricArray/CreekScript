@@ -79,6 +79,11 @@ namespace creek
     //     throw Undefined(class_name() + "::string_value");
     // }
 
+    VarName Data::identifier_value() const
+    {
+        throw Undefined(class_name() + "::identifier_value");
+    }
+
     const std::vector<Variable>& Data::vector_value() const
     {
         throw Undefined(class_name() + "::vector_value");
@@ -86,13 +91,30 @@ namespace creek
 
     Data* Data::index(Data* key)
     {
-        throw Undefined(class_name() + "::index");
+        throw Undefined(class_name() + "::index get");
     }
 
     Data* Data::index(Data* key, Data* new_data)
     {
-        throw Undefined(class_name() + "::index");
+        throw Undefined(class_name() + "::index set");
     }
+
+
+    /// @name   Object attribute
+    /// @{
+    /// @brief  Get the attribute.
+    Data* Data::attr(VarName key)
+    {
+        throw Undefined(class_name() + "::attr get");
+    }
+
+    /// @brief  Set the attribute.
+    Data* Data::attr(VarName key, Data* new_data)
+    {
+        throw Undefined(class_name() + "::attr set");
+    }
+    /// @}
+
 
     Data* Data::add(Data* other)
     {
@@ -169,9 +191,34 @@ namespace creek
         throw Undefined(class_name() + "::call");
     }
 
-    Data* Data::get_class()
+    Data* Data::get_class() const
     {
         throw Undefined(class_name() + "::get_class");
+    }
+
+
+    /// @brief  Call a method of this object's class.
+    /// @param  method_name Name of the method to call.
+    /// @param  args        Arguments.
+    /// Self will be added as first argument.
+    Data* Data::call_method(
+        VarName method_name,
+        const std::vector<Data*>& args
+    ) const {
+        std::vector< std::unique_ptr<Data> > up_args;
+        up_args.emplace_back(copy());
+        for (auto& arg : args)
+        {
+            up_args.emplace_back(arg);
+        }
+
+        Variable class_obj = get_class();
+        if (!class_obj)
+        {
+            throw Exception("This object has no class");
+        }
+        Variable method = class_obj->attr(method_name);
+        return method->call(up_args);
     }
 
 

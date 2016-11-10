@@ -69,6 +69,12 @@ namespace creek
         m_data.reset(new_data);
     }
 
+    // Set the stored data.
+    void Variable::reset(Data* new_data)
+    {
+        m_data.reset(new_data);
+    }
+
     // Get the stored data and release ownership.
     Data* Variable::release()
     {
@@ -111,7 +117,7 @@ namespace creek
 
     Variable::operator bool () const
     {
-        return data() && data()->bool_value();
+        return data();// && data()->bool_value();
     }
 
 
@@ -134,6 +140,28 @@ namespace creek
         return Variable(data()->index(key.data(), new_data.release()));
     }
     // @}
+
+
+    /// @name   Object attribute
+    /// @{
+    /// @brief  Get the attribute.
+    /// @brief  key         Attribute key.
+    Variable Variable::attr(VarName key)
+    {
+        assert(data());
+        return Variable(data()->attr(key));
+    }
+
+    /// @brief  Set the attribute.
+    /// @brief  key         Attribute key.
+    /// @brief  new_data    New data to save in attribute.
+    Variable Variable::attr(VarName key, Variable new_data)
+    {
+        assert(data());
+        assert(new_data.data());
+        return Variable(data()->attr(key, new_data.release()));
+    }
+    /// @}
 
 
     // @name   Arithmetic operations

@@ -156,7 +156,7 @@ namespace creek
         return this->string_value().compare(other->string_value());
     }
 
-    Data* String::get_class()
+    Data* String::get_class() const
     {
         return GlobalScope::class_String->copy();
     }

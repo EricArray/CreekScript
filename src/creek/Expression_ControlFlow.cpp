@@ -469,11 +469,7 @@ namespace creek
             }
         }
 
-        if (!result)
-        {
-            result.data(new Void());
-        }
-        return result;
+        return result ? result : new Void();
     }
 
     Bytecode ExprWhile::bytecode(VarNameMap& var_name_map) const
@@ -564,11 +560,7 @@ namespace creek
             }
         }
 
-        if (!result)
-        {
-            result.data(new Void());
-        }
-        return result;
+        return result ? result : new Void();
     }
 
     Bytecode ExprFor::bytecode(VarNameMap& var_name_map) const
@@ -618,44 +610,28 @@ namespace creek
     {
         Variable result;
         Variable range(m_range->eval(scope));
+        Variable keys(range->call_method("keys", {}));
 
-        throw Unimplemented("range based for");
-        // Scope outer_scope(scope);
-        // auto& i = outer_scope.create_local_var(m_var_name, m_initial_value->eval(outer_scope));
-        // while (true)
-        // {
-        //     // check maximum
-        //     {
-        //         Variable max = m_max_value->eval(outer_scope);
-        //         Variable lt = i.lt(max);
-        //         if (!lt->bool_value())
-        //         {
-        //             break;
-        //         }
-        //     }
-
-        //     // execute body block
-        //     {
-        //         Scope inner_scope(outer_scope);
-        //         result = m_body->eval(inner_scope);
-        //     }
-
-        //     // add step
-        //     {
-        //         Variable step = m_step_value->eval(outer_scope);
-        //         i = i + step;
-        //     }
-        // }
-        if (!result)
+        Scope outer_scope(scope);
+        auto& item = outer_scope.create_local_var(m_var_name, nullptr);
+        for (auto& key : keys->vector_value())
         {
-            result.data(new Void());
+            item = range.index(key);
+
+            Scope inner_scope(outer_scope);
+            result = m_body->eval(inner_scope);
         }
-        return result;
+
+        return result ? result : new Void();
     }
 
     Bytecode ExprForIn::bytecode(VarNameMap& var_name_map) const
     {
-        throw Unimplemented("range based for");
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::control_for_in) <<
+            var_name_map.id_from_name(m_var_name.name()) <<
+            m_range->bytecode(var_name_map) <<
+            m_body->bytecode(var_name_map);
     }
 
 
@@ -690,7 +666,8 @@ namespace creek
         {
             return m_try_body->eval(scope);
         }
-        catch (const Exception& e)
+        // catch (const Exception& e)
+        catch (...)
         {
             return m_catch_body->eval(scope);
         }

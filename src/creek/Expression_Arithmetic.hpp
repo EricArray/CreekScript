@@ -14,22 +14,22 @@ namespace creek
     /// @brief  Expression: Add two values.
     using ExprAdd = ExprBinary<OpCode::add, &Data::add>;
 
-    /// Expression: Subtract two values.
+    /// @brief  Expression: Subtract two values.
     using ExprSub = ExprBinary<OpCode::sub, &Data::sub>;
 
-    /// Expression: Multiply two values.
+    /// @brief  Expression: Multiply two values.
     using ExprMul = ExprBinary<OpCode::mul, &Data::mul>;
 
-    /// Expression: Divide two values.
+    /// @brief  Expression: Divide two values.
     using ExprDiv = ExprBinary<OpCode::div, &Data::div>;
 
-    /// Expression: Modulo two values.
+    /// @brief  Expression: Modulo two values.
     using ExprMod = ExprBinary<OpCode::mod, &Data::mod>;
 
-    /// Expression: Exponentiate two values.
+    /// @brief  Expression: Exponentiate two values.
     using ExprExp = ExprBinary<OpCode::exp, &Data::exp>;
 
-    /// Expression: Negate one values.
+    /// @brief  Expression: Negate one values.
     using ExprUnm = ExprUnary<OpCode::unm, &Data::unm>;
 
 
@@ -53,12 +53,12 @@ namespace creek
     // };
 
 
-    // /// Expression: Subtract two values.
+    // /// @brief  Expression: Subtract two values.
     // /// Returns L - R.
     // class CREEK_API ExprSub : public Expression
     // {
     // public:
-    //     /// `ExprSub` constructor.
+    //     /// @brief  `ExprSub` constructor..
     //     /// @param  lexpr       Expression for left parameter.
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprSub(Expression* lexpr, Expression* rexpr);
@@ -73,12 +73,12 @@ namespace creek
     // };
 
 
-    // /// Expression: Multiply two values.
+    // /// @brief  Expression: Multiply two values.
     // /// Returns L * R.
     // class CREEK_API ExprMul : public Expression
     // {
     // public:
-    //     /// `ExprMul` constructor.
+    //     /// @brief  `ExprMul` constructor..
     //     /// @param  lexpr       Expression for left parameter.
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprMul(Expression* lexpr, Expression* rexpr);
@@ -93,12 +93,12 @@ namespace creek
     // };
 
 
-    // /// Expression: Divide two values.
+    // /// @brief  Expression: Divide two values.
     // /// Returns L / R.
     // class CREEK_API ExprDiv : public Expression
     // {
     // public:
-    //     /// `ExprDiv` constructor.
+    //     /// @brief  `ExprDiv` constructor..
     //     /// @param  lexpr       Expression for left parameter.
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprDiv(Expression* lexpr, Expression* rexpr);
@@ -114,12 +114,12 @@ namespace creek
 
 
 
-    // /// Expression: Modulo two values.
+    // /// @brief  Expression: Modulo two values.
     // /// Returns L % R.
     // class CREEK_API ExprMod : public Expression
     // {
     // public:
-    //     /// `ExprMod` constructor.
+    //     /// @brief  `ExprMod` constructor..
     //     /// @param  lexpr       Expression for left parameter.
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprMod(Expression* lexpr, Expression* rexpr);
@@ -134,12 +134,12 @@ namespace creek
     // };
 
 
-    // /// Expression: Exponentiate two values.
+    // /// @brief  Expression: Exponentiate two values.
     // /// Returns L ** R.
     // class CREEK_API ExprExp : public Expression
     // {
     // public:
-    //     /// `ExprExp` constructor.
+    //     /// @brief  `ExprExp` constructor..
     //     /// @param  lexpr       Expression for left parameter.
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprExp(Expression* lexpr, Expression* rexpr);
@@ -154,12 +154,12 @@ namespace creek
     // };
 
 
-    // /// Expression: Negate one values.
+    // /// @brief  Expression: Negate one values.
     // /// Returns -L.
     // class CREEK_API ExprUnm : public Expression
     // {
     // public:
-    //     /// `ExprUnm` constructor.
+    //     /// @brief  `ExprUnm` constructor..
     //     /// @param  expr        Expression to negate.
     //     ExprUnm(Expression* expr);
 

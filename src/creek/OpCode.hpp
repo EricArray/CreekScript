@@ -76,6 +76,8 @@ namespace creek
         variadic_call_method    = 0x53,
         index_get               = 0x54,
         index_set               = 0x55,
+        attr_get                = 0x56,
+        attr_set                = 0x57,
 
         // variable
         var_create_local        = 0x60,

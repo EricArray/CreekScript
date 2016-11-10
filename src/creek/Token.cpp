@@ -3,44 +3,6 @@
 
 namespace creek
 {
-    // find correct std::stoi function
-    template<class T> T stoi(const std::string& source, std::size_t* pos, int base);
-
-    template<> int stoi(const std::string& source, std::size_t* pos, int base)
-    {
-        return std::stoi(source, pos, base);
-    }
-
-    template<> long stoi(const std::string& source, std::size_t* pos, int base)
-    {
-        return std::stol(source, pos, base);
-    }
-
-    template<> long long stoi(const std::string& source, std::size_t* pos, int base)
-    {
-        return std::stoll(source, pos, base);
-    }
-
-
-    // find correct std::stof function
-    template<class T> T stof(const std::string& source, std::size_t* pos);
-
-    template<> float stof(const std::string& source, std::size_t* pos)
-    {
-        return std::stof(source, pos);
-    }
-
-    template<> double stof(const std::string& source, std::size_t* pos)
-    {
-        return std::stod(source, pos);
-    }
-
-    template<> long double stof(const std::string& source, std::size_t* pos)
-    {
-        return std::stold(source, pos);
-    }
-
-
     // Token type names.
     const std::map<TokenType, std::string> Token::type_names
     {
@@ -157,71 +119,6 @@ namespace creek
             return true;
         else
             return false;
-    }
-
-    // Get the integer this token represents.
-    int Token::integer() const
-    {
-        std::size_t pos = 0;
-        int result = 0;
-
-        try
-        {
-            if(text()[0] == '0' && (text()[1] == 'b' || text()[1] == 'B'))
-            {
-                result = stoi<int>(text(), &pos, 2);
-            }
-            else if(text()[0] == '0' && (text()[1] == 'x' || text()[1] == 'X'))
-            {
-                result = stoi<int>(text(), &pos, 16);
-            }
-            else
-            {
-                result = stoi<int>(text(), &pos, 10);
-            }
-        }
-        catch(const std::invalid_argument& e)
-        {
-            throw BadNumberFormat(m_line, m_column);
-        }
-        catch(const std::out_of_range& e)
-        {
-            throw BadNumberFormat(m_line, m_column);
-        }
-
-        if(pos != text().size())
-        {
-            throw BadNumberFormat(m_line, m_column);
-        }
-
-        return result;
-    }
-
-    // Get the floating-point number this token represents.
-    float Token::floatnum() const
-    {
-        std::size_t pos = 0;
-        float result = 0;
-
-        try
-        {
-            result = stof<float>(text(), &pos);
-        }
-        catch (const std::invalid_argument& e)
-        {
-            throw BadNumberFormat(m_line, m_column);
-        }
-        catch (const std::out_of_range& e)
-        {
-            throw BadNumberFormat(m_line, m_column);
-        }
-
-        if(pos != text().size())
-        {
-            throw BadNumberFormat(m_line, m_column);
-        }
-
-        return result;
     }
 
     // Get the character this token represents.

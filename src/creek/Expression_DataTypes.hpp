@@ -25,7 +25,7 @@ namespace creek
     class CREEK_API ExprVoid : public Expression
     {
     public:
-        /// `ExprVoid` constructor.
+        /// @brief  `ExprVoid` constructor..
         ExprVoid();
 
         Expression* clone() const override;
@@ -41,7 +41,7 @@ namespace creek
     class CREEK_API ExprNull : public Expression
     {
     public:
-        /// `ExprNull` constructor.
+        /// @brief  `ExprNull` constructor..
         ExprNull();
         
         Expression* clone() const override;
@@ -57,7 +57,7 @@ namespace creek
     class CREEK_API ExprBoolean : public Expression
     {
     public:
-        /// `ExprBoolean` constructor.
+        /// @brief  `ExprBoolean` constructor..
         /// @param  value       Boolean value.
         ExprBoolean(Boolean::Value value);
         
@@ -77,7 +77,7 @@ namespace creek
     class CREEK_API ExprNumber : public Expression
     {
     public:
-        /// `ExprNumber` constructor.
+        /// @brief  `ExprNumber` constructor..
         /// @param  value       Number value.
         ExprNumber(Number::Value value);
         
@@ -97,7 +97,7 @@ namespace creek
     class CREEK_API ExprString : public Expression
     {
     public:
-        /// `ExprString` constructor.
+        /// @brief  `ExprString` constructor..
         /// @param  value       String value.
         ExprString(String::Value value);
         
@@ -117,7 +117,7 @@ namespace creek
     class CREEK_API ExprIdentifier : public Expression
     {
     public:
-        /// `ExprIdentifier` constructor.
+        /// @brief  `ExprIdentifier` constructor..
         /// @param  value       Identifier value.
         ExprIdentifier(Identifier::Value value);
         
@@ -158,13 +158,13 @@ namespace creek
     class CREEK_API ExprFunction : public Expression
     {
     public:
-        /// `ExprFunction` constructor.
+        /// @brief  `ExprFunction` constructor..
         /// @param  arg_names   Names of arguments.
         /// @param  variadic    Create a variadic function.
         /// @param  body        Function body block.
         ExprFunction(const std::vector<VarName>& arg_names, bool variadic, Expression* body);
 
-        /// `ExprFunction` constructor.
+        /// @brief  `ExprFunction` constructor..
         /// @param  arg_names   Names of arguments.
         /// @param  variadic    Create a variadic function.
         /// @param  body        Function body block.
@@ -196,7 +196,7 @@ namespace creek
     // class CREEK_API ExprCFunction : public Expression
     // {
     // public:
-    //     /// `ExprCFunction` constructor.
+    //     /// @brief  `ExprCFunction` constructor..
     //     /// @param  argn        Number of arguments.
     //     /// @param  variadic    Create a variadic function.
     //     /// @param  listener    Listener function to call.

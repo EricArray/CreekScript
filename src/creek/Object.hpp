@@ -22,29 +22,33 @@ namespace creek
         /// @brief  Shared object definition.
         struct Definition
         {
-            /// Type alias: attribute list.
-            using AttrList = std::vector< std::tuple<Variable, Variable> >;
+            /// @brief  Type alias: attribute list.
+            // using AttrList = std::vector< std::tuple<Variable, Variable> >;
+            using AttrList = std::map<VarName, Variable>;
 
             Definition(Data* class_obj, const AttrList& attrs) :
-                class_obj(class_obj),
-                attrs(attrs)
+                class_obj(class_obj)
+//                attrs(attrs)
             {
-
+                for (auto& attr : attrs)
+                {
+                    this->attrs[attr.first] = attr.second->copy();
+                }
             }
 
             Variable class_obj; ///< Class object.
             AttrList attrs; ///< Object attributes.
         };
 
-        /// Stored value type.
+        /// @brief  Stored value type.
         using Value = std::shared_ptr<Definition>;
 
 
-        /// `Object` constructor.
+        /// @brief  `Object` constructor..
         /// @param  value   Object value.
         Object(const Value& value);
 
-        /// `Object` constructor.
+        /// @brief  `Object` constructor..
         /// @param  class_obj   Class object.
         /// @param  attrs       Object attributes.
         Object(Data* class_obj, const Definition::AttrList& attrs);
@@ -59,94 +63,107 @@ namespace creek
         Value& value();
 
 
-        /// Get a reference to the same object.
+        /// @brief  Get a reference to the same object.
         Data* copy() const override;
 
-        /// Get a reference to a shallow copy of this object.
+        /// @brief  Get a reference to a shallow copy of this object.
         Data* clone() const override;
 
-        /// Get data class name.
+        /// @brief  Get data class name.
         std::string class_name() const override;
 
-        /// Get debug text.
+        /// @brief  Get debug text.
         std::string debug_text() const override;
 
 
         /// @name   Value access
         /// @{
-        /// Get the bool value of this data.
+        /// @brief  Get the bool value of this data.
         bool bool_value() const override;
 
-        /// Get the char value of this data.
+        /// @brief  Get the char value of this data.
         char char_value() const override;
 
-        /// Get the int value of this data.
+        /// @brief  Get the int value of this data.
         int int_value() const override;
 
-        /// Get the float value of this data.
+        /// @brief  Get the float value of this data.
         float float_value() const override;
 
-        /// Get the string value of this data.
+        /// @brief  Get the string value of this data.
         std::string string_value() const override;
 
-        // Get the vector value of this data.
+        /// @brief  Get the vector value of this data.
         const std::vector<Variable>& vector_value() const override;
         /// @}
 
 
         /// @name   Container index
         /// @{
-        /// Get the data at index.
+        /// @brief  Get the data at index.
         Data* index(Data* key) override;
 
-        /// Set the data at index.
+        /// @brief  Set the data at index.
         Data* index(Data* key, Data* new_data) override;
+        /// @}
+
+
+        /// @name   Object attribute
+        /// @{
+        /// @brief  Get the attribute.
+        /// @brief  key         Attribute key.
+        virtual Data* attr(VarName key);
+
+        /// @brief  Set the attribute.
+        /// @brief  key         Attribute key.
+        /// @brief  new_data    New data to save in attribute.
+        virtual Data* attr(VarName key, Data* new_data);
         /// @}
 
 
         /// @name   Arithmetic operations
         /// @{
-        /// Addition.
+        /// @brief  Addition.
         Data* add(Data* other) override;
 
-        /// Subtraction.
+        /// @brief  Subtraction.
         Data* sub(Data* other) override;
 
-        /// Multiplication.
+        /// @brief  Multiplication.
         Data* mul(Data* other) override;
 
-        /// Divison.
+        /// @brief  Divison.
         Data* div(Data* other) override;
 
-        /// Modulo.
+        /// @brief  Modulo.
         Data* mod(Data* other) override;
 
-        /// Exponentiation.
+        /// @brief  Exponentiation.
         Data* exp(Data* other) override;
 
-        /// Unary minus.
+        /// @brief  Unary minus.
         Data* unm() override;
         /// @}
 
 
         /// @name   Bitwise operations
         /// @{
-        /// Bitwise AND.
+        /// @brief  Bitwise AND.
         Data* bit_and(Data* other) override;
 
-        /// Bitwise OR.
+        /// @brief  Bitwise OR.
         Data* bit_or(Data* other) override;
 
-        /// Bitwise XOR.
+        /// @brief  Bitwise XOR.
         Data* bit_xor(Data* other) override;
 
-        /// Bitwise NOT.
+        /// @brief  Bitwise NOT.
         Data* bit_not() override;
 
-        /// Bitwise left shift.
+        /// @brief  Bitwise left shift.
         Data* bit_left_shift(Data* other) override;
 
-        /// Bitwise right shift.
+        /// @brief  Bitwise right shift.
         Data* bit_right_shift(Data* other) override;
         /// @}
 
@@ -154,7 +171,7 @@ namespace creek
         /// @name   Relational operations
         /// Only one operation is defined.
         /// @{
-        /// Compare less-than/equal/greater-than.
+        /// @brief  Compare less-than/equal/greater-than.
         /// This special operation must return an integer.
         /// @return -1 if less-than, 0 if equal, +1 if greater-than.
         int cmp(Data* other) override;
@@ -163,7 +180,7 @@ namespace creek
 
         /// @name   Functional
         /// @{
-        /// Call this object as a function.
+        /// @brief  Call this object as a function.
         /// @param  args    Arguments.
         /// @return         Value returned from this function.
         Data* call(std::vector< std::unique_ptr<Data> >& args) override;
@@ -173,26 +190,11 @@ namespace creek
         /// @name   OOP
         /// @{
         /// @brief  Get the class of this object.
-        Data* get_class() override;
+        Data* get_class() const override;
 
         /// @brief  Set the class of this object.
         void set_class(Data* new_class);
         /// @}
-
-
-        /// @brief  Call a method of this object's class.
-        /// @param  method_name Name of the method to call.
-        /// @param  args        Arguments.
-        /// Self needs to be first argument.
-        Data* call_method(const std::string& method_name,
-                          const std::vector<Data*>& args);
-
-        /// @brief  Call a method of this object's class.
-        /// @param  method_name Name of the method to call.
-        /// @param  args        Arguments.
-        /// Self needs to be first argument.
-        Data* call_method(const std::string& method_name,
-                          std::vector< std::unique_ptr<Data> >& args);
 
 
     private:

@@ -37,7 +37,7 @@ namespace creek
 
     bool Number::bool_value() const
     {
-        return m_value >= Value(0);
+        return m_value > Value(0);
     }
 
     // void Number::bool_value(bool new_value)
@@ -169,7 +169,7 @@ namespace creek
         }
     }
 
-    Data* Number::get_class()
+    Data* Number::get_class() const
     {
         return GlobalScope::class_Number->copy();
     }

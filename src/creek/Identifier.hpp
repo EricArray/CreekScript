@@ -16,7 +16,7 @@ namespace creek
         using Value = VarName;
 
 
-        /// `Identifier` constructor.
+        /// @brief  `Identifier` constructor..
         /// @param  var_name    Variable name.
         Identifier(Value value);
 
@@ -57,6 +57,9 @@ namespace creek
 
         // /// Set the string value of this data.
         // void string_value(const std::string& new_value) override;
+
+        /// Get the identifier value of this data.
+        VarName identifier_value() const override;
         /// @}
 
 
@@ -120,7 +123,7 @@ namespace creek
         int cmp(Data* other) override;
         /// @}
 
-        Data* get_class() override;
+        Data* get_class() const override;
 
     private:
         Value m_value;

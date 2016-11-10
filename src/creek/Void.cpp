@@ -31,7 +31,7 @@ namespace creek
         return false;
     }
 
-    Data* Void::get_class()
+    Data* Void::get_class() const
     {
         return GlobalScope::class_Void->copy();
     }

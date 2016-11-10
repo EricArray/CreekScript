@@ -19,7 +19,7 @@ namespace creek
         using Value = std::shared_ptr< std::vector<Variable> >;
 
 
-        /// `Vector` constructor.
+        /// @brief  `Vector` constructor..
         /// @param  value   Vector value.
         Vector(const Value& value);
 
@@ -61,7 +61,7 @@ namespace creek
 
         int cmp(Data* other) override;
 
-        Data* get_class() override;
+        Data* get_class() const override;
 
     private:
         Value m_value;

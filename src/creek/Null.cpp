@@ -21,7 +21,7 @@ namespace creek
     std::string Null::class_name() const
     {
         return "Null";
-    }   
+    }
 
     std::string Null::debug_text() const
     {
@@ -64,7 +64,7 @@ namespace creek
         return false;
     }
 
-    Data* Null::get_class()
+    Data* Null::get_class() const
     {
         return GlobalScope::class_Null->copy();
     }

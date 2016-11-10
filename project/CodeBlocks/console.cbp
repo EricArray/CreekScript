@@ -6,40 +6,44 @@
 		<Option pch_mode="2" />
 		<Option compiler="tdm64" />
 		<Build>
-			<Target title="console-debug">
-				<Option output="../creek-debug" prefix_auto="1" extension_auto="1" />
+			<Target title="console32-debug">
+				<Option output="../creek32-debug" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
-				<Option object_output="obj/console-debug/" />
+				<Option object_output="obj/console32-debug/" />
 				<Option type="1" />
 				<Option compiler="tdm64" />
-				<Option parameters="test.creekb" />
 				<Compiler>
+					<Add option="-m32" />
 					<Add option="-g" />
 					<Add option="-DCREEK_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="../libcreek-debug.a" />
+					<Add option="-m32" />
+					<Add library="../libcreek32-debug.a" />
 				</Linker>
 			</Target>
-			<Target title="console-release">
-				<Option output="../creek" prefix_auto="1" extension_auto="1" />
+			<Target title="console32-release">
+				<Option output="../creek32" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
-				<Option object_output="obj/console-release/" />
+				<Option object_output="obj/console32-release/" />
 				<Option type="1" />
 				<Option compiler="tdm64" />
 				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-m32" />
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="../libcreek.a" />
+					<Add option="-m32" />
+					<Add library="../libcreek32.a" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add directory="../../src" />
 		</Compiler>
 		<Linker>

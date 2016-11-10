@@ -7,6 +7,40 @@
 
 namespace creek
 {
+    /// Find correct std::stoi function
+    template<> int stoi(const std::string& source, std::size_t* pos, int base)
+    {
+        return std::stoi(source, pos, base);
+    }
+
+    template<> long stoi(const std::string& source, std::size_t* pos, int base)
+    {
+        return std::stol(source, pos, base);
+    }
+
+    template<> long long stoi(const std::string& source, std::size_t* pos, int base)
+    {
+        return std::stoll(source, pos, base);
+    }
+
+
+    /// Find correct std::stof function
+    template<> float stof(const std::string& source, std::size_t* pos)
+    {
+        return std::stof(source, pos);
+    }
+
+    template<> double stof(const std::string& source, std::size_t* pos)
+    {
+        return std::stod(source, pos);
+    }
+
+    template<> long double stof(const std::string& source, std::size_t* pos)
+    {
+        return std::stold(source, pos);
+    }
+
+
     // @defgroup   utility_string_escape   String escape and unescape utility
     // Function for escaping and unescaping string using back-slash (\).
     // Implemented escape characters:

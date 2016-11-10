@@ -22,7 +22,7 @@ namespace creek
     const std::string BytecodeInterpreter::magic_number = {0x00, 0x11, 0x22, 'C', 'R', 'E', 'E', 'K'};
 
 
-    /// `Interpreter` constructor.
+    /// @brief  `Interpreter` constructor..
     BytecodeInterpreter::BytecodeInterpreter()
     {
 
@@ -490,9 +490,12 @@ namespace creek
                 auto body = parse_expression(bytecode, var_name_map);
                 return new ExprFor(var_name, initial_value, max_value, step_value, body);
             }
-            case OpCode::control_for_in:               //< 0x46
+            case OpCode::control_for_in:            //< 0x46
             {
-                throw Unimplemented("OpCode::control_for_in");
+                auto var_name = parse_var_name(bytecode, var_name_map);
+                auto range = parse_expression(bytecode, var_name_map);
+                auto body = parse_expression(bytecode, var_name_map);
+                return new ExprForIn(var_name, range, body);
             }
             case OpCode::control_try:               //< 0x47
             {
@@ -548,7 +551,8 @@ namespace creek
             case OpCode::call_method:               //< 0x52
             {
                 auto object = parse_expression(bytecode, var_name_map);
-                auto index = parse_expression(bytecode, var_name_map);
+//                auto index = parse_expression(bytecode, var_name_map);
+                auto method_name = parse_var_name(bytecode, var_name_map);
 
                 uint32_t narg = 0;
                 bytecode >> narg;
@@ -558,12 +562,13 @@ namespace creek
                     args[i] = parse_expression(bytecode, var_name_map);
                 }
 
-                return new ExprCallMethod(object, index, args);
+                return new ExprCallMethod(object, method_name, args);
             }
             case OpCode::variadic_call_method:      //< 0x53
             {
                 auto object = parse_expression(bytecode, var_name_map);
-                auto index = parse_expression(bytecode, var_name_map);
+//                auto index = parse_expression(bytecode, var_name_map);
+                auto method_name = parse_var_name(bytecode, var_name_map);
 
                 uint32_t narg = 0;
                 bytecode >> narg;
@@ -575,7 +580,7 @@ namespace creek
 
                 auto vararg = parse_expression(bytecode, var_name_map);
 
-                return new ExprVariadicCallMethod(object, index, args, vararg);
+                return new ExprVariadicCallMethod(object, method_name, args, vararg);
             }
             case OpCode::index_get:                 //< 0x54
             {
@@ -590,7 +595,22 @@ namespace creek
                 auto value = parse_expression(bytecode, var_name_map);
                 return new ExprIndexSet(array, index, value);
             }
+            case OpCode::attr_get:                  //< 0x56
+            {
+                auto object = parse_expression(bytecode, var_name_map);
+                auto attr   = parse_var_name(bytecode, var_name_map);
+                return new ExprAttrGet(object, attr);
+            }
+            case OpCode::attr_set:                  //< 0x57
+            {
+                auto object = parse_expression(bytecode, var_name_map);
+                auto attr   = parse_var_name(bytecode, var_name_map);
+                auto value  = parse_expression(bytecode, var_name_map);
+                return new ExprAttrSet(object, attr, value);
+            }
 
+
+            // variable
             case OpCode::var_create_local:          //< 0x60
             {
                 auto var_name = parse_var_name(bytecode, var_name_map);
@@ -649,6 +669,7 @@ namespace creek
             }
 
 
+            // invalid
             default:
             {
                 throw InvalidBytecode();

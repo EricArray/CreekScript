@@ -14,13 +14,13 @@ namespace creek
     /// @defgroup   expression_control_flow Control flow expressions
     /// @{
 
-    /// Expression: List of expressions without own scope.
+    /// @brief  Expression: List of expressions without own scope.
     /// Executes each expression without beginning a new scope.
     /// Returns result of last evaluated expression.
     class CREEK_API ExprBasicBlock : public Expression
     {
     public:
-        /// `ExprBasicBlock` constructor.
+        /// @brief  `ExprBasicBlock` constructor..
         /// @param  expressions  List of expressions to evaluate.
         ExprBasicBlock(const std::vector<Expression*>& expressions);
 
@@ -35,7 +35,7 @@ namespace creek
         std::vector< std::unique_ptr<Expression> > m_expressions;
     };
 
-    /// Expression: Do block.
+    /// @brief  Expression: Do block.
     /// Begin a new scope and evaluates the expression.
     class CREEK_API ExprDo : public Expression
     {
@@ -56,12 +56,12 @@ namespace creek
     };
 
 
-    /// Expression: If-else block.
+    /// @brief  Expression: If-else block.
     /// Returns result of evaluated branch, or void.
     class CREEK_API ExprIf : public Expression
     {
     public:
-        /// `ExprIf` constructor.
+        /// @brief  `ExprIf` constructor..
         /// @param  condition       Contidion expression.
         /// @param  true_branch     Expression to evaluate when true.
         /// @param  false_branch    Expression to evaluate when false.
@@ -122,12 +122,12 @@ namespace creek
     };
 
 
-    /// Expression: Infinite loop block.
+    /// @brief  Expression: Infinite loop block.
     /// Returns result of last evaluated expression.
     class CREEK_API ExprLoop : public Expression
     {
     public:
-        /// `ExprLoop` constructor.
+        /// @brief  `ExprLoop` constructor..
         /// @param  body        Expression to execute in each loop.
         ExprLoop(Expression* body);
 
@@ -143,12 +143,12 @@ namespace creek
     };
 
 
-    /// Expression: Conditional while block.
+    /// @brief  Expression: Conditional while block.
     /// Returns result of last evaluated expression in the body, or void.
     class CREEK_API ExprWhile : public Expression
     {
     public:
-        /// `ExprWhile` constructor.
+        /// @brief  `ExprWhile` constructor..
         /// @param  condition   Contidion expression.
         /// @param  body        Expression to execute in each loop.
         ExprWhile(Expression* condition, Expression* body);
@@ -166,12 +166,12 @@ namespace creek
     };
 
 
-    /// Expression: Value based for loop.
+    /// @brief  Expression: Value based for loop.
     /// Returns result of last evaluated expression in the body, or void.
     class CREEK_API ExprFor : public Expression
     {
     public:
-        /// `ExprFor` constructor.
+        /// @brief  `ExprFor` constructor..
         /// @param  var_name        Variable name for the iterator.
         /// @param  initial_value   Initial value of the iterator.
         /// @param  max_value       Iterator must be less-than this.
@@ -196,12 +196,12 @@ namespace creek
     };
 
 
-    /// Expression: Range based for loop.
+    /// @brief  Expression: Range based for loop.
     /// Returns result of last evaluated expression in the body, or void.
     class CREEK_API ExprForIn : public Expression
     {
     public:
-        /// `ExprForIn` constructor.
+        /// @brief  `ExprForIn` constructor..
         /// @param  var_name        Variable name for the iterator.
         /// @param  range           Range expression.
         /// @param  body            Expression to execute in each loop.
@@ -221,13 +221,13 @@ namespace creek
     };
 
 
-    /// Expression: Try-catch block.
+    /// @brief  Expression: Try-catch block.
     /// Returns result of last expression from the try block if didn't throw;
     /// else from the catch block.
     class CREEK_API ExprTry : public Expression
     {
     public:
-        /// `ExprTry` constructor.
+        /// @brief  `ExprTry` constructor..
         /// @param  try_body    Expression to try.
         /// @param  catch_body  Expression to execute when catching an exception.
         ExprTry(Expression* try_body, Expression* catch_body);
@@ -245,12 +245,12 @@ namespace creek
     };
 
 
-    /// Expression: Throw an exception.
+    /// @brief  Expression: Throw an exception.
     /// Closes scopes until a try-catch block is reached; else program is terminated.
     class CREEK_API ExprThrow : public Expression
     {
     public:
-        /// `ExprThrow` constructor.
+        /// @brief  `ExprThrow` constructor..
         /// @param  value       Value to throw.
         ExprThrow(Expression* value);
 
@@ -266,12 +266,12 @@ namespace creek
     };
 
 
-    /// Expression: Return from a function.
+    /// @brief  Expression: Return from a function.
     /// Closes scopes until a function block is closed.
     class CREEK_API ExprReturn : public Expression
     {
     public:
-        /// `ExprReturn` constructor.
+        /// @brief  `ExprReturn` constructor..
         /// @param  value       Value to return.
         ExprReturn(Expression* value);
 
@@ -293,7 +293,7 @@ namespace creek
     class CREEK_API ExprBreak : public Expression
     {
     public:
-        /// `ExprBreak` constructor.
+        /// @brief  `ExprBreak` constructor..
         /// @param  value       Value to yield.
         ExprBreak(Expression* value);
 

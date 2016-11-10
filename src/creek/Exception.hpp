@@ -13,7 +13,7 @@ namespace creek
     class CREEK_API Exception
     {
     public:
-        /// `Exception` constructor.
+        /// @brief  `Exception` constructor..
         Exception();
 
         /// `Exception` copy constructor.
@@ -22,7 +22,7 @@ namespace creek
         /// `Exception` move constructor.
         Exception(Exception&& other);
 
-        /// `Exception` constructor.
+        /// @brief  `Exception` constructor..
         /// @param  message     Description of the error.
         Exception(const std::string& message);
 
@@ -44,7 +44,7 @@ namespace creek
     class CREEK_API Undefined : public Exception
     {
     public:
-        /// `Undefined` constructor.
+        /// @brief  `Undefined` constructor..
         /// @param  what    What is undefined?
         Undefined(const std::string& what);
     };
@@ -54,7 +54,7 @@ namespace creek
     class CREEK_API Unimplemented : public Exception
     {
     public:
-        /// `Unimplemented` constructor.
+        /// @brief  `Unimplemented` constructor..
         /// @param  what    What is Unimplemented?
         Unimplemented(const std::string& what);
     };
