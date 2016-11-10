@@ -27,10 +27,13 @@ namespace creek
             using AttrList = std::map<VarName, Variable>;
 
             Definition(Data* class_obj, const AttrList& attrs) :
-                class_obj(class_obj),
-                attrs(attrs)
+                class_obj(class_obj)
+//                attrs(attrs)
             {
-
+                for (auto& attr : attrs)
+                {
+                    this->attrs[attr.first] = attr.second->copy();
+                }
             }
 
             Variable class_obj; ///< Class object.
@@ -187,26 +190,11 @@ namespace creek
         /// @name   OOP
         /// @{
         /// @brief  Get the class of this object.
-        Data* get_class() override;
+        Data* get_class() const override;
 
         /// @brief  Set the class of this object.
         void set_class(Data* new_class);
         /// @}
-
-
-        /// @brief  Call a method of this object's class.
-        /// @param  method_name Name of the method to call.
-        /// @param  args        Arguments.
-        /// Self needs to be first argument.
-        Data* call_method(const std::string& method_name,
-                          const std::vector<Data*>& args);
-
-        /// @brief  Call a method of this object's class.
-        /// @param  method_name Name of the method to call.
-        /// @param  args        Arguments.
-        /// Self needs to be first argument.
-        Data* call_method(const std::string& method_name,
-                          std::vector< std::unique_ptr<Data> >& args);
 
 
     private:

@@ -117,7 +117,7 @@ namespace creek
 
     Variable::operator bool () const
     {
-        return data() && data()->bool_value();
+        return data();// && data()->bool_value();
     }
 
 

@@ -161,8 +161,18 @@ namespace creek
         /// @{
         /// @brief  Get the class of this object.
         /// @return A new reference.
-        virtual Data* get_class();
+        virtual Data* get_class() const;
         /// @}
+
+
+        /// @brief  Call a method of this object's class.
+        /// @param  method_name Name of the method to call.
+        /// @param  args        Arguments.
+        /// Self will be added as first argument.
+        Data* call_method(
+            VarName method_name,
+            const std::vector<Data*>& args
+        ) const;
     };
 
 

@@ -108,7 +108,7 @@ namespace creek
     }
     // @}
 
-    Data* Identifier::get_class()
+    Data* Identifier::get_class() const
     {
         return GlobalScope::class_Identifier->copy();
     }

@@ -551,7 +551,8 @@ namespace creek
             case OpCode::call_method:               //< 0x52
             {
                 auto object = parse_expression(bytecode, var_name_map);
-                auto index = parse_expression(bytecode, var_name_map);
+//                auto index = parse_expression(bytecode, var_name_map);
+                auto method_name = parse_var_name(bytecode, var_name_map);
 
                 uint32_t narg = 0;
                 bytecode >> narg;
@@ -561,12 +562,13 @@ namespace creek
                     args[i] = parse_expression(bytecode, var_name_map);
                 }
 
-                return new ExprCallMethod(object, index, args);
+                return new ExprCallMethod(object, method_name, args);
             }
             case OpCode::variadic_call_method:      //< 0x53
             {
                 auto object = parse_expression(bytecode, var_name_map);
-                auto index = parse_expression(bytecode, var_name_map);
+//                auto index = parse_expression(bytecode, var_name_map);
+                auto method_name = parse_var_name(bytecode, var_name_map);
 
                 uint32_t narg = 0;
                 bytecode >> narg;
@@ -578,7 +580,7 @@ namespace creek
 
                 auto vararg = parse_expression(bytecode, var_name_map);
 
-                return new ExprVariadicCallMethod(object, index, args, vararg);
+                return new ExprVariadicCallMethod(object, method_name, args, vararg);
             }
             case OpCode::index_get:                 //< 0x54
             {

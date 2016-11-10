@@ -874,7 +874,7 @@ namespace creek
                     iter += 1;
 
                     check_token_type(iter, {TokenType::identifier});
-                    Expression* index = new ExprIdentifier(VarName::from_name(iter->identifier()));
+                    VarName method_name(iter->identifier());
                     iter += 1;
 
                     // args
@@ -921,11 +921,11 @@ namespace creek
 
                     if (vararg)
                     {
-                        e = new ExprVariadicCallMethod(e, index, args, vararg);
+                        e = new ExprVariadicCallMethod(e, method_name, args, vararg);
                     }
                     else
                     {
-                        e = new ExprCallMethod(e, index, args);
+                        e = new ExprCallMethod(e, method_name, args);
                     }
 
                     break;

@@ -57,7 +57,7 @@
 	<creek/Resolver.hpp>
 	<creek/VarName.hpp>
 
-1478619414 c:\users\eric\projects\creekscript\src\creek\data.hpp
+1478743379 c:\users\eric\projects\creekscript\src\creek\data.hpp
 	<memory>
 	<string>
 	<vector>
@@ -77,20 +77,20 @@
 	<creek/Vector.hpp>
 	<creek/Void.hpp>
 
-1478435527 c:\users\eric\projects\creekscript\src\creek\boolean.hpp
+1478743384 c:\users\eric\projects\creekscript\src\creek\boolean.hpp
 	<creek/api_mode.hpp>
 	<creek/Data.hpp>
 
-1478435589 c:\users\eric\projects\creekscript\src\creek\number.hpp
+1478743388 c:\users\eric\projects\creekscript\src\creek\number.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
-1478435625 c:\users\eric\projects\creekscript\src\creek\string.hpp
+1478743412 c:\users\eric\projects\creekscript\src\creek\string.hpp
 	<creek/Data.hpp>
 	<string>
 	<creek/api_mode.hpp>
 
-1478618198 c:\users\eric\projects\creekscript\src\creek\vector.hpp
+1478743412 c:\users\eric\projects\creekscript\src\creek\vector.hpp
 	<creek/Data.hpp>
 	<memory>
 	<vector>
@@ -102,7 +102,7 @@
 	<creek/api_mode.hpp>
 	<creek/Data.hpp>
 
-1478435636 c:\users\eric\projects\creekscript\src\creek\void.hpp
+1478743412 c:\users\eric\projects\creekscript\src\creek\void.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
@@ -145,12 +145,12 @@
 	<creek/Exception.hpp>
 	<creek/VarName.hpp>
 
-1478618781 c:\users\eric\projects\creekscript\src\creek\identifier.hpp
+1478743412 c:\users\eric\projects\creekscript\src\creek\identifier.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 	<creek/VarName.hpp>
 
-1478435585 c:\users\eric\projects\creekscript\src\creek\null.hpp
+1478743412 c:\users\eric\projects\creekscript\src\creek\null.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 

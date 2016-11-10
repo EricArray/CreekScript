@@ -53,7 +53,7 @@ namespace creek
         // Data* bit_not() override;
         int cmp(Data* other) override;
 
-        Data* get_class() override;
+        Data* get_class() const override;
 
     private:
         Value m_value;

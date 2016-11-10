@@ -27,6 +27,6 @@ namespace creek
 
         int cmp(Data* other) override;
 
-        Data* get_class() override;
+        Data* get_class() const override;
     };
 }

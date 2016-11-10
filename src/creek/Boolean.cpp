@@ -161,7 +161,7 @@ namespace creek
         }
     }
 
-    Data* Boolean::get_class()
+    Data* Boolean::get_class() const
     {
         return GlobalScope::class_Boolean->copy();
     }

@@ -138,9 +138,9 @@ namespace creek
     public:
         /// @brief  `ExprCallMethod` constructor.
         /// @param  object      Object expression.
-        /// @param  index       Index to the method.
+        /// @param  method_name Method name.
         /// @param  args        Arguments to pass to the method.
-        ExprCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args);
+        ExprCallMethod(Expression* object, VarName method_name, const std::vector<Expression*>& args);
 
         Expression* clone() const override;
         bool is_const() const override;
@@ -151,7 +151,7 @@ namespace creek
 
     private:
         std::unique_ptr<Expression> m_object;
-        std::unique_ptr<Expression> m_index;
+        VarName m_method_name;
         std::vector< std::unique_ptr<Expression> > m_args;
     };
 
@@ -163,10 +163,10 @@ namespace creek
     public:
         /// @brief  `ExprVariadicCallMethod` constructor.
         /// @param  object      Object expression.
-        /// @param  index       Index to the method.
+        /// @param  method_name Method name.
         /// @param  args        Arguments to pass to the method.
         /// @param  vararg      Argument to expand before calling.
-        ExprVariadicCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args, Expression* vararg);
+        ExprVariadicCallMethod(Expression* object, VarName method_name, const std::vector<Expression*>& args, Expression* vararg);
 
         Expression* clone() const override;
         bool is_const() const override;
@@ -177,7 +177,7 @@ namespace creek
 
     private:
         std::unique_ptr<Expression> m_object;
-        std::unique_ptr<Expression> m_index;
+        VarName m_method_name;
         std::vector< std::unique_ptr<Expression> > m_args;
         std::unique_ptr<Expression> m_vararg;
     };

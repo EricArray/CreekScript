@@ -376,7 +376,7 @@ namespace creek
             args.emplace_back(super_class->copy());
             args.emplace_back(new Identifier(m_id));
 
-            Variable func_derive = GlobalScope::class_Class.index(new Identifier("derive"));
+            Variable func_derive = GlobalScope::class_Class.attr("derive");
             new_class = func_derive->call(args);
         }
 
@@ -385,7 +385,7 @@ namespace creek
             Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
             Function::Value new_value(def);
             Variable method = new Function(new_value);
-            new_class.index(new Identifier(method_def.id), method.release());
+            new_class.attr(method_def.id, method.release());
         }
 
         return new_class;

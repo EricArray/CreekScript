@@ -126,7 +126,7 @@ namespace creek
         }
     }
 
-    Data* Vector::get_class()
+    Data* Vector::get_class() const
     {
         return GlobalScope::class_Vector->copy();
     }

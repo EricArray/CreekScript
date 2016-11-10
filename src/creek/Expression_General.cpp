@@ -176,13 +176,13 @@ namespace creek
     }
 
 
-    // @brief  `ExprCallMethod` constructor.
-    // @param  object      Object expression.
-    // @param  index       Index to the method.
-    // @param  args        Arguments to pass to the method.
-    ExprCallMethod::ExprCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args) :
+    /// @brief  `ExprCallMethod` constructor.
+    /// @param  object      Object expression.
+    /// @param  method_name Method name.
+    /// @param  args        Arguments to pass to the method.
+    ExprCallMethod::ExprCallMethod(Expression* object, VarName method_name, const std::vector<Expression*>& args) :
         m_object(object),
-        m_index(index)
+        m_method_name(method_name)
     {
         for (auto& arg : args)
         {
@@ -197,7 +197,7 @@ namespace creek
         {
             new_args.push_back(a->clone());
         }
-        return new ExprCallMethod(m_object->clone(), m_index->clone(), new_args);
+        return new ExprCallMethod(m_object->clone(), m_method_name, new_args);
     }
 
     bool ExprCallMethod::is_const() const
@@ -212,15 +212,14 @@ namespace creek
         {
             new_args.push_back(a->const_optimize());
         }
-        return new ExprCallMethod(m_object->const_optimize(), m_index->const_optimize(), new_args);
+        return new ExprCallMethod(m_object->const_optimize(), m_method_name, new_args);
     }
-    
+
     Variable ExprCallMethod::eval(Scope& scope)
     {
         Variable object = m_object->eval(scope);
         Variable class_obj = object->get_class();
-        Variable index = m_index->eval(scope);
-        Variable method = class_obj->index(*index);
+        Variable method = class_obj->attr(m_method_name);
 
         std::vector< std::unique_ptr<Data> > args;
         args.emplace_back(object->copy());
@@ -237,7 +236,7 @@ namespace creek
         Bytecode b;
         b << static_cast<uint8_t>(OpCode::call_method);
         b << m_object->bytecode(var_name_map);
-        b << m_index->bytecode(var_name_map);
+        b << var_name_map.id_from_name(m_method_name.name());
         b << static_cast<uint32_t>(m_args.size());
         for (auto& arg : m_args)
         {
@@ -249,12 +248,12 @@ namespace creek
 
     // @brief  `ExprVariadicCallMethod` constructor.
     // @param  object      Object expression.
-    // @param  index       Index to the method.
+    /// @param  method_name Method name.
     // @param  args        Arguments to pass to the method.
     // @param  vararg      Argument to expand before calling.
-    ExprVariadicCallMethod::ExprVariadicCallMethod(Expression* object, Expression* index, const std::vector<Expression*>& args, Expression* vararg) :
+    ExprVariadicCallMethod::ExprVariadicCallMethod(Expression* object, VarName method_name, const std::vector<Expression*>& args, Expression* vararg) :
         m_object(object),
-        m_index(index),
+        m_method_name(method_name),
         m_vararg(vararg)
     {
         for (auto& arg : args)
@@ -270,7 +269,7 @@ namespace creek
         {
             new_args.push_back(a->clone());
         }
-        return new ExprVariadicCallMethod(m_object->clone(), m_index->clone(), new_args, m_vararg->clone());
+        return new ExprVariadicCallMethod(m_object->clone(), m_method_name, new_args, m_vararg->clone());
     }
 
     bool ExprVariadicCallMethod::is_const() const
@@ -285,9 +284,9 @@ namespace creek
         {
             new_args.push_back(a->const_optimize());
         }
-        return new ExprVariadicCallMethod(m_object->const_optimize(), m_index->const_optimize(), new_args, m_vararg->const_optimize());
+        return new ExprVariadicCallMethod(m_object->const_optimize(), m_method_name, new_args, m_vararg->const_optimize());
     }
-    
+
     Variable ExprVariadicCallMethod::eval(Scope& scope)
     {
         // normal arguments
@@ -307,8 +306,7 @@ namespace creek
         // call method
         Variable object = m_object->eval(scope);
         Variable class_obj = object->get_class();
-        Variable index = m_index->eval(scope);
-        Variable method = class_obj->index(*index);
+        Variable method = class_obj->attr(m_method_name);
         return method->call(args);
     }
 
@@ -317,7 +315,7 @@ namespace creek
         Bytecode b;
         b << static_cast<uint8_t>(OpCode::variadic_call_method);
         b << m_object->bytecode(var_name_map);
-        b << m_index->bytecode(var_name_map);
+        b << var_name_map.id_from_name(m_method_name.name());
         b << static_cast<uint32_t>(m_args.size());
         for (auto& arg : m_args)
         {
@@ -347,12 +345,12 @@ namespace creek
     {
         return false;
     }
-    
+
     Expression* ExprIndexGet::const_optimize() const
     {
         return new ExprIndexGet(m_array->const_optimize(), m_index->const_optimize());
     }
-    
+
     Variable ExprIndexGet::eval(Scope& scope)
     {
         Variable a = m_array->eval(scope);
@@ -387,12 +385,12 @@ namespace creek
     {
         return false;
     }
-    
+
     Expression* ExprIndexSet::const_optimize() const
     {
         return new ExprIndexSet(m_array->const_optimize(), m_index->const_optimize(), m_value->const_optimize());
     }
-    
+
     Variable ExprIndexSet::eval(Scope& scope)
     {
         Variable a = m_array->eval(scope);
@@ -426,7 +424,7 @@ namespace creek
     {
         return m_object->is_const();
     }
-    
+
     Expression* ExprAttrGet::const_optimize() const
     {
         if (is_const())
@@ -440,7 +438,7 @@ namespace creek
             return new ExprAttrGet(m_object->const_optimize(), m_attr);
         }
     }
-    
+
     Variable ExprAttrGet::eval(Scope& scope)
     {
         Variable o = m_object->eval(scope);
@@ -474,12 +472,12 @@ namespace creek
     {
         return false;
     }
-    
+
     Expression* ExprAttrSet::const_optimize() const
     {
         return new ExprAttrSet(m_object->const_optimize(), m_attr, m_value->const_optimize());
     }
-    
+
     Variable ExprAttrSet::eval(Scope& scope)
     {
         Variable o = m_object->eval(scope);

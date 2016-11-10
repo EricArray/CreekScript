@@ -28,13 +28,14 @@ namespace creek
     // @param  attrs       Object attributes by name.
     Object* Object::make(Data* class_obj, const std::map<VarName, Variable>& attrs)
     {
-        Value new_value = std::make_shared<Definition>(Definition(class_obj, {}));
-        for (auto& attr : attrs)
-        {
-//            new_value->attrs.emplace_back(
-//                std::make_tuple<Variable, Variable>(new Identifier(attr.first), attr.second->copy()));
-            new_value->attrs[attr.first] = attr.second->copy();
-        }
+//        Value new_value = std::make_shared<Definition>(Definition(class_obj, {}));
+//        for (auto& attr : attrs)
+//        {
+////            new_value->attrs.emplace_back(
+////                std::make_tuple<Variable, Variable>(new Identifier(attr.first), attr.second->copy()));
+//            new_value->attrs[attr.first] = attr.second->copy();
+//        }
+        Value new_value = std::make_shared<Definition>(Definition(class_obj, attrs));
         return new Object(new_value);
     }
 
@@ -78,56 +79,66 @@ namespace creek
     // Get the bool value of this data.
     bool Object::bool_value() const
     {
-        Variable class_obj = m_value->class_obj;
-        Variable method = class_obj.index(new Identifier("to_boolean"));
-        std::vector< std::unique_ptr<Data> > args;
-        args.emplace_back(this->copy());
-        Variable value = method->call(args);
-        return value->bool_value();
+        Variable v = call_method("to_boolean", {});
+        return v->bool_value();
+        // Variable class_obj = m_value->class_obj;
+        // Variable method = class_obj.index(new Identifier("to_boolean"));
+        // std::vector< std::unique_ptr<Data> > args;
+        // args.emplace_back(this->copy());
+        // Variable value = method->call(args);
+        // return value->bool_value();
     }
 
     // Get the char value of this data.
     char Object::char_value() const
     {
-        Variable class_obj = m_value->class_obj;
-        Variable method = class_obj.index(new Identifier("to_string"));
-        std::vector< std::unique_ptr<Data> > args;
-        args.emplace_back(this->copy());
-        Variable value = method->call(args);
-        return value->char_value();
+        Variable v = call_method("to_string", {});
+        return v->char_value();
+        // Variable class_obj = m_value->class_obj;
+        // Variable method = class_obj.index(new Identifier("to_string"));
+        // std::vector< std::unique_ptr<Data> > args;
+        // args.emplace_back(this->copy());
+        // Variable value = method->call(args);
+        // return value->char_value();
     }
 
     // Get the int value of this data.
     int Object::int_value() const
     {
-        Variable class_obj = m_value->class_obj;
-        Variable method = class_obj.index(new Identifier("to_number"));
-        std::vector< std::unique_ptr<Data> > args;
-        args.emplace_back(this->copy());
-        Variable value = method->call(args);
-        return value->int_value();
+        Variable v = call_method("to_number", {});
+        return v->int_value();
+        // Variable class_obj = m_value->class_obj;
+        // Variable method = class_obj.index(new Identifier("to_number"));
+        // std::vector< std::unique_ptr<Data> > args;
+        // args.emplace_back(this->copy());
+        // Variable value = method->call(args);
+        // return value->int_value();
     }
 
     // Get the float value of this data.
     float Object::float_value() const
     {
-        Variable class_obj = m_value->class_obj;
-        Variable method = class_obj.index(new Identifier("to_number"));
-        std::vector< std::unique_ptr<Data> > args;
-        args.emplace_back(this->copy());
-        Variable value = method->call(args);
-        return value->float_value();
+        Variable v = call_method("to_number", {});
+        return v->float_value();
+        // Variable class_obj = m_value->class_obj;
+        // Variable method = class_obj.index(new Identifier("to_number"));
+        // std::vector< std::unique_ptr<Data> > args;
+        // args.emplace_back(this->copy());
+        // Variable value = method->call(args);
+        // return value->float_value();
     }
 
     // Get the string value of this data.
     std::string Object::string_value() const
     {
-        Variable class_obj = m_value->class_obj;
-        Variable method = class_obj.index(new Identifier("to_string"));
-        std::vector< std::unique_ptr<Data> > args;
-        args.emplace_back(this->copy());
-        Variable value = method->call(args);
-        return value->string_value();
+        Variable v = call_method("to_string", {});
+        return v->string_value();
+        // Variable class_obj = m_value->class_obj;
+        // Variable method = class_obj.index(new Identifier("to_string"));
+        // std::vector< std::unique_ptr<Data> > args;
+        // args.emplace_back(this->copy());
+        // Variable value = method->call(args);
+        // return value->string_value();
     }
 
     // Get the vector value of this data.
@@ -154,7 +165,7 @@ namespace creek
         // throw Exception(std::string("Index not found: ") + key->debug_text());
 
         // return attr(key->identifier_value());
-        return call_method("index_get", {this->copy(), key->copy()});
+        return call_method("index_get", {key->copy()});
     }
 
     // Set the data at index.
@@ -174,7 +185,7 @@ namespace creek
         // return new_data->copy();
 
         // return attr(key->identifier_value(), new_data);
-        return call_method("index_set", {this->copy(), key->copy(), new_data->copy()});
+        return call_method("index_set", {key->copy(), new_data->copy()});
     }
     // @}
 
@@ -209,43 +220,43 @@ namespace creek
     // Addition.
     Data* Object::add(Data* other)
     {
-        return call_method("add", {this->copy(), other->copy()});
+        return call_method("add", {other->copy()});
     }
 
     // Subtraction.
     Data* Object::sub(Data* other)
     {
-        return call_method("sub", {this->copy(), other->copy()});
+        return call_method("sub", {other->copy()});
     }
 
     // Multiplication.
     Data* Object::mul(Data* other)
     {
-        return call_method("mul", {this->copy(), other->copy()});
+        return call_method("mul", {other->copy()});
     }
 
     // Divison.
     Data* Object::div(Data* other)
     {
-        return call_method("div", {this->copy(), other->copy()});
+        return call_method("div", {other->copy()});
     }
 
     // Modulo.
     Data* Object::mod(Data* other)
     {
-        return call_method("mod", {this->copy(), other->copy()});
+        return call_method("mod", {other->copy()});
     }
 
     // Exponentiation.
     Data* Object::exp(Data* other)
     {
-        return call_method("exp", {this->copy(), other->copy()});
+        return call_method("exp", {other->copy()});
     }
 
     // Unary minus.
     Data* Object::unm()
     {
-        return call_method("unm", {this->copy()});
+        return call_method("unm", {});
     }
     // @}
 
@@ -255,37 +266,37 @@ namespace creek
     // Bitwise AND.
     Data* Object::bit_and(Data* other)
     {
-        return call_method("bit_and", {this->copy(), other->copy()});
+        return call_method("bit_and", {other->copy()});
     }
 
     // Bitwise OR.
     Data* Object::bit_or(Data* other)
     {
-        return call_method("bit_or", {this->copy(), other->copy()});
+        return call_method("bit_or", {other->copy()});
     }
 
     // Bitwise XOR.
     Data* Object::bit_xor(Data* other)
     {
-        return call_method("bit_xor", {this->copy(), other->copy()});
+        return call_method("bit_xor", {other->copy()});
     }
 
     // Bitwise NOT.
     Data* Object::bit_not()
     {
-        return call_method("bit_not", {this->copy()});
+        return call_method("bit_not", {});
     }
 
     // Bitwise left shift.
     Data* Object::bit_left_shift(Data* other)
     {
-        return call_method("bit_left_shift", {this->copy(), other->copy()});
+        return call_method("bit_left_shift", {other->copy()});
     }
 
     // Bitwise right shift.
     Data* Object::bit_right_shift(Data* other)
     {
-        return call_method("bit_right_shift", {this->copy(), other->copy()});
+        return call_method("bit_right_shift", {other->copy()});
     }
     // @}
 
@@ -298,7 +309,7 @@ namespace creek
     // @return -1 if less-than, 0 if equal, +1 if greater-than.
     int Object::cmp(Data* other)
     {
-        Variable v(call_method("cmp", {this->copy(), other->copy()}));
+        Variable v(call_method("cmp", {other->copy()}));
         return v->int_value();
     }
     // @}
@@ -311,8 +322,8 @@ namespace creek
     // @return         Value returned from this function.
     Data* Object::call(std::vector< std::unique_ptr<Data> >& args)
     {
-        std::vector< std::unique_ptr<Data> > new_args;
-        new_args.emplace_back(this->copy());
+        std::vector<Data*> new_args;
+//        new_args.emplace_back(this->copy());
         for (auto& arg : args)
         {
             new_args.emplace_back(arg.release());
@@ -325,7 +336,7 @@ namespace creek
     // @name   OOP
     // @{
     // @brief  Get the class of this object.
-    Data* Object::get_class()
+    Data* Object::get_class() const
     {
         return m_value->class_obj->copy();
     }
@@ -336,38 +347,4 @@ namespace creek
         m_value->class_obj.data(new_class);
     }
     // @}
-
-
-    // @brief  Call a method of this object's class.
-    // @param  method_name Name of the method to call.
-    // @param  args        Arguments.
-    // Self needs to be first argument.
-    Data* Object::call_method(const std::string& method_name,
-                              const std::vector<Data*>& args)
-    {
-        std::vector< std::unique_ptr<Data> > up_args;
-        for (auto& arg : args)
-        {
-            up_args.emplace_back(arg);
-        }
-        return call_method(method_name, up_args);
-    }
-
-
-    // @brief  Call a method of this object's class.
-    // @param  method_name Name of the method to call.
-    // @param  args        Arguments.
-    // Self needs to be first argument.
-    Data* Object::call_method(const std::string& method_name,
-                              std::vector< std::unique_ptr<Data> >& args)
-    {
-        Variable key = new Identifier(VarName::from_name(method_name));
-        Variable class_obj = m_value->class_obj;
-        if (!class_obj)
-        {
-            throw Exception("Object has no class");
-        }
-        Variable method = class_obj->index(*key);
-        return method->call(args);
-    }
 }

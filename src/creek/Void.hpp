@@ -43,6 +43,6 @@ namespace creek
         // Data* bit_xor(Data* other) override;
         // Data* bit_not() override;
 
-        Data* get_class() override;
+        Data* get_class() const override;
     };
 }

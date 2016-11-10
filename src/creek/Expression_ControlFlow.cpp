@@ -71,7 +71,7 @@ namespace creek
 
             result = expression->eval(scope);
         }
-        if (!*result) // will return void if no expression was run
+        if (!result) // will return void if no expression was run
         {
             result.data(new Void());
         }
@@ -385,7 +385,7 @@ namespace creek
             }
         }
 
-        if (!*result)
+        if (!result)
         {
             result = new Void();
         }
@@ -469,11 +469,7 @@ namespace creek
             }
         }
 
-        if (!*result)
-        {
-            result.data(new Void());
-        }
-        return result;
+        return result ? result : new Void();
     }
 
     Bytecode ExprWhile::bytecode(VarNameMap& var_name_map) const
@@ -564,11 +560,7 @@ namespace creek
             }
         }
 
-        if (!*result)
-        {
-            result.data(new Void());
-        }
-        return result;
+        return result ? result : new Void();
     }
 
     Bytecode ExprFor::bytecode(VarNameMap& var_name_map) const
@@ -618,26 +610,19 @@ namespace creek
     {
         Variable result;
         Variable range(m_range->eval(scope));
+        Variable keys(range->call_method("keys", {}));
 
         Scope outer_scope(scope);
         auto& item = outer_scope.create_local_var(m_var_name, nullptr);
-        auto& vector = range->vector_value();
-        for (size_t i = 0; i < vector.size(); ++i)
+        for (auto& key : keys->vector_value())
         {
-            // item
-            item.reset(vector[i]->copy());
+            item = range.index(key);
 
-            // execute body block
-            {
-                Scope inner_scope(outer_scope);
-                result = m_body->eval(inner_scope);
-            }
+            Scope inner_scope(outer_scope);
+            result = m_body->eval(inner_scope);
         }
-        if (!*result)
-        {
-            result.data(new Void());
-        }
-        return result;
+
+        return result ? result : new Void();
     }
 
     Bytecode ExprForIn::bytecode(VarNameMap& var_name_map) const
