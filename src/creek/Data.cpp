@@ -6,6 +6,26 @@
 
 namespace creek
 {
+    #ifdef CREEK_INSTANCE_COUNT
+        int instance_count = 0;
+    #endif
+
+    Data::Data()
+    {
+        #ifdef CREEK_INSTANCE_COUNT
+            instance_count += 1;
+            std::clong << "Data instance count: " << instance_count << "\n";
+        #endif
+    }
+
+    Data::~Data()
+    {
+        #ifdef CREEK_INSTANCE_COUNT
+            instance_count -= 1;
+            std::clong << "Data instance count: " << instance_count << "\n";
+        #endif
+    }
+
     Data* Data::copy() const
     {
         throw Undefined(class_name() + "::copy");

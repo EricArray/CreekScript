@@ -19,7 +19,8 @@ namespace creek
     class CREEK_API Data
     {
     public:
-        virtual ~Data() = default;
+        Data();
+        virtual ~Data();
 
         /// @brief  Create a copy of this data.
         virtual Data* copy() const;
@@ -38,6 +39,15 @@ namespace creek
         /// @brief  Get an expression to duplicate this data.
         /// By default throws an exception saying this data is not const.
         virtual Expression* to_expression() const;
+
+
+        /// @brief  Dynamic cast that throws.
+        /// @param  T   Data type to cast to.
+        template<class T> const T* assert_cast() const;
+
+        /// @brief  Dynamic cast that throws.
+        /// @param  T   Data type to cast to.
+        template<class T> T* assert_cast();
 
 
         /// @name   Value access
@@ -188,4 +198,37 @@ namespace creek
         int m_expected;
         int m_passed;
     };
+}
+
+
+// template implementation
+namespace creek
+{
+    /// @brief  Dynamic cast that throws.
+    /// @param  T   Data type to cast to.
+    template<class T> const T* Data::assert_cast() const
+    {
+        if (auto t = dynamic_cast<const T*>(this))
+        {
+            return t;
+        }
+        else
+        {
+            throw Exception("Invalid data type");
+        }
+    }
+
+    /// @brief  Dynamic cast that throws.
+    /// @param  T   Data type to cast to.
+    template<class T> T* Data::assert_cast()
+    {
+        if (auto t = dynamic_cast<T*>(this))
+        {
+            return t;
+        }
+        else
+        {
+            throw Exception("Invalid data type");
+        }
+    }
 }

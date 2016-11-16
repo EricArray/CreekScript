@@ -36,6 +36,9 @@ namespace creek
     // @brief  Global class: Object.
     Variable GlobalScope::class_Object;
 
+    // @brief  Global class: UserData.
+    Variable GlobalScope::class_UserData;
+
     // @brief  Global class: String.
     Variable GlobalScope::class_String;
 
@@ -54,6 +57,7 @@ namespace creek
 
     // class Data
     // {
+        Data* func_Data_type_name(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_class_id(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_class_name(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Data_debug_text(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
@@ -131,22 +135,87 @@ namespace creek
 
     // class String
     // {
+        // args = {self, base}
+        Data* func_String_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
         int func_String_size(std::string string);
+        // args = {self, string}
+        Data* func_String_push(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_String_pop(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, pos, string}
+        Data* func_String_insert(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, pos, len}
+        Data* func_String_erase(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, pos, len, string}
+        Data* func_String_replace(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, new_size}
+        Data* func_String_resize(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_String_clear(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, pos}
+        Data* func_String_at(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
+        // args = {self, string, pos}
+        Data* func_String_find(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, string, pos}
+        Data* func_String_rfind(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, string, pos}
+        Data* func_String_find_first_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, string, pos}
+        Data* func_String_find_last_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, string, pos}
+        Data* func_String_find_first_not_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, string, pos}
+        Data* func_String_find_last_not_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, pos, len}
+        Data* func_String_substr(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+    // }
+
+    // class UserData
+    // {
+        // args = {self, init_args...}
+        Data* func_UserData_instantiate(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
     // }
 
     // class Vector
     // {
+        Data* func_Vector_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, key}
+        Data* func_Vector_has_key(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
         Data* func_Vector_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, new_size, new_val}
+        Data* func_Vector_resize(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
+        Data* func_Vector_at(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Vector_front(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Vector_back(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
         // args = {self, new_val}
         Data* func_Vector_push(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Vector_pop(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
-        Data* func_Vector_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, key, new_val}
+        Data* func_Vector_insert(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, key}
+        Data* func_Vector_erase(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Vector_clear(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
     // }
 
     // class Map
     // {
-        Data* func_Map_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
         Data* func_Map_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, key}
+        Data* func_Map_has_key(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
+        Data* func_Map_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
+        // args = {self, key}
+        Data* func_Map_at(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+
+        // args = {self, key, new_val}
+        Data* func_Map_insert(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        // args = {self, key}
+        Data* func_Map_erase(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
+        Data* func_Map_clear(Scope& scope, std::vector< std::unique_ptr<Data> >& args);
     // }
 
 
@@ -163,6 +232,7 @@ namespace creek
                 attrs["super_class"]    = new Null();
                 attrs["mem_address"]    = new CFunction(*this, 1, false, &func_Data_mem_address);
                 attrs["clone"]          = new CFunction(*this, 1, false, &func_Data_clone);
+                attrs["type_name"]      = new CFunction(*this, 1, false, &func_Data_type_name);
                 attrs["get_class"]      = new CFunction(*this, 1, false, &func_Data_get_class);
                 attrs["class_id"]       = new CFunction(*this, 1, false, &func_Data_class_id);
                 attrs["class_name"]     = new CFunction(*this, 1, false, &func_Data_class_name);
@@ -259,8 +329,13 @@ namespace creek
             args.emplace_back(class_Data->copy());
             args.emplace_back(new Identifier("Map"));
             class_Map = func_Class_derive(*this, args);
-            class_Map.attr(VarName("size"), new CFunction(*this, 1, false, &func_Map_size));
-            class_Map.attr(VarName("keys"), new CFunction(*this, 1, false, &func_Map_keys));
+            class_Map.attr(VarName("keys"),     new CFunction(*this, 1, false, &func_Map_keys));
+            class_Map.attr(VarName("has_key"),  new CFunction(*this, 2, false, &func_Map_has_key));
+            class_Map.attr(VarName("size"),     new CFunction(*this, 1, false, &func_Map_size));
+            class_Map.attr(VarName("at"),       new CFunction(*this, 2, false, &func_Map_at));
+            class_Map.attr(VarName("insert"),   new CFunction(*this, 3, false, &func_Map_insert));
+            class_Map.attr(VarName("erase"),    new CFunction(*this, 2, false, &func_Map_erase));
+            class_Map.attr(VarName("clear"),    new CFunction(*this, 1, false, &func_Map_clear));
         }
 
         // class_Null
@@ -286,7 +361,35 @@ namespace creek
             args.emplace_back(class_Data->copy());
             args.emplace_back(new Identifier("String"));
             class_String = func_Class_derive(*this, args);
-            class_String.attr(VarName("size"), new CFunction(*this, &func_String_size));
+            class_String.attr(VarName("to_number"), new CFunction(*this, 2, false, &func_String_to_number));
+
+            class_String.attr(VarName("size"),      new CFunction(*this, &func_String_size));
+
+            class_String.attr(VarName("push"),      new CFunction(*this, 2, false, &func_String_push));
+            class_String.attr(VarName("pop"),       new CFunction(*this, 1, false, &func_String_pop));
+            class_String.attr(VarName("insert"),    new CFunction(*this, 3, false, &func_String_insert));
+            class_String.attr(VarName("erase"),     new CFunction(*this, 3, false, &func_String_erase));
+            class_String.attr(VarName("replace"),   new CFunction(*this, 4, false, &func_String_replace));
+            class_String.attr(VarName("resize"),    new CFunction(*this, 2, false, &func_String_resize));
+            class_String.attr(VarName("clear"),     new CFunction(*this, 1, false, &func_String_clear));
+            class_String.attr(VarName("at"),        new CFunction(*this, 2, false, &func_String_at));
+
+            class_String.attr(VarName("find"),              new CFunction(*this, 3, false, &func_String_find));
+            class_String.attr(VarName("rfind"),             new CFunction(*this, 3, false, &func_String_rfind));
+            class_String.attr(VarName("find_first_of"),     new CFunction(*this, 3, false, &func_String_find_first_of));
+            class_String.attr(VarName("find_last_of"),      new CFunction(*this, 3, false, &func_String_find_last_of));
+            class_String.attr(VarName("find_first_not_of"), new CFunction(*this, 3, false, &func_String_find_first_not_of));
+            class_String.attr(VarName("find_last_not_of"),  new CFunction(*this, 3, false, &func_String_find_last_not_of));
+            class_String.attr(VarName("substr"),            new CFunction(*this, 3, false, &func_String_substr));
+        }
+
+        // class_UserData
+        {
+            std::vector< std::unique_ptr<Data> > args;
+            args.emplace_back(class_Data->copy());
+            args.emplace_back(new Identifier("UserData"));
+            class_UserData = func_Class_derive(*this, args);
+            class_UserData.attr(VarName("instantiate"), new CFunction(*this, 2, true, &func_UserData_instantiate));
         }
 
         // class_Vector
@@ -295,10 +398,22 @@ namespace creek
             args.emplace_back(class_Data->copy());
             args.emplace_back(new Identifier("Vector"));
             class_Vector = func_Class_derive(*this, args);
-            class_Vector.attr(VarName("size"), new CFunction(*this, 1, false, &func_Vector_size));
-            class_Vector.attr(VarName("push"), new CFunction(*this, 2, false, &func_Vector_push));
-            class_Vector.attr(VarName("pop"),  new CFunction(*this, 1, false, &func_Vector_pop));
-            class_Vector.attr(VarName("keys"), new CFunction(*this, 1, false, &func_Vector_keys));
+
+            class_Vector.attr(VarName("keys"),      new CFunction(*this, 1, false, &func_Vector_keys));
+            class_Vector.attr(VarName("has_key"),   new CFunction(*this, 1, false, &func_Vector_has_key));
+
+            class_Vector.attr(VarName("size"),      new CFunction(*this, 1, false, &func_Vector_size));
+            class_Vector.attr(VarName("resize"),    new CFunction(*this, 3, false, &func_Vector_resize));
+
+            class_Vector.attr(VarName("at"),        new CFunction(*this, 1, false, &func_Vector_at));
+            class_Vector.attr(VarName("front"),     new CFunction(*this, 1, false, &func_Vector_front));
+            class_Vector.attr(VarName("back"),      new CFunction(*this, 1, false, &func_Vector_back));
+
+            class_Vector.attr(VarName("push"),      new CFunction(*this, 2, false, &func_Vector_push));
+            class_Vector.attr(VarName("pop"),       new CFunction(*this, 1, false, &func_Vector_pop));
+            class_Vector.attr(VarName("insert"),    new CFunction(*this, 3, false, &func_Vector_insert));
+            class_Vector.attr(VarName("erase"),     new CFunction(*this, 2, false, &func_Vector_erase));
+            class_Vector.attr(VarName("clear"),     new CFunction(*this, 1, false, &func_Vector_clear));
         }
 
         // class_Void
@@ -326,6 +441,11 @@ namespace creek
 
     // class Data
     // {
+    Data* func_Data_type_name(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        return new String(args[0]->class_name());
+    }
+
     Data* func_Data_class_id(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         Variable class_obj(args[0]->get_class());
@@ -670,7 +790,9 @@ namespace creek
     Data* func_Class_new(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         // TODO: make other static identifiers.
-        Variable instantiate = args[0]->attr(VarName("instantiate"));
+        static VarName vn_instantiate = VarName("instantiate");
+
+        Variable instantiate = args[0]->attr(vn_instantiate);
         std::vector< std::unique_ptr<Data> > instantiate_args;
         instantiate_args.emplace_back(args[0]->copy());
         for (auto& i : args[1]->vector_value())
@@ -698,56 +820,235 @@ namespace creek
 
     // class String
     // {
+    // args = {self, base}
+    Data* func_String_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        // TODO: string to number base
+        return new Number(stof<Number::Value>(args[0]->string_value(), nullptr));//, args[1]->int_value()));
+    }
+
     int func_String_size(std::string string)
     {
         return string.size();
+    }
+
+    // args = {self, string}
+    Data* func_String_push(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value() += args[1]->string_value();
+        return new Void();
+    }
+    Data* func_String_pop(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value().pop_back();
+        return new Void();
+    }
+    // args = {self, pos, string}
+    Data* func_String_insert(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value().insert(args[1]->int_value(), args[2]->string_value());
+        return new Void();
+    }
+    // args = {self, pos, len}
+    Data* func_String_erase(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value().erase(args[1]->int_value(), args[2]->int_value());
+        return new Void();
+    }
+    // args = {self, pos, len, string}
+    Data* func_String_replace(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value().replace(
+            args[1]->int_value(),
+            args[2]->int_value(),
+            args[3]->string_value()
+        );
+        return new Void();
+    }
+    // args = {self, new_size}
+    Data* func_String_resize(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value().resize(args[1]->int_value());
+        return new Void();
+    }
+    Data* func_String_clear(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        str->value().clear();
+        return new Void();
+    }
+    // args = {self, pos}
+    Data* func_String_at(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        return new String(std::string(1, str->value().at(args[1]->int_value())));
+    }
+
+    // args = {self, string, pos}
+    Data* func_String_find(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().find(args[1]->string_value(), args[2]->int_value());
+        return new Number(r == std::string::npos ? -1.0f : r);
+    }
+    // args = {self, string, pos}
+    Data* func_String_rfind(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().rfind(args[1]->string_value(), args[2]->int_value());
+        return new Number(r == std::string::npos ? -1.0 : r);
+    }
+    // args = {self, string, pos}
+    Data* func_String_find_first_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().find_first_of(args[1]->string_value(), args[2]->int_value());
+        return new Number(r == std::string::npos ? -1.0 : r);
+    }
+    // args = {self, string, pos}
+    Data* func_String_find_last_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().find_last_of(args[1]->string_value(), args[2]->int_value());
+        return new Number(r == std::string::npos ? -1.0 : r);
+    }
+    // args = {self, string, pos}
+    Data* func_String_find_first_not_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().find_first_not_of(args[1]->string_value(), args[2]->int_value());
+        return new Number(r == std::string::npos ? -1.0 : r);
+    }
+    // args = {self, string, pos}
+    Data* func_String_find_last_not_of(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().find_last_not_of(args[1]->string_value(), args[2]->int_value());
+        return new Number(r == std::string::npos ? -1.0 : r);
+    }
+    // args = {self, pos, len}
+    Data* func_String_substr(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto str = args[0]->assert_cast<String>();
+        auto r = str->value().substr(args[1]->int_value(), args[2]->int_value());
+        return new String(r);
+    }
+    // }
+
+
+    // class UserData
+    // {
+    // args = {self, init_args...}
+    Data* func_UserData_instantiate(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        Variable func_new = args[0]->attr(VarName("new"));
+        std::vector< std::unique_ptr<Data> > init_args;
+        for (auto& i : args[1]->vector_value())
+        {
+            init_args.emplace_back(i->copy());
+        }
+        return func_new->call(init_args);
     }
     // }
 
 
     // class Vector
     // {
+    Data* func_Vector_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        Vector::Value value = std::make_shared< std::vector<Variable> >();
+
+        size_t size = vec->value()->size();
+        for (size_t i = 0; i < size; ++i)
+        {
+            value->push_back(new Number(i));
+        }
+
+        return new Vector(value);
+    }
+
+    // args = {self, key}
+    Data* func_Vector_has_key(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        return new Boolean(args[1]->int_value() < vec->value()->size());
+    }
+
     Data* func_Vector_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        if (auto vec = dynamic_cast<Vector*>(args[0].get()))
-        {
-            return new Number(vec->value()->size());
-        }
+        auto vec = args[0]->assert_cast<Vector>();
+        return new Number(vec->value()->size());
+    }
+
+    // args = {self, new_size, new_val}
+    Data* func_Vector_resize(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        vec->value()->resize(args[1]->int_value());
         return new Void();
     }
 
     Data* func_Vector_push(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        if (auto vec = dynamic_cast<Vector*>(args[0].get()))
-        {
-            vec->value()->emplace_back(args[1].release());
-        }
+        auto vec = args[0]->assert_cast<Vector>();
+        vec->value()->emplace_back(args[1].release());
         return new Void();
     }
 
     Data* func_Vector_pop(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        if (auto vec = dynamic_cast<Vector*>(args[0].get()))
-        {
-            vec->value()->pop_back();
-        }
+        auto vec = args[0]->assert_cast<Vector>();
+        vec->value()->pop_back();
         return new Void();
     }
 
-    Data* func_Vector_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_Vector_at(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        if (auto vec = dynamic_cast<Vector*>(args[0].get()))
-        {
-            Vector::Value value = std::make_shared< std::vector<Variable> >();
+        auto vec = args[0]->assert_cast<Vector>();
+        return vec->value()->at(args[1]->int_value())->copy();
+    }
 
-            size_t size = vec->value()->size();
-            for (size_t i = 0; i < size; ++i)
-            {
-                value->push_back(new Number(i));
-            }
+    Data* func_Vector_front(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        return vec->value()->front()->copy();
+    }
 
-            return new Vector(value);
-        }
+    Data* func_Vector_back(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        return vec->value()->back()->copy();
+    }
+
+    // args = {self, key, new_val}
+    Data* func_Vector_insert(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        auto iter = vec->value()->begin() + args[1]->int_value();
+        vec->value()->insert(iter, args[2].release());
+        return new Void();
+    }
+
+    // args = {self, key}
+    Data* func_Vector_erase(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        auto iter = vec->value()->begin() + args[1]->int_value();
+        vec->value()->erase(iter);
+        return new Void();
+    }
+
+    Data* func_Vector_clear(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto vec = args[0]->assert_cast<Vector>();
+        vec->value()->clear();
         return new Void();
     }
     // }
@@ -755,29 +1056,63 @@ namespace creek
 
     // class Map
     // {
-    Data* func_Map_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
-    {
-        if (auto map = dynamic_cast<Map*>(args[0].get()))
-        {
-            return new Number(map->value()->size());
-        }
-        return new Void();
-    }
-
     Data* func_Map_keys(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        if (auto map = dynamic_cast<Map*>(args[0].get()))
+        auto map = args[0]->assert_cast<Map>();
+        Vector::Value value = std::make_shared< std::vector<Variable> >();
+
+        value->reserve(map->value()->size());
+        for (auto& pair : *map->value())
         {
-            Vector::Value value = std::make_shared< std::vector<Variable> >();
-
-            value->reserve(map->value()->size());
-            for (auto& pair : *map->value())
-            {
-                value->emplace_back(pair.first->copy());
-            }
-
-            return new Vector(value);
+            value->emplace_back(pair.first->copy());
         }
+
+        return new Vector(value);
+    }
+
+    // args = {self, key}
+    Data* func_Map_has_key(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto map = args[0]->assert_cast<Map>();
+        return new Boolean(map->value()->count(Map::Key(args[1].release())) >= 1);
+    }
+
+    Data* func_Map_size(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto map = args[0]->assert_cast<Map>();
+        return new Number(map->value()->size());
+    }
+
+    // args = {self, key}
+    Data* func_Map_at(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto map = args[0]->assert_cast<Map>();
+        return map->value()->at(Map::Key(args[1].release()))->copy();
+    }
+
+    // args = {self, key, new_val}
+    Data* func_Map_insert(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto map = args[0]->assert_cast<Map>();
+        auto r = map->value()->insert(std::make_pair(
+            Map::Key(args[1].release()),
+            Variable(args[2].release())
+        ));
+        return new Boolean(r.second);
+    }
+
+    // args = {self, key}
+    Data* func_Map_erase(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto map = args[0]->assert_cast<Map>();
+        auto r = map->value()->erase(Map::Key(args[1].release()));
+        return new Number(r);
+    }
+
+    Data* func_Map_clear(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        auto map = args[0]->assert_cast<Map>();
+        map->value()->clear();
         return new Void();
     }
     // }

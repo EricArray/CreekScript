@@ -1232,37 +1232,50 @@ namespace creek
         Expression* default_branch = nullptr;
         while (iter->type() != TokenType::close_brace)
         {
-            check_token_type(iter, {TokenType::keyword});
-            if (iter->text() == "case")
+            switch (iter->type())
             {
-                iter += 1;
-
-                std::vector<Expression*> values;
-                while (iter->type() != TokenType::open_brace &&
-                       iter->type() != TokenType::then)
+                case TokenType::semicolon:
                 {
-                    values.push_back(parse_operation(iter));
-                    if (iter->type() == TokenType::comma)
+                    iter += 1;
+                    break;
+                }
+
+                case TokenType::keyword:
+                {
+                    if (iter->text() == "case")
                     {
                         iter += 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                auto body = parse_block_body(iter);
 
-                case_branches.emplace_back(values, body);
-            }
-            else if (iter->text() == "default")
-            {
-                iter += 1;
-                default_branch = parse_block_body(iter);
-            }
-            else
-            {
-                throw UnexpectedToken(*iter);
+                        std::vector<Expression*> values;
+                        while (iter->type() != TokenType::open_brace &&
+                               iter->type() != TokenType::then)
+                        {
+                            values.push_back(parse_operation(iter));
+                            if (iter->type() == TokenType::comma)
+                            {
+                                iter += 1;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        auto body = parse_block_body(iter);
+
+                        case_branches.emplace_back(values, body);
+                    }
+                    else if (iter->text() == "default")
+                    {
+                        iter += 1;
+                        default_branch = parse_block_body(iter);
+                    }
+                    break;
+                }
+
+                default:
+                {
+                    throw UnexpectedToken(*iter);
+                }
             }
         }
 
@@ -1490,7 +1503,83 @@ namespace creek
         if (iter->type() == TokenType::keyword &&
             iter->text() == "extern")
         {
-            throw Unimplemented("extern classes");
+            iter += 1;
+
+            check_token_type(iter, {TokenType::string});
+            std::string library_path = iter->string();
+            iter += 1;
+
+            check_token_type(iter, {TokenType::open_brace});
+            iter += 1;
+
+            std::vector<ExprDynClass::MethodDef> method_defs;
+            while (iter->type() != TokenType::close_brace)
+            {
+                // semicolon, skip
+                if (iter->type() == TokenType::semicolon)
+                {
+                    iter += 1;
+                }
+                // method
+                else if (iter->type() == TokenType::keyword &&
+                         iter->text() == "func")
+                {
+                    iter += 1;
+
+                    // method name
+                    check_token_type(iter, {TokenType::identifier});
+                    VarName id = iter->identifier();
+                    iter += 1;
+
+                    // method arguments
+                    std::vector<VarName> arg_names;
+                    bool is_variadic = false;
+
+                    check_token_type(iter, {TokenType::open_round});
+                    iter += 1;
+
+                    while (iter->type() != TokenType::close_round &&
+                           !is_variadic)
+                    {
+                        check_token_type(iter, {TokenType::identifier});
+                        arg_names.emplace_back(iter->identifier());
+                        iter += 1;
+
+                        if (iter->type() == TokenType::ellipsis_3)
+                        {
+                            is_variadic = true;
+                            iter += 1;
+                        }
+
+                        check_token_type(iter, {TokenType::close_round, TokenType::comma});
+                        if (iter->type() == TokenType::comma)
+                        {
+                            iter += 1;
+                        }
+                    }
+
+                    check_token_type(iter, {TokenType::close_round});
+                    iter += 1;
+
+                    // save definition
+                    method_defs.emplace_back(arg_names, is_variadic, id);
+                }
+                // unexpected
+                else
+                {
+                    throw UnexpectedToken(*iter);
+                }
+            }
+
+            check_token_type(iter, {TokenType::close_brace});
+            iter += 1;
+
+            VarName id;
+            if (id_chain.size() > 0)
+            {
+                id = id_chain.back();
+            }
+            e = new ExprDynClass(id, method_defs, library_path);
         }
         // intern class
         else
@@ -1560,15 +1649,15 @@ namespace creek
                 }
             }
 
+            check_token_type(iter, {TokenType::close_brace});
+            iter += 1;
+
             VarName id;
             if (id_chain.size() > 0)
             {
                 id = id_chain.back();
             }
             e = new ExprClass(id, super_class, method_defs);
-
-            check_token_type(iter, {TokenType::close_brace});
-            iter += 1;
         }
 
 

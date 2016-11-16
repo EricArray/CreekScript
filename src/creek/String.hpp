@@ -21,6 +21,9 @@ namespace creek
         /// @param  value   String value.
         String(Value value);
 
+        const Value& value() const;
+        Value& value();
+
 
         Data* copy() const override;
         std::string class_name() const override;

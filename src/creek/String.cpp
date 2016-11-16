@@ -12,6 +12,16 @@ namespace creek
 
     }
 
+    const String::Value& String::value() const
+    {
+        return m_value;
+    }
+
+    String::Value& String::value()
+    {
+        return m_value;
+    }
+
     Data* String::copy() const
     {
         return new String(m_value);

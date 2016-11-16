@@ -683,6 +683,37 @@ namespace creek
 
                 return new ExprDynFunc(arg_names, is_variadic, library_path, func_name);
             }
+            case OpCode::dyn_class:                 //< 0x71
+            {
+                auto id = parse_var_name(bytecode, var_name_map);
+
+                uint32_t method_count = 0;
+                bytecode >> method_count;
+                std::vector<ExprDynClass::MethodDef> method_defs;
+                method_defs.reserve(method_count);
+                for (uint32_t i = 0; i < method_count; ++i)
+                {
+                    auto id = parse_var_name(bytecode, var_name_map);
+
+                    uint32_t argn = 0;
+                    bytecode >> argn;
+                    std::vector<VarName> arg_names(argn);
+                    for (uint32_t i = 0; i < argn; i += 1)
+                    {
+                        arg_names[i] = parse_var_name(bytecode, var_name_map);
+                    }
+
+                    bool is_variadic;
+                    bytecode >> is_variadic;
+
+                    method_defs.emplace_back(arg_names, is_variadic, id);
+                }
+
+                std::string library_path;
+                bytecode >> library_path;
+
+                return new ExprDynClass(id, method_defs, library_path);
+            }
 
 
             // invalid

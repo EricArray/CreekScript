@@ -1,0 +1,11 @@
+func SDL_Init(flags) extern "dl_sdl2-debug.dll";
+func SDL_Quit() extern "dl_sdl2-debug.dll";
+func SDL_WasInit(flags) extern "dl_sdl2-debug.dll";
+func SDL_GetError() extern "dl_sdl2-debug.dll";
+func SDL_SetError(error) extern "dl_sdl2-debug.dll";
+func FLAG_INIT_EVERYTHING() extern "dl_sdl2-debug.dll";
+
+class SDL extern "dl_sdl2-debug.dll" {
+    func init(flags);
+    func quit();
+}

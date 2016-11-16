@@ -57,7 +57,7 @@
 	<creek/Resolver.hpp>
 	<creek/VarName.hpp>
 
-1478743379 c:\users\eric\projects\creekscript\src\creek\data.hpp
+1479257141 c:\users\eric\projects\creekscript\src\creek\data.hpp
 	<memory>
 	<string>
 	<vector>
@@ -65,10 +65,11 @@
 	<creek/Exception.hpp>
 	<creek/VarName.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\resolver.hpp
+1479265730 c:\users\eric\projects\creekscript\src\creek\resolver.hpp
 	<functional>
 	<string>
 	<typeinfo>
+	<type_traits>
 	<vector>
 	<creek/api_mode.hpp>
 	<creek/Boolean.hpp>
@@ -76,6 +77,7 @@
 	<creek/String.hpp>
 	<creek/Vector.hpp>
 	<creek/Void.hpp>
+	<creek/UserData.hpp>
 
 1478743384 c:\users\eric\projects\creekscript\src\creek\boolean.hpp
 	<creek/api_mode.hpp>
@@ -85,7 +87,7 @@
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\string.hpp
+1478794767 c:\users\eric\projects\creekscript\src\creek\string.hpp
 	<creek/Data.hpp>
 	<string>
 	<creek/api_mode.hpp>
@@ -113,7 +115,7 @@
 	<creek/OpCode.hpp>
 	<creek/VarNameMap.hpp>
 
-1478747261 c:\users\eric\projects\creekscript\src\creek\opcode.hpp
+1479163661 c:\users\eric\projects\creekscript\src\creek\opcode.hpp
 	<cstdio>
 
 1478618199 c:\users\eric\projects\creekscript\src\creek\expression_controlflow.hpp
@@ -171,7 +173,7 @@
 	<creek/Exception.hpp>
 	<creek/utility.hpp>
 
-1478750636 c:\users\eric\projects\creekscript\src\creek\utility.hpp
+1479261673 c:\users\eric\projects\creekscript\src\creek\utility.hpp
 	<cassert>
 	<cmath>
 	<string>
@@ -187,7 +189,7 @@
 1478266094 c:\users\eric\projects\creekscript\src\creek\standardlibrary.hpp
 	<creek/api_mode.hpp>
 
-1478750714 c:\users\eric\projects\creekscript\src\creek\version.hpp
+1478751069 c:\users\eric\projects\creekscript\src\creek\version.hpp
 	<string>
 	<creek/api_mode.hpp>
 
@@ -209,4 +211,9 @@
 	<creek/Exception.hpp>
 	<creek/Variable.hpp>
 	<creek/VarName.hpp>
+
+1479265833 c:\users\eric\projects\creekscript\src\creek\userdata.hpp
+	<creek/Data.hpp>
+	<creek/utility.hpp>
+	<creek/Variable.hpp>
 

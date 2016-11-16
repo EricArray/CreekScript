@@ -1,0 +1,119 @@
+EXPORTS
+    _ZN5creek8UserDataI3SDLE16static_get_classEv @1
+    _ZN5creek8UserDataI3SDLE9class_objE @2 DATA
+    _ZN5creek8UserDataI3SDLEC1EPS1_ @3
+    _ZN5creek8UserDataI3SDLEC1ERKSt10shared_ptrIS1_E @4
+    _ZN5creek8UserDataI3SDLEC2EPS1_ @5
+    _ZN5creek8UserDataI3SDLEC2ERKSt10shared_ptrIS1_E @6
+    _ZNK5creek8UserDataI3SDLE10class_nameEv @7
+    _ZNK5creek8UserDataI3SDLE10debug_textEv @8
+    _ZNK5creek8UserDataI3SDLE13get_referenceEv @9
+    _ZNK5creek8UserDataI3SDLE4copyEv @10
+    _ZNK5creek8UserDataI3SDLE5valueEv @11
+    _ZNK5creek8UserDataI3SDLE9get_classEv @12
+    _ZTIN5creek10ExprBoolOrE @13 DATA
+    _ZTIN5creek10ExprNumberE @14 DATA
+    _ZTIN5creek10ExprReturnE @15 DATA
+    _ZTIN5creek10ExprStringE @16 DATA
+    _ZTIN5creek10ExprSwitchE @17 DATA
+    _ZTIN5creek10ExprVectorE @18 DATA
+    _ZTIN5creek10ExpressionE @19 DATA
+    _ZTIN5creek10IdentifierE @20 DATA
+    _ZTIN5creek10LexicErrorE @21 DATA
+    _ZTIN5creek11BadArgumentE @22 DATA
+    _ZTIN5creek11ExprAttrGetE @23 DATA
+    _ZTIN5creek11ExprAttrSetE @24 DATA
+    _ZTIN5creek11ExprBoolAndE @25 DATA
+    _ZTIN5creek11ExprBoolNotE @26 DATA
+    _ZTIN5creek11ExprBoolXorE @27 DATA
+    _ZTIN5creek11ExprBooleanE @28 DATA
+    _ZTIN5creek11ExprDynFuncE @29 DATA
+    _ZTIN5creek11SyntaxErrorE @30 DATA
+    _ZTIN5creek12DynCFunctionE @31 DATA
+    _ZTIN5creek12ExprDynClassE @32 DATA
+    _ZTIN5creek12ExprFunctionE @33 DATA
+    _ZTIN5creek12ExprIndexGetE @34 DATA
+    _ZTIN5creek12ExprIndexSetE @35 DATA
+    _ZTIN5creek12RuntimeErrorE @36 DATA
+    _ZTIN5creek13ExprLoadLocalE @37 DATA
+    _ZTIN5creek13UnexpectedEofE @38 DATA
+    _ZTIN5creek13UnimplementedE @39 DATA
+    _ZTIN5creek14AmbiguousTokenE @40 DATA
+    _ZTIN5creek14ExprBasicBlockE @41 DATA
+    _ZTIN5creek14ExprCallMethodE @42 DATA
+    _ZTIN5creek14ExprIdentifierE @43 DATA
+    _ZTIN5creek14ExprLoadGlobalE @44 DATA
+    _ZTIN5creek14ExprStoreLocalE @45 DATA
+    _ZTIN5creek14WrongArgNumberE @46 DATA
+    _ZTIN5creek15BadNumberFormatE @47 DATA
+    _ZTIN5creek15DynLibraryErrorE @48 DATA
+    _ZTIN5creek15ExprCreateLocalE @49 DATA
+    _ZTIN5creek15ExprStoreGlobalE @50 DATA
+    _ZTIN5creek15UnexpectedTokenE @51 DATA
+    _ZTIN5creek16ExprCreateGlobalE @52 DATA
+    _ZTIN5creek16ExprVariadicCallE @53 DATA
+    _ZTIN5creek17DynSymbolNotFoundE @54 DATA
+    _ZTIN5creek18BadCharacterEscapeE @55 DATA
+    _ZTIN5creek19UnexpectedCharacterE @56 DATA
+    _ZTIN5creek22ExprVariadicCallMethodE @57 DATA
+    _ZTIN5creek3MapE @58 DATA
+    _ZTIN5creek4DataE @59 DATA
+    _ZTIN5creek4NullE @60 DATA
+    _ZTIN5creek4VoidE @61 DATA
+    _ZTIN5creek6ExprDoE @62 DATA
+    _ZTIN5creek6ExprEQE @63 DATA
+    _ZTIN5creek6ExprGEE @64 DATA
+    _ZTIN5creek6ExprGTE @65 DATA
+    _ZTIN5creek6ExprIfE @66 DATA
+    _ZTIN5creek6ExprLEE @67 DATA
+    _ZTIN5creek6ExprLTE @68 DATA
+    _ZTIN5creek6ExprNEE @69 DATA
+    _ZTIN5creek6NumberE @70 DATA
+    _ZTIN5creek6ObjectE @71 DATA
+    _ZTIN5creek6StringE @72 DATA
+    _ZTIN5creek6VectorE @73 DATA
+    _ZTIN5creek7BooleanE @74 DATA
+    _ZTIN5creek7ExprCmpE @75 DATA
+    _ZTIN5creek7ExprForE @76 DATA
+    _ZTIN5creek7ExprMapE @77 DATA
+    _ZTIN5creek7ExprTryE @78 DATA
+    _ZTIN5creek8ExprCallE @79 DATA
+    _ZTIN5creek8ExprLoopE @80 DATA
+    _ZTIN5creek8ExprNullE @81 DATA
+    _ZTIN5creek8ExprVoidE @82 DATA
+    _ZTIN5creek8FunctionE @83 DATA
+    _ZTIN5creek8UserDataI3SDLEE @84 DATA
+    _ZTIN5creek9CFunctionE @85 DATA
+    _ZTIN5creek9ExceptionE @86 DATA
+    _ZTIN5creek9ExprBreakE @87 DATA
+    _ZTIN5creek9ExprClassE @88 DATA
+    _ZTIN5creek9ExprConstE @89 DATA
+    _ZTIN5creek9ExprForInE @90 DATA
+    _ZTIN5creek9ExprPrintE @91 DATA
+    _ZTIN5creek9ExprThrowE @92 DATA
+    _ZTIN5creek9ExprWhileE @93 DATA
+    _ZTIN5creek9UndefinedE @94 DATA
+    _ZTVN5creek10LexicErrorE @95 DATA
+    _ZTVN5creek11BadArgumentE @96 DATA
+    _ZTVN5creek11SyntaxErrorE @97 DATA
+    _ZTVN5creek12RuntimeErrorE @98 DATA
+    _ZTVN5creek13UnexpectedEofE @99 DATA
+    _ZTVN5creek13UnimplementedE @100 DATA
+    _ZTVN5creek14AmbiguousTokenE @101 DATA
+    _ZTVN5creek14WrongArgNumberE @102 DATA
+    _ZTVN5creek15BadNumberFormatE @103 DATA
+    _ZTVN5creek15DynLibraryErrorE @104 DATA
+    _ZTVN5creek15UnexpectedTokenE @105 DATA
+    _ZTVN5creek17DynSymbolNotFoundE @106 DATA
+    _ZTVN5creek18BadCharacterEscapeE @107 DATA
+    _ZTVN5creek19UnexpectedCharacterE @108 DATA
+    _ZTVN5creek8UserDataI3SDLEE @109 DATA
+    _ZTVN5creek9ExceptionE @110 DATA
+    _ZTVN5creek9UndefinedE @111 DATA
+    creek_class_SDL @112 DATA
+    creek_func_FLAG_INIT_EVERYTHING @113 DATA
+    creek_func_SDL_GetError @114 DATA
+    creek_func_SDL_Init @115 DATA
+    creek_func_SDL_Quit @116 DATA
+    creek_func_SDL_SetError @117 DATA
+    creek_func_SDL_WasInit @118 DATA

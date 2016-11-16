@@ -1,8 +1,7 @@
-var vec = ["a", 0x61, "b", 0x62, "c", 0x63];
-var map = {"d": 0x64};
-for i = 0 .. vec.size(), 2 {
-    var key = vec[i];
-    var val = vec[i+1];
-    map[key] = val;
+class MyClass extern "test_dyn_lib-debug.dll" {
+    func new(x);
+    func info(self);
 }
-debug(map);
+
+var mc = MyClass(scan("Enter x: ").to_number(10));
+mc.info();

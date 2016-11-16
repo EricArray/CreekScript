@@ -39,6 +39,9 @@ namespace creek
         /// @brief  Global class: String.
         static Variable class_String;
 
+        /// @brief  Global class: UserData.
+        static Variable class_UserData;
+
         /// @brief  Global class: Vector.
         static Variable class_Vector;
 

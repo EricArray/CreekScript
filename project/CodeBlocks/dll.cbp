@@ -118,6 +118,8 @@
 		<Unit filename="../../src/creek/String.hpp" />
 		<Unit filename="../../src/creek/Token.cpp" />
 		<Unit filename="../../src/creek/Token.hpp" />
+		<Unit filename="../../src/creek/UserData.cpp" />
+		<Unit filename="../../src/creek/UserData.hpp" />
 		<Unit filename="../../src/creek/VarName.cpp" />
 		<Unit filename="../../src/creek/VarName.hpp" />
 		<Unit filename="../../src/creek/VarNameMap.cpp" />

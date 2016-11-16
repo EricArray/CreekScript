@@ -25,6 +25,7 @@ namespace creek
 
 
     /// Find correct std::stof function
+    // TODO: stof base
     template<> float stof(const std::string& source, std::size_t* pos)
     {
         return std::stof(source, pos);

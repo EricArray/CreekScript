@@ -24,6 +24,7 @@ namespace creek
     template<> long double stof<long double>(const std::string& source, std::size_t* pos);
 
 
+
     /// @brief  Transform an integer into a string.
     /// @param  integer The number to transform.
     /// @param  base    Any numeric base (eg. 2, 8, 10, 16, 5, 7).

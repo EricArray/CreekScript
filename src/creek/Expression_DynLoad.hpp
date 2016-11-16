@@ -28,7 +28,7 @@ namespace creek
                     const std::string& func_name);
 
         Expression* clone() const override;
-        
+
         Variable eval(Scope& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -37,6 +37,46 @@ namespace creek
         bool m_is_variadic;
         std::string m_library_path;
         std::string m_func_name;
+    };
+
+
+    /// @brief  Expression: Load class from dynamic library.
+    /// Returns a new class filled with methods of type @c DynCFunction.
+    class CREEK_API ExprDynClass : public Expression
+    {
+    public:
+        /// @brief  Dynamic class method definition.
+        struct MethodDef
+        {
+            MethodDef(const std::vector<VarName>& arg_names, bool is_variadic, VarName id) :
+                arg_names(arg_names),
+                is_variadic(is_variadic),
+                id(id)
+            {
+
+            }
+
+            std::vector<VarName> arg_names; ///< Argument names.
+            bool is_variadic; ///< Is this method variadic?
+            VarName id; ///< Method name.
+        };
+
+
+        /// @brief  `ExprDynClass` constructor.
+        /// @param  id              Class name.
+        /// @param  method_defs     List of method definitions.
+        /// @param  library_path    Path to the library.
+        ExprDynClass(VarName id, std::vector<MethodDef>& method_defs, const std::string& library_path);
+
+        Expression* clone() const override;
+
+        Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    private:
+        VarName m_id;
+        std::vector<MethodDef> m_method_defs;
+        std::string m_library_path;
     };
 
     /// @}

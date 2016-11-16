@@ -90,5 +90,6 @@ namespace creek
 
         // dynamic load
         dyn_func                = 0x70,
+        dyn_class               = 0x71,
     };
 }

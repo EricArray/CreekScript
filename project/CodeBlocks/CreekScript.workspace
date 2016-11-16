@@ -2,8 +2,14 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="CreekScript">
 		<Project filename="dll.cbp" />
-		<Project filename="test_dyn_lib.cbp" />
-		<Project filename="test.cbp" />
-		<Project filename="console.cbp" />
+		<Project filename="test_dyn_lib.cbp">
+			<Depends filename="dll.cbp" />
+		</Project>
+		<Project filename="console.cbp">
+			<Depends filename="dll.cbp" />
+			<Depends filename="test_dyn_lib.cbp" />
+		</Project>
+		<Project filename="dl_sdl2.cbp" />
+		<Project filename="../../../test/test.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
