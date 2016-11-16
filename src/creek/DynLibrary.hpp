@@ -23,7 +23,7 @@
 /// void my_print(std::string output) {
 ///     std::cout << output;
 /// }
-/// CREEK_FUNC_IMPL(my_print);
+/// CREEK_FUNC_IMPL(my_print, &my_print);
 /// @endcode
 ///
 /// The following code generates a class interface named `creek_class_MyClass`:
@@ -37,9 +37,9 @@
 ///     void set_value(int new_value) { value = new_value; }
 ///     int get_value() { return value; }
 /// };
-/// CREEK_CLASS_IMPL(MyClass) {
-///     CREEK_CLASS_FUNC("get_value", MyClass::get_value),
-///     CREEK_CLASS_FUNC("set_value", MyClass::set_value),
+/// CREEK_CLASS_IMPL(MyClass, MyClass) {
+///     CREEK_CLASS_METHOD(get_value, &MyClass::get_value),
+///     CREEK_CLASS_METHOD(set_value, &MyClass::set_value),
 /// };
 /// @endcode
 /// @{
