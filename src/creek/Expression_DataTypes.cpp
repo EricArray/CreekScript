@@ -394,11 +394,12 @@ namespace creek
     // @param  id          Class name.
     // @param  super_class Expression for the super class.
     // @param  method_defs List of method definitions.
-    ExprClass::ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs) :
+    ExprClass::ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs) :
         m_id(id),
         m_super_class(super_class)
     {
         m_method_defs.swap(method_defs);
+        m_static_defs.swap(static_defs);
     }
 
     /// @brief  Get a copy.
@@ -410,7 +411,12 @@ namespace creek
         {
             new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body);
         }
-        return new ExprClass(m_id, m_super_class->clone(), new_method_defs);
+        std::vector<StaticDef> new_static_defs;
+        for (auto& d : m_static_defs)
+        {
+            new_static_defs.emplace_back(d.id);
+        }
+        return new ExprClass(m_id, m_super_class->clone(), new_method_defs, new_static_defs);
     }
 
     bool ExprClass::is_const() const
@@ -427,7 +433,12 @@ namespace creek
         {
             new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body->const_optimize());
         }
-        return new ExprClass(m_id, m_super_class->const_optimize(), new_method_defs);
+        std::vector<StaticDef> new_static_defs;
+        for (auto& d : m_static_defs)
+        {
+            new_static_defs.emplace_back(d.id);
+        }
+        return new ExprClass(m_id, m_super_class->const_optimize(), new_method_defs, new_static_defs);
     }
 
     Variable ExprClass::eval(Scope& scope)
@@ -453,6 +464,14 @@ namespace creek
             new_class.attr(method_def.id, method.release());
         }
 
+        // for (auto& static_def : m_static_defs)
+        // {
+        //     Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
+        //     Function::Value new_value(def);
+        //     Variable method = new Function(new_value);
+        //     new_class.attr(method_def.id, method.release());
+        // }
+
         return new_class;
     }
 
@@ -462,6 +481,7 @@ namespace creek
         b << static_cast<uint8_t>(OpCode::data_class);
         b << var_name_map.id_from_name(m_id.name());
         b << m_super_class->bytecode(var_name_map);
+        
         b << static_cast<uint32_t>(m_method_defs.size());
         for (auto& method_def : m_method_defs)
         {
@@ -474,6 +494,7 @@ namespace creek
             b << method_def.is_variadic;
             b << method_def.body->bytecode(var_name_map);
         }
+
         return b;
     }
 }

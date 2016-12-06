@@ -281,11 +281,25 @@ namespace creek
             std::shared_ptr<Expression> body; ///< Expression evaluated when called.
         };
 
+        /// @brief  Class static member definition.
+        struct StaticDef
+        {
+            StaticDef(VarName id) :
+                id(id)
+            {
+
+            }
+
+            VarName id; ///< Member name.
+        };
+
+
         /// @brief  `ExprClass` constructor.
         /// @param  id          Class name.
         /// @param  super_class Expression for the super class.
         /// @param  method_defs List of method definitions.
-        ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs);
+        /// @param  static_defs List of static member definitions.
+        ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs);
 
         /// @brief  Get a copy.
         /// The cloned expression shares the body expression.
@@ -304,6 +318,7 @@ namespace creek
         VarName m_id;
         std::unique_ptr<Expression> m_super_class;
         std::vector<MethodDef> m_method_defs;
+        std::vector<StaticDef> m_static_defs;
     };
 
     /// @}

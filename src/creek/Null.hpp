@@ -22,8 +22,8 @@ namespace creek
 
         bool bool_value() const override;
         int int_value() const override;
-        float float_value() const override;
-        std::string string_value() const override;
+        double double_value() const override;
+        const std::string& string_value() const override;
 
         int cmp(Data* other) override;
 

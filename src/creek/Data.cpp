@@ -79,7 +79,7 @@ namespace creek
     //     throw Undefined(class_name() + "::int_value");
     // }
 
-    float Data::float_value() const
+    double Data::double_value() const
     {
         throw Undefined(class_name() + "::float_value");
     }
@@ -89,7 +89,7 @@ namespace creek
     //     throw Undefined(class_name() + "::float_value");
     // }
 
-    std::string Data::string_value() const
+    const std::string& Data::string_value() const
     {
         throw Undefined(class_name() + "::string_value");
     }

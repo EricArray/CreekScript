@@ -61,12 +61,25 @@ namespace creek
             VarName id; ///< Method name.
         };
 
+        /// @brief  Class static member definition.
+        struct StaticDef
+        {
+            StaticDef(VarName id) :
+                id(id)
+            {
+
+            }
+
+            VarName id; ///< Member name.
+        };
+
 
         /// @brief  `ExprDynClass` constructor.
         /// @param  id              Class name.
         /// @param  method_defs     List of method definitions.
+        /// @param  static_defs     List of static member definitions.
         /// @param  library_path    Path to the library.
-        ExprDynClass(VarName id, std::vector<MethodDef>& method_defs, const std::string& library_path);
+        ExprDynClass(VarName id, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs, const std::string& library_path);
 
         Expression* clone() const override;
 
@@ -76,6 +89,7 @@ namespace creek
     private:
         VarName m_id;
         std::vector<MethodDef> m_method_defs;
+        std::vector<StaticDef> m_static_defs;
         std::string m_library_path;
     };
 

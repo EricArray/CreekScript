@@ -54,20 +54,23 @@ namespace creek
     /// @brief  DynClassDef constructor.
     /// @param  name            Class name.
     /// @param  class_obj       Variable to save the class object.
-    /// @param  methods         Method list.
+    /// @param  members         Member list.
     /// @see    CREEK_CLASS_HEADER
     /// @see    CREEK_CLASS_IMPL
     /// @see    CREEK_CLASS
     DynClassDef::DynClassDef(
         const std::string& name,
         Variable& class_obj,
-        const std::map<std::string, DynFuncDef>& methods
+        AttrList& attrs,
+        MethodList& methods,
+        StaticList& statics
     ) :
         m_name(name),
-        m_class_obj(class_obj),
-        m_methods(methods)
+        m_class_obj(class_obj)
     {
-
+        m_attrs.swap(attrs);
+        m_methods.swap(methods);
+        m_statics.swap(statics);
     }
 
     // /// @brief  DynClassDef constructor.
@@ -90,6 +93,19 @@ namespace creek
         return m_class_obj;
     }
 
+    /// @brief  Find a attr in this class.
+    /// @param  name    Attr name.
+    const DynClassDef::Attr& DynClassDef::find_attr(const std::string& name) const
+    {
+        auto iter = m_attrs.find(name);
+        if (iter == m_attrs.end())
+        {
+            std::string m = std::string("Dynamic class attr not found: ") + name;
+            throw Exception(m);
+        }
+        return iter->second;
+    }
+
     /// @brief  Find a method in this class.
     /// @param  name    Method name.
     const DynFuncDef& DynClassDef::find_method(const std::string& name) const
@@ -100,7 +116,30 @@ namespace creek
             std::string m = std::string("Dynamic class method not found: ") + name;
             throw Exception(m);
         }
-        return iter->second;
+        if (!iter->second)
+        {
+            std::string m = std::string("Dynamic class method is invalid: ") + name;
+            throw Exception(m);
+        }
+        return *iter->second;
+    }
+
+    /// @brief  Find a static var in this class.
+    /// @param  name    Var name
+    const Data& DynClassDef::find_static(const std::string& name) const
+    {
+        auto iter = m_statics.find(name);
+        if (iter == m_statics.end())
+        {
+            std::string m = std::string("Dynamic class static var not found: ") + name;
+            throw Exception(m);
+        }
+        if (!iter->second)
+        {
+            std::string m = std::string("Dynamic class static var is invalid: ") + name;
+            throw Exception(m);
+        }
+        return *iter->second;
     }
 
     std::string DynClassDef::make_dyn_class_name(const std::string& class_name)

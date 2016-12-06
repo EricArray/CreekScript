@@ -2,6 +2,7 @@
 /// Dynamically-loaded libraries.
 #pragma once
 
+#include <functional>
 #include <map>
 #include <string>
 
@@ -128,11 +129,11 @@
 #define CREEK_CLASS_IMPL(NAME, CLASS) \
     namespace creek { \
         template class UserData_base<CLASS>; \
-        template class UserData<CLASS>; \
         template<> Variable UserData_base<CLASS>::class_obj = nullptr; \
+        template<> const DynClassDef* UserData_base<CLASS>::class_def = &creek_class_##NAME; \
     } \
     const creek::DynClassDef creek_class_##NAME = \
-        creek::DynClassDef::Factory(#NAME, creek::UserData<CLASS>::class_obj) =
+        creek::DynClassDef::Factory(#NAME, creek::UserData<CLASS>::class_obj)
 
 /// @brief  Header + implementation for a function interface in a dynamic library.
 /// @param  NAME    Name for the class (identifier).
@@ -156,7 +157,7 @@
 /// @see    CREEK_CLASS_METHOD
 /// @see    CREEK_CLASS_METHOD_X
 #define CREEK_CLASS_METHOD(NAME, FUNC) \
-    { #NAME, creek::DynFuncDef(FUNC) }
+    creek::DynClassDef::Factory::MethodDef(#NAME, creek::DynClassDef::Method(new creek::DynFuncDef(FUNC)))
 
 /// @brief  Method definition for a class interface.
 /// @param  NAME        Name for the method (identifier).
@@ -171,13 +172,19 @@
 #define CREEK_CLASS_METHOD_X(NAME, ARITY, IS_VARIADIC, LISTENER) \
     { #NAME, creek::DynFuncDef(ARITY, IS_VARIADIC, LISTENER) }
 
+#define CREEK_CLASS_STATIC(NAME, VALUE) \
+    creek::DynClassDef::Factory::StaticDef(#NAME, creek::DynClassDef::Static(creek::Resolver::value_to_data(VALUE)))
+
+#define CREEK_CLASS_ATTR(NAME, ATTR) \
+    creek::DynClassDef::Factory::AttrDef(#NAME, creek::DynClassDef::Attr(creek::Resolver::attr_getter(ATTR), creek::Resolver::attr_setter(ATTR)))
+
 /// @}
 
 
 namespace creek
 {
-    /// @brief  Definition of a class in a library.
-    using DynClass = std::map<std::string, CFunction::Listener>;
+//    /// @brief  Definition of a class in a library.
+//    using DynClass = std::map<std::string, CFunction::Listener>;
 
 
     /// @brief  Dynamic-load function definition.
@@ -239,10 +246,86 @@ namespace creek
     class CREEK_API DynClassDef
     {
     public:
+        struct Attr
+        {
+            Attr(std::function<Data*(Data*)> getter, std::function<Data*(Data*,Data*)> setter) :
+                getter(getter),
+                setter(setter)
+            {
+
+            }
+
+            std::function<Data*(Data*)> getter;
+            std::function<Data*(Data*,Data*)> setter;
+        };
+
+        using Method = std::shared_ptr<DynFuncDef>;
+
+        using Static = std::shared_ptr<Data>;
+
+//         struct Attr {
+//             using Getter = std::function<Data*(Data*)>;
+//             Attr(Getter getter) : getter(getter) { }
+//             Attr(const Attr& o) : getter(o.getter) { }
+//             Attr(Attr&& o) : getter(nullptr) { std::swap(getter, o.getter); }
+//             Attr& operator=(const Attr& o) { getter = o.getter; return *this; }
+//             Attr& operator=(Attr&& o) { std::swap(getter, o.getter); return *this; }
+//             Getter getter;
+//         };
+
+//         struct Method {
+//             Method(DynFuncDef* func_def) : func_def(func_def) { }
+//             // Method(const Method& o) : func_def(o.func_def) { }
+//             Method(Method&& o) : func_def(nullptr) { std::swap(func_def, o.func_def); }
+// //            Method& operator=(const Method& o) { func_def = o.func_def; return *this; }
+//             Method& operator=(Method&& o) { std::swap(func_def, o.func_def); return *this; }
+//             std::unique_ptr<DynFuncDef> func_def;
+//         };
+
+//         struct Static {
+//             Static(Data* data) : data(data) { }
+//             Static(Static&& o) : data(nullptr) { std::swap(data, o.data); }
+// //            Static& operator=(const Static& o) { data = o.data; return *this; }
+//             Static& operator=(Static&& o) { std::swap(data, o.data); return *this; }
+//             std::unique_ptr<Data> data;
+//         };
+
+        using AttrList   = std::map<std::string, Attr>;
+        using MethodList = std::map<std::string, Method>;
+        using StaticList = std::map<std::string, Static>;
+
+
         /// @brief  Helper struct for CREEK_CLASS_IMPL.
         /// For syntatic sugar on class definition.
         /// @see    CREEK_CLASS_IMPL
         struct Factory {
+            using AttrDef   = std::pair<std::string, Attr>;
+            using MethodDef = std::pair<std::string, Method>;
+            using StaticDef = std::pair<std::string, Static>;
+
+            // struct AttrDef {
+            //     AttrDef(const std::string& name, Attr::Getter getter) : name(name), def(getter) { }
+            //     AttrDef(AttrDef&& o) : name(), def(nullptr) { std::swap(name, o.name); std::swap(def, o.def); }
+            //     std::string name;
+            //     Attr def;
+            // };
+
+            // struct MethodDef {
+            //     MethodDef(const std::string& name, DynFuncDef* func_def) : name(name), def(func_def) { }
+            //     MethodDef(MethodDef&& o) : name(), def(nullptr) { std::swap(name, o.name); std::swap(def, o.def); }
+            //     std::string name;
+            //     Method def;
+            // };
+
+            // struct StaticDef {
+            //     StaticDef(const std::string& name, Data* data) : name(name), def(data) { }
+            //     StaticDef(StaticDef&& o) : name(), def(nullptr) { std::swap(name, o.name); std::swap(def, o.def); }
+            //     std::string name;
+            //     Static def;
+            // };
+
+            template<class... Members> struct Helper;
+
             Factory(const std::string& name, Variable& class_obj) :
                 name(name),
                 class_obj(class_obj)
@@ -250,22 +333,27 @@ namespace creek
 
             }
 
-            DynClassDef operator= (const std::map<std::string, DynFuncDef>& methods) {
-                return DynClassDef(name, class_obj, methods);
+            /// @param  members Should be of types AttrDef, MethodDef or StaticDef
+            template<class... Members> DynClassDef operator() (Members... members) {
+                AttrList attrs;
+                MethodList methods;
+                StaticList statics;
+                return Helper<Members...>::get(name, class_obj, attrs, methods, statics, members...);
+                // return DynClassDef(name, class_obj, std::move(members));
             }
 
             std::string name;
             Variable& class_obj;
         };
 
+
         /// @brief  DynClassDef constructor.
         /// @param  name        Class name.
         /// @param  class_obj   Variable to save the class object.
-        /// @param  methods     Method list.
         /// @see    CREEK_CLASS_HEADER
         /// @see    CREEK_CLASS_IMPL
         /// @see    CREEK_CLASS
-        DynClassDef(const std::string& name, Variable& class_obj, const std::map<std::string, DynFuncDef>& methods);
+        DynClassDef(const std::string& name, Variable& class_obj, AttrList& attrs, MethodList& methods, StaticList& statics);
 
         // /// @brief  DynClassDef constructor.
         // /// @param  methods Method list.
@@ -279,9 +367,17 @@ namespace creek
         /// @brief  Get the Variable storing the class object.
         Variable& class_obj() const;
 
+        /// @brief  Find a attr in this class.
+        /// @param  name    Attr name.
+        const Attr& find_attr(const std::string& name) const;
+
         /// @brief  Find a method in this class.
         /// @param  name    Method name.
         const DynFuncDef& find_method(const std::string& name) const;
+
+        /// @brief  Find a static var in this class.
+        /// @param  name    Var name
+        const Data& find_static(const std::string& name) const;
 
 
         /// @brief  Get the name used for `class_name` in dynamic libraries.
@@ -292,7 +388,66 @@ namespace creek
     private:
         std::string m_name;
         Variable& m_class_obj;
-        std::map<std::string, DynFuncDef> m_methods;
+        AttrList m_attrs;
+        MethodList m_methods;
+        StaticList m_statics;
+    };
+
+    template<> struct DynClassDef::Factory::Helper<> {
+        static DynClassDef get(
+            const std::string& name,
+            Variable& class_obj,
+            AttrList& attrs,
+            MethodList& methods,
+            StaticList& statics
+        ) {
+            return DynClassDef(name, class_obj, attrs, methods, statics);
+        }
+    };
+
+    template<class... Tail> struct DynClassDef::Factory::Helper<DynClassDef::Factory::AttrDef, Tail...> {
+        static DynClassDef get(
+            const std::string& name,
+            Variable& class_obj,
+            AttrList& attrs,
+            MethodList& methods,
+            StaticList& statics,
+            const AttrDef& def,
+            Tail... tail
+        ) {
+            attrs.emplace(def.first, Attr(def.second.getter, def.second.setter));
+            return DynClassDef::Factory::Helper<Tail...>::get(name, class_obj, attrs, methods, statics, tail...);
+        }
+    };
+
+    template<class... Tail> struct DynClassDef::Factory::Helper<DynClassDef::Factory::MethodDef, Tail...> {
+        static DynClassDef get(
+            const std::string& name,
+            Variable& class_obj,
+            AttrList& attrs,
+            MethodList& methods,
+            StaticList& statics,
+            const MethodDef& def,
+            Tail... tail
+        ) {
+            methods.emplace(def.first, def.second);
+            return DynClassDef::Factory::Helper<Tail...>::get(name, class_obj, attrs, methods, statics, tail...);
+        }
+    };
+
+    template<class... Tail> struct DynClassDef::Factory::Helper<DynClassDef::Factory::StaticDef, Tail...> {
+        static DynClassDef get(
+            const std::string& name,
+            Variable& class_obj,
+            AttrList& attrs,
+            MethodList& methods,
+            StaticList& statics,
+            const StaticDef& def,
+            Tail... tail
+        ) {
+            statics.emplace(def.first, def.second);
+            return DynClassDef::Factory::Helper<Tail...>::get(name, class_obj, attrs, methods, statics, tail...);
+        }
     };
 
 
@@ -394,5 +549,26 @@ namespace creek
     T* DynLibrary::find_symbol(const std::string& symbol)
     {
         return reinterpret_cast<T*>(find_symbol_base(symbol));
+    }
+
+
+    template<class T> Data* UserData_base<T>::attr(VarName key)
+    {
+        if (!class_def)
+        {
+            throw Exception("Dynamic class not yet loaded");
+        }
+        auto getter = class_def->find_attr(key.name()).getter;
+        return getter(this);
+    }
+
+    template<class T> Data* UserData_base<T>::attr(VarName key, Data* new_data)
+    {
+        if (!class_def)
+        {
+            throw Exception("Dynamic class not yet loaded");
+        }
+        auto setter = class_def->find_attr(key.name()).setter;
+        return setter(this, new_data);
     }
 }

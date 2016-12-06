@@ -15,7 +15,7 @@
 #include <creek/Expression_Variable.hpp>
 #include <creek/OpCode.hpp>
 #include <creek/utility.hpp>
-
+#include <iostream> // TODO: remove
 
 namespace creek
 {
@@ -434,7 +434,9 @@ namespace creek
                     method_defs.emplace_back(id, arg_names, is_variadic, body);
                 }
 
-                return new ExprClass(class_name, super_class, method_defs);
+                std::vector<ExprClass::StaticDef> static_defs;
+
+                return new ExprClass(class_name, super_class, method_defs, static_defs);
             }
 
 
@@ -452,7 +454,8 @@ namespace creek
             }
             case OpCode::control_do:                //< 0x41
             {
-                return new ExprDo(parse_expression(bytecode, var_name_map));
+                auto e = parse_expression(bytecode, var_name_map);
+                return new ExprDo(e);
             }
             case OpCode::control_if:                //< 0x42
             {
@@ -468,14 +471,16 @@ namespace creek
                 uint32_t nbranch = 0;
                 bytecode >> nbranch;
                 std::vector<ExprSwitch::CaseBranch> branches;
+                branches.reserve(nbranch);
                 for (uint32_t i = 0; i < nbranch; i += 1)
                 {
                     uint32_t nvalue = 0;
                     bytecode >> nvalue;
-                    std::vector<Expression*> values(nvalue);
+                    std::vector<Expression*> values;
+                    values.reserve(nvalue);
                     for (uint32_t ivalue = 0; ivalue < nvalue; ivalue += 1)
                     {
-                        values[ivalue] = parse_expression(bytecode, var_name_map);
+                        values.emplace_back(parse_expression(bytecode, var_name_map));
                     }
 
                     auto body = parse_expression(bytecode, var_name_map);
@@ -516,8 +521,9 @@ namespace creek
             case OpCode::control_try:               //< 0x47
             {
                 auto try_body = parse_expression(bytecode, var_name_map);
+                auto id = parse_var_name(bytecode, var_name_map);
                 auto catch_body = parse_expression(bytecode, var_name_map);
-                return new ExprTry(try_body, catch_body);
+                return new ExprTry(try_body, id, catch_body);
             }
             case OpCode::control_throw:             //< 0x48
             {
@@ -709,10 +715,20 @@ namespace creek
                     method_defs.emplace_back(arg_names, is_variadic, id);
                 }
 
+                uint32_t static_count = 0;
+                bytecode >> static_count;
+                std::vector<ExprDynClass::StaticDef> static_defs;
+                static_defs.reserve(static_count);
+                for (uint32_t i = 0; i < static_count; ++i)
+                {
+                    auto id = parse_var_name(bytecode, var_name_map);
+                    static_defs.emplace_back(id);
+                }
+
                 std::string library_path;
                 bytecode >> library_path;
 
-                return new ExprDynClass(id, method_defs, library_path);
+                return new ExprDynClass(id, method_defs, static_defs, library_path);
             }
 
 

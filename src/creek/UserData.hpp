@@ -9,6 +9,7 @@
 namespace creek
 {
     class DynFuncDef;
+    class DynClassDef;
 
 
     /// @brief  Data type: Base for UserData<T> and UserData<T*>.
@@ -23,6 +24,12 @@ namespace creek
         /// This needs to be defined in a dynamic library.
         /// @see CREEK_CLASS_IMPL
         static Variable class_obj;
+
+        /// @brief  Class definition.
+        /// This needs to be defined in a dynamic library.
+        /// @see CREEK_CLASS_IMPL
+        static const DynClassDef* class_def;
+
 
         virtual T& reference() const = 0;
         virtual T* pointer() const = 0;
@@ -40,6 +47,18 @@ namespace creek
         /// @brief  Get the class of this object.
         /// @return A new reference.
         Data* get_class() const override;
+        /// @}
+
+        /// @name   Object attribute
+        /// @{
+        /// @brief  Get the attribute.
+        /// @brief  key         Attribute key.
+        Data* attr(VarName key) override;
+
+        /// @brief  Set the attribute.
+        /// @brief  key         Attribute key.
+        /// @brief  new_data    New data to save in attribute.
+        Data* attr(VarName key, Data* new_data) override;
         /// @}
     };
 
@@ -64,8 +83,8 @@ namespace creek
 
         const Value& value() const;
 
-        T& reference() const override;
-        T* pointer() const override;
+        typename std::remove_cv<T>::type& reference() const override;
+        typename std::remove_cv<T>::type* pointer() const override;
 
 
         /// @brief  Create a copy of this data.
@@ -89,7 +108,7 @@ namespace creek
         // int int_value() const override;
 
         // /// @brief  Get the float value of this data.
-        // float float_value() const override;
+        // double double_value() const override;
 
         // /// @brief  Get the string value of this data.
         // std::string string_value() const override;
@@ -223,6 +242,20 @@ namespace creek
     };
 
 
+    /// @brief  UserData specialization for const.
+    template<class T> class CREEK_API UserData<const T> : public UserData<T>
+    {
+
+    };
+
+
+    /// @brief  UserData specialization for const pointer.
+    template<class T> class CREEK_API UserData<const T*> : public UserData<T>
+    {
+
+    };
+
+
 //    template<class T> class UserData<T*> : public UserData<T>
 //    {
 //        Data* get_class() const override;
@@ -269,13 +302,13 @@ namespace creek
         return m_value;
     }
 
-    template<class T> T& UserData<T>::reference() const
+    template<class T> typename std::remove_cv<T>::type& UserData<T>::reference() const
     {
         assert(m_value.get());
         return *m_value.get();
     }
 
-    template<class T> T* UserData<T>::pointer() const
+    template<class T> typename std::remove_cv<T>::type* UserData<T>::pointer() const
     {
         assert(m_value.get());
         return m_value.get();

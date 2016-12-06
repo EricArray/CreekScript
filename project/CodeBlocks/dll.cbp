@@ -107,6 +107,7 @@
 		<Unit filename="../../src/creek/Number.hpp" />
 		<Unit filename="../../src/creek/Object.cpp" />
 		<Unit filename="../../src/creek/Object.hpp" />
+		<Unit filename="../../src/creek/OpCode.cpp" />
 		<Unit filename="../../src/creek/OpCode.hpp" />
 		<Unit filename="../../src/creek/Resolver.cpp" />
 		<Unit filename="../../src/creek/Resolver.hpp" />

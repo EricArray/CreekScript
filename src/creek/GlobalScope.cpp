@@ -490,7 +490,7 @@ namespace creek
 
     Data* func_Data_to_number(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
     {
-        return new Number(args[0]->float_value());
+        return new Number(args[0]->double_value());
     }
 
     Data* func_Data_to_string(Scope& scope, std::vector< std::unique_ptr<Data> >& args)

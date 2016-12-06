@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstdio>
+#include <map>
+
+#include <creek/api_mode.hpp>
 
 
 namespace creek
@@ -92,4 +95,8 @@ namespace creek
         dyn_func                = 0x70,
         dyn_class               = 0x71,
     };
+
+
+    /// @brief  Bytecode op-code names.
+    extern CREEK_API const std::map<OpCode, std::string> op_code_names;
 }

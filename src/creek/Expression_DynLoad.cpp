@@ -53,12 +53,14 @@ namespace creek
     // @brief  `ExprDynClass` constructor.
     // @param  id              Class name.
     // @param  method_defs     List of method definitions.
+    // @param  static_defs     List of static member definitions.
     // @param  library_path    Path to the library.
-    ExprDynClass::ExprDynClass(VarName id, std::vector<MethodDef>& method_defs, const std::string& library_path) :
+    ExprDynClass::ExprDynClass(VarName id, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs, const std::string& library_path) :
         m_id(id),
         m_library_path(library_path)
     {
         m_method_defs.swap(method_defs);
+        m_static_defs.swap(static_defs);
     }
 
     /// @brief  Get a copy.
@@ -69,7 +71,12 @@ namespace creek
         {
             new_method_defs.emplace_back(d.arg_names, d.is_variadic, d.id);
         }
-        return new ExprDynClass(m_id, new_method_defs, m_library_path);
+        std::vector<StaticDef> new_static_defs;
+        for (auto& d : m_static_defs)
+        {
+            new_static_defs.emplace_back(d.id);
+        }
+        return new ExprDynClass(m_id, new_method_defs, new_static_defs, m_library_path);
     }
 
     // bool ExprDynClass::is_const() const
@@ -104,7 +111,7 @@ namespace creek
         }
 
         auto dl = std::make_shared<DynLibrary>(m_library_path);
-        auto dyn_class_def = dl->find_dyn_class(m_id.name());
+        auto& dyn_class_def = dl->find_dyn_class(m_id.name());
 
         for (auto& method_def : m_method_defs)
         {
@@ -118,6 +125,12 @@ namespace creek
             new_class.attr(method_def.id, method.release());
         }
 
+        for (auto& static_def : m_static_defs)
+        {
+            auto& var = dyn_class_def.find_static(static_def.id.name());
+            new_class.attr(static_def.id, var.copy());
+        }
+
         dyn_class_def.class_obj().reset(new_class->copy());
 
         return new_class;
@@ -128,6 +141,7 @@ namespace creek
         Bytecode b;
         b << static_cast<uint8_t>(OpCode::dyn_class);
         b << var_name_map.id_from_name(m_id.name());
+
         b << static_cast<uint32_t>(m_method_defs.size());
         for (auto& method_def : m_method_defs)
         {
@@ -139,6 +153,13 @@ namespace creek
             }
             b << method_def.is_variadic;
         }
+
+        b << static_cast<uint32_t>(m_static_defs.size());
+        for (auto& static_def : m_static_defs)
+        {
+            b << var_name_map.id_from_name(static_def.id.name());
+        }
+
         b << m_library_path;
         return b;
     }

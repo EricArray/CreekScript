@@ -47,13 +47,13 @@ namespace creek
         // void int_value(int new_value) override;
 
         /// Get the float value of this data.
-        float float_value() const override;
+        double double_value() const override;
 
         // /// Set the float value of this data.
         // void float_value(float new_value) override;
 
         /// Get the string value of this data.
-        std::string string_value() const override;
+        const std::string& string_value() const override;
 
         // /// Set the string value of this data.
         // void string_value(const std::string& new_value) override;

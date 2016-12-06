@@ -1,7 +1,18 @@
-class MyClass extern "test_dyn_lib-debug.dll" {
-    func new(x);
-    func info(self);
-}
+// class MyClass extern "test_dyn_lib-debug.dll" {
+//     func new(x);
+//     func info(self);
+//     func reset(self, other);
+// }
 
-var mc = MyClass(scan("Enter x: ").to_number(10));
-mc.info();
+// do {
+//     var x = scan("- Enter x: ").to_number(10);
+//     print("- Instantiating\n");
+//     var mc = MyClass(x);
+//     print("- Info\n");
+//     mc.info();
+//     var other_x = scan("- Enter new x: ").to_number(10);
+//     var other_mc = MyClass(other_x);
+//     mc.reset(other_mc);
+// }
+
+func test(text) extern "test_dyn_lib-debug.dll";

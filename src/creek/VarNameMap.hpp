@@ -36,5 +36,6 @@ namespace creek
 
     private:
         std::map<VarName::Name, VarName::Id> m_id_from_name;
+        std::map<VarName::Id, VarName::Name> m_name_from_id;
     };
 }

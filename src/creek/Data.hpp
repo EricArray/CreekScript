@@ -61,11 +61,11 @@ namespace creek
         /// @brief  Get the int value of this data.
         virtual int int_value() const;
 
-        /// @brief  Get the float value of this data.
-        virtual float float_value() const;
+        /// @brief  Get the double value of this data.
+        virtual double double_value() const;
 
         /// @brief  Get the string value of this data.
-        virtual std::string string_value() const;
+        virtual const std::string& string_value() const;
 
         /// @brief  Get the identifier value of this data.
         virtual VarName identifier_value() const;
