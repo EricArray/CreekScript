@@ -21,6 +21,9 @@ namespace creek
         /// @param  value   String value.
         String(Value value);
 
+        const Value& value() const;
+        Value& value();
+
 
         Data* copy() const override;
         std::string class_name() const override;
@@ -32,9 +35,9 @@ namespace creek
         char char_value() const override;
         // int int_value() const override;
         // void int_value(int new_value) override;
-        // float float_value() const override;
+        // double double_value() const override;
         // void float_value(float new_value) override;
-        std::string string_value() const override;
+        const std::string& string_value() const override;
         // void string_value(const std::string& new_value) override;
 
         Data* index(Data* key) override;

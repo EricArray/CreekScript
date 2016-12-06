@@ -19,7 +19,8 @@ namespace creek
     class CREEK_API Data
     {
     public:
-        virtual ~Data() = default;
+        Data();
+        virtual ~Data();
 
         /// @brief  Create a copy of this data.
         virtual Data* copy() const;
@@ -40,6 +41,15 @@ namespace creek
         virtual Expression* to_expression() const;
 
 
+        /// @brief  Dynamic cast that throws.
+        /// @param  T   Data type to cast to.
+        template<class T> const T* assert_cast() const;
+
+        /// @brief  Dynamic cast that throws.
+        /// @param  T   Data type to cast to.
+        template<class T> T* assert_cast();
+
+
         /// @name   Value access
         /// @{
         /// @brief  Get the bool value of this data.
@@ -51,11 +61,11 @@ namespace creek
         /// @brief  Get the int value of this data.
         virtual int int_value() const;
 
-        /// @brief  Get the float value of this data.
-        virtual float float_value() const;
+        /// @brief  Get the double value of this data.
+        virtual double double_value() const;
 
         /// @brief  Get the string value of this data.
-        virtual std::string string_value() const;
+        virtual const std::string& string_value() const;
 
         /// @brief  Get the identifier value of this data.
         virtual VarName identifier_value() const;
@@ -188,4 +198,37 @@ namespace creek
         int m_expected;
         int m_passed;
     };
+}
+
+
+// template implementation
+namespace creek
+{
+    /// @brief  Dynamic cast that throws.
+    /// @param  T   Data type to cast to.
+    template<class T> const T* Data::assert_cast() const
+    {
+        if (auto t = dynamic_cast<const T*>(this))
+        {
+            return t;
+        }
+        else
+        {
+            throw Exception("Invalid data type");
+        }
+    }
+
+    /// @brief  Dynamic cast that throws.
+    /// @param  T   Data type to cast to.
+    template<class T> T* Data::assert_cast()
+    {
+        if (auto t = dynamic_cast<T*>(this))
+        {
+            return t;
+        }
+        else
+        {
+            throw Exception("Invalid data type");
+        }
+    }
 }

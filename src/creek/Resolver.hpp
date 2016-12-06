@@ -3,6 +3,7 @@
 #include <functional>
 #include <string>
 #include <typeinfo>
+#include <type_traits>
 #include <vector>
 
 #include <creek/api_mode.hpp>
@@ -11,6 +12,7 @@
 #include <creek/String.hpp>
 #include <creek/Vector.hpp>
 #include <creek/Void.hpp>
+#include <creek/UserData.hpp>
 
 
 namespace creek
@@ -21,10 +23,24 @@ namespace creek
     /// @brief  Template for conversion between dynamic data and static values.
     struct CREEK_API Resolver
     {
+        template<class T, bool is_enum> struct data_to_instance_struct;
+        template<class T, bool is_enum> struct instance_to_data_struct;
+
+        template<class T> struct data_to_value_struct
+        {
+            using ret = typename data_to_instance_struct<T, std::is_enum<T>::value>::ret;
+            static ret get(Data* data);
+        };
+
+        template<class T> struct value_to_data_struct
+        {
+            static Data* get(const T& value);
+        };
+
         /// @brief  Convert a data object to a value.
         /// @param  T       Value type.
         /// @param  data    Data to convert.
-        template<class T> static T data_to_value(Data* data);
+        template<class T> static auto data_to_value(Data* data) -> typename data_to_value_struct<T>::ret;
 
         /// @brief  Convert a value into a data object.
         /// @param  T       Value type.
@@ -33,15 +49,17 @@ namespace creek
         template<class T> static Data* value_to_data(const T& value);
 
 
-        template<class T> struct data_to_value_struct
-        {
-            static T get(Data* data);
-        };
+        /// @brief  Create a getter to a C++ class public attribute.
+        /// @param  V       Attribute type.
+        /// @param  C       Class holding the attribute.
+        /// @param  attr    Pointer to class attribute.
+        template<class C, class V> static std::function<Data*(Data*)> attr_getter(V C::*attr);
 
-        template<class T> struct value_to_data_struct
-        {
-            static Data* get(const T& value);
-        };
+        /// @brief  Create a setter to a C++ class public attribute.
+        /// @param  V       Attribute type.
+        /// @param  C       Class holding the attribute.
+        /// @param  attr    Pointer to class attribute.
+        template<class C, class V> static std::function<Data*(Data*,Data*)> attr_setter(V C::*attr);
 
 
         using DataVector = std::vector< std::unique_ptr<Data> >;
@@ -60,13 +78,22 @@ namespace creek
             };
         }
 
-        /// @brief  Convert a C function to the format used by `CFunction`.
-        /// @param  c_func  C function to convert.
+        // /// @brief  Convert a C function to the format used by `CFunction`.
+        // /// @param  c_func  C function to convert.
         template<class R, class... Args>
         static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
             R(*c_func)(Args...)
         ) {
             return c_func_to_listener(std::function<R(Args...)>(c_func));
+        }
+
+        // /// @brief  Convert a C function to the format used by `CFunction`.
+        // /// @param  c_func  C function to convert.
+        template<class T, class R, class... Args>
+        static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
+            R(T::*c_func)(Args...)
+        ) {
+            return c_func_to_listener(std::function<R(T*, Args...)>(c_func));
         }
 
         /// @brief  Execute a C function from an argument vector.
@@ -82,7 +109,7 @@ namespace creek
     // Convert a data object to a value.
     // @param  T       Value type.
     // @param  data    Data to convert.
-    template<class T> T Resolver::data_to_value(Data* data)
+    template<class T> auto Resolver::data_to_value(Data* data) -> typename data_to_value_struct<T>::ret
     {
         return data_to_value_struct<T>::get(data);
     }
@@ -96,40 +123,98 @@ namespace creek
         return value_to_data_struct<T>::get(value);
     }
 
-    // data_to_value
-    template<class T> T Resolver::data_to_value_struct<T>::get(Data* data)
-    {
-        throw Unimplemented(std::string("Resolver::data_to_value for type ") + typeid(T).name());
-    }
 
+    // data_to_value
     template<> struct Resolver::data_to_value_struct<bool>
     {
-        static bool get(Data* data) { return data->bool_value(); }
+        using ret = bool;
+        static ret get(Data* data) { return data->bool_value(); }
     };
 
     template<> struct Resolver::data_to_value_struct<char>
     {
-        static char get(Data* data) { return data->char_value(); }
+        using ret = char;
+        static ret get(Data* data) { return data->char_value(); }
     };
 
-    template<> struct Resolver::data_to_value_struct<int>
+    template<> struct Resolver::data_to_value_struct<uint8_t>
     {
-        static int get(Data* data) { return data->int_value(); }
+        using ret = uint8_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<uint16_t>
+    {
+        using ret = uint16_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<uint32_t>
+    {
+        using ret = uint32_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<uint64_t>
+    {
+        using ret = uint64_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<int8_t>
+    {
+        using ret = int8_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<int16_t>
+    {
+        using ret = int16_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<int32_t>
+    {
+        using ret = int32_t;
+        static ret get(Data* data) { return data->int_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<int64_t>
+    {
+        using ret = int64_t;
+        static ret get(Data* data) { return data->int_value(); }
     };
 
     template<> struct Resolver::data_to_value_struct<float>
     {
-        static float get(Data* data) { return data->float_value(); }
+        using ret = float;
+        static ret get(Data* data) { return data->double_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<double>
+    {
+        using ret = double;
+        static ret get(Data* data) { return data->double_value(); }
+    };
+
+    template<> struct Resolver::data_to_value_struct<const char*>
+    {
+        using ret = const char*;
+        static ret get(Data* data) {
+            return data->string_value().c_str();
+        }
     };
 
     template<> struct Resolver::data_to_value_struct<std::string>
     {
-        static std::string get(Data* data) { return data->string_value(); }
+        using ret = std::string;
+        static ret get(Data* data) { return data->string_value(); }
     };
 
     template<class T> struct Resolver::data_to_value_struct<std::vector<T>>
     {
-        static std::vector<T> get(Data* data)
+        using ret = std::vector<T>;
+        static ret get(Data* data)
         {
             std::vector<T> ret;
             for (auto& item : data->vector_value())
@@ -140,13 +225,59 @@ namespace creek
         }
     };
 
-
-    // value_to_data
-    template<class T> Data* Resolver::value_to_data_struct<T>::get(const T& value)
+    template<class T> struct Resolver::data_to_value_struct<T&>
     {
-        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
+        using ret = T&;
+        static ret get(Data* data) {
+            auto ud = data->assert_cast<typename UserData<T>::base>();
+            return ud->reference();
+        }
+    };
+
+    template<class T> struct Resolver::data_to_value_struct<T*>
+    {
+        using ret = T*;
+        static ret get(Data* data) {
+            auto ud = data->assert_cast<typename UserData<T>::base>();
+            return ud->pointer();
+        }
+    };
+
+    template<class T> struct Resolver::data_to_value_struct<const T> :
+        public Resolver::data_to_value_struct<T>
+    {
+
+    };
+
+    template<class T> struct Resolver::data_to_instance_struct<T, false>
+    {
+        using ret = T&;
+        static ret get(Data* data)
+        {
+    //        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
+            auto ud = data->assert_cast<typename UserData<T>::base>();
+            return ud->reference();
+        }
+    };
+
+    template<class T> struct Resolver::data_to_instance_struct<T, true>
+    {
+        using ret = T;
+        static ret get(Data* data)
+        {
+    //        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
+            return ret(data->int_value());
+        }
+    };
+
+    template<class T> auto Resolver::data_to_value_struct<T>::get(Data* data) -> ret
+    {
+        return data_to_instance_struct<T, std::is_enum<T>::value>::get(data);
     }
 
+
+
+    // value_to_data
     template<> struct Resolver::value_to_data_struct<bool>
     {
         static Data* get(const bool& value) { return new Boolean(value); }
@@ -157,14 +288,59 @@ namespace creek
         static Data* get(const char& value) { return new String(std::string(1, value)); }
     };
 
-    template<> struct Resolver::value_to_data_struct<int>
+    template<> struct Resolver::value_to_data_struct<uint8_t>
     {
-        static Data* get(const int& value) { return new Number(value); }
+        static Data* get(const uint8_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<uint16_t>
+    {
+        static Data* get(const uint16_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<uint32_t>
+    {
+        static Data* get(const uint32_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<uint64_t>
+    {
+        static Data* get(const uint64_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<int8_t>
+    {
+        static Data* get(const int8_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<int16_t>
+    {
+        static Data* get(const int16_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<int32_t>
+    {
+        static Data* get(const int32_t& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<int64_t>
+    {
+        static Data* get(const int64_t& value) { return new Number(value); }
     };
 
     template<> struct Resolver::value_to_data_struct<float>
     {
         static Data* get(const float& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<double>
+    {
+        static Data* get(const double& value) { return new Number(value); }
+    };
+
+    template<> struct Resolver::value_to_data_struct<const char*>
+    {
+        static Data* get(const char* value) { return new String(std::string(value)); }
     };
 
     template<> struct Resolver::value_to_data_struct<std::string>
@@ -184,6 +360,49 @@ namespace creek
             return new Vector(data_vec);
         }
     };
+
+    template<class T> struct Resolver::instance_to_data_struct<T, false>
+    {
+        static Data* get(const T& value)
+        {
+    //        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
+            return new UserData<T>(new T(value));
+        }
+    };
+
+    template<class T> struct Resolver::instance_to_data_struct<T, true>
+    {
+        static Data* get(const T& value)
+        {
+    //        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
+            return new Number(Number::Value(value));
+        }
+    };
+
+    template<class T> Data* Resolver::value_to_data_struct<T>::get(const T& value)
+    {
+        return instance_to_data_struct<T, std::is_enum<T>::value>::get(value);
+    }
+
+    template<class T> struct Resolver::value_to_data_struct<T&> :
+        public Resolver::value_to_data_struct<T>
+    {
+
+    };
+
+    // template<class T> struct Resolver::value_to_data_struct<T*>
+    // {
+    //     static Data* get(const T* value) {
+    //         return Resolver::value_to_data_struct<T&>::get(*value);
+    //     }
+    // };
+
+    template<class T> struct Resolver::value_to_data_struct<const T> :
+        public Resolver::value_to_data_struct<T>
+    {
+
+    };
+
 
 //        template<class R, class... Args>
 //        struct value_to_data_struct< std::function<R(Args...)> >
@@ -250,4 +469,30 @@ namespace creek
 //                data_to_value<type>::get(*iter)
 //            );
 //        }
+
+    // @brief  Create a getter to a C++ class public attribute.
+    // @param  V       Attribute type.
+    // @param  C       Class holding the attribute.
+    // @param  attr    Pointer to class attribute.
+    template<class C, class V> std::function<Data*(Data*)> Resolver::attr_getter(V C::*attr)
+    {
+        return [attr](Data* data) -> Data*
+        {
+            auto ud = data->assert_cast<UserData_base<C>>();
+            return value_to_data(ud->reference().*attr);
+        };
+    }
+
+    // @brief  Create a setter to a C++ class public attribute.
+    // @param  V       Attribute type.
+    // @param  C       Class holding the attribute.
+    // @param  attr    Pointer to class attribute.
+    template<class C, class V> std::function<Data*(Data*,Data*)> Resolver::attr_setter(V C::*attr)
+    {
+        return [attr](Data* data, Data* value) -> Data*
+        {
+            auto ud = data->assert_cast<UserData_base<C>>();
+            return value_to_data(ud->reference().*attr = data_to_value<V>(value));
+        };
+    }
 }

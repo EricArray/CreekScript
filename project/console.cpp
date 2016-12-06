@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -45,6 +46,19 @@ void exec_program(Expression* program, Scope& scope);
 void exec_interactive(bool const_optimize, Scope& scope);
 
 
+std::chrono::system_clock::time_point start_timer() {
+    return std::chrono::system_clock::now();
+}
+std::chrono::duration<double> diff_timer(std::chrono::system_clock::time_point start) {
+    auto now = std::chrono::system_clock::now();
+    return now - start;
+}
+void log_timer(std::chrono::system_clock::time_point start, const std::string& title) {
+    auto diff = diff_timer(start);
+    std::cout << title << ":\t" << diff.count() << "\n";
+}
+
+
 // main function
 int main(int argc, char** argv)
 {
@@ -60,7 +74,7 @@ int main(int argc, char** argv)
         // help
         if (strcmp(argv[i], "-h") == 0)
         {
-            show_usage(argv[i]);
+            show_usage(argv[0]);
             return 0;
         }
         // version
@@ -327,8 +341,6 @@ void exec_program(Expression* program, Scope& scope)
 // execute interactive
 void exec_interactive(bool const_optimize, Scope& scope)
 {
-    scope.create_local_var(VarName("quit"), new CFunction(scope, &func_quit));
-
     while (!quit)
     {
         try

@@ -12,7 +12,7 @@ namespace creek
         if (iter == m_id_from_name.end())
         {
             VarName::Id new_id(m_id_from_name.size());
-            m_id_from_name[name] = new_id;
+            register_name(new_id, name);
             return new_id;
         }
         else
@@ -24,14 +24,12 @@ namespace creek
     /// @brief  Get a name from an ID.
     const VarName::Name& VarNameMap::name_from_id(VarName::Id id) const
     {
-        for (auto& i : m_id_from_name)
+        auto iter = m_name_from_id.find(id);
+        if (iter == m_name_from_id.end())
         {
-            if (i.second == id)
-            {
-                return i.first;
-            }
+            throw Exception("VarName ID not found");
         }
-        throw Exception("VarName ID not found");
+        return iter->second;
     }
 
     /// @brief  Get a global ID from a local ID.
@@ -47,8 +45,11 @@ namespace creek
     /// @brief  Register a new var name.
     void VarNameMap::register_name(VarName::Id id, const VarName::Name& name)
     {
-        auto inserto = m_id_from_name.insert(std::make_pair(name, id));
-        if (inserto.second == false)
+        if (m_id_from_name.emplace(name, id).second == false)
+        {
+            throw Exception("Var name already exists");
+        }
+        if (m_name_from_id.emplace(id, name).second == false)
         {
             throw Exception("Var name already exists");
         }

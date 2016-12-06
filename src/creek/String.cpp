@@ -12,6 +12,16 @@ namespace creek
 
     }
 
+    const String::Value& String::value() const
+    {
+        return m_value;
+    }
+
+    String::Value& String::value()
+    {
+        return m_value;
+    }
+
     Data* String::copy() const
     {
         return new String(m_value);
@@ -43,7 +53,7 @@ namespace creek
         return m_value.size() == 0 ? '\0' : m_value.front();
     }
 
-    std::string String::string_value() const
+    const std::string& String::string_value() const
     {
         return m_value;
     }
@@ -85,13 +95,13 @@ namespace creek
 
     // Data* String::sub(Data* other)
     // {
-    //     return new String(this->float_value() - other->float_value());
+    //     return new String(this->double_value() - other->double_value());
     // }
 
     Data* String::mul(Data* other)
     {
         Value old_value = this->string_value();
-        size_t new_size = old_value.size() * other->float_value();
+        size_t new_size = old_value.size() * other->double_value();
         Value new_value(new_size, ' ');
 
         for (size_t i = 0; i < new_value.size(); ++i)
@@ -104,50 +114,50 @@ namespace creek
 
     // Data* String::div(Data* other)
     // {
-    //     return new String(this->float_value() / other->float_value());
+    //     return new String(this->double_value() / other->double_value());
     // }
 
     // Data* String::mod(Data* other)
     // {
-    //     int this_int = this->float_value();
-    //     int other_int = other->float_value();
+    //     int this_int = this->double_value();
+    //     int other_int = other->double_value();
     //     return new String(this_int % other_int);
     // }
 
     // Data* String::exp(Data* other)
     // {
-    //     return new String(std::pow(this->float_value(), other->float_value()));
+    //     return new String(std::pow(this->double_value(), other->double_value()));
     // }
 
     // Data* String::min()
     // {
-    //     return new String(-this->float_value());
+    //     return new String(-this->double_value());
     // }
 
     // Data* String::bit_and(Data* other)
     // {
-    //     int this_int = this->float_value();
-    //     int other_int = other->float_value();
+    //     int this_int = this->double_value();
+    //     int other_int = other->double_value();
     //     return new String(this_int & other_int);
     // }
 
     // Data* String::bit_or(Data* other)
     // {
-    //     int this_int = this->float_value();
-    //     int other_int = other->float_value();
+    //     int this_int = this->double_value();
+    //     int other_int = other->double_value();
     //     return new String(this_int | other_int);
     // }
 
     // Data* String::bit_xor(Data* other)
     // {
-    //     int this_int = this->float_value();
-    //     int other_int = other->float_value();
+    //     int this_int = this->double_value();
+    //     int other_int = other->double_value();
     //     return new String(this_int ^ other_int);
     // }
 
     // Data* String::bit_not()
     // {
-    //     int this_int = this->float_value();
+    //     int this_int = this->double_value();
     //     return new String(~this_int);
     // }
 

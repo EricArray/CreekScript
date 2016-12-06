@@ -55,7 +55,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    float Boolean::float_value() const
+    double Boolean::double_value() const
     {
         return m_value;
     }
@@ -65,9 +65,11 @@ namespace creek
         // m_value = new_value > 0;
     // }
 
-    std::string Boolean::string_value() const
+    const std::string& Boolean::string_value() const
     {
-        return m_value ? "true" : "false";
+        static const std::string true_str = "true";
+        static const std::string false_str = "false";
+        return m_value ? true_str : false_str;
     }
 
     // void Boolean::string_value(const std::string& new_value)

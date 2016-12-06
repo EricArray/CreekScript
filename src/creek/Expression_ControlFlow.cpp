@@ -334,6 +334,7 @@ namespace creek
         Bytecode b;
         b << static_cast<uint8_t>(OpCode::control_switch);
         b << m_condition->bytecode(var_name_map);
+
         b << static_cast<uint32_t>(m_case_branches.size());
         for (auto& case_branch : m_case_branches)
         {
@@ -344,6 +345,9 @@ namespace creek
             }
             b << case_branch.body->bytecode(var_name_map);
         }
+
+        b << m_default_branch->bytecode(var_name_map);
+
         return b;
     }
 
@@ -637,9 +641,11 @@ namespace creek
 
     // @brief  `ExprTry` constructor.
     // @param  try_body    Expression to try.
+    // @param  id          Variable name for the catched exception.
     // @param  catch_body  Expression to execute when catching an exception.
-    ExprTry::ExprTry(Expression* try_body, Expression* catch_body) :
+    ExprTry::ExprTry(Expression* try_body, VarName id, Expression* catch_body) :
         m_try_body(try_body),
+        m_id(id),
         m_catch_body(catch_body)
     {
 
@@ -647,7 +653,7 @@ namespace creek
 
     Expression* ExprTry::clone() const
     {
-        return new ExprTry(m_try_body->clone(), m_catch_body->clone());
+        return new ExprTry(m_try_body->clone(), m_id, m_catch_body->clone());
     }
 
     bool ExprTry::is_const() const
@@ -657,7 +663,7 @@ namespace creek
 
     Expression* ExprTry::const_optimize() const
     {
-        return new ExprTry(m_try_body->const_optimize(), m_catch_body->const_optimize());
+        return new ExprTry(m_try_body->const_optimize(), m_id, m_catch_body->const_optimize());
     }
 
     Variable ExprTry::eval(Scope& scope)
@@ -666,16 +672,33 @@ namespace creek
         {
             return m_try_body->eval(scope);
         }
-        // catch (const Exception& e)
+        catch (const Exception& e)
+        {
+            Scope inner(scope);
+            inner.create_local_var(m_id, new Null());
+            return m_catch_body->eval(inner);
+        }
+        catch (const std::exception& e)
+        {
+            Scope inner(scope);
+            inner.create_local_var(m_id, new Null());
+            return m_catch_body->eval(scope);
+        }
         catch (...)
         {
+            Scope inner(scope);
+            inner.create_local_var(m_id, new Null());
             return m_catch_body->eval(scope);
         }
     }
 
     Bytecode ExprTry::bytecode(VarNameMap& var_name_map) const
     {
-        return Bytecode() << static_cast<uint8_t>(OpCode::control_try) << m_try_body->bytecode(var_name_map) << m_catch_body->bytecode(var_name_map);
+        return Bytecode()
+            << static_cast<uint8_t>(OpCode::control_try)
+            << m_try_body->bytecode(var_name_map)
+            << var_name_map.id_from_name(m_id.name())
+            << m_catch_body->bytecode(var_name_map);
     }
 
 

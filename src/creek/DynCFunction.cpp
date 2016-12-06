@@ -48,7 +48,7 @@ namespace creek
     // Construct from dynamic function.
     DynCFunction::DynCFunction(Scope& scope, const std::vector<VarName>& arg_names, bool is_variadic,
                                const std::shared_ptr<DynLibrary>& dl,
-                               const DynFunc& df) :
+                               const DynFuncDef& df) :
         DynCFunction(dl, std::make_shared<Definition>(scope, df.argn(), df.is_variadic(), df.listener()))
     {
         if (is_variadic != df.is_variadic() ||

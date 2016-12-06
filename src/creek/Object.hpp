@@ -88,10 +88,10 @@ namespace creek
         int int_value() const override;
 
         /// @brief  Get the float value of this data.
-        float float_value() const override;
+        double double_value() const override;
 
-        /// @brief  Get the string value of this data.
-        std::string string_value() const override;
+        // /// @brief  Get the string value of this data.
+        // std::string string_value() const override;
 
         /// @brief  Get the vector value of this data.
         const std::vector<Variable>& vector_value() const override;

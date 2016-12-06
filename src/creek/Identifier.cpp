@@ -57,7 +57,7 @@ namespace creek
     // void Identifier::int_value(int new_value);
 
     // Get the float value of this data.
-    float Identifier::float_value() const
+    double Identifier::double_value() const
     {
         return m_value.id();
     }
@@ -66,7 +66,7 @@ namespace creek
     // void Identifier::float_value(float new_value);
 
     // Get the string value of this data.
-    std::string Identifier::string_value() const
+    const std::string& Identifier::string_value() const
     {
         return m_value.name();
     }

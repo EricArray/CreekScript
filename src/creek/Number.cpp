@@ -55,7 +55,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    float Number::float_value() const
+    double Number::double_value() const
     {
         return m_value;
     }
@@ -65,10 +65,10 @@ namespace creek
         // m_value = new_value;
     // }
 
-    std::string Number::string_value() const
-    {
-        return float_to_string(m_value, 10);
-    }
+    // const std::string& Number::string_value() const
+    // {
+    //     return float_to_string(m_value, 10);
+    // }
 
     // void Number::string_value(const std::string& new_value)
     // {
@@ -87,22 +87,22 @@ namespace creek
 
     Data* Number::add(Data* other)
     {
-        return new Number(this->float_value() + other->float_value());
+        return new Number(this->double_value() + other->double_value());
     }
 
     Data* Number::sub(Data* other)
     {
-        return new Number(this->float_value() - other->float_value());
+        return new Number(this->double_value() - other->double_value());
     }
 
     Data* Number::mul(Data* other)
     {
-        return new Number(this->float_value() * other->float_value());
+        return new Number(this->double_value() * other->double_value());
     }
 
     Data* Number::div(Data* other)
     {
-        return new Number(this->float_value() / other->float_value());
+        return new Number(this->double_value() / other->double_value());
     }
 
     Data* Number::mod(Data* other)
@@ -112,12 +112,12 @@ namespace creek
 
     Data* Number::exp(Data* other)
     {
-        return new Number(std::pow(this->float_value(), other->float_value()));
+        return new Number(std::pow(this->double_value(), other->double_value()));
     }
 
     Data* Number::unm()
     {
-        return new Number(-this->float_value());
+        return new Number(-this->double_value());
     }
 
     Data* Number::bit_and(Data* other)
@@ -152,8 +152,8 @@ namespace creek
 
     int Number::cmp(Data* other)
     {
-        float this_float = this->float_value();
-        float other_float = other->float_value();
+        float this_float = this->double_value();
+        float other_float = other->double_value();
 
         if (this_float < other_float)
         {

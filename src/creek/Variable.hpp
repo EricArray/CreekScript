@@ -39,8 +39,8 @@ namespace creek
 
         /// @name   Data access
         /// @{
-        /// Get the stored data (const).
-        const Data* data() const;
+//        /// Get the stored data (const).
+//        const Data* data() const;
 
         /// Set the stored data.
         /// The older data is deleted.
@@ -58,14 +58,14 @@ namespace creek
 
         /// Get the soterd data (const).
         /// Same as `data()`.
-        const Data* operator * () const;
+        Data* operator * () const;
 
         /// Get the soterd data.
         /// Same as `data()`.
         Data* operator * ();
 
         /// Access stored data (const).
-        const Data* operator -> () const;
+        Data* operator -> () const;
 
         /// Access stored data.
         Data* operator -> ();
@@ -151,7 +151,7 @@ namespace creek
         /// Compare less-than/equal/greater-than.
         /// This special operation must return an integer.
         /// @return -1 if less-than, 0 if equal, +1 if greater-than.
-        int cmp(Variable& other);
+        int cmp(const Variable& other) const;
         /// @}
 
 
@@ -176,7 +176,7 @@ namespace creek
 
     private:
         /// Get the stored data.
-        Data* data();
+        Data* data() const;
 
         std::unique_ptr<Data> m_data = nullptr;
     };

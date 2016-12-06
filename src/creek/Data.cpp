@@ -6,6 +6,26 @@
 
 namespace creek
 {
+    #ifdef CREEK_INSTANCE_COUNT
+        int instance_count = 0;
+    #endif
+
+    Data::Data()
+    {
+        #ifdef CREEK_INSTANCE_COUNT
+            instance_count += 1;
+            std::clong << "Data instance count: " << instance_count << "\n";
+        #endif
+    }
+
+    Data::~Data()
+    {
+        #ifdef CREEK_INSTANCE_COUNT
+            instance_count -= 1;
+            std::clong << "Data instance count: " << instance_count << "\n";
+        #endif
+    }
+
     Data* Data::copy() const
     {
         throw Undefined(class_name() + "::copy");
@@ -59,7 +79,7 @@ namespace creek
     //     throw Undefined(class_name() + "::int_value");
     // }
 
-    float Data::float_value() const
+    double Data::double_value() const
     {
         throw Undefined(class_name() + "::float_value");
     }
@@ -69,7 +89,7 @@ namespace creek
     //     throw Undefined(class_name() + "::float_value");
     // }
 
-    std::string Data::string_value() const
+    const std::string& Data::string_value() const
     {
         throw Undefined(class_name() + "::string_value");
     }

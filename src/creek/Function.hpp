@@ -60,7 +60,7 @@ namespace creek
         // void bool_value(bool new_value) override;
         // int int_value() const override;
         // void int_value(int new_value) override;
-        // float float_value() const override;
+        // double double_value() const override;
         // void float_value(float new_value) override;
         // std::string string_value() const override;
         // void string_value(const std::string& new_value) override;

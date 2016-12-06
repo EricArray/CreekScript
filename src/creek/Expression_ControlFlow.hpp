@@ -229,8 +229,9 @@ namespace creek
     public:
         /// @brief  `ExprTry` constructor..
         /// @param  try_body    Expression to try.
+        /// @param  id          Variable name for the caught exception.
         /// @param  catch_body  Expression to execute when catching an exception.
-        ExprTry(Expression* try_body, Expression* catch_body);
+        ExprTry(Expression* try_body, VarName id, Expression* catch_body);
 
         Expression* clone() const override;
         bool is_const() const override;
@@ -241,6 +242,7 @@ namespace creek
 
     private:
         std::unique_ptr<Expression> m_try_body;
+        VarName m_id;
         std::unique_ptr<Expression> m_catch_body;
     };
 

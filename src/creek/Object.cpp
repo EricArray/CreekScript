@@ -116,30 +116,30 @@ namespace creek
     }
 
     // Get the float value of this data.
-    float Object::float_value() const
+    double Object::double_value() const
     {
         Variable v = call_method("to_number", {});
-        return v->float_value();
+        return v->double_value();
         // Variable class_obj = m_value->class_obj;
         // Variable method = class_obj.index(new Identifier("to_number"));
         // std::vector< std::unique_ptr<Data> > args;
         // args.emplace_back(this->copy());
         // Variable value = method->call(args);
-        // return value->float_value();
+        // return value->double_value();
     }
 
-    // Get the string value of this data.
-    std::string Object::string_value() const
-    {
-        Variable v = call_method("to_string", {});
-        return v->string_value();
-        // Variable class_obj = m_value->class_obj;
-        // Variable method = class_obj.index(new Identifier("to_string"));
-        // std::vector< std::unique_ptr<Data> > args;
-        // args.emplace_back(this->copy());
-        // Variable value = method->call(args);
-        // return value->string_value();
-    }
+    // // Get the string value of this data.
+    // std::string Object::string_value() const
+    // {
+    //     Variable v = call_method("to_string", {});
+    //     return v->string_value();
+    //     // Variable class_obj = m_value->class_obj;
+    //     // Variable method = class_obj.index(new Identifier("to_string"));
+    //     // std::vector< std::unique_ptr<Data> > args;
+    //     // args.emplace_back(this->copy());
+    //     // Variable value = method->call(args);
+    //     // return value->string_value();
+    // }
 
     // Get the vector value of this data.
     const std::vector<Variable>& Object::vector_value() const

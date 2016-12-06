@@ -44,14 +44,15 @@ namespace creek
         return 0;
     }
 
-    float Null::float_value() const
+    double Null::double_value() const
     {
         return 0.0f;
     }
 
-    std::string Null::string_value() const
+    const std::string& Null::string_value() const
     {
-        return "null";
+        static std::string str = "null";
+        return str;
     }
 
 

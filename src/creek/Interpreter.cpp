@@ -18,7 +18,6 @@
 #include <creek/Expression_Variable.hpp>
 #include <creek/utility.hpp>
 
-
 namespace creek
 {
     bool is_uppercase(char c)
@@ -96,41 +95,39 @@ namespace creek
     // Regular expressions for tokens.
     const std::map<TokenType, std::regex> Interpreter::token_regexes
     {
-        { TokenType::space,             std::regex(R"__(^(\s+))__") },
+        { TokenType::space,             std::regex(R"__(\s+)__") },
 
-        { TokenType::commentary,        std::regex(R"__(^(//[^\n]*))__") },
+        { TokenType::commentary,        std::regex(R"__(//[^\n]*)__") },
 
-        // { TokenType::boolean,        std::regex(R"(true|false)") },
-        // { TokenType::integer,        std::regex(R"__(^(0[bB][01]+|0[xX][0-9a-fA-F]+|[0-9]+))__") },
-        { TokenType::integer,           std::regex(R"__(^((0[xX][0-9a-fA-F]+)|(0[bB][01]+)|([0-9]+)))__") },
-        { TokenType::floatnum,          std::regex(R"__(^((0[xX][0-9a-fA-F]+\.[0-9a-fA-F]+)|([0-9]+\.[0-9]+)))__") },
-        { TokenType::character,         std::regex(R"__(^('([^'\\]|\\.)'))__") },
-        { TokenType::string,            std::regex(R"__(^("([^"\\]|\\.)*"))__") },
+        { TokenType::integer,           std::regex(R"__((0[xX][0-9a-fA-F]+)|(0[bB][01]+)|([0-9]+))__") },
+        { TokenType::floatnum,          std::regex(R"__((0[xX][0-9a-fA-F]+\.[0-9a-fA-F]+)|([0-9]+\.[0-9]+))__") },
+        { TokenType::character,         std::regex(R"__('([^'\\]|\\.)')__") },
+        { TokenType::string,            std::regex(R"__("([^"\\]|\\.)*")__") },
 
-        { TokenType::identifier,        std::regex(R"__(^([_a-zA-Z][_a-zA-Z0-9]*))__") },
-        { TokenType::assign,            std::regex(R"__(^(=))__") },
-        { TokenType::dot,               std::regex(R"__(^(\.))__") },
-        { TokenType::ellipsis_2,        std::regex(R"__(^(\.\.))__") },
-        { TokenType::ellipsis_3,        std::regex(R"__(^(\.\.\.))__") },
-        { TokenType::colon,             std::regex(R"__(^(:))__") },
-        { TokenType::double_colon,      std::regex(R"__(^(::))__") },
-        { TokenType::comma,             std::regex(R"__(^(,))__") },
-        { TokenType::semicolon,         std::regex(R"__(^(;))__") },
-        { TokenType::at,                std::regex(R"__(^(\@))__") },
-        { TokenType::hash,              std::regex(R"__(^(\#))__") },
-        { TokenType::dollar,            std::regex(R"__(^(\$))__") },
-        { TokenType::arrow,             std::regex(R"__(^(\->))__") },
-        { TokenType::then,              std::regex(R"__(^(=>))__") },
+        { TokenType::identifier,        std::regex(R"__([_a-zA-Z][_a-zA-Z0-9]*)__") },
+        { TokenType::assign,            std::regex(R"__(=)__") },
+        { TokenType::dot,               std::regex(R"__(\.)__") },
+        { TokenType::ellipsis_2,        std::regex(R"__(\.\.)__") },
+        { TokenType::ellipsis_3,        std::regex(R"__(\.\.\.)__") },
+        { TokenType::colon,             std::regex(R"__(:)__") },
+        { TokenType::double_colon,      std::regex(R"__(::)__") },
+        { TokenType::comma,             std::regex(R"__(,)__") },
+        { TokenType::semicolon,         std::regex(R"__(;)__") },
+        { TokenType::at,                std::regex(R"__(\@)__") },
+        { TokenType::hash,              std::regex(R"__(\#)__") },
+        { TokenType::dollar,            std::regex(R"__(\$)__") },
+        { TokenType::arrow,             std::regex(R"__(\->)__") },
+        { TokenType::then,              std::regex(R"__(=>)__") },
 
-        { TokenType::operation_sign,    std::regex(R"__(^(\+|\-|/|%|\^|~|(\*\*?)|(&&?)|(\|\|?)|==|(<[<=]?)|(>[>=]?)|(!(=))))__") },
-        // { TokenType::operation_sign,    std::regex(R"__(^(\+|\-|/|%|~|!|\*\*?|&&?|\|\|?|\^\^?|<(=>?)?|>=?|==|!=))__") },
+        { TokenType::operation_sign,    std::regex(R"__(\+|\-|/|%|\^|~|(\*\*?)|(&&?)|(\|\|?)|==|(<[<=]?)|(>[>=]?)|(![=!]?))__") },
+        // { TokenType::operation_sign,    std::regex(R"__(\+|\-|/|%|~|!|\*\*?|&&?|\|\|?|\^\^?|<(=>?)?|>=?|==|!=)__") },
 
-        { TokenType::open_round,        std::regex(R"__(^(\())__") },
-        { TokenType::close_round,       std::regex(R"__(^(\)))__") },
-        { TokenType::open_square,       std::regex(R"__(^(\[))__") },
-        { TokenType::close_square,      std::regex(R"__(^(\]))__") },
-        { TokenType::open_brace,        std::regex(R"__(^(\{))__") },
-        { TokenType::close_brace,       std::regex(R"__(^(\}))__") },
+        { TokenType::open_round,        std::regex(R"__(\()__") },
+        { TokenType::close_round,       std::regex(R"__(\))__") },
+        { TokenType::open_square,       std::regex(R"__(\[)__") },
+        { TokenType::close_square,      std::regex(R"__(\])__") },
+        { TokenType::open_brace,        std::regex(R"__(\{)__") },
+        { TokenType::close_brace,       std::regex(R"__(\})__") },
     };
 
     // Keywords.
@@ -182,6 +179,7 @@ namespace creek
     Expression* Interpreter::load_file(const std::string& path)
     {
         auto code = load(path);
+
         auto tokens = scan(code);
 
 //        std::cout << "Scanned tokens\n";
@@ -266,7 +264,10 @@ namespace creek
             for (auto& regex : token_regexes)
             {
                 std::smatch match;
-                if (std::regex_search(iter, code.cend(), match, regex.second))
+
+                auto r = std::regex_search(iter, code.cend(), match, regex.second, std::regex_constants::match_continuous);
+
+                if (r)
                 {
                     // reset when longer
                     if (largest < match.length())
@@ -422,6 +423,7 @@ namespace creek
             case TokenType::operation_sign:     //< Arithmetic/bitwise/boolean operation sign (eg.: +, -, &, and).
             case TokenType::open_round:         //< Open round brackets or parentheses (().
             case TokenType::open_square:        //< Open square brackets ([).
+            case TokenType::open_brace :        //< Open curly brackets or braces ({).
             case TokenType::keyword:            //< Identifier used as a keyword.
             {
                 return true;
@@ -487,7 +489,6 @@ namespace creek
 
             case TokenType::close_round:
             case TokenType::close_square:       //< Close square brackets or crotchets (]).
-            case TokenType::open_brace:         //< Open curly brackets or braces ({).
             case TokenType::close_brace:        //< Close curly brackets or braces (}).
             case TokenType::assign:             //< Equal sign (=).
             case TokenType::dot:                //< Dot (.).
@@ -680,25 +681,25 @@ namespace creek
 
                     Expression* value = parse_operation(iter);
 
-                    if (is_uppercase(var_name.name()[0]))
-                    {
-                        e = new ExprStoreGlobal(var_name, value);
-                    }
-                    else
-                    {
+                    // if (is_uppercase(var_name.name()[0]))
+                    // {
+                    //     e = new ExprStoreGlobal(var_name, value);
+                    // }
+                    // else
+                    // {
                         e = new ExprStoreLocal(var_name, value);
-                    }
+                    // }
                 }
                 else
                 {
-                    if (is_uppercase(var_name.name()[0]))
-                    {
-                        e = new ExprLoadGlobal(var_name);
-                    }
-                    else
-                    {
+                    // if (is_uppercase(var_name.name()[0]))
+                    // {
+                    //     e = new ExprLoadGlobal(var_name);
+                    // }
+                    // else
+                    // {
                         e = new ExprLoadLocal(var_name);
-                    }
+                    // }
                 }
                 break;
             }
@@ -828,9 +829,47 @@ namespace creek
                 break;
             }
 
-            // TODO: add literal map here:
-            // case TokenType::open_brace:         //< Open curly brackets or braces ({).
-            // case TokenType::close_brace:        //< Close curly brackets or braces (}).
+            case TokenType::open_brace:         //< Open curly brackets or braces ({).
+            {
+                iter += 1;
+
+                std::vector<ExprMap::Pair> pairs;
+                while (iter->type() != TokenType::close_brace)
+                {
+                    if (iter->type() == TokenType::identifier && (iter+1)->type() == TokenType::assign)
+                    {
+                        auto key = new ExprIdentifier(iter->identifier());
+                        iter += 1;
+                        iter += 1;
+                        auto value = parse_operation(iter);
+                        pairs.emplace_back(key, value);
+                    }
+                    else
+                    {
+                        auto key = parse_operation(iter);
+                        check_token_type(iter, {TokenType::colon});
+                        iter += 1;
+                        auto value = parse_operation(iter);
+                        pairs.emplace_back(key, value);
+                    }
+
+                    if (iter->type() == TokenType::comma)
+                    {
+                        iter += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                check_token_type(iter, {TokenType::close_brace});
+                iter += 1;
+
+                e = new ExprMap(pairs);
+
+                break;
+            }
 
             default:
             {
@@ -1194,44 +1233,57 @@ namespace creek
         Expression* default_branch = nullptr;
         while (iter->type() != TokenType::close_brace)
         {
-            check_token_type(iter, {TokenType::keyword});
-            if (iter->text() == "case")
+            switch (iter->type())
             {
-                iter += 1;
-
-                std::vector<Expression*> values;
-                while (iter->type() != TokenType::open_brace &&
-                       iter->type() != TokenType::then)
+                case TokenType::semicolon:
                 {
-                    values.push_back(parse_operation(iter));
-                    if (iter->type() == TokenType::comma)
+                    iter += 1;
+                    break;
+                }
+
+                case TokenType::keyword:
+                {
+                    if (iter->text() == "case")
                     {
                         iter += 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                auto body = parse_block_body(iter);
 
-                case_branches.emplace_back(values, body);
-            }
-            else if (iter->text() == "default")
-            {
-                iter += 1;
-                default_branch = parse_block_body(iter);
-            }
-            else
-            {
-                throw UnexpectedToken(*iter);
+                        std::vector<Expression*> values;
+                        while (iter->type() != TokenType::open_brace &&
+                               iter->type() != TokenType::then)
+                        {
+                            values.push_back(parse_operation(iter));
+                            if (iter->type() == TokenType::comma)
+                            {
+                                iter += 1;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        auto body = parse_block_body(iter);
+
+                        case_branches.emplace_back(values, body);
+                    }
+                    else if (iter->text() == "default")
+                    {
+                        iter += 1;
+                        default_branch = parse_block_body(iter);
+                    }
+                    break;
+                }
+
+                default:
+                {
+                    throw UnexpectedToken(*iter);
+                }
             }
         }
 
         check_token_type(iter, {TokenType::close_brace});
         iter += 1;
 
-        return new ExprSwitch(condition, case_branches, default_branch);
+        return new ExprSwitch(condition, case_branches, default_branch ? default_branch : new ExprVoid());
     }
 
     Expression* Interpreter::parse_try_block(ParseIterator& iter)
@@ -1247,9 +1299,12 @@ namespace creek
         }
         iter += 1;
 
+        check_token_type(iter, {TokenType::identifier});
+        auto id = iter->identifier();
+
         auto catch_body = parse_block_body(iter);
 
-        return new ExprTry(try_body, catch_body);
+        return new ExprTry(try_body, id, catch_body);
     }
 
 
@@ -1265,14 +1320,14 @@ namespace creek
 
         auto value = parse_operation(iter);
 
-        if (is_uppercase(var_name.name()[0]))
-        {
-            return new ExprCreateGlobal(var_name, value);
-        }
-        else
-        {
+        // if (is_uppercase(var_name.name()[0]))
+        // {
+        //     return new ExprCreateGlobal(var_name, value);
+        // }
+        // else
+        // {
             return new ExprCreateLocal(var_name, value);
-        }
+        // }
     }
 
     Expression* Interpreter::parse_function(ParseIterator& iter)
@@ -1372,34 +1427,34 @@ namespace creek
         // set local var
         if (id_chain.size() == 1)
         {
-            if (is_uppercase(id_chain.front().name()[0]))
-            {
-                e = new ExprCreateGlobal(id_chain.front(), e);
-            }
-            else
-            {
+            // if (is_uppercase(id_chain.front().name()[0]))
+            // {
+            //     e = new ExprCreateGlobal(id_chain.front(), e);
+            // }
+            // else
+            // {
                 e = new ExprCreateLocal(id_chain.front(), e);
-            }
+            // }
         }
         else if (id_chain.size() > 1)
         {
             Expression* getter = nullptr;
 
-            if (is_uppercase(id_chain.front().name()[0]))
-            {
-                getter = new ExprLoadGlobal(id_chain.front());
-            }
-            else
-            {
+            // if (is_uppercase(id_chain.front().name()[0]))
+            // {
+            //     getter = new ExprLoadGlobal(id_chain.front());
+            // }
+            // else
+            // {
                 getter = new ExprLoadLocal(id_chain.front());
-            }
+            // }
 
             for (size_t i = 1; i < id_chain.size() - 1; ++i)
             {
-                getter = new ExprIndexGet(getter, new ExprIdentifier(id_chain[i]));
+                getter = new ExprAttrGet(getter, id_chain[i]);
             }
 
-            e = new ExprIndexSet(getter, new ExprIdentifier(id_chain.back()), e);
+            e = new ExprAttrSet(getter, id_chain.back(), e);
         }
 
         return e;
@@ -1434,33 +1489,124 @@ namespace creek
         }
 
 
-        // super class
-        Expression* super_class = nullptr;
-        if (iter->type() == TokenType::arrow)
-        {
-            iter += 1;
-            super_class = parse_parameter(iter);
-        }
-        else
-        {
-            super_class = new ExprLoadGlobal(VarName("Object"));
-        }
-
-
         // extern class
         check_not_eof(iter);
         if (iter->type() == TokenType::keyword &&
             iter->text() == "extern")
         {
-            throw Unimplemented("extern classes");
+            iter += 1;
+
+            check_token_type(iter, {TokenType::string});
+            std::string library_path = iter->string();
+            iter += 1;
+
+            check_token_type(iter, {TokenType::open_brace});
+            iter += 1;
+
+            std::vector<ExprDynClass::MethodDef> method_defs;
+            std::vector<ExprDynClass::StaticDef> static_defs;
+            while (iter->type() != TokenType::close_brace)
+            {
+                // semicolon, skip
+                if (iter->type() == TokenType::semicolon)
+                {
+                    iter += 1;
+                }
+                // static
+                else if (iter->type() == TokenType::keyword &&
+                         iter->text() == "var")
+                {
+                    iter += 1;
+
+                    // var name
+                    check_token_type(iter, {TokenType::identifier});
+                    VarName id = iter->identifier();
+                    iter += 1;
+
+                    // save definition
+                    static_defs.emplace_back(id);
+                }
+                // method
+                else if (iter->type() == TokenType::keyword &&
+                         iter->text() == "func")
+                {
+                    iter += 1;
+
+                    // method name
+                    check_token_type(iter, {TokenType::identifier});
+                    VarName id = iter->identifier();
+                    iter += 1;
+
+                    // method arguments
+                    std::vector<VarName> arg_names;
+                    bool is_variadic = false;
+
+                    check_token_type(iter, {TokenType::open_round});
+                    iter += 1;
+
+                    while (iter->type() != TokenType::close_round &&
+                           !is_variadic)
+                    {
+                        check_token_type(iter, {TokenType::identifier});
+                        arg_names.emplace_back(iter->identifier());
+                        iter += 1;
+
+                        if (iter->type() == TokenType::ellipsis_3)
+                        {
+                            is_variadic = true;
+                            iter += 1;
+                        }
+
+                        check_token_type(iter, {TokenType::close_round, TokenType::comma});
+                        if (iter->type() == TokenType::comma)
+                        {
+                            iter += 1;
+                        }
+                    }
+
+                    check_token_type(iter, {TokenType::close_round});
+                    iter += 1;
+
+                    // save definition
+                    method_defs.emplace_back(arg_names, is_variadic, id);
+                }
+                // unexpected
+                else
+                {
+                    throw UnexpectedToken(*iter);
+                }
+            }
+
+            check_token_type(iter, {TokenType::close_brace});
+            iter += 1;
+
+            VarName id;
+            if (id_chain.size() > 0)
+            {
+                id = id_chain.back();
+            }
+            e = new ExprDynClass(id, method_defs, static_defs, library_path);
         }
         // intern class
         else
         {
+            // super class
+            Expression* super_class = nullptr;
+            if (iter->type() == TokenType::arrow)
+            {
+                iter += 1;
+                super_class = parse_parameter(iter);
+            }
+            else
+            {
+                super_class = new ExprLoadGlobal(VarName("Object"));
+            }
+
             check_token_type(iter, {TokenType::open_brace});
             iter += 1;
 
             std::vector<ExprClass::MethodDef> method_defs;
+            std::vector<ExprClass::StaticDef> static_defs;
             while (iter->type() != TokenType::close_brace)
             {
                 // semicolon, skip
@@ -1522,49 +1668,49 @@ namespace creek
                 }
             }
 
+            check_token_type(iter, {TokenType::close_brace});
+            iter += 1;
+
             VarName id;
             if (id_chain.size() > 0)
             {
                 id = id_chain.back();
             }
-            e = new ExprClass(id, super_class, method_defs);
-
-            check_token_type(iter, {TokenType::close_brace});
-            iter += 1;
+            e = new ExprClass(id, super_class, method_defs, static_defs);
         }
 
 
         // set var
         if (id_chain.size() == 1)
         {
-            if (is_uppercase(id_chain.front().name()[0]))
-            {
-                e = new ExprCreateGlobal(id_chain.front(), e);
-            }
-            else
-            {
+            // if (is_uppercase(id_chain.front().name()[0]))
+            // {
+            //     e = new ExprCreateGlobal(id_chain.front(), e);
+            // }
+            // else
+            // {
                 e = new ExprCreateLocal(id_chain.front(), e);
-            }
+            // }
         }
         else if (id_chain.size() > 1)
         {
             Expression* getter = nullptr;
 
-            if (is_uppercase(id_chain.front().name()[0]))
-            {
-                getter = new ExprLoadGlobal(id_chain.front());
-            }
-            else
-            {
+            // if (is_uppercase(id_chain.front().name()[0]))
+            // {
+            //     getter = new ExprLoadGlobal(id_chain.front());
+            // }
+            // else
+            // {
                 getter = new ExprLoadLocal(id_chain.front());
-            }
+            // }
 
             for (size_t i = 1; i < id_chain.size() - 1; ++i)
             {
-                getter = new ExprIndexGet(getter, new ExprIdentifier(id_chain[i]));
+                getter = new ExprAttrGet(getter, id_chain[i]);
             }
 
-            e = new ExprIndexSet(getter, new ExprIdentifier(id_chain.back()), e);
+            e = new ExprAttrSet(getter, id_chain.back(), e);
         }
 
         return e;

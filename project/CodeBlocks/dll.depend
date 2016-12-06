@@ -1,16 +1,16 @@
 # depslib dependency file v1.0
-1478743423 source:c:\users\eric\projects\creekscript\src\creek\boolean.cpp
+1480795180 source:c:\users\eric\projects\creekscript\src\creek\boolean.cpp
 	<creek/Boolean.hpp>
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 
-1478743384 c:\users\eric\projects\creekscript\src\creek\boolean.hpp
+1480795153 c:\users\eric\projects\creekscript\src\creek\boolean.hpp
 	<creek/api_mode.hpp>
 	<creek/Data.hpp>
 
 1478266094 c:\users\eric\projects\creekscript\src\creek\api_mode.hpp
 
-1478743379 c:\users\eric\projects\creekscript\src\creek\data.hpp
+1480795135 c:\users\eric\projects\creekscript\src\creek\data.hpp
 	<memory>
 	<string>
 	<vector>
@@ -23,7 +23,7 @@
 	<string>
 	<creek/api_mode.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\globalscope.hpp
+1479256580 c:\users\eric\projects\creekscript\src\creek\globalscope.hpp
 	<creek/Scope.hpp>
 	<creek/api_mode.hpp>
 
@@ -40,7 +40,7 @@
 	<vector>
 	<creek/api_mode.hpp>
 
-1478618997 c:\users\eric\projects\creekscript\src\creek\variable.hpp
+1478749702 c:\users\eric\projects\creekscript\src\creek\variable.hpp
 	<memory>
 	<creek/api_mode.hpp>
 	<creek/Data.hpp>
@@ -60,7 +60,7 @@
 	<cstdint>
 	<creek/api_mode.hpp>
 
-1478741617 source:c:\users\eric\projects\creekscript\src\creek\bytecodeinterpreter.cpp
+1480971914 source:c:\users\eric\projects\creekscript\src\creek\bytecodeinterpreter.cpp
 	<creek/BytecodeInterpreter.hpp>
 	<fstream>
 	<creek/Expression.hpp>
@@ -76,6 +76,7 @@
 	<creek/Expression_Variable.hpp>
 	<creek/OpCode.hpp>
 	<creek/utility.hpp>
+	<iostream>
 
 1478266094 c:\users\eric\projects\creekscript\src\creek\bytecodeinterpreter.hpp
 	<map>
@@ -86,7 +87,7 @@
 	<creek/Bytecode.hpp>
 	<creek/VarNameMap.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\varnamemap.hpp
+1480965189 c:\users\eric\projects\creekscript\src\creek\varnamemap.hpp
 	<map>
 	<creek/api_mode.hpp>
 	<creek/VarName.hpp>
@@ -98,8 +99,10 @@
 	<creek/OpCode.hpp>
 	<creek/VarNameMap.hpp>
 
-1478617748 c:\users\eric\projects\creekscript\src\creek\opcode.hpp
+1480970309 c:\users\eric\projects\creekscript\src\creek\opcode.hpp
 	<cstdio>
+	<map>
+	<creek/api_mode.hpp>
 
 1478618198 c:\users\eric\projects\creekscript\src\creek\expression_arithmetic.hpp
 	<memory>
@@ -115,13 +118,14 @@
 	<creek/Variable.hpp>
 	<creek/Scope.hpp>
 
-1478618199 c:\users\eric\projects\creekscript\src\creek\expression_datatypes.hpp
+1480788034 c:\users\eric\projects\creekscript\src\creek\expression_datatypes.hpp
 	<creek/Expression.hpp>
 	<creek/api_mode.hpp>
 	<creek/Boolean.hpp>
 	<creek/CFunction.hpp>
 	<creek/Function.hpp>
 	<creek/Identifier.hpp>
+	<creek/Map.hpp>
 	<creek/Null.hpp>
 	<creek/Number.hpp>
 	<creek/String.hpp>
@@ -129,7 +133,7 @@
 	<creek/Vector.hpp>
 	<creek/Void.hpp>
 
-1478435895 c:\users\eric\projects\creekscript\src\creek\cfunction.hpp
+1479502617 c:\users\eric\projects\creekscript\src\creek\cfunction.hpp
 	<creek/Data.hpp>
 	<functional>
 	<vector>
@@ -139,10 +143,11 @@
 	<creek/Resolver.hpp>
 	<creek/VarName.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\resolver.hpp
+1480798373 c:\users\eric\projects\creekscript\src\creek\resolver.hpp
 	<functional>
 	<string>
 	<typeinfo>
+	<type_traits>
 	<vector>
 	<creek/api_mode.hpp>
 	<creek/Boolean.hpp>
@@ -150,28 +155,29 @@
 	<creek/String.hpp>
 	<creek/Vector.hpp>
 	<creek/Void.hpp>
+	<creek/UserData.hpp>
 
-1478743388 c:\users\eric\projects\creekscript\src\creek\number.hpp
+1480795257 c:\users\eric\projects\creekscript\src\creek\number.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\string.hpp
+1480795309 c:\users\eric\projects\creekscript\src\creek\string.hpp
 	<creek/Data.hpp>
 	<string>
 	<creek/api_mode.hpp>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\vector.hpp
+1479502617 c:\users\eric\projects\creekscript\src\creek\vector.hpp
 	<creek/Data.hpp>
 	<memory>
 	<vector>
 	<creek/api_mode.hpp>
 	<creek/Variable.hpp>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\void.hpp
+1479502617 c:\users\eric\projects\creekscript\src\creek\void.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
-1478618199 c:\users\eric\projects\creekscript\src\creek\function.hpp
+1479502617 c:\users\eric\projects\creekscript\src\creek\function.hpp
 	<creek/Data.hpp>
 	<vector>
 	<memory>
@@ -179,12 +185,12 @@
 	<creek/Exception.hpp>
 	<creek/VarName.hpp>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\identifier.hpp
+1480795201 c:\users\eric\projects\creekscript\src\creek\identifier.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 	<creek/VarName.hpp>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\null.hpp
+1480795218 c:\users\eric\projects\creekscript\src\creek\null.hpp
 	<creek/Data.hpp>
 	<creek/api_mode.hpp>
 
@@ -203,7 +209,7 @@
 	<memory>
 	<creek/api_mode.hpp>
 
-1478618199 c:\users\eric\projects\creekscript\src\creek\expression_controlflow.hpp
+1479383431 c:\users\eric\projects\creekscript\src\creek\expression_controlflow.hpp
 	<creek/Expression.hpp>
 	<memory>
 	<vector>
@@ -215,7 +221,7 @@
 	<memory>
 	<creek/api_mode.hpp>
 
-1478432330 c:\users\eric\projects\creekscript\src\creek\expression_dynload.hpp
+1480788978 c:\users\eric\projects\creekscript\src\creek\expression_dynload.hpp
 	<creek/Expression.hpp>
 	<vector>
 	<creek/api_mode.hpp>
@@ -234,7 +240,7 @@
 	<creek/Vector.hpp>
 	<creek/utility.hpp>
 
-1478618268 c:\users\eric\projects\creekscript\src\creek\utility.hpp
+1479261673 c:\users\eric\projects\creekscript\src\creek\utility.hpp
 	<cassert>
 	<cmath>
 	<string>
@@ -244,11 +250,16 @@
 1478266094 source:c:\users\eric\projects\creekscript\src\creek\creek.cpp
 	<creek/creek.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\creek.hpp
+1478750296 c:\users\eric\projects\creekscript\src\creek\creek.hpp
+	<creek/api_mode.hpp>
 	<creek/Boolean.hpp>
+	<creek/Bytecode.hpp>
+	<creek/BytecodeInterpreter.hpp>
 	<creek/CFunction.hpp>
 	<creek/Data.hpp>
+	<creek/DynCFunction.hpp>
 	<creek/DynLibrary.hpp>
+	<creek/Endian.hpp>
 	<creek/Exception.hpp>
 	<creek/Expression.hpp>
 	<creek/Expression_Arithmetic.hpp>
@@ -262,9 +273,14 @@
 	<creek/Expression_General.hpp>
 	<creek/Expression_Variable.hpp>
 	<creek/Function.hpp>
+	<creek/GlobalScope.hpp>
 	<creek/Identifier.hpp>
 	<creek/Interpreter.hpp>
+	<creek/Map.hpp>
+	<creek/Null.hpp>
 	<creek/Number.hpp>
+	<creek/Object.hpp>
+	<creek/OpCode.hpp>
 	<creek/Resolver.hpp>
 	<creek/Scope.hpp>
 	<creek/StandardLibrary.hpp>
@@ -273,18 +289,22 @@
 	<creek/utility.hpp>
 	<creek/Variable.hpp>
 	<creek/VarName.hpp>
+	<creek/VarNameMap.hpp>
 	<creek/Vector.hpp>
+	<creek/Version.hpp>
 	<creek/Void.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\dynlibrary.hpp
+1480793057 c:\users\eric\projects\creekscript\src\creek\dynlibrary.hpp
+	<functional>
 	<map>
 	<string>
 	<creek/api_mode.hpp>
 	<creek/CFunction.hpp>
 	<creek/Exception.hpp>
 	<creek/Resolver.hpp>
+	<creek/UserData.hpp>
 
-1478618199 c:\users\eric\projects\creekscript\src\creek\interpreter.hpp
+1478748512 c:\users\eric\projects\creekscript\src\creek\interpreter.hpp
 	<map>
 	<regex>
 	<set>
@@ -303,22 +323,22 @@
 1478266094 c:\users\eric\projects\creekscript\src\creek\standardlibrary.hpp
 	<creek/api_mode.hpp>
 
-1478743370 source:c:\users\eric\projects\creekscript\src\creek\data.cpp
+1480795192 source:c:\users\eric\projects\creekscript\src\creek\data.cpp
 	<creek/Data.hpp>
 	<creek/Exception.hpp>
 	<creek/Variable.hpp>
 
-1478435913 source:c:\users\eric\projects\creekscript\src\creek\dyncfunction.cpp
+1479171096 source:c:\users\eric\projects\creekscript\src\creek\dyncfunction.cpp
 	<creek/DynCFunction.hpp>
 	<creek/utility.hpp>
 
-1478435880 c:\users\eric\projects\creekscript\src\creek\dyncfunction.hpp
+1479171087 c:\users\eric\projects\creekscript\src\creek\dyncfunction.hpp
 	<creek/CFunction.hpp>
 	<creek/api_mode.hpp>
 	<creek/DynLibrary.hpp>
 	<creek/Exception.hpp>
 
-1478266094 source:c:\users\eric\projects\creekscript\src\creek\dynlibrary.cpp
+1480793136 source:c:\users\eric\projects\creekscript\src\creek\dynlibrary.cpp
 	<creek/DynLibrary.hpp>
 	<windows.h>
 	<dlfcn.h>
@@ -360,7 +380,7 @@
 	<creek/Scope.hpp>
 	<creek/Variable.hpp>
 
-1478743473 source:c:\users\eric\projects\creekscript\src\creek\expression_controlflow.cpp
+1480971656 source:c:\users\eric\projects\creekscript\src\creek\expression_controlflow.cpp
 	<creek/Expression_ControlFlow.hpp>
 	<creek/Exception.hpp>
 	<creek/Expression_DataTypes.hpp>
@@ -375,9 +395,11 @@
 	<creek/Scope.hpp>
 	<creek/Variable.hpp>
 
-1478432332 source:c:\users\eric\projects\creekscript\src\creek\expression_dynload.cpp
+1480788453 source:c:\users\eric\projects\creekscript\src\creek\expression_dynload.cpp
 	<creek/Expression_DynLoad.hpp>
 	<creek/DynCFunction.hpp>
+	<creek/GlobalScope.hpp>
+	<creek/Identifier.hpp>
 
 1478741634 source:c:\users\eric\projects\creekscript\src\creek\expression_general.cpp
 	<creek/Expression_General.hpp>
@@ -399,18 +421,19 @@
 	<creek/Vector.hpp>
 	<creek/utility.hpp>
 
-1478742759 source:c:\users\eric\projects\creekscript\src\creek\globalscope.cpp
+1479497274 source:c:\users\eric\projects\creekscript\src\creek\globalscope.cpp
 	<creek/GlobalScope.hpp>
 	<creek/CFunction.hpp>
 	<creek/Exception.hpp>
 	<creek/Identifier.hpp>
+	<creek/Map.hpp>
 	<creek/Null.hpp>
 	<creek/Object.hpp>
 	<creek/Void.hpp>
 	<creek/utility.hpp>
 	<iostream>
 
-1478743412 c:\users\eric\projects\creekscript\src\creek\object.hpp
+1480795283 c:\users\eric\projects\creekscript\src\creek\object.hpp
 	<creek/Data.hpp>
 	<map>
 	<memory>
@@ -421,12 +444,12 @@
 	<creek/Variable.hpp>
 	<creek/VarName.hpp>
 
-1478743490 source:c:\users\eric\projects\creekscript\src\creek\identifier.cpp
+1480795210 source:c:\users\eric\projects\creekscript\src\creek\identifier.cpp
 	<creek/Identifier.hpp>
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 
-1478741671 source:c:\users\eric\projects\creekscript\src\creek\interpreter.cpp
+1480971765 source:c:\users\eric\projects\creekscript\src\creek\interpreter.cpp
 	<creek/Interpreter.hpp>
 	<fstream>
 	<iostream>
@@ -445,19 +468,19 @@
 	<creek/Expression_Variable.hpp>
 	<creek/utility.hpp>
 
-1478743501 source:c:\users\eric\projects\creekscript\src\creek\null.cpp
+1480795234 source:c:\users\eric\projects\creekscript\src\creek\null.cpp
 	<creek/Null.hpp>
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 
-1478743504 source:c:\users\eric\projects\creekscript\src\creek\number.cpp
+1480795253 source:c:\users\eric\projects\creekscript\src\creek\number.cpp
 	<creek/Number.hpp>
 	<cmath>
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 	<creek/utility.hpp>
 
-1478743507 source:c:\users\eric\projects\creekscript\src\creek\object.cpp
+1480795296 source:c:\users\eric\projects\creekscript\src\creek\object.cpp
 	<creek/Object.hpp>
 	<tuple>
 	<creek/Identifier.hpp>
@@ -465,11 +488,11 @@
 1478266094 source:c:\users\eric\projects\creekscript\src\creek\resolver.cpp
 	<creek/Resolver.hpp>
 
-1478457876 source:c:\users\eric\projects\creekscript\src\creek\scope.cpp
+1480748051 source:c:\users\eric\projects\creekscript\src\creek\scope.cpp
 	<creek/Scope.hpp>
 	<creek/Exception.hpp>
 
-1478266094 source:c:\users\eric\projects\creekscript\src\creek\standardlibrary.cpp
+1479249024 source:c:\users\eric\projects\creekscript\src\creek\standardlibrary.cpp
 	<creek/StandardLibrary.hpp>
 	<iostream>
 	<fstream>
@@ -482,7 +505,7 @@
 	<creek/Scope.hpp>
 	<creek/Void.hpp>
 
-1478743513 source:c:\users\eric\projects\creekscript\src\creek\string.cpp
+1480795316 source:c:\users\eric\projects\creekscript\src\creek\string.cpp
 	<creek/String.hpp>
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
@@ -491,13 +514,13 @@
 1478529328 source:c:\users\eric\projects\creekscript\src\creek\token.cpp
 	<creek/Token.hpp>
 
-1478530820 source:c:\users\eric\projects\creekscript\src\creek\utility.cpp
+1479261683 source:c:\users\eric\projects\creekscript\src\creek\utility.cpp
 	<creek/utility.hpp>
 	<iostream>
 	<map>
 	<sstream>
 
-1478742126 source:c:\users\eric\projects\creekscript\src\creek\variable.cpp
+1478749779 source:c:\users\eric\projects\creekscript\src\creek\variable.cpp
 	<creek/Variable.hpp>
 	<creek/Data.hpp>
 	<creek/utility.hpp>
@@ -506,7 +529,7 @@
 	<creek/VarName.hpp>
 	<creek/Exception.hpp>
 
-1478266094 source:c:\users\eric\projects\creekscript\src\creek\varnamemap.cpp
+1480965644 source:c:\users\eric\projects\creekscript\src\creek\varnamemap.cpp
 	<creek/VarNameMap.hpp>
 	<creek/Exception.hpp>
 
@@ -516,12 +539,12 @@
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 
-1478436303 source:c:\users\eric\projects\creekscript\src\creek\void.cpp
+1478743522 source:c:\users\eric\projects\creekscript\src\creek\void.cpp
 	<creek/Void.hpp>
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 
-1478742284 source:c:\users\eric\projects\creekscript\src\creek\expression_datatypes.cpp
+1480968880 source:c:\users\eric\projects\creekscript\src\creek\expression_datatypes.cpp
 	<creek/Expression_DataTypes.hpp>
 	<creek/GlobalScope.hpp>
 	<creek/Scope.hpp>
@@ -531,7 +554,32 @@
 	<creek/Version.hpp>
 	<creek/utility.hpp>
 
-1478266094 c:\users\eric\projects\creekscript\src\creek\version.hpp
+1478751069 c:\users\eric\projects\creekscript\src\creek\version.hpp
 	<string>
 	<creek/api_mode.hpp>
+
+1479502617 c:\users\eric\projects\creekscript\src\creek\map.hpp
+	<creek/Data.hpp>
+	<memory>
+	<map>
+	<creek/api_mode.hpp>
+	<creek/Object.hpp>
+	<creek/Variable.hpp>
+
+1478750083 source:c:\users\eric\projects\creekscript\src\creek\map.cpp
+	<creek/Map.hpp>
+	<sstream>
+	<creek/Expression_DataTypes.hpp>
+	<creek/GlobalScope.hpp>
+
+1479172302 source:c:\users\eric\projects\creekscript\src\creek\userdata.cpp
+	<creek/UserData.hpp>
+
+1480793484 c:\users\eric\projects\creekscript\src\creek\userdata.hpp
+	<creek/Data.hpp>
+	<creek/utility.hpp>
+	<creek/Variable.hpp>
+
+1480970370 source:c:\users\eric\projects\creekscript\src\creek\opcode.cpp
+	<creek/OpCode.hpp>
 

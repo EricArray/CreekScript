@@ -41,8 +41,9 @@ namespace creek
         auto& values = args[0];
         for (auto& value : values->vector_value())
         {
-            std::cout << "\t" << value->debug_text() << "\n";
+            std::cout << "\t" << value->debug_text();;
         }
+        std::cout << "\n";
         return new Void();
     }
 

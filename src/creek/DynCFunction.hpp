@@ -47,7 +47,7 @@ namespace creek
         DynCFunction(Scope& scope,
                      const std::vector<VarName>& arg_names, bool is_variadic,
                      const std::shared_ptr<DynLibrary>& dl,
-                     const DynFunc& dyn_func);
+                     const DynFuncDef& dyn_func_def);
 
         /// @brief  `DynCFunction` constructor.
         /// @param  dl      Shared dynamic library.

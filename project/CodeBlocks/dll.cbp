@@ -99,12 +99,15 @@
 		<Unit filename="../../src/creek/Identifier.hpp" />
 		<Unit filename="../../src/creek/Interpreter.cpp" />
 		<Unit filename="../../src/creek/Interpreter.hpp" />
+		<Unit filename="../../src/creek/Map.cpp" />
+		<Unit filename="../../src/creek/Map.hpp" />
 		<Unit filename="../../src/creek/Null.cpp" />
 		<Unit filename="../../src/creek/Null.hpp" />
 		<Unit filename="../../src/creek/Number.cpp" />
 		<Unit filename="../../src/creek/Number.hpp" />
 		<Unit filename="../../src/creek/Object.cpp" />
 		<Unit filename="../../src/creek/Object.hpp" />
+		<Unit filename="../../src/creek/OpCode.cpp" />
 		<Unit filename="../../src/creek/OpCode.hpp" />
 		<Unit filename="../../src/creek/Resolver.cpp" />
 		<Unit filename="../../src/creek/Resolver.hpp" />
@@ -116,6 +119,8 @@
 		<Unit filename="../../src/creek/String.hpp" />
 		<Unit filename="../../src/creek/Token.cpp" />
 		<Unit filename="../../src/creek/Token.hpp" />
+		<Unit filename="../../src/creek/UserData.cpp" />
+		<Unit filename="../../src/creek/UserData.hpp" />
 		<Unit filename="../../src/creek/VarName.cpp" />
 		<Unit filename="../../src/creek/VarName.hpp" />
 		<Unit filename="../../src/creek/VarNameMap.cpp" />

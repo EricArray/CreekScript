@@ -7,6 +7,7 @@
 #include <creek/CFunction.hpp>
 #include <creek/Function.hpp>
 #include <creek/Identifier.hpp>
+#include <creek/Map.hpp>
 #include <creek/Null.hpp>
 #include <creek/Number.hpp>
 #include <creek/String.hpp>
@@ -43,7 +44,7 @@ namespace creek
     public:
         /// @brief  `ExprNull` constructor..
         ExprNull();
-        
+
         Expression* clone() const override;
         bool is_const() const override;
 
@@ -60,7 +61,7 @@ namespace creek
         /// @brief  `ExprBoolean` constructor..
         /// @param  value       Boolean value.
         ExprBoolean(Boolean::Value value);
-        
+
         Expression* clone() const override;
         bool is_const() const override;
 
@@ -80,7 +81,7 @@ namespace creek
         /// @brief  `ExprNumber` constructor..
         /// @param  value       Number value.
         ExprNumber(Number::Value value);
-        
+
         Expression* clone() const override;
         bool is_const() const override;
 
@@ -100,7 +101,7 @@ namespace creek
         /// @brief  `ExprString` constructor..
         /// @param  value       String value.
         ExprString(String::Value value);
-        
+
         Expression* clone() const override;
         bool is_const() const override;
 
@@ -120,7 +121,7 @@ namespace creek
         /// @brief  `ExprIdentifier` constructor..
         /// @param  value       Identifier value.
         ExprIdentifier(Identifier::Value value);
-        
+
         Expression* clone() const override;
         bool is_const() const override;
 
@@ -133,14 +134,14 @@ namespace creek
 
 
     /// @brief  Expression: Create a vector data.
-    /// Returns a new, empty `Vector`.
+    /// Returns a new `Vector`.
     class CREEK_API ExprVector : public Expression
     {
     public:
         /// @brief  `ExprVector` constructor.
         /// @param  values  List of initial values.
-        ExprVector(std::vector<Expression*> values);
-        
+        ExprVector(const std::vector<Expression*>& values);
+
         Expression* clone() const override;
         bool is_const() const override;
         Expression* const_optimize() const override;
@@ -150,6 +151,40 @@ namespace creek
 
     private:
         std::vector< std::unique_ptr<Expression> > m_values;
+    };
+
+
+    /// @brief  Expression: Create a map data.
+    /// Returns a new `Map`.
+    class CREEK_API ExprMap : public Expression
+    {
+    public:
+        /// @brief  Structure for map key-value pairs.
+        struct Pair {
+            Pair(Expression* key, Expression* value) :
+                key(key),
+                value(value)
+            {
+
+            }
+
+            std::unique_ptr<Expression> key; ///< Expression for key.
+            std::unique_ptr<Expression> value; ///< Expression for value.
+        };
+
+        /// @brief  `ExprMap` constructor.
+        /// @param  values  List of initial values.
+        ExprMap(std::vector<Pair>& values);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
+        Variable eval(Scope& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    private:
+        std::vector<Pair> m_pairs;
     };
 
 
@@ -246,11 +281,25 @@ namespace creek
             std::shared_ptr<Expression> body; ///< Expression evaluated when called.
         };
 
+        /// @brief  Class static member definition.
+        struct StaticDef
+        {
+            StaticDef(VarName id) :
+                id(id)
+            {
+
+            }
+
+            VarName id; ///< Member name.
+        };
+
+
         /// @brief  `ExprClass` constructor.
         /// @param  id          Class name.
         /// @param  super_class Expression for the super class.
         /// @param  method_defs List of method definitions.
-        ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs);
+        /// @param  static_defs List of static member definitions.
+        ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs);
 
         /// @brief  Get a copy.
         /// The cloned expression shares the body expression.
@@ -269,6 +318,7 @@ namespace creek
         VarName m_id;
         std::unique_ptr<Expression> m_super_class;
         std::vector<MethodDef> m_method_defs;
+        std::vector<StaticDef> m_static_defs;
     };
 
     /// @}

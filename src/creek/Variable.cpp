@@ -51,14 +51,14 @@ namespace creek
         return *this;
     }
 
-    // Get the stored data. (const)
-    const Data* Variable::data() const
-    {
-        return m_data.get();
-    }
+//    // Get the stored data. (const)
+//    const Data* Variable::data() const
+//    {
+//        return m_data.get();
+//    }
 
     // Get the stored data.
-    Data* Variable::data()
+    Data* Variable::data() const
     {
         return m_data.get();
     }
@@ -89,7 +89,7 @@ namespace creek
 
     // Get the soterd data (const).
     // Same as `data()`.
-    const Data* Variable::operator * () const
+    Data* Variable::operator * () const
     {
         return data();
     }
@@ -102,7 +102,7 @@ namespace creek
     }
 
     // Access stored data (const).
-    const Data* Variable::operator -> () const
+    Data* Variable::operator -> () const
     {
         assert(data());
         return data();
@@ -280,7 +280,7 @@ namespace creek
     // Compare less-than/equal/greater-than.
     // This special operation must return an integer.
     // @return -1 if less-than, 0 if equal, +1 if greater-than.
-    int Variable::cmp(Variable& other)
+    int Variable::cmp(const Variable& other) const
     {
         assert(data());
         assert(other.data());
