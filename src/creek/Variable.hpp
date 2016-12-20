@@ -78,10 +78,10 @@ namespace creek
         /// @name   Container index
         /// @{
         /// Get the data at index.
-        Variable index(Variable key);
+        Variable index(const SharedPointer<Scope>& scope, Variable key);
 
         /// Set the data at index.
-        Variable index(Variable key, Variable new_data);
+        Variable index(const SharedPointer<Scope>& scope, Variable key, Variable new_data);
         /// @}
 
 
@@ -89,59 +89,59 @@ namespace creek
         /// @{
         /// @brief  Get the attribute.
         /// @brief  key         Attribute key.
-        Variable attr(VarName key);
+        Variable attr(const SharedPointer<Scope>& scope, VarName key);
 
         /// @brief  Set the attribute.
         /// @brief  key         Attribute key.
         /// @brief  new_data    New data to save in attribute.
-        Variable attr(VarName key, Variable new_data);
+        Variable attr(const SharedPointer<Scope>& scope, VarName key, Variable new_data);
         /// @}
 
 
         /// @name   Arithmetic operations
         /// @{
         /// Addition.
-        Variable add(Variable& other);
+        Variable add(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Subtraction.
-        Variable sub(Variable& other);
+        Variable sub(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Multiplication.
-        Variable mul(Variable& other);
+        Variable mul(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Divison.
-        Variable div(Variable& other);
+        Variable div(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Modulo.
-        Variable mod(Variable& other);
+        Variable mod(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Exponentiation.
-        Variable exp(Variable& other);
+        Variable exp(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Unary minus.
-        Variable unm();
+        Variable unm(const SharedPointer<Scope>& scope);
         /// @}
 
 
         /// @name   Bitwise operations
         /// @{
         /// Bitwise and.
-        Variable bit_and(Variable& other);
+        Variable bit_and(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Bitwise or.
-        Variable bit_or(Variable& other);
+        Variable bit_or(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Bitwise xor.
-        Variable bit_xor(Variable& other);
+        Variable bit_xor(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Bitwise not.
-        Variable bit_not();
+        Variable bit_not(const SharedPointer<Scope>& scope);
 
         /// Bitwise left shift.
-        Variable bit_left_shift(Variable& other);
+        Variable bit_left_shift(const SharedPointer<Scope>& scope, Variable& other);
 
         /// Bitwise right shift.
-        Variable bit_right_shift(Variable& other);
+        Variable bit_right_shift(const SharedPointer<Scope>& scope, Variable& other);
         /// @}
 
 
@@ -151,28 +151,28 @@ namespace creek
         /// Compare less-than/equal/greater-than.
         /// This special operation must return an integer.
         /// @return -1 if less-than, 0 if equal, +1 if greater-than.
-        int cmp(const Variable& other) const;
+        int cmp(const SharedPointer<Scope>& scope, const Variable& other) const;
         /// @}
 
 
-        /// @name   Operators
-        /// @{
-        /// Call equivalent data operation.
-        // ProxyVariable operator [] (Variable& index);
+        // /// @name   Operators
+        // /// @{
+        // /// Call equivalent data operation.
+        // // ProxyVariable operator [] (Variable& index);
 
-        Variable operator + (Variable& other);
-        Variable operator - (Variable& other);
-        Variable operator * (Variable& other);
-        Variable operator / (Variable& other);
-        Variable operator % (Variable& other);
-        // Variable operator ** (Variable& other); // not free operator with same precedence as pow.
-        Variable operator - ();
+        // Variable operator + (Variable& other);
+        // Variable operator - (Variable& other);
+        // Variable operator * (Variable& other);
+        // Variable operator / (Variable& other);
+        // Variable operator % (Variable& other);
+        // // Variable operator ** (Variable& other); // not free operator with same precedence as pow.
+        // Variable operator - ();
 
-        Variable operator & (Variable& other);
-        Variable operator | (Variable& other);
-        Variable operator ^ (Variable& other);
-        Variable operator ~ ();
-        /// @}
+        // Variable operator & (Variable& other);
+        // Variable operator | (Variable& other);
+        // Variable operator ^ (Variable& other);
+        // Variable operator ~ ();
+        // /// @}
 
     private:
         /// Get the stored data.

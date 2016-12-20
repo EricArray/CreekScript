@@ -39,11 +39,11 @@ namespace creek
     //     }
     // }
 
-    // Variable ExprAdd::eval(Scope& scope)
+    // Variable ExprAdd::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.add(r);
+    //     return l.add(scope, r);
     // }
 
     // Bytecode ExprAdd::bytecode(VarNameMap& var_name_map) const
@@ -85,11 +85,11 @@ namespace creek
     //     }
     // }
 
-    // Variable ExprSub::eval(Scope& scope)
+    // Variable ExprSub::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.sub(r);
+    //     return l.sub(scope, r);
     // }
 
     // Bytecode ExprSub::bytecode(VarNameMap& var_name_map) const
@@ -131,11 +131,11 @@ namespace creek
     //     }
     // }
 
-    // Variable ExprMul::eval(Scope& scope)
+    // Variable ExprMul::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.mul(r);
+    //     return l.mul(scope, r);
     // }
 
     // Bytecode ExprMul::bytecode(VarNameMap& var_name_map) const
@@ -177,11 +177,11 @@ namespace creek
     //     }
     // }
 
-    // Variable ExprDiv::eval(Scope& scope)
+    // Variable ExprDiv::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.div(r);
+    //     return l.div(scope, r);
     // }
 
     // Bytecode ExprDiv::bytecode(VarNameMap& var_name_map) const
@@ -223,11 +223,11 @@ namespace creek
     //     }
     // }
 
-    // Variable ExprMod::eval(Scope& scope)
+    // Variable ExprMod::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.mod(r);
+    //     return l.mod(scope, r);
     // }
 
     // Bytecode ExprMod::bytecode(VarNameMap& var_name_map) const
@@ -269,11 +269,11 @@ namespace creek
     //     }
     // }
 
-    // Variable ExprExp::eval(Scope& scope)
+    // Variable ExprExp::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.exp(r);
+    //     return l.exp(scope, r);
     // }
 
     // Bytecode ExprExp::bytecode(VarNameMap& var_name_map) const
@@ -289,10 +289,10 @@ namespace creek
 
     // }
 
-    // Variable ExprUnm::eval(Scope& scope)
+    // Variable ExprUnm::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_expr->eval(scope));
-    //     return l.unm();
+    //     return l.unm(scope);
     // }
 
     // Bytecode ExprUnm::bytecode(VarNameMap& var_name_map) const

@@ -63,22 +63,22 @@ namespace creek
     }
 
 
-    bool Map::bool_value() const
+    bool Map::bool_value(const SharedPointer<Scope>& scope) const
     {
         return true;
     }
 
     // // Get the vector value of this data.
-    // std::vector<Variable>& Map::vector_value() const
+    // std::vector<Variable>& Map::vector_value(const SharedPointer<Scope>& scope) const
     // {
     //     return *m_value;
     // }
 
 
 
-    Data* Map::index(Data* key)
+    Data* Map::index(const SharedPointer<Scope>& scope, Data* key)
     {
-        auto iter = m_value->find(Key(key->copy()));
+        auto iter = m_value->find(Key(scope, key->copy()));
         if (iter == m_value->end())
         {
             auto key_text = key->debug_text();
@@ -87,26 +87,26 @@ namespace creek
         return iter->second->copy();
     }
 
-    Data* Map::index(Data* key, Data* new_value)
+    Data* Map::index(const SharedPointer<Scope>& scope, Data* key, Data* new_value)
     {
-        (*m_value)[Key(key->copy())] = Variable(new_value->copy());
+        (*m_value)[Key(scope, key->copy())] = Variable(new_value->copy());
         return new_value;
     }
 
-    Data* Map::attr(VarName key)
+    Data* Map::attr(const SharedPointer<Scope>& scope, VarName key)
     {
         Variable i = new Identifier(key);
-        return index(*i);
+        return index(scope, *i);
     }
 
-    Data* Map::attr(VarName key, Data* new_value)
+    Data* Map::attr(const SharedPointer<Scope>& scope, VarName key, Data* new_value)
     {
         Variable i = new Identifier(key);
-        return index(*i, new_value);
+        return index(scope, *i, new_value);
     }
 
 
-    // int Map::cmp(Data* other)
+    // int Map::cmp(const SharedPointer<Scope>& scope, Data* other)
     // {
     //     if (Map* other_as_map = dynamic_cast<Map*>(other))
     //     {
@@ -118,8 +118,8 @@ namespace creek
     //     }
     // }
 
-    Data* Map::get_class() const
+    Data* Map::get_class(const SharedPointer<Scope>& scope) const
     {
-        return GlobalScope::class_Map->copy();
+        return scope->global()->class_Map->copy();
     }
 }

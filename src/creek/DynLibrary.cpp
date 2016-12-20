@@ -191,6 +191,18 @@ namespace creek
         return sym;
     }
 
+    /// @brief  Find a varible.
+    /// @param  var_name    Name of the variable.
+    /// Search in this library for a global `Variable` variable named
+    /// `creek_var_<var_name>` where @c <var_name> is the @p var_name.
+    const Variable& DynLibrary::find_dyn_var(const std::string& var_name)
+    {
+        static const std::string preffix = "creek_var_";
+        auto dyn_var_name = preffix + var_name;
+        auto dyn_var = find_symbol<const Variable>(dyn_var_name);
+        return *dyn_var;
+    }
+
     // @brief  Find a listener function.
     // @param  func_name   Name of the function.
     // Search in this library for a global `DynFuncDef` variable named

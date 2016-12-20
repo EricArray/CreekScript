@@ -20,7 +20,7 @@ namespace creek
         /// @param  library_path    File path to dynamic library.
         /// @param  func_name       Name of the function in the library.
         /// Load a new library.
-        DynCFunction(Scope& scope,
+        DynCFunction(const SharedPointer<Scope>& scope,
                      const std::vector<VarName>& arg_names, bool is_variadic,
                      const std::string& library_path,
                      const std::string& func_name);
@@ -32,7 +32,7 @@ namespace creek
         /// @param  dl          Shared dynamic library.
         /// @param  func_name   Name of the function in the library.
         /// Find in an shared library.
-        DynCFunction(Scope& scope,
+        DynCFunction(const SharedPointer<Scope>& scope,
                      const std::vector<VarName>& arg_names, bool is_variadic,
                      const std::shared_ptr<DynLibrary>& dl,
                      const std::string& func_name);
@@ -44,7 +44,7 @@ namespace creek
         /// @param  dl          Shared dynamic library.
         /// @param  dyn_func    Dynamic function.
         /// Construct from dynamic function.
-        DynCFunction(Scope& scope,
+        DynCFunction(const SharedPointer<Scope>& scope,
                      const std::vector<VarName>& arg_names, bool is_variadic,
                      const std::shared_ptr<DynLibrary>& dl,
                      const DynFuncDef& dyn_func_def);

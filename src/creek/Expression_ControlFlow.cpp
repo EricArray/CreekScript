@@ -60,13 +60,13 @@ namespace creek
         }
     }
 
-    Variable ExprBasicBlock::eval(Scope& scope)
+    Variable ExprBasicBlock::eval(const SharedPointer<Scope>& scope)
     {
         // TODO: Verify which constructor is called for `result` in each three steps.
         Variable result;
         for (auto& expression : m_expressions)
         {
-            if (scope.is_breaking())
+            if (scope->is_breaking())
                 break;
 
             result = expression->eval(scope);
@@ -120,9 +120,9 @@ namespace creek
         }
     }
 
-    Variable ExprDo::eval(Scope& scope)
+    Variable ExprDo::eval(const SharedPointer<Scope>& scope)
     {
-        Scope new_scope(scope);
+        auto new_scope = SharedPointer<LocalScope>::make(scope);
         return m_value->eval(new_scope);
     }
 
@@ -153,9 +153,9 @@ namespace creek
     {
         if (m_condition->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable c = m_condition->eval(scope);
-            if (c->bool_value() == true)
+            if (c->bool_value(scope) == true)
             {
                 return m_true_branch->is_const();
             }
@@ -174,9 +174,9 @@ namespace creek
     {
         if (m_condition->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable c = m_condition->eval(scope);
-            if (c->bool_value() == true)
+            if (c->bool_value(scope) == true)
             {
                 return m_true_branch->const_optimize();
             }
@@ -190,12 +190,12 @@ namespace creek
                                m_false_branch->const_optimize());
     }
 
-    Variable ExprIf::eval(Scope& scope)
+    Variable ExprIf::eval(const SharedPointer<Scope>& scope)
     {
-        Scope new_scope(scope);
+        auto new_scope = SharedPointer<LocalScope>::make(scope);
 
         Variable condition_result(m_condition->eval(new_scope));
-        if (condition_result->bool_value())
+        if (condition_result->bool_value(scope))
         {
             return m_true_branch ? m_true_branch->eval(new_scope) : Variable(new Void());
         }
@@ -247,7 +247,7 @@ namespace creek
         // a non-const value is reached, or default
         if (m_condition->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable c = m_condition->eval(scope);
             for (auto& b : m_case_branches)
             {
@@ -259,7 +259,7 @@ namespace creek
                     }
 
                     Variable e = v->eval(scope);
-                    if (c.cmp(e) == 0)
+                    if (c.cmp(scope, e) == 0)
                     {
                         return b.body->is_const();
                     }
@@ -276,14 +276,14 @@ namespace creek
         // a non-const value is reached, or default
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable c = m_condition->eval(scope);
             for (auto& b : m_case_branches)
             {
                 for (auto& v : b.values)
                 {
                     Variable e = v->eval(scope);
-                    if (c.cmp(e) == 0)
+                    if (c.cmp(scope, e) == 0)
                     {
                         return b.body->const_optimize();
                     }
@@ -309,9 +309,9 @@ namespace creek
         }
     }
 
-    Variable ExprSwitch::eval(Scope& scope)
+    Variable ExprSwitch::eval(const SharedPointer<Scope>& scope)
     {
-        Scope new_scope(scope);
+        auto new_scope = SharedPointer<LocalScope>::make(scope);
 
         Variable condition(m_condition->eval(new_scope));
         for (auto& case_branch : m_case_branches)
@@ -319,7 +319,7 @@ namespace creek
             for (auto& case_value : case_branch.values)
             {
                 Variable v = case_value->eval(new_scope);
-                if (condition.cmp(v) == 0)
+                if (condition.cmp(scope, v) == 0)
                 {
                     return case_branch.body->eval(new_scope);
                 }
@@ -374,16 +374,16 @@ namespace creek
         return new ExprLoop(m_body->const_optimize());
     }
 
-    Variable ExprLoop::eval(Scope& scope)
+    Variable ExprLoop::eval(const SharedPointer<Scope>& scope)
     {
         Variable result;
 
-        Scope outer_scope(scope, scope.return_point(), std::make_shared<Scope::BreakPoint>());
+        auto outer_scope = SharedPointer<LocalScope>::make(scope, scope->return_point(), std::make_shared<Scope::BreakPoint>());
         while (true)
         {
-            Scope inner_scope(outer_scope);
+            auto inner_scope = SharedPointer<LocalScope>::make(outer_scope);
             result = m_body->eval(inner_scope);
-            if (outer_scope.is_breaking())
+            if (outer_scope->is_breaking())
             {
                 break;
             }
@@ -421,9 +421,9 @@ namespace creek
     {
         if (m_condition->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable c(m_condition->eval(scope));
-            if (c->bool_value() == false)
+            if (c->bool_value(scope) == false)
             {
                 return true;
             }
@@ -435,9 +435,9 @@ namespace creek
     {
         if (m_condition->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable c(m_condition->eval(scope));
-            if (c->bool_value() == false)
+            if (c->bool_value(scope) == false)
             {
                 return new ExprVoid();
             }
@@ -448,21 +448,21 @@ namespace creek
         }
     }
 
-    Variable ExprWhile::eval(Scope& scope)
+    Variable ExprWhile::eval(const SharedPointer<Scope>& scope)
     {
         Variable result;
 
-        Scope outer_scope(scope, scope.return_point(), std::make_shared<Scope::BreakPoint>());
+        auto outer_scope = SharedPointer<LocalScope>::make(scope, scope->return_point(), std::make_shared<Scope::BreakPoint>());
         while (true)
         {
-            Scope inner_scope(outer_scope);
+            auto inner_scope = SharedPointer<LocalScope>::make(outer_scope);
 
             Variable condition_result(m_condition->eval(inner_scope));
-            if (condition_result->bool_value())
+            if (condition_result->bool_value(scope))
             {
                 result = m_body->eval(inner_scope);
 
-                if (outer_scope.is_breaking())
+                if (outer_scope->is_breaking())
                 {
                     break;
                 }
@@ -529,19 +529,19 @@ namespace creek
         );
     }
 
-    Variable ExprFor::eval(Scope& scope)
+    Variable ExprFor::eval(const SharedPointer<Scope>& scope)
     {
         Variable result;
 
-        Scope outer_scope(scope, scope.return_point(), std::make_shared<Scope::BreakPoint>());
+        auto outer_scope = SharedPointer<LocalScope>::make(scope, scope->return_point(), std::make_shared<Scope::BreakPoint>());
         // variable with initial value
-        auto& i = outer_scope.create_local_var(m_var_name, m_initial_value->eval(outer_scope).release());
+        auto& i = outer_scope->create_local_var(m_var_name, m_initial_value->eval(outer_scope).release());
         while (true)
         {
             // check maximum
             {
                 Variable max = m_max_value->eval(outer_scope);
-                if (i.cmp(max) >= 0)    // ge
+                if (i.cmp(scope, max) >= 0)    // ge
                 {
                     break;
                 }
@@ -549,9 +549,9 @@ namespace creek
 
             // execute body block
             {
-                Scope inner_scope(outer_scope);
+                auto inner_scope = SharedPointer<LocalScope>::make(outer_scope);
                 result = m_body->eval(inner_scope);
-                if (inner_scope.is_breaking())
+                if (inner_scope->is_breaking())
                 {
                     break;
                 }
@@ -560,7 +560,8 @@ namespace creek
             // add step
             {
                 Variable step = m_step_value->eval(outer_scope);
-                i = i + step;
+                // i = i + step;
+                i.reset(i->add(scope, *step));
             }
         }
 
@@ -610,19 +611,19 @@ namespace creek
         );
     }
 
-    Variable ExprForIn::eval(Scope& scope)
+    Variable ExprForIn::eval(const SharedPointer<Scope>& scope)
     {
         Variable result;
         Variable range(m_range->eval(scope));
-        Variable keys(range->call_method("keys", {}));
+        Variable keys(range->call_method(scope, "keys", {}));
 
-        Scope outer_scope(scope);
-        auto& item = outer_scope.create_local_var(m_var_name, nullptr);
-        for (auto& key : keys->vector_value())
+        auto outer_scope = SharedPointer<LocalScope>::make(scope);
+        auto& item = outer_scope->create_local_var(m_var_name, nullptr);
+        for (auto& key : keys->vector_value(scope))
         {
-            item = range.index(key);
+            item = range.index(scope, key);
 
-            Scope inner_scope(outer_scope);
+            auto inner_scope = SharedPointer<LocalScope>::make(outer_scope);
             result = m_body->eval(inner_scope);
         }
 
@@ -666,28 +667,34 @@ namespace creek
         return new ExprTry(m_try_body->const_optimize(), m_id, m_catch_body->const_optimize());
     }
 
-    Variable ExprTry::eval(Scope& scope)
+    Variable ExprTry::eval(const SharedPointer<Scope>& scope)
     {
         try
         {
             return m_try_body->eval(scope);
         }
+        catch (Variable& v)
+        {
+            auto inner = SharedPointer<LocalScope>::make(scope);
+            inner->create_local_var(m_id, v.release());
+            return m_catch_body->eval(inner);
+        }
         catch (const Exception& e)
         {
-            Scope inner(scope);
-            inner.create_local_var(m_id, new Null());
+            auto inner = SharedPointer<LocalScope>::make(scope);
+            inner->create_local_var(m_id, new String(e.message()));
             return m_catch_body->eval(inner);
         }
         catch (const std::exception& e)
         {
-            Scope inner(scope);
-            inner.create_local_var(m_id, new Null());
+            auto inner = SharedPointer<LocalScope>::make(scope);
+            inner->create_local_var(m_id, new String(e.what()));
             return m_catch_body->eval(scope);
         }
         catch (...)
         {
-            Scope inner(scope);
-            inner.create_local_var(m_id, new Null());
+            auto inner = SharedPointer<LocalScope>::make(scope);
+            inner->create_local_var(m_id, new Null());
             return m_catch_body->eval(scope);
         }
     }
@@ -724,7 +731,7 @@ namespace creek
         return new ExprThrow(m_value->const_optimize());
     }
 
-    Variable ExprThrow::eval(Scope& scope)
+    Variable ExprThrow::eval(const SharedPointer<Scope>& scope)
     {
         throw m_value->eval(scope);
         return new Void(); // just in case
@@ -758,10 +765,10 @@ namespace creek
         return new ExprReturn(m_value->const_optimize());
     }
 
-    Variable ExprReturn::eval(Scope& scope)
+    Variable ExprReturn::eval(const SharedPointer<Scope>& scope)
     {
         Variable v = m_value->eval(scope);
-        scope.return_point()->is_returning = true;
+        scope->return_point()->is_returning = true;
         return v.release();
     }
 
@@ -793,10 +800,10 @@ namespace creek
         return new ExprBreak(m_value->const_optimize());
     }
 
-    Variable ExprBreak::eval(Scope& scope)
+    Variable ExprBreak::eval(const SharedPointer<Scope>& scope)
     {
         Variable v = m_value->eval(scope);
-        scope.break_point()->is_breaking = true;
+        scope->break_point()->is_breaking = true;
         return v.release();
     }
 

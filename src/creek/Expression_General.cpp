@@ -25,7 +25,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprConst::eval(Scope& scope)
+    Variable ExprConst::eval(const SharedPointer<Scope>& scope)
     {
         return m_data->copy();
     }
@@ -74,7 +74,7 @@ namespace creek
         return new ExprCall(m_function->const_optimize(), new_args);
     }
 
-    Variable ExprCall::eval(Scope& scope)
+    Variable ExprCall::eval(const SharedPointer<Scope>& scope)
     {
         Variable function = m_function->eval(scope);
 
@@ -84,7 +84,7 @@ namespace creek
             args.emplace_back(a->eval(scope).release());
         }
 
-        return function->call(args);
+        return function->call(scope, args);
     }
 
     Bytecode ExprCall::bytecode(VarNameMap& var_name_map) const
@@ -140,7 +140,7 @@ namespace creek
         return new ExprVariadicCall(m_function->const_optimize(), new_args, m_vararg->const_optimize());
     }
 
-    Variable ExprVariadicCall::eval(Scope& scope)
+    Variable ExprVariadicCall::eval(const SharedPointer<Scope>& scope)
     {
         // normal arguments
         std::vector< std::unique_ptr<Data> > args;
@@ -151,14 +151,14 @@ namespace creek
 
         // variadic argument
         Variable vararg = m_vararg->eval(scope);
-        for (auto& a : vararg->vector_value())
+        for (auto& a : vararg->vector_value(scope))
         {
             args.emplace_back(a->copy());
         }
 
         // call function
         Variable function = m_function->eval(scope);
-        return function->call(args);
+        return function->call(scope, args);
     }
 
     Bytecode ExprVariadicCall::bytecode(VarNameMap& var_name_map) const
@@ -215,11 +215,11 @@ namespace creek
         return new ExprCallMethod(m_object->const_optimize(), m_method_name, new_args);
     }
 
-    Variable ExprCallMethod::eval(Scope& scope)
+    Variable ExprCallMethod::eval(const SharedPointer<Scope>& scope)
     {
         Variable object = m_object->eval(scope);
-        Variable class_obj = object->get_class();
-        Variable method = class_obj->attr(m_method_name);
+        Variable class_obj = object->get_class(scope);
+        Variable method = class_obj->attr(scope, m_method_name);
 
         std::vector< std::unique_ptr<Data> > args;
         args.emplace_back(object->copy());
@@ -228,7 +228,7 @@ namespace creek
             args.emplace_back(a->eval(scope).release());
         }
 
-        return method->call(args);
+        return method->call(scope, args);
     }
 
     Bytecode ExprCallMethod::bytecode(VarNameMap& var_name_map) const
@@ -287,7 +287,7 @@ namespace creek
         return new ExprVariadicCallMethod(m_object->const_optimize(), m_method_name, new_args, m_vararg->const_optimize());
     }
 
-    Variable ExprVariadicCallMethod::eval(Scope& scope)
+    Variable ExprVariadicCallMethod::eval(const SharedPointer<Scope>& scope)
     {
         // normal arguments
         std::vector< std::unique_ptr<Data> > args;
@@ -298,16 +298,16 @@ namespace creek
 
         // variadic argument
         Variable vararg = m_vararg->eval(scope);
-        for (auto& a : vararg->vector_value())
+        for (auto& a : vararg->vector_value(scope))
         {
             args.emplace_back(a->copy());
         }
 
         // call method
         Variable object = m_object->eval(scope);
-        Variable class_obj = object->get_class();
-        Variable method = class_obj->attr(m_method_name);
-        return method->call(args);
+        Variable class_obj = object->get_class(scope);
+        Variable method = class_obj->attr(scope, m_method_name);
+        return method->call(scope, args);
     }
 
     Bytecode ExprVariadicCallMethod::bytecode(VarNameMap& var_name_map) const
@@ -351,11 +351,11 @@ namespace creek
         return new ExprIndexGet(m_array->const_optimize(), m_index->const_optimize());
     }
 
-    Variable ExprIndexGet::eval(Scope& scope)
+    Variable ExprIndexGet::eval(const SharedPointer<Scope>& scope)
     {
         Variable a = m_array->eval(scope);
         Variable i = m_index->eval(scope);
-        return a.index(i);
+        return a.index(scope, i);
     }
 
     Bytecode ExprIndexGet::bytecode(VarNameMap& var_name_map) const
@@ -391,12 +391,12 @@ namespace creek
         return new ExprIndexSet(m_array->const_optimize(), m_index->const_optimize(), m_value->const_optimize());
     }
 
-    Variable ExprIndexSet::eval(Scope& scope)
+    Variable ExprIndexSet::eval(const SharedPointer<Scope>& scope)
     {
         Variable a = m_array->eval(scope);
         Variable i = m_index->eval(scope);
         Variable v = m_value->eval(scope);
-        return a.index(i, v);
+        return a.index(scope, i, v);
     }
 
     Bytecode ExprIndexSet::bytecode(VarNameMap& var_name_map) const
@@ -429,9 +429,9 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable object = m_object->eval(scope);
-            return new ExprConst(object->attr(m_attr));
+            return new ExprConst(object->attr(scope, m_attr));
         }
         else
         {
@@ -439,10 +439,10 @@ namespace creek
         }
     }
 
-    Variable ExprAttrGet::eval(Scope& scope)
+    Variable ExprAttrGet::eval(const SharedPointer<Scope>& scope)
     {
         Variable o = m_object->eval(scope);
-        return o.attr(m_attr);
+        return o.attr(scope, m_attr);
     }
 
     Bytecode ExprAttrGet::bytecode(VarNameMap& var_name_map) const
@@ -478,11 +478,11 @@ namespace creek
         return new ExprAttrSet(m_object->const_optimize(), m_attr, m_value->const_optimize());
     }
 
-    Variable ExprAttrSet::eval(Scope& scope)
+    Variable ExprAttrSet::eval(const SharedPointer<Scope>& scope)
     {
         Variable o = m_object->eval(scope);
         Variable v = m_value->eval(scope);
-        return o.attr(m_attr, v);
+        return o.attr(scope, m_attr, v);
     }
 
     Bytecode ExprAttrSet::bytecode(VarNameMap& var_name_map) const

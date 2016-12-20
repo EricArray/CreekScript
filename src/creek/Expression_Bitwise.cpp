@@ -17,11 +17,11 @@ namespace creek
 
     // }
 
-    // Variable ExprBitAnd::eval(Scope& scope)
+    // Variable ExprBitAnd::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.bit_and(r);
+    //     return l.bit_and(scope, r);
     // }
 
     // Bytecode ExprBitAnd::bytecode(VarNameMap& var_name_map) const
@@ -40,11 +40,11 @@ namespace creek
 
     // }
 
-    // Variable ExprBitOr::eval(Scope& scope)
+    // Variable ExprBitOr::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.bit_or(r);
+    //     return l.bit_or(scope, r);
     // }
 
     // Bytecode ExprBitOr::bytecode(VarNameMap& var_name_map) const
@@ -63,11 +63,11 @@ namespace creek
 
     // }
 
-    // Variable ExprBitXor::eval(Scope& scope)
+    // Variable ExprBitXor::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.bit_xor(r);
+    //     return l.bit_xor(scope, r);
     // }
 
     // Bytecode ExprBitXor::bytecode(VarNameMap& var_name_map) const
@@ -83,10 +83,10 @@ namespace creek
 
     // }
 
-    // Variable ExprBitNot::eval(Scope& scope)
+    // Variable ExprBitNot::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_expr->eval(scope));
-    //     return l.bit_not();
+    //     return l.bit_not(scope);
     // }
 
     // Bytecode ExprBitNot::bytecode(VarNameMap& var_name_map) const
@@ -105,11 +105,11 @@ namespace creek
 
     // }
 
-    // Variable ExprBitLeftShift::eval(Scope& scope)
+    // Variable ExprBitLeftShift::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.bit_left_shift(r);
+    //     return l.bit_left_shift(scope, r);
     // }
 
     // Bytecode ExprBitLeftShift::bytecode(VarNameMap& var_name_map) const
@@ -128,11 +128,11 @@ namespace creek
 
     // }
 
-    // Variable ExprBitRightShift::eval(Scope& scope)
+    // Variable ExprBitRightShift::eval(const SharedPointer<Scope>& scope)
     // {
     //     Variable l(m_lexpr->eval(scope));
     //     Variable r(m_rexpr->eval(scope));
-    //     return l.bit_right_shift(r);
+    //     return l.bit_right_shift(scope, r);
     // }
 
     // Bytecode ExprBitRightShift::bytecode(VarNameMap& var_name_map) const

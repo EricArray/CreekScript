@@ -410,33 +410,37 @@ namespace creek
                 VarName class_name = parse_var_name(bytecode, var_name_map);
                 Expression* super_class = parse_expression(bytecode, var_name_map);
 
-                uint32_t nmethods = 0;
-                bytecode >> nmethods;
+                // uint32_t nmethods = 0;
+                // bytecode >> nmethods;
 
-                std::vector<ExprClass::MethodDef> method_defs;
-                for (uint32_t i = 0; i < nmethods; i += 1)
-                {
-                    VarName id = parse_var_name(bytecode, var_name_map);
+                // std::vector<ExprClass::MethodDef> method_defs;
+                // for (uint32_t i = 0; i < nmethods; i += 1)
+                // {
+                //     VarName id = parse_var_name(bytecode, var_name_map);
 
-                    uint32_t narg = 0;
-                    bytecode >> narg;
-                    std::vector<VarName> arg_names(narg);
-                    for (uint32_t iarg = 0; iarg < narg; iarg += 1)
-                    {
-                        arg_names[iarg] = parse_var_name(bytecode, var_name_map);
-                    }
+                //     uint32_t narg = 0;
+                //     bytecode >> narg;
+                //     std::vector<VarName> arg_names(narg);
+                //     for (uint32_t iarg = 0; iarg < narg; iarg += 1)
+                //     {
+                //         arg_names[iarg] = parse_var_name(bytecode, var_name_map);
+                //     }
 
-                    bool is_variadic = false;
-                    bytecode >> is_variadic;
+                //     bool is_variadic = false;
+                //     bytecode >> is_variadic;
 
-                    auto body = parse_expression(bytecode, var_name_map);
+                //     auto body = parse_expression(bytecode, var_name_map);
 
-                    method_defs.emplace_back(id, arg_names, is_variadic, body);
-                }
+                //     method_defs.emplace_back(id, arg_names, is_variadic, body);
+                // }
 
-                std::vector<ExprClass::StaticDef> static_defs;
+                // std::vector<ExprClass::StaticDef> static_defs;
 
-                return new ExprClass(class_name, super_class, method_defs, static_defs);
+                // return new ExprClass(class_name, super_class, method_defs, static_defs);
+
+                Expression* body = parse_expression(bytecode, var_name_map);
+
+                return new ExprClass(class_name, super_class, body);
             }
 
 
@@ -668,7 +672,16 @@ namespace creek
 
 
             // dynamic load
-            case OpCode::dyn_func:                  //< 0x70
+            case OpCode::dyn_var:                   //< 0x70
+            {
+                std::string library_path;
+                bytecode >> library_path;
+
+                auto var_name = parse_var_name(bytecode, var_name_map);
+
+                return new ExprDynVar(library_path, var_name);
+            }
+            case OpCode::dyn_func:                  //< 0x71
             {
                 uint32_t argn = 0;
                 bytecode >> argn;
@@ -689,7 +702,7 @@ namespace creek
 
                 return new ExprDynFunc(arg_names, is_variadic, library_path, func_name);
             }
-            case OpCode::dyn_class:                 //< 0x71
+            case OpCode::dyn_class:                 //< 0x72
             {
                 auto id = parse_var_name(bytecode, var_name_map);
 

@@ -35,7 +35,7 @@ namespace creek
     }
 
 
-    bool Number::bool_value() const
+    bool Number::bool_value(const SharedPointer<Scope>& scope) const
     {
         return m_value > Value(0);
     }
@@ -45,7 +45,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    int Number::int_value() const
+    int Number::int_value(const SharedPointer<Scope>& scope) const
     {
         return m_value;
     }
@@ -55,7 +55,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    double Number::double_value() const
+    double Number::double_value(const SharedPointer<Scope>& scope) const
     {
         return m_value;
     }
@@ -65,7 +65,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    // const std::string& Number::string_value() const
+    // const std::string& Number::string_value(const SharedPointer<Scope>& scope) const
     // {
     //     return float_to_string(m_value, 10);
     // }
@@ -75,85 +75,85 @@ namespace creek
 
     // }
 
-    // Data* Number::index(Data* key)
+    // Data* Number::index(const SharedPointer<Scope>& scope, Data* key)
     // {
 
     // }
 
-    // void Number::index(Data* key, Data* new_value)
+    // void Number::index(const SharedPointer<Scope>& scope, Data* key, Data* new_value)
     // {
 
     // }
 
-    Data* Number::add(Data* other)
+    Data* Number::add(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->double_value() + other->double_value());
+        return new Number(this->double_value(scope) + other->double_value(scope));
     }
 
-    Data* Number::sub(Data* other)
+    Data* Number::sub(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->double_value() - other->double_value());
+        return new Number(this->double_value(scope) - other->double_value(scope));
     }
 
-    Data* Number::mul(Data* other)
+    Data* Number::mul(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->double_value() * other->double_value());
+        return new Number(this->double_value(scope) * other->double_value(scope));
     }
 
-    Data* Number::div(Data* other)
+    Data* Number::div(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->double_value() / other->double_value());
+        return new Number(this->double_value(scope) / other->double_value(scope));
     }
 
-    Data* Number::mod(Data* other)
+    Data* Number::mod(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->int_value() % other->int_value());
+        return new Number(this->int_value(scope) % other->int_value(scope));
     }
 
-    Data* Number::exp(Data* other)
+    Data* Number::exp(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(std::pow(this->double_value(), other->double_value()));
+        return new Number(std::pow(this->double_value(scope), other->double_value(scope)));
     }
 
-    Data* Number::unm()
+    Data* Number::unm(const SharedPointer<Scope>& scope)
     {
-        return new Number(-this->double_value());
+        return new Number(-this->double_value(scope));
     }
 
-    Data* Number::bit_and(Data* other)
+    Data* Number::bit_and(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->int_value() & other->int_value());
+        return new Number(this->int_value(scope) & other->int_value(scope));
     }
 
-    Data* Number::bit_or(Data* other)
+    Data* Number::bit_or(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->int_value() | other->int_value());
+        return new Number(this->int_value(scope) | other->int_value(scope));
     }
 
-    Data* Number::bit_xor(Data* other)
+    Data* Number::bit_xor(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->int_value() ^ other->int_value());
+        return new Number(this->int_value(scope) ^ other->int_value(scope));
     }
 
-    Data* Number::bit_not()
+    Data* Number::bit_not(const SharedPointer<Scope>& scope)
     {
-        return new Number(~this->int_value());
+        return new Number(~this->int_value(scope));
     }
 
-    Data* Number::bit_left_shift(Data* other)
+    Data* Number::bit_left_shift(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->int_value() << other->int_value());
+        return new Number(this->int_value(scope) << other->int_value(scope));
     }
 
-    Data* Number::bit_right_shift(Data* other)
+    Data* Number::bit_right_shift(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new Number(this->int_value() >> other->int_value());
+        return new Number(this->int_value(scope) >> other->int_value(scope));
     }
 
-    int Number::cmp(Data* other)
+    int Number::cmp(const SharedPointer<Scope>& scope, Data* other)
     {
-        float this_float = this->double_value();
-        float other_float = other->double_value();
+        float this_float = this->double_value(scope);
+        float other_float = other->double_value(scope);
 
         if (this_float < other_float)
         {
@@ -169,8 +169,8 @@ namespace creek
         }
     }
 
-    Data* Number::get_class() const
+    Data* Number::get_class(const SharedPointer<Scope>& scope) const
     {
-        return GlobalScope::class_Number->copy();
+        return scope->global()->class_Number->copy();
     }
 }

@@ -43,7 +43,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprAdd(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -63,7 +63,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprSub(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -83,7 +83,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprMul(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -103,7 +103,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprDiv(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -124,7 +124,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprMod(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -144,7 +144,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprExp(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
@@ -163,7 +163,7 @@ namespace creek
     //     /// @param  expr        Expression to negate.
     //     ExprUnm(Expression* expr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Expression* to_const() const override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 

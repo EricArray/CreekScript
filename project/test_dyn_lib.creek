@@ -1,0 +1,1 @@
+func test(text) extern "test_dyn_lib-debug.dll"

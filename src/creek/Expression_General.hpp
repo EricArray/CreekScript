@@ -26,7 +26,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -38,7 +38,7 @@ namespace creek
     /// @param  op_code     Operation code.
     /// @param  method      Data method to call.
     /// Returns the result of calling `method` of `expr`.
-    template<OpCode op_code, Data*(Data::*method)()>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
     class CREEK_API ExprUnary : public Expression
     {
     public:
@@ -50,7 +50,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -62,7 +62,7 @@ namespace creek
     /// @param  op_code     Operation code.
     /// @param  method      Data method to call.
     /// Returns the result of calling `method` of `lexpr` with `rexpr`.
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
     class CREEK_API ExprBinary : public Expression
     {
     public:
@@ -75,7 +75,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -98,7 +98,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -122,7 +122,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -146,7 +146,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -172,7 +172,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -197,7 +197,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -221,7 +221,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -245,7 +245,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -269,7 +269,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -287,41 +287,41 @@ namespace creek
 
 namespace creek
 {
-    template<OpCode op_code, Data*(Data::*method)()>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
     ExprUnary<op_code, method>::ExprUnary(Expression* expr) :
         m_expr(expr)
     {
 
     }
 
-    template<OpCode op_code, Data*(Data::*method)()>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
     Expression* ExprUnary<op_code, method>::clone() const
     {
         return new ExprUnary<op_code, method>(m_expr->clone());
     }
 
-    template<OpCode op_code, Data*(Data::*method)()>
-    Variable ExprUnary<op_code, method>::eval(Scope& scope)
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
+    Variable ExprUnary<op_code, method>::eval(const SharedPointer<Scope>& scope)
     {
         Variable v = m_expr->eval(scope);
-        Data* d = ((*v)->*method)();
+        Data* d = ((*v)->*method)(scope);
         return Variable(d);
     }
 
-    template<OpCode op_code, Data*(Data::*method)()>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
     bool ExprUnary<op_code, method>::is_const() const
     {
         return m_expr->is_const();
     }
 
-    template<OpCode op_code, Data*(Data::*method)()>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
     Expression* ExprUnary<op_code, method>::const_optimize() const
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable v = m_expr->eval(scope);
-            Data* d = ((*v)->*method)();
+            Data* d = ((*v)->*method)(scope);
             return new ExprConst(d);
         }
         else
@@ -330,7 +330,7 @@ namespace creek
         }
     }
 
-    template<OpCode op_code, Data*(Data::*method)()>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope)>
     Bytecode ExprUnary<op_code, method>::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(op_code) << m_expr->bytecode(var_name_map);
@@ -338,7 +338,7 @@ namespace creek
 
 
 
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
     ExprBinary<op_code, method>::ExprBinary(Expression* lexpr, Expression* rexpr) :
         m_lexpr(lexpr),
         m_rexpr(rexpr)
@@ -346,36 +346,36 @@ namespace creek
 
     }
 
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
     Expression* ExprBinary<op_code, method>::clone() const
     {
         return new ExprBinary<op_code, method>(m_lexpr->clone(), m_rexpr->clone());
     }
 
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
-    Variable ExprBinary<op_code, method>::eval(Scope& scope)
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
+    Variable ExprBinary<op_code, method>::eval(const SharedPointer<Scope>& scope)
     {
         Variable l = m_lexpr->eval(scope);
         Variable r = m_rexpr->eval(scope);
-        Data* d = ((*l)->*method)(*r);
+        Data* d = ((*l)->*method)(scope, *r);
         return Variable(d);
     }
 
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
     bool ExprBinary<op_code, method>::is_const() const
     {
         return m_lexpr->is_const() && m_rexpr->is_const();
     }
 
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
     Expression* ExprBinary<op_code, method>::const_optimize() const
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l = m_lexpr->eval(scope);
             Variable r = m_rexpr->eval(scope);
-            Data* d = ((*l)->*method)(*r);
+            Data* d = ((*l)->*method)(scope, *r);
             return new ExprConst(d);
         }
         else
@@ -384,7 +384,7 @@ namespace creek
         }
     }
 
-    template<OpCode op_code, Data*(Data::*method)(Data*)>
+    template<OpCode op_code, Data*(Data::*method)(const SharedPointer<Scope>& scope, Data*)>
     Bytecode ExprBinary<op_code, method>::bytecode(VarNameMap& var_name_map) const
     {
         return Bytecode() << static_cast<uint8_t>(op_code) << m_lexpr->bytecode(var_name_map) << m_rexpr->bytecode(var_name_map);

@@ -28,12 +28,13 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         std::vector< std::unique_ptr<Expression> > m_expressions;
     };
+
 
     /// @brief  Expression: Do block.
     /// Begin a new scope and evaluates the expression.
@@ -48,7 +49,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -71,7 +72,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -112,7 +113,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -135,7 +136,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -157,7 +158,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -184,7 +185,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -211,7 +212,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -237,7 +238,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -260,7 +261,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -281,7 +282,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -303,7 +304,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
         
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:

@@ -6,6 +6,7 @@
 
 #include <creek/api_mode.hpp>
 #include <creek/Exception.hpp>
+#include <creek/Shared.hpp>
 #include <creek/VarName.hpp>
 
 
@@ -13,6 +14,7 @@ namespace creek
 {
     class Expression;
     class Variable;
+    class Scope;
 
 
     /// @brief  Abstract class for variable's data.
@@ -50,101 +52,109 @@ namespace creek
         template<class T> T* assert_cast();
 
 
+        /// @brief  Used for garbage collection.
+        virtual void garbage_trace();
+
+
         /// @name   Value access
         /// @{
         /// @brief  Get the bool value of this data.
-        virtual bool bool_value() const;
+        virtual bool bool_value(const SharedPointer<Scope>& scope) const;
 
         /// @brief  Get the char value of this data.
-        virtual char char_value() const;
+        virtual char char_value(const SharedPointer<Scope>& scope) const;
 
         /// @brief  Get the int value of this data.
-        virtual int int_value() const;
+        virtual int int_value(const SharedPointer<Scope>& scope) const;
 
         /// @brief  Get the double value of this data.
-        virtual double double_value() const;
+        virtual double double_value(const SharedPointer<Scope>& scope) const;
 
         /// @brief  Get the string value of this data.
-        virtual const std::string& string_value() const;
+        virtual const std::string& string_value(const SharedPointer<Scope>& scope) const;
 
         /// @brief  Get the identifier value of this data.
-        virtual VarName identifier_value() const;
+        virtual VarName identifier_value(const SharedPointer<Scope>& scope) const;
 
         // @brief   Get the vector value of this data.
-        virtual const std::vector<Variable>& vector_value() const;
+        virtual const std::vector<Variable>& vector_value(const SharedPointer<Scope>& scope) const;
         /// @}
 
 
         /// @name   Container index
         /// @{
         /// @brief  Get the data at index.
+        /// @param  scope       Caller scope.
         /// @param  key         Index key.
-        virtual Data* index(Data* key);
+        virtual Data* index(const SharedPointer<Scope>& scope, Data* key);
 
         /// @brief  Set the data at index.
+        /// @param  scope       Caller scope.
         /// @param  key         Index key.
         /// @param  new_data    New data to save in index.
-        virtual Data* index(Data* key, Data* new_data);
+        virtual Data* index(const SharedPointer<Scope>& scope, Data* key, Data* new_data);
         /// @}
 
 
         /// @name   Object attribute
         /// @{
         /// @brief  Get the attribute.
+        /// @param  scope       Caller scope.
         /// @brief  key         Attribute key.
-        virtual Data* attr(VarName key);
+        virtual Data* attr(const SharedPointer<Scope>& scope, VarName key);
 
         /// @brief  Set the attribute.
+        /// @param  scope       Caller scope.
         /// @brief  key         Attribute key.
         /// @brief  new_data    New data to save in attribute.
-        virtual Data* attr(VarName key, Data* new_data);
+        virtual Data* attr(const SharedPointer<Scope>& scope, VarName key, Data* new_data);
         /// @}
 
 
         /// @name   Arithmetic operations
         /// @{
         /// @brief  Addition.
-        virtual Data* add(Data* other);
+        virtual Data* add(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Subtraction.
-        virtual Data* sub(Data* other);
+        virtual Data* sub(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Multiplication.
-        virtual Data* mul(Data* other);
+        virtual Data* mul(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Divison.
-        virtual Data* div(Data* other);
+        virtual Data* div(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Modulo.
-        virtual Data* mod(Data* other);
+        virtual Data* mod(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Exponentiation.
-        virtual Data* exp(Data* other);
+        virtual Data* exp(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Unary minus.
-        virtual Data* unm();
+        virtual Data* unm(const SharedPointer<Scope>& scope);
         /// @}
 
 
         /// @name   Bitwise operations
         /// @{
         /// @brief  Bitwise AND.
-        virtual Data* bit_and(Data* other);
+        virtual Data* bit_and(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Bitwise OR.
-        virtual Data* bit_or(Data* other);
+        virtual Data* bit_or(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Bitwise XOR.
-        virtual Data* bit_xor(Data* other);
+        virtual Data* bit_xor(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Bitwise NOT.
-        virtual Data* bit_not();
+        virtual Data* bit_not(const SharedPointer<Scope>& scope);
 
         /// @brief  Bitwise left shift.
-        virtual Data* bit_left_shift(Data* other);
+        virtual Data* bit_left_shift(const SharedPointer<Scope>& scope, Data* other);
 
         /// @brief  Bitwise right shift.
-        virtual Data* bit_right_shift(Data* other);
+        virtual Data* bit_right_shift(const SharedPointer<Scope>& scope, Data* other);
         /// @}
 
 
@@ -154,16 +164,17 @@ namespace creek
         /// Compare less-than/equal/greater-than.
         /// This special operation must return an integer.
         /// @return -1 if less-than, 0 if equal, +1 if greater-than.
-        virtual int cmp(Data* other);
+        virtual int cmp(const SharedPointer<Scope>& scope, Data* other);
         /// @}
 
 
         /// @name   Functional
         /// @{
         /// Call this object as a function.
+        /// @param  scope   Caller scope.
         /// @param  args    Arguments.
         /// @return         Value returned from this function.
-        virtual Data* call(std::vector< std::unique_ptr<Data> >& args);
+        virtual Data* call(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args);
         /// @}
 
 
@@ -171,15 +182,17 @@ namespace creek
         /// @{
         /// @brief  Get the class of this object.
         /// @return A new reference.
-        virtual Data* get_class() const;
+        virtual Data* get_class(const SharedPointer<Scope>& scope) const;
         /// @}
 
 
         /// @brief  Call a method of this object's class.
+        /// @param  scope       Caller scope.
         /// @param  method_name Name of the method to call.
         /// @param  args        Arguments.
         /// Self will be added as first argument.
         Data* call_method(
+            const SharedPointer<Scope>& scope,
             VarName method_name,
             const std::vector<Data*>& args
         ) const;

@@ -20,13 +20,13 @@ namespace creek
         std::string debug_text() const override;
         Expression* to_expression() const override;
 
-        bool bool_value() const override;
-        int int_value() const override;
-        double double_value() const override;
-        const std::string& string_value() const override;
+        bool bool_value(const SharedPointer<Scope>& scope) const override;
+        int int_value(const SharedPointer<Scope>& scope) const override;
+        double double_value(const SharedPointer<Scope>& scope) const override;
+        const std::string& string_value(const SharedPointer<Scope>& scope) const override;
 
-        int cmp(Data* other) override;
+        int cmp(const SharedPointer<Scope>& scope, Data* other) override;
 
-        Data* get_class() const override;
+        Data* get_class(const SharedPointer<Scope>& scope) const override;
     };
 }

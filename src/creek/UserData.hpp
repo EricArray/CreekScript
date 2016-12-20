@@ -46,19 +46,19 @@ namespace creek
         /// @{
         /// @brief  Get the class of this object.
         /// @return A new reference.
-        Data* get_class() const override;
+        Data* get_class(const SharedPointer<Scope>& scope) const override;
         /// @}
 
         /// @name   Object attribute
         /// @{
         /// @brief  Get the attribute.
         /// @brief  key         Attribute key.
-        Data* attr(VarName key) override;
+        Data* attr(const SharedPointer<Scope>& scope, VarName key) override;
 
         /// @brief  Set the attribute.
         /// @brief  key         Attribute key.
         /// @brief  new_data    New data to save in attribute.
-        Data* attr(VarName key, Data* new_data) override;
+        Data* attr(const SharedPointer<Scope>& scope, VarName key, Data* new_data) override;
         /// @}
     };
 
@@ -99,25 +99,25 @@ namespace creek
         // /// @name   Value access
         // /// @{
         // /// @brief  Get the bool value of this data.
-        // bool bool_value() const override;
+        // bool bool_value(const SharedPointer<Scope>& scope) const override;
 
         // /// @brief  Get the char value of this data.
-        // char char_value() const override;
+        // char char_value(const SharedPointer<Scope>& scope) const override;
 
         // /// @brief  Get the int value of this data.
-        // int int_value() const override;
+        // int int_value(const SharedPointer<Scope>& scope) const override;
 
         // /// @brief  Get the float value of this data.
-        // double double_value() const override;
+        // double double_value(const SharedPointer<Scope>& scope) const override;
 
         // /// @brief  Get the string value of this data.
-        // std::string string_value() const override;
+        // std::string string_value(const SharedPointer<Scope>& scope) const override;
 
         // /// @brief  Get the identifier value of this data.
-        // VarName identifier_value() const override;
+        // VarName identifier_value(const SharedPointer<Scope>& scope) const override;
 
         // // @brief   Get the vector value of this data.
-        // const std::vector<Variable>& vector_value() const override;
+        // const std::vector<Variable>& vector_value(const SharedPointer<Scope>& scope) const override;
         // /// @}
 
 
@@ -125,7 +125,7 @@ namespace creek
         // /// @{
         // /// @brief  Get the data at index.
         // /// @param  key         Index key.
-        // Data* index(Data* key) override;
+        // Data* index(const SharedPointer<Scope>& scope, Data* key) override;
 
         // /// @brief  Set the data at index.
         // /// @param  key         Index key.
@@ -138,59 +138,59 @@ namespace creek
         // /// @{
         // /// @brief  Get the attribute.
         // /// @brief  key         Attribute key.
-        // Data* attr(VarName key) override;
+        // Data* attr(const SharedPointer<Scope>& scope, VarName key) override;
 
         // /// @brief  Set the attribute.
         // /// @brief  key         Attribute key.
         // /// @brief  new_data    New data to save in attribute.
-        // Data* attr(VarName key, Data* new_data) override;
+        // Data* attr(const SharedPointer<Scope>& scope, VarName key, Data* new_data) override;
         // /// @}
 
 
         // /// @name   Arithmetic operations
         // /// @{
         // /// @brief  Addition.
-        // Data* add(Data* other) override;
+        // Data* add(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Subtraction.
-        // Data* sub(Data* other) override;
+        // Data* sub(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Multiplication.
-        // Data* mul(Data* other) override;
+        // Data* mul(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Divison.
-        // Data* div(Data* other) override;
+        // Data* div(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Modulo.
-        // Data* mod(Data* other) override;
+        // Data* mod(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Exponentiation.
-        // Data* exp(Data* other) override;
+        // Data* exp(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Unary minus.
-        // Data* unm() override;
+        // Data* unm(const SharedPointer<Scope>& scope) override;
         // /// @}
 
 
         // /// @name   Bitwise operations
         // /// @{
         // /// @brief  Bitwise AND.
-        // Data* bit_and(Data* other) override;
+        // Data* bit_and(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Bitwise OR.
-        // Data* bit_or(Data* other) override;
+        // Data* bit_or(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Bitwise XOR.
-        // Data* bit_xor(Data* other) override;
+        // Data* bit_xor(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Bitwise NOT.
-        // Data* bit_not() override;
+        // Data* bit_not(const SharedPointer<Scope>& scope) override;
 
         // /// @brief  Bitwise left shift.
-        // Data* bit_left_shift(Data* other) override;
+        // Data* bit_left_shift(const SharedPointer<Scope>& scope, Data* other) override;
 
         // /// @brief  Bitwise right shift.
-        // Data* bit_right_shift(Data* other) override;
+        // Data* bit_right_shift(const SharedPointer<Scope>& scope, Data* other) override;
         // /// @}
 
 
@@ -200,7 +200,7 @@ namespace creek
         // /// Compare less-than/equal/greater-than.
         // /// This special operation must return an integer.
         // /// @return -1 if less-than, 0 if equal, +1 if greater-than.
-        // int cmp(Data* other) override;
+        // int cmp(const SharedPointer<Scope>& scope, Data* other) override;
         // /// @}
 
 
@@ -258,7 +258,7 @@ namespace creek
 
 //    template<class T> class UserData<T*> : public UserData<T>
 //    {
-//        Data* get_class() const override;
+//        Data* get_class(const SharedPointer<Scope>& scope) const override;
 //    };
 }
 
@@ -277,7 +277,7 @@ namespace creek
         return std::string("UserData(") + int_to_string(uintptr_t(this), 16) + std::string(")");
     }
 
-    template<class T> Data* UserData_base<T>::get_class() const
+    template<class T> Data* UserData_base<T>::get_class(const SharedPointer<Scope>& scope) const
     {
         if (!class_obj)
         {

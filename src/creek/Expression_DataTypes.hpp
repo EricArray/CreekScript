@@ -32,7 +32,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
     };
 
@@ -48,7 +48,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
     };
 
@@ -65,7 +65,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -85,7 +85,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -105,7 +105,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -125,7 +125,7 @@ namespace creek
         Expression* clone() const override;
         bool is_const() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -146,7 +146,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -180,7 +180,7 @@ namespace creek
         bool is_const() const override;
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -216,7 +216,7 @@ namespace creek
         /// The cloned expression has an optimized body expression.
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -237,7 +237,7 @@ namespace creek
     //     /// @param  listener    Listener function to call.
     //     ExprCFunction(unsigned argn, bool variadic, CFunction::Listener listener);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:
@@ -247,78 +247,125 @@ namespace creek
     // };
 
 
-    /// @brief  Expression: Create a class data.
+    // /// @brief  Expression: Create a class data.
+    // /// Returns a new `Object`.
+    // class CREEK_API ExprClass : public Expression
+    // {
+    // public:
+    //     /// @brief  Class method definition.
+    //     struct MethodDef
+    //     {
+    //         MethodDef(VarName id, const std::vector<VarName>& arg_names,
+    //                   bool is_variadic, Expression* body) :
+    //             id(id),
+    //             arg_names(arg_names),
+    //             is_variadic(is_variadic),
+    //             body(body)
+    //         {
+
+    //         }
+
+    //         MethodDef(VarName id, const std::vector<VarName>& arg_names,
+    //                   bool is_variadic, std::shared_ptr<Expression> body) :
+    //             id(id),
+    //             arg_names(arg_names),
+    //             is_variadic(is_variadic),
+    //             body(body)
+    //         {
+
+    //         }
+
+    //         VarName id; ///< Method name.
+    //         std::vector<VarName> arg_names; ///< Argument names.
+    //         bool is_variadic; ///< Is this method variadic?
+    //         std::shared_ptr<Expression> body; ///< Expression evaluated when called.
+    //     };
+
+    //     /// @brief  Class static member definition.
+    //     struct StaticDef
+    //     {
+    //         StaticDef(VarName id) :
+    //             id(id)
+    //         {
+
+    //         }
+
+    //         VarName id; ///< Member name.
+    //     };
+
+
+    //     /// @brief  `ExprClass` constructor.
+    //     /// @param  id          Class name.
+    //     /// @param  super_class Expression for the super class.
+    //     /// @param  method_defs List of method definitions.
+    //     /// @param  static_defs List of static member definitions.
+    //     ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs);
+
+    //     /// @brief  Get a copy.
+    //     /// The cloned expression shares the body expression.
+    //     Expression* clone() const override;
+
+    //     bool is_const() const override;
+
+    //     /// @brief  Get an optimized copy.
+    //     /// The cloned expression has an optimized body expression.
+    //     Expression* const_optimize() const override;
+
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
+    //     Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    // private:
+    //     VarName m_id;
+    //     std::unique_ptr<Expression> m_super_class;
+    //     std::vector<MethodDef> m_method_defs;
+    //     std::vector<StaticDef> m_static_defs;
+    // };
+
+    /// @brief  Expression: Create a class data and excecutes expression.
     /// Returns a new `Object`.
     class CREEK_API ExprClass : public Expression
     {
     public:
-        /// @brief  Class method definition.
-        struct MethodDef
-        {
-            MethodDef(VarName id, const std::vector<VarName>& arg_names,
-                      bool is_variadic, Expression* body) :
-                id(id),
-                arg_names(arg_names),
-                is_variadic(is_variadic),
-                body(body)
-            {
-
-            }
-
-            MethodDef(VarName id, const std::vector<VarName>& arg_names,
-                      bool is_variadic, std::shared_ptr<Expression> body) :
-                id(id),
-                arg_names(arg_names),
-                is_variadic(is_variadic),
-                body(body)
-            {
-
-            }
-
-            VarName id; ///< Method name.
-            std::vector<VarName> arg_names; ///< Argument names.
-            bool is_variadic; ///< Is this method variadic?
-            std::shared_ptr<Expression> body; ///< Expression evaluated when called.
-        };
-
-        /// @brief  Class static member definition.
-        struct StaticDef
-        {
-            StaticDef(VarName id) :
-                id(id)
-            {
-
-            }
-
-            VarName id; ///< Member name.
-        };
-
-
         /// @brief  `ExprClass` constructor.
         /// @param  id          Class name.
         /// @param  super_class Expression for the super class.
-        /// @param  method_defs List of method definitions.
-        /// @param  static_defs List of static member definitions.
-        ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs);
+        /// @param  body        Expression to evaluate inside the class.
+        ExprClass(VarName id, Expression* super_class, Expression* body);
 
-        /// @brief  Get a copy.
-        /// The cloned expression shares the body expression.
         Expression* clone() const override;
-
         bool is_const() const override;
-
-        /// @brief  Get an optimized copy.
-        /// The cloned expression has an optimized body expression.
         Expression* const_optimize() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
         VarName m_id;
         std::unique_ptr<Expression> m_super_class;
-        std::vector<MethodDef> m_method_defs;
-        std::vector<StaticDef> m_static_defs;
+        std::unique_ptr<Expression> m_body;
+    };
+    
+
+    /// @brief  Expression: Module block.
+    /// Begin a new object scope and evaluates the expression.
+    class CREEK_API ExprModule : public Expression
+    {
+    public:
+        /// @brief  `ExprModule` constructor.
+        /// @param  name    Name of the module.
+        /// @param  body    Expression to evaluate inside new scope.
+        ExprModule(VarName name, Expression* body);
+
+        Expression* clone() const override;
+        bool is_const() const override;
+        Expression* const_optimize() const override;
+
+        Variable eval(const SharedPointer<Scope>& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    private:
+        VarName m_name;
+        std::unique_ptr<Expression> m_body;
     };
 
     /// @}

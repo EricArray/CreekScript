@@ -1,82 +1,82 @@
 EXPORTS
-    _ZN5creek13UserData_baseI10SDL_KeysymE4attrENS_7VarNameE @1
-    _ZN5creek13UserData_baseI10SDL_KeysymE4attrENS_7VarNameEPNS_4DataE @2
+    _ZN5creek13UserData_baseI10SDL_KeysymE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @1
+    _ZN5creek13UserData_baseI10SDL_KeysymE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @2
     _ZN5creek13UserData_baseI10SDL_KeysymE9class_defE @3 DATA
     _ZN5creek13UserData_baseI10SDL_KeysymE9class_objE @4 DATA
-    _ZN5creek13UserData_baseI10SDL_WindowE4attrENS_7VarNameE @5
-    _ZN5creek13UserData_baseI10SDL_WindowE4attrENS_7VarNameEPNS_4DataE @6
+    _ZN5creek13UserData_baseI10SDL_WindowE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @5
+    _ZN5creek13UserData_baseI10SDL_WindowE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @6
     _ZN5creek13UserData_baseI10SDL_WindowE9class_defE @7 DATA
     _ZN5creek13UserData_baseI10SDL_WindowE9class_objE @8 DATA
-    _ZN5creek13UserData_baseI11SDL_PaletteE4attrENS_7VarNameE @9
-    _ZN5creek13UserData_baseI11SDL_PaletteE4attrENS_7VarNameEPNS_4DataE @10
+    _ZN5creek13UserData_baseI11SDL_PaletteE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @9
+    _ZN5creek13UserData_baseI11SDL_PaletteE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @10
     _ZN5creek13UserData_baseI11SDL_PaletteE9class_defE @11 DATA
     _ZN5creek13UserData_baseI11SDL_PaletteE9class_objE @12 DATA
-    _ZN5creek13UserData_baseI11SDL_SurfaceE4attrENS_7VarNameE @13
-    _ZN5creek13UserData_baseI11SDL_SurfaceE4attrENS_7VarNameEPNS_4DataE @14
+    _ZN5creek13UserData_baseI11SDL_SurfaceE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @13
+    _ZN5creek13UserData_baseI11SDL_SurfaceE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @14
     _ZN5creek13UserData_baseI11SDL_SurfaceE9class_defE @15 DATA
     _ZN5creek13UserData_baseI11SDL_SurfaceE9class_objE @16 DATA
-    _ZN5creek13UserData_baseI11SDL_TextureE4attrENS_7VarNameE @17
-    _ZN5creek13UserData_baseI11SDL_TextureE4attrENS_7VarNameEPNS_4DataE @18
+    _ZN5creek13UserData_baseI11SDL_TextureE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @17
+    _ZN5creek13UserData_baseI11SDL_TextureE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @18
     _ZN5creek13UserData_baseI11SDL_TextureE9class_defE @19 DATA
     _ZN5creek13UserData_baseI11SDL_TextureE9class_objE @20 DATA
-    _ZN5creek13UserData_baseI11wrap_KeymodE4attrENS_7VarNameE @21
-    _ZN5creek13UserData_baseI11wrap_KeymodE4attrENS_7VarNameEPNS_4DataE @22
+    _ZN5creek13UserData_baseI11wrap_KeymodE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @21
+    _ZN5creek13UserData_baseI11wrap_KeymodE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @22
     _ZN5creek13UserData_baseI11wrap_KeymodE9class_defE @23 DATA
     _ZN5creek13UserData_baseI11wrap_KeymodE9class_objE @24 DATA
-    _ZN5creek13UserData_baseI12SDL_RendererE4attrENS_7VarNameE @25
-    _ZN5creek13UserData_baseI12SDL_RendererE4attrENS_7VarNameEPNS_4DataE @26
+    _ZN5creek13UserData_baseI12SDL_RendererE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @25
+    _ZN5creek13UserData_baseI12SDL_RendererE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @26
     _ZN5creek13UserData_baseI12SDL_RendererE9class_defE @27 DATA
     _ZN5creek13UserData_baseI12SDL_RendererE9class_objE @28 DATA
-    _ZN5creek13UserData_baseI13SDL_QuitEventE4attrENS_7VarNameE @29
-    _ZN5creek13UserData_baseI13SDL_QuitEventE4attrENS_7VarNameEPNS_4DataE @30
+    _ZN5creek13UserData_baseI13SDL_QuitEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @29
+    _ZN5creek13UserData_baseI13SDL_QuitEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @30
     _ZN5creek13UserData_baseI13SDL_QuitEventE9class_defE @31 DATA
     _ZN5creek13UserData_baseI13SDL_QuitEventE9class_objE @32 DATA
-    _ZN5creek13UserData_baseI13wrap_ScancodeE4attrENS_7VarNameE @33
-    _ZN5creek13UserData_baseI13wrap_ScancodeE4attrENS_7VarNameEPNS_4DataE @34
+    _ZN5creek13UserData_baseI13wrap_ScancodeE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @33
+    _ZN5creek13UserData_baseI13wrap_ScancodeE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @34
     _ZN5creek13UserData_baseI13wrap_ScancodeE9class_defE @35 DATA
     _ZN5creek13UserData_baseI13wrap_ScancodeE9class_objE @36 DATA
-    _ZN5creek13UserData_baseI15SDL_PixelFormatE4attrENS_7VarNameE @37
-    _ZN5creek13UserData_baseI15SDL_PixelFormatE4attrENS_7VarNameEPNS_4DataE @38
+    _ZN5creek13UserData_baseI15SDL_PixelFormatE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @37
+    _ZN5creek13UserData_baseI15SDL_PixelFormatE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @38
     _ZN5creek13UserData_baseI15SDL_PixelFormatE9class_defE @39 DATA
     _ZN5creek13UserData_baseI15SDL_PixelFormatE9class_objE @40 DATA
-    _ZN5creek13UserData_baseI15SDL_WindowEventE4attrENS_7VarNameE @41
-    _ZN5creek13UserData_baseI15SDL_WindowEventE4attrENS_7VarNameEPNS_4DataE @42
+    _ZN5creek13UserData_baseI15SDL_WindowEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @41
+    _ZN5creek13UserData_baseI15SDL_WindowEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @42
     _ZN5creek13UserData_baseI15SDL_WindowEventE9class_defE @43 DATA
     _ZN5creek13UserData_baseI15SDL_WindowEventE9class_objE @44 DATA
-    _ZN5creek13UserData_baseI16wrap_MouseButtonE4attrENS_7VarNameE @45
-    _ZN5creek13UserData_baseI16wrap_MouseButtonE4attrENS_7VarNameEPNS_4DataE @46
+    _ZN5creek13UserData_baseI16wrap_MouseButtonE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @45
+    _ZN5creek13UserData_baseI16wrap_MouseButtonE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @46
     _ZN5creek13UserData_baseI16wrap_MouseButtonE9class_defE @47 DATA
     _ZN5creek13UserData_baseI16wrap_MouseButtonE9class_objE @48 DATA
-    _ZN5creek13UserData_baseI17SDL_KeyboardEventE4attrENS_7VarNameE @49
-    _ZN5creek13UserData_baseI17SDL_KeyboardEventE4attrENS_7VarNameEPNS_4DataE @50
+    _ZN5creek13UserData_baseI17SDL_KeyboardEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @49
+    _ZN5creek13UserData_baseI17SDL_KeyboardEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @50
     _ZN5creek13UserData_baseI17SDL_KeyboardEventE9class_defE @51 DATA
     _ZN5creek13UserData_baseI17SDL_KeyboardEventE9class_objE @52 DATA
-    _ZN5creek13UserData_baseI18wrap_SDL_BlendModeE4attrENS_7VarNameE @53
-    _ZN5creek13UserData_baseI18wrap_SDL_BlendModeE4attrENS_7VarNameEPNS_4DataE @54
+    _ZN5creek13UserData_baseI18wrap_SDL_BlendModeE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @53
+    _ZN5creek13UserData_baseI18wrap_SDL_BlendModeE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @54
     _ZN5creek13UserData_baseI18wrap_SDL_BlendModeE9class_defE @55 DATA
     _ZN5creek13UserData_baseI18wrap_SDL_BlendModeE9class_objE @56 DATA
-    _ZN5creek13UserData_baseI20SDL_MouseButtonEventE4attrENS_7VarNameE @57
-    _ZN5creek13UserData_baseI20SDL_MouseButtonEventE4attrENS_7VarNameEPNS_4DataE @58
+    _ZN5creek13UserData_baseI20SDL_MouseButtonEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @57
+    _ZN5creek13UserData_baseI20SDL_MouseButtonEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @58
     _ZN5creek13UserData_baseI20SDL_MouseButtonEventE9class_defE @59 DATA
     _ZN5creek13UserData_baseI20SDL_MouseButtonEventE9class_objE @60 DATA
-    _ZN5creek13UserData_baseI20SDL_MouseMotionEventE4attrENS_7VarNameE @61
-    _ZN5creek13UserData_baseI20SDL_MouseMotionEventE4attrENS_7VarNameEPNS_4DataE @62
+    _ZN5creek13UserData_baseI20SDL_MouseMotionEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @61
+    _ZN5creek13UserData_baseI20SDL_MouseMotionEventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @62
     _ZN5creek13UserData_baseI20SDL_MouseMotionEventE9class_defE @63 DATA
     _ZN5creek13UserData_baseI20SDL_MouseMotionEventE9class_objE @64 DATA
-    _ZN5creek13UserData_baseI8SDL_RectE4attrENS_7VarNameE @65
-    _ZN5creek13UserData_baseI8SDL_RectE4attrENS_7VarNameEPNS_4DataE @66
+    _ZN5creek13UserData_baseI8SDL_RectE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @65
+    _ZN5creek13UserData_baseI8SDL_RectE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @66
     _ZN5creek13UserData_baseI8SDL_RectE9class_defE @67 DATA
     _ZN5creek13UserData_baseI8SDL_RectE9class_objE @68 DATA
-    _ZN5creek13UserData_baseI9SDL_ColorE4attrENS_7VarNameE @69
-    _ZN5creek13UserData_baseI9SDL_ColorE4attrENS_7VarNameEPNS_4DataE @70
+    _ZN5creek13UserData_baseI9SDL_ColorE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @69
+    _ZN5creek13UserData_baseI9SDL_ColorE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @70
     _ZN5creek13UserData_baseI9SDL_ColorE9class_defE @71 DATA
     _ZN5creek13UserData_baseI9SDL_ColorE9class_objE @72 DATA
-    _ZN5creek13UserData_baseI9SDL_EventE4attrENS_7VarNameE @73
-    _ZN5creek13UserData_baseI9SDL_EventE4attrENS_7VarNameEPNS_4DataE @74
+    _ZN5creek13UserData_baseI9SDL_EventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @73
+    _ZN5creek13UserData_baseI9SDL_EventE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @74
     _ZN5creek13UserData_baseI9SDL_EventE9class_defE @75 DATA
     _ZN5creek13UserData_baseI9SDL_EventE9class_objE @76 DATA
-    _ZN5creek13UserData_baseI9SDL_PointE4attrENS_7VarNameE @77
-    _ZN5creek13UserData_baseI9SDL_PointE4attrENS_7VarNameEPNS_4DataE @78
+    _ZN5creek13UserData_baseI9SDL_PointE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameE @77
+    _ZN5creek13UserData_baseI9SDL_PointE4attrERKNS_13SharedPointerINS_5ScopeEEENS_7VarNameEPNS_4DataE @78
     _ZN5creek13UserData_baseI9SDL_PointE9class_defE @79 DATA
     _ZN5creek13UserData_baseI9SDL_PointE9class_objE @80 DATA
     _ZN5creek8UserDataI10SDL_KeysymEC1EPS1_ @81
@@ -123,64 +123,64 @@ EXPORTS
     _ZN5creek8UserDataIP15SDL_PixelFormatEC1ERKSt10shared_ptrIS2_E @122
     _ZNK5creek13UserData_baseI10SDL_KeysymE10class_nameEv @123
     _ZNK5creek13UserData_baseI10SDL_KeysymE10debug_textEv @124
-    _ZNK5creek13UserData_baseI10SDL_KeysymE9get_classEv @125
+    _ZNK5creek13UserData_baseI10SDL_KeysymE9get_classERKNS_13SharedPointerINS_5ScopeEEE @125
     _ZNK5creek13UserData_baseI10SDL_WindowE10class_nameEv @126
     _ZNK5creek13UserData_baseI10SDL_WindowE10debug_textEv @127
-    _ZNK5creek13UserData_baseI10SDL_WindowE9get_classEv @128
+    _ZNK5creek13UserData_baseI10SDL_WindowE9get_classERKNS_13SharedPointerINS_5ScopeEEE @128
     _ZNK5creek13UserData_baseI11SDL_PaletteE10class_nameEv @129
     _ZNK5creek13UserData_baseI11SDL_PaletteE10debug_textEv @130
-    _ZNK5creek13UserData_baseI11SDL_PaletteE9get_classEv @131
+    _ZNK5creek13UserData_baseI11SDL_PaletteE9get_classERKNS_13SharedPointerINS_5ScopeEEE @131
     _ZNK5creek13UserData_baseI11SDL_SurfaceE10class_nameEv @132
     _ZNK5creek13UserData_baseI11SDL_SurfaceE10debug_textEv @133
-    _ZNK5creek13UserData_baseI11SDL_SurfaceE9get_classEv @134
+    _ZNK5creek13UserData_baseI11SDL_SurfaceE9get_classERKNS_13SharedPointerINS_5ScopeEEE @134
     _ZNK5creek13UserData_baseI11SDL_TextureE10class_nameEv @135
     _ZNK5creek13UserData_baseI11SDL_TextureE10debug_textEv @136
-    _ZNK5creek13UserData_baseI11SDL_TextureE9get_classEv @137
+    _ZNK5creek13UserData_baseI11SDL_TextureE9get_classERKNS_13SharedPointerINS_5ScopeEEE @137
     _ZNK5creek13UserData_baseI11wrap_KeymodE10class_nameEv @138
     _ZNK5creek13UserData_baseI11wrap_KeymodE10debug_textEv @139
-    _ZNK5creek13UserData_baseI11wrap_KeymodE9get_classEv @140
+    _ZNK5creek13UserData_baseI11wrap_KeymodE9get_classERKNS_13SharedPointerINS_5ScopeEEE @140
     _ZNK5creek13UserData_baseI12SDL_RendererE10class_nameEv @141
     _ZNK5creek13UserData_baseI12SDL_RendererE10debug_textEv @142
-    _ZNK5creek13UserData_baseI12SDL_RendererE9get_classEv @143
+    _ZNK5creek13UserData_baseI12SDL_RendererE9get_classERKNS_13SharedPointerINS_5ScopeEEE @143
     _ZNK5creek13UserData_baseI13SDL_QuitEventE10class_nameEv @144
     _ZNK5creek13UserData_baseI13SDL_QuitEventE10debug_textEv @145
-    _ZNK5creek13UserData_baseI13SDL_QuitEventE9get_classEv @146
+    _ZNK5creek13UserData_baseI13SDL_QuitEventE9get_classERKNS_13SharedPointerINS_5ScopeEEE @146
     _ZNK5creek13UserData_baseI13wrap_ScancodeE10class_nameEv @147
     _ZNK5creek13UserData_baseI13wrap_ScancodeE10debug_textEv @148
-    _ZNK5creek13UserData_baseI13wrap_ScancodeE9get_classEv @149
+    _ZNK5creek13UserData_baseI13wrap_ScancodeE9get_classERKNS_13SharedPointerINS_5ScopeEEE @149
     _ZNK5creek13UserData_baseI15SDL_PixelFormatE10class_nameEv @150
     _ZNK5creek13UserData_baseI15SDL_PixelFormatE10debug_textEv @151
-    _ZNK5creek13UserData_baseI15SDL_PixelFormatE9get_classEv @152
+    _ZNK5creek13UserData_baseI15SDL_PixelFormatE9get_classERKNS_13SharedPointerINS_5ScopeEEE @152
     _ZNK5creek13UserData_baseI15SDL_WindowEventE10class_nameEv @153
     _ZNK5creek13UserData_baseI15SDL_WindowEventE10debug_textEv @154
-    _ZNK5creek13UserData_baseI15SDL_WindowEventE9get_classEv @155
+    _ZNK5creek13UserData_baseI15SDL_WindowEventE9get_classERKNS_13SharedPointerINS_5ScopeEEE @155
     _ZNK5creek13UserData_baseI16wrap_MouseButtonE10class_nameEv @156
     _ZNK5creek13UserData_baseI16wrap_MouseButtonE10debug_textEv @157
-    _ZNK5creek13UserData_baseI16wrap_MouseButtonE9get_classEv @158
+    _ZNK5creek13UserData_baseI16wrap_MouseButtonE9get_classERKNS_13SharedPointerINS_5ScopeEEE @158
     _ZNK5creek13UserData_baseI17SDL_KeyboardEventE10class_nameEv @159
     _ZNK5creek13UserData_baseI17SDL_KeyboardEventE10debug_textEv @160
-    _ZNK5creek13UserData_baseI17SDL_KeyboardEventE9get_classEv @161
+    _ZNK5creek13UserData_baseI17SDL_KeyboardEventE9get_classERKNS_13SharedPointerINS_5ScopeEEE @161
     _ZNK5creek13UserData_baseI18wrap_SDL_BlendModeE10class_nameEv @162
     _ZNK5creek13UserData_baseI18wrap_SDL_BlendModeE10debug_textEv @163
-    _ZNK5creek13UserData_baseI18wrap_SDL_BlendModeE9get_classEv @164
+    _ZNK5creek13UserData_baseI18wrap_SDL_BlendModeE9get_classERKNS_13SharedPointerINS_5ScopeEEE @164
     _ZNK5creek13UserData_baseI20SDL_MouseButtonEventE10class_nameEv @165
     _ZNK5creek13UserData_baseI20SDL_MouseButtonEventE10debug_textEv @166
-    _ZNK5creek13UserData_baseI20SDL_MouseButtonEventE9get_classEv @167
+    _ZNK5creek13UserData_baseI20SDL_MouseButtonEventE9get_classERKNS_13SharedPointerINS_5ScopeEEE @167
     _ZNK5creek13UserData_baseI20SDL_MouseMotionEventE10class_nameEv @168
     _ZNK5creek13UserData_baseI20SDL_MouseMotionEventE10debug_textEv @169
-    _ZNK5creek13UserData_baseI20SDL_MouseMotionEventE9get_classEv @170
+    _ZNK5creek13UserData_baseI20SDL_MouseMotionEventE9get_classERKNS_13SharedPointerINS_5ScopeEEE @170
     _ZNK5creek13UserData_baseI8SDL_RectE10class_nameEv @171
     _ZNK5creek13UserData_baseI8SDL_RectE10debug_textEv @172
-    _ZNK5creek13UserData_baseI8SDL_RectE9get_classEv @173
+    _ZNK5creek13UserData_baseI8SDL_RectE9get_classERKNS_13SharedPointerINS_5ScopeEEE @173
     _ZNK5creek13UserData_baseI9SDL_ColorE10class_nameEv @174
     _ZNK5creek13UserData_baseI9SDL_ColorE10debug_textEv @175
-    _ZNK5creek13UserData_baseI9SDL_ColorE9get_classEv @176
+    _ZNK5creek13UserData_baseI9SDL_ColorE9get_classERKNS_13SharedPointerINS_5ScopeEEE @176
     _ZNK5creek13UserData_baseI9SDL_EventE10class_nameEv @177
     _ZNK5creek13UserData_baseI9SDL_EventE10debug_textEv @178
-    _ZNK5creek13UserData_baseI9SDL_EventE9get_classEv @179
+    _ZNK5creek13UserData_baseI9SDL_EventE9get_classERKNS_13SharedPointerINS_5ScopeEEE @179
     _ZNK5creek13UserData_baseI9SDL_PointE10class_nameEv @180
     _ZNK5creek13UserData_baseI9SDL_PointE10debug_textEv @181
-    _ZNK5creek13UserData_baseI9SDL_PointE9get_classEv @182
+    _ZNK5creek13UserData_baseI9SDL_PointE9get_classERKNS_13SharedPointerINS_5ScopeEEE @182
     _ZNK5creek8UserDataI10SDL_KeysymE4copyEv @183
     _ZNK5creek8UserDataI10SDL_KeysymE7pointerEv @184
     _ZNK5creek8UserDataI10SDL_KeysymE9referenceEv @185
@@ -259,241 +259,254 @@ EXPORTS
     _ZNK5creek8UserDataIP15SDL_PixelFormatE4copyEv @258
     _ZNK5creek8UserDataIP15SDL_PixelFormatE7pointerEv @259
     _ZNK5creek8UserDataIP15SDL_PixelFormatE9referenceEv @260
-    _ZTIN5creek10ExprBoolOrE @261 DATA
-    _ZTIN5creek10ExprNumberE @262 DATA
-    _ZTIN5creek10ExprReturnE @263 DATA
-    _ZTIN5creek10ExprStringE @264 DATA
-    _ZTIN5creek10ExprSwitchE @265 DATA
-    _ZTIN5creek10ExprVectorE @266 DATA
-    _ZTIN5creek10ExpressionE @267 DATA
-    _ZTIN5creek10IdentifierE @268 DATA
-    _ZTIN5creek10LexicErrorE @269 DATA
-    _ZTIN5creek11BadArgumentE @270 DATA
-    _ZTIN5creek11ExprAttrGetE @271 DATA
-    _ZTIN5creek11ExprAttrSetE @272 DATA
-    _ZTIN5creek11ExprBoolAndE @273 DATA
-    _ZTIN5creek11ExprBoolNotE @274 DATA
-    _ZTIN5creek11ExprBoolXorE @275 DATA
-    _ZTIN5creek11ExprBooleanE @276 DATA
-    _ZTIN5creek11ExprDynFuncE @277 DATA
-    _ZTIN5creek11SyntaxErrorE @278 DATA
-    _ZTIN5creek12DynCFunctionE @279 DATA
-    _ZTIN5creek12ExprDynClassE @280 DATA
-    _ZTIN5creek12ExprFunctionE @281 DATA
-    _ZTIN5creek12ExprIndexGetE @282 DATA
-    _ZTIN5creek12ExprIndexSetE @283 DATA
-    _ZTIN5creek12RuntimeErrorE @284 DATA
-    _ZTIN5creek13ExprLoadLocalE @285 DATA
-    _ZTIN5creek13UnexpectedEofE @286 DATA
-    _ZTIN5creek13UnimplementedE @287 DATA
-    _ZTIN5creek13UserData_baseI10SDL_KeysymEE @288 DATA
-    _ZTIN5creek13UserData_baseI10SDL_WindowEE @289 DATA
-    _ZTIN5creek13UserData_baseI11SDL_PaletteEE @290 DATA
-    _ZTIN5creek13UserData_baseI11SDL_SurfaceEE @291 DATA
-    _ZTIN5creek13UserData_baseI11SDL_TextureEE @292 DATA
-    _ZTIN5creek13UserData_baseI11wrap_KeymodEE @293 DATA
-    _ZTIN5creek13UserData_baseI12SDL_RendererEE @294 DATA
-    _ZTIN5creek13UserData_baseI13SDL_QuitEventEE @295 DATA
-    _ZTIN5creek13UserData_baseI13wrap_ScancodeEE @296 DATA
-    _ZTIN5creek13UserData_baseI15SDL_PixelFormatEE @297 DATA
-    _ZTIN5creek13UserData_baseI15SDL_WindowEventEE @298 DATA
-    _ZTIN5creek13UserData_baseI16wrap_MouseButtonEE @299 DATA
-    _ZTIN5creek13UserData_baseI17SDL_KeyboardEventEE @300 DATA
-    _ZTIN5creek13UserData_baseI18wrap_SDL_BlendModeEE @301 DATA
-    _ZTIN5creek13UserData_baseI20SDL_MouseButtonEventEE @302 DATA
-    _ZTIN5creek13UserData_baseI20SDL_MouseMotionEventEE @303 DATA
-    _ZTIN5creek13UserData_baseI8SDL_RectEE @304 DATA
-    _ZTIN5creek13UserData_baseI9SDL_ColorEE @305 DATA
-    _ZTIN5creek13UserData_baseI9SDL_EventEE @306 DATA
-    _ZTIN5creek13UserData_baseI9SDL_PointEE @307 DATA
-    _ZTIN5creek14AmbiguousTokenE @308 DATA
-    _ZTIN5creek14ExprBasicBlockE @309 DATA
-    _ZTIN5creek14ExprCallMethodE @310 DATA
-    _ZTIN5creek14ExprIdentifierE @311 DATA
-    _ZTIN5creek14ExprLoadGlobalE @312 DATA
-    _ZTIN5creek14ExprStoreLocalE @313 DATA
-    _ZTIN5creek14WrongArgNumberE @314 DATA
-    _ZTIN5creek15BadNumberFormatE @315 DATA
-    _ZTIN5creek15DynLibraryErrorE @316 DATA
-    _ZTIN5creek15ExprCreateLocalE @317 DATA
-    _ZTIN5creek15ExprStoreGlobalE @318 DATA
-    _ZTIN5creek15UnexpectedTokenE @319 DATA
-    _ZTIN5creek16ExprCreateGlobalE @320 DATA
-    _ZTIN5creek16ExprVariadicCallE @321 DATA
-    _ZTIN5creek17DynSymbolNotFoundE @322 DATA
-    _ZTIN5creek18BadCharacterEscapeE @323 DATA
-    _ZTIN5creek19UnexpectedCharacterE @324 DATA
-    _ZTIN5creek22ExprVariadicCallMethodE @325 DATA
-    _ZTIN5creek3MapE @326 DATA
-    _ZTIN5creek4DataE @327 DATA
-    _ZTIN5creek4NullE @328 DATA
-    _ZTIN5creek4VoidE @329 DATA
-    _ZTIN5creek6ExprDoE @330 DATA
-    _ZTIN5creek6ExprEQE @331 DATA
-    _ZTIN5creek6ExprGEE @332 DATA
-    _ZTIN5creek6ExprGTE @333 DATA
-    _ZTIN5creek6ExprIfE @334 DATA
-    _ZTIN5creek6ExprLEE @335 DATA
-    _ZTIN5creek6ExprLTE @336 DATA
-    _ZTIN5creek6ExprNEE @337 DATA
-    _ZTIN5creek6NumberE @338 DATA
-    _ZTIN5creek6ObjectE @339 DATA
-    _ZTIN5creek6StringE @340 DATA
-    _ZTIN5creek6VectorE @341 DATA
-    _ZTIN5creek7BooleanE @342 DATA
-    _ZTIN5creek7ExprCmpE @343 DATA
-    _ZTIN5creek7ExprForE @344 DATA
-    _ZTIN5creek7ExprMapE @345 DATA
-    _ZTIN5creek7ExprTryE @346 DATA
-    _ZTIN5creek8ExprCallE @347 DATA
-    _ZTIN5creek8ExprLoopE @348 DATA
-    _ZTIN5creek8ExprNullE @349 DATA
-    _ZTIN5creek8ExprVoidE @350 DATA
-    _ZTIN5creek8FunctionE @351 DATA
-    _ZTIN5creek8UserDataI10SDL_KeysymEE @352 DATA
-    _ZTIN5creek8UserDataI10SDL_WindowEE @353 DATA
-    _ZTIN5creek8UserDataI11SDL_PaletteEE @354 DATA
-    _ZTIN5creek8UserDataI11SDL_SurfaceEE @355 DATA
-    _ZTIN5creek8UserDataI11SDL_TextureEE @356 DATA
-    _ZTIN5creek8UserDataI11wrap_KeymodEE @357 DATA
-    _ZTIN5creek8UserDataI12SDL_RendererEE @358 DATA
-    _ZTIN5creek8UserDataI13SDL_QuitEventEE @359 DATA
-    _ZTIN5creek8UserDataI13wrap_ScancodeEE @360 DATA
-    _ZTIN5creek8UserDataI15SDL_PixelFormatEE @361 DATA
-    _ZTIN5creek8UserDataI15SDL_WindowEventEE @362 DATA
-    _ZTIN5creek8UserDataI16wrap_MouseButtonEE @363 DATA
-    _ZTIN5creek8UserDataI17SDL_KeyboardEventEE @364 DATA
-    _ZTIN5creek8UserDataI18wrap_SDL_BlendModeEE @365 DATA
-    _ZTIN5creek8UserDataI20SDL_MouseButtonEventEE @366 DATA
-    _ZTIN5creek8UserDataI20SDL_MouseMotionEventEE @367 DATA
-    _ZTIN5creek8UserDataI8SDL_RectEE @368 DATA
-    _ZTIN5creek8UserDataI9SDL_ColorEE @369 DATA
-    _ZTIN5creek8UserDataI9SDL_EventEE @370 DATA
-    _ZTIN5creek8UserDataI9SDL_PointEE @371 DATA
-    _ZTIN5creek8UserDataIK15SDL_PixelFormatEE @372 DATA
-    _ZTIN5creek8UserDataIK8SDL_RectEE @373 DATA
-    _ZTIN5creek8UserDataIK9SDL_ColorEE @374 DATA
-    _ZTIN5creek8UserDataIK9SDL_PointEE @375 DATA
-    _ZTIN5creek8UserDataIP10SDL_WindowEE @376 DATA
-    _ZTIN5creek8UserDataIP11SDL_PaletteEE @377 DATA
-    _ZTIN5creek8UserDataIP11SDL_SurfaceEE @378 DATA
-    _ZTIN5creek8UserDataIP11SDL_TextureEE @379 DATA
-    _ZTIN5creek8UserDataIP12SDL_RendererEE @380 DATA
-    _ZTIN5creek8UserDataIP15SDL_PixelFormatEE @381 DATA
-    _ZTIN5creek9CFunctionE @382 DATA
-    _ZTIN5creek9ExceptionE @383 DATA
-    _ZTIN5creek9ExprBreakE @384 DATA
-    _ZTIN5creek9ExprClassE @385 DATA
-    _ZTIN5creek9ExprConstE @386 DATA
-    _ZTIN5creek9ExprForInE @387 DATA
-    _ZTIN5creek9ExprPrintE @388 DATA
-    _ZTIN5creek9ExprThrowE @389 DATA
-    _ZTIN5creek9ExprWhileE @390 DATA
-    _ZTIN5creek9UndefinedE @391 DATA
-    _ZTVN5creek10LexicErrorE @392 DATA
-    _ZTVN5creek11BadArgumentE @393 DATA
-    _ZTVN5creek11SyntaxErrorE @394 DATA
-    _ZTVN5creek12RuntimeErrorE @395 DATA
-    _ZTVN5creek13UnexpectedEofE @396 DATA
-    _ZTVN5creek13UnimplementedE @397 DATA
-    _ZTVN5creek13UserData_baseI10SDL_KeysymEE @398 DATA
-    _ZTVN5creek13UserData_baseI10SDL_WindowEE @399 DATA
-    _ZTVN5creek13UserData_baseI11SDL_PaletteEE @400 DATA
-    _ZTVN5creek13UserData_baseI11SDL_SurfaceEE @401 DATA
-    _ZTVN5creek13UserData_baseI11SDL_TextureEE @402 DATA
-    _ZTVN5creek13UserData_baseI11wrap_KeymodEE @403 DATA
-    _ZTVN5creek13UserData_baseI12SDL_RendererEE @404 DATA
-    _ZTVN5creek13UserData_baseI13SDL_QuitEventEE @405 DATA
-    _ZTVN5creek13UserData_baseI13wrap_ScancodeEE @406 DATA
-    _ZTVN5creek13UserData_baseI15SDL_PixelFormatEE @407 DATA
-    _ZTVN5creek13UserData_baseI15SDL_WindowEventEE @408 DATA
-    _ZTVN5creek13UserData_baseI16wrap_MouseButtonEE @409 DATA
-    _ZTVN5creek13UserData_baseI17SDL_KeyboardEventEE @410 DATA
-    _ZTVN5creek13UserData_baseI18wrap_SDL_BlendModeEE @411 DATA
-    _ZTVN5creek13UserData_baseI20SDL_MouseButtonEventEE @412 DATA
-    _ZTVN5creek13UserData_baseI20SDL_MouseMotionEventEE @413 DATA
-    _ZTVN5creek13UserData_baseI8SDL_RectEE @414 DATA
-    _ZTVN5creek13UserData_baseI9SDL_ColorEE @415 DATA
-    _ZTVN5creek13UserData_baseI9SDL_EventEE @416 DATA
-    _ZTVN5creek13UserData_baseI9SDL_PointEE @417 DATA
-    _ZTVN5creek14AmbiguousTokenE @418 DATA
-    _ZTVN5creek14WrongArgNumberE @419 DATA
-    _ZTVN5creek15BadNumberFormatE @420 DATA
-    _ZTVN5creek15DynLibraryErrorE @421 DATA
-    _ZTVN5creek15UnexpectedTokenE @422 DATA
-    _ZTVN5creek17DynSymbolNotFoundE @423 DATA
-    _ZTVN5creek18BadCharacterEscapeE @424 DATA
-    _ZTVN5creek19UnexpectedCharacterE @425 DATA
-    _ZTVN5creek8UserDataI10SDL_KeysymEE @426 DATA
-    _ZTVN5creek8UserDataI10SDL_WindowEE @427 DATA
-    _ZTVN5creek8UserDataI11SDL_PaletteEE @428 DATA
-    _ZTVN5creek8UserDataI11SDL_SurfaceEE @429 DATA
-    _ZTVN5creek8UserDataI11SDL_TextureEE @430 DATA
-    _ZTVN5creek8UserDataI11wrap_KeymodEE @431 DATA
-    _ZTVN5creek8UserDataI12SDL_RendererEE @432 DATA
-    _ZTVN5creek8UserDataI13SDL_QuitEventEE @433 DATA
-    _ZTVN5creek8UserDataI13wrap_ScancodeEE @434 DATA
-    _ZTVN5creek8UserDataI15SDL_PixelFormatEE @435 DATA
-    _ZTVN5creek8UserDataI15SDL_WindowEventEE @436 DATA
-    _ZTVN5creek8UserDataI16wrap_MouseButtonEE @437 DATA
-    _ZTVN5creek8UserDataI17SDL_KeyboardEventEE @438 DATA
-    _ZTVN5creek8UserDataI18wrap_SDL_BlendModeEE @439 DATA
-    _ZTVN5creek8UserDataI20SDL_MouseButtonEventEE @440 DATA
-    _ZTVN5creek8UserDataI20SDL_MouseMotionEventEE @441 DATA
-    _ZTVN5creek8UserDataI8SDL_RectEE @442 DATA
-    _ZTVN5creek8UserDataI9SDL_ColorEE @443 DATA
-    _ZTVN5creek8UserDataI9SDL_EventEE @444 DATA
-    _ZTVN5creek8UserDataI9SDL_PointEE @445 DATA
-    _ZTVN5creek8UserDataIK15SDL_PixelFormatEE @446 DATA
-    _ZTVN5creek8UserDataIK8SDL_RectEE @447 DATA
-    _ZTVN5creek8UserDataIK9SDL_ColorEE @448 DATA
-    _ZTVN5creek8UserDataIK9SDL_PointEE @449 DATA
-    _ZTVN5creek8UserDataIP10SDL_WindowEE @450 DATA
-    _ZTVN5creek8UserDataIP11SDL_PaletteEE @451 DATA
-    _ZTVN5creek8UserDataIP11SDL_SurfaceEE @452 DATA
-    _ZTVN5creek8UserDataIP11SDL_TextureEE @453 DATA
-    _ZTVN5creek8UserDataIP12SDL_RendererEE @454 DATA
-    _ZTVN5creek8UserDataIP15SDL_PixelFormatEE @455 DATA
-    _ZTVN5creek9ExceptionE @456 DATA
-    _ZTVN5creek9UndefinedE @457 DATA
-    creek_class_BlendMode @458 DATA
-    creek_class_Color @459 DATA
-    creek_class_Event @460 DATA
-    creek_class_KeyboardEvent @461 DATA
-    creek_class_Keymod @462 DATA
-    creek_class_Keysym @463 DATA
-    creek_class_MouseButton @464 DATA
-    creek_class_MouseButtonEvent @465 DATA
-    creek_class_MouseMotionEvent @466 DATA
-    creek_class_Palette @467 DATA
-    creek_class_PixelFormat @468 DATA
-    creek_class_Point @469 DATA
-    creek_class_QuitEvent @470 DATA
-    creek_class_Rect @471 DATA
-    creek_class_Renderer @472 DATA
-    creek_class_Scancode @473 DATA
-    creek_class_Surface @474 DATA
-    creek_class_Texture @475 DATA
-    creek_class_Window @476 DATA
-    creek_class_WindowEvent @477 DATA
-    creek_func_INIT_EVERYTHING @478 DATA
-    creek_func_INIT_JPG @479 DATA
-    creek_func_INIT_PNG @480 DATA
-    creek_func_INIT_TIF @481 DATA
-    creek_func_INIT_WEBP @482 DATA
-    creek_func_create_renderer @483 DATA
-    creek_func_create_window @484 DATA
-    creek_func_delay @485 DATA
-    creek_func_destroy_renderer @486 DATA
-    creek_func_destroy_texture @487 DATA
-    creek_func_destroy_window @488 DATA
-    creek_func_free_surface @489 DATA
-    creek_func_get_error @490 DATA
-    creek_func_img_init @491 DATA
-    creek_func_img_quit @492 DATA
-    creek_func_init @493 DATA
-    creek_func_poll_event @494 DATA
-    creek_func_quit @495 DATA
-    creek_func_set_error @496 DATA
-    creek_func_show_simple_message_box @497 DATA
-    creek_func_was_init @498 DATA
+    _ZTIN5creek10ConstScopeE @261 DATA
+    _ZTIN5creek10ExprBoolOrE @262 DATA
+    _ZTIN5creek10ExprDynVarE @263 DATA
+    _ZTIN5creek10ExprModuleE @264 DATA
+    _ZTIN5creek10ExprNumberE @265 DATA
+    _ZTIN5creek10ExprReturnE @266 DATA
+    _ZTIN5creek10ExprStringE @267 DATA
+    _ZTIN5creek10ExprSwitchE @268 DATA
+    _ZTIN5creek10ExprVectorE @269 DATA
+    _ZTIN5creek10ExpressionE @270 DATA
+    _ZTIN5creek10IdentifierE @271 DATA
+    _ZTIN5creek10LexicErrorE @272 DATA
+    _ZTIN5creek10LocalScopeE @273 DATA
+    _ZTIN5creek11BadArgumentE @274 DATA
+    _ZTIN5creek11ExprAttrGetE @275 DATA
+    _ZTIN5creek11ExprAttrSetE @276 DATA
+    _ZTIN5creek11ExprBoolAndE @277 DATA
+    _ZTIN5creek11ExprBoolNotE @278 DATA
+    _ZTIN5creek11ExprBoolXorE @279 DATA
+    _ZTIN5creek11ExprBooleanE @280 DATA
+    _ZTIN5creek11ExprDynFuncE @281 DATA
+    _ZTIN5creek11GlobalScopeE @282 DATA
+    _ZTIN5creek11ObjectScopeE @283 DATA
+    _ZTIN5creek11SyntaxErrorE @284 DATA
+    _ZTIN5creek12DynCFunctionE @285 DATA
+    _ZTIN5creek12ExprDynClassE @286 DATA
+    _ZTIN5creek12ExprFunctionE @287 DATA
+    _ZTIN5creek12ExprIndexGetE @288 DATA
+    _ZTIN5creek12ExprIndexSetE @289 DATA
+    _ZTIN5creek12RuntimeErrorE @290 DATA
+    _ZTIN5creek13ExprLoadLocalE @291 DATA
+    _ZTIN5creek13UnexpectedEofE @292 DATA
+    _ZTIN5creek13UnimplementedE @293 DATA
+    _ZTIN5creek13UserData_baseI10SDL_KeysymEE @294 DATA
+    _ZTIN5creek13UserData_baseI10SDL_WindowEE @295 DATA
+    _ZTIN5creek13UserData_baseI11SDL_PaletteEE @296 DATA
+    _ZTIN5creek13UserData_baseI11SDL_SurfaceEE @297 DATA
+    _ZTIN5creek13UserData_baseI11SDL_TextureEE @298 DATA
+    _ZTIN5creek13UserData_baseI11wrap_KeymodEE @299 DATA
+    _ZTIN5creek13UserData_baseI12SDL_RendererEE @300 DATA
+    _ZTIN5creek13UserData_baseI13SDL_QuitEventEE @301 DATA
+    _ZTIN5creek13UserData_baseI13wrap_ScancodeEE @302 DATA
+    _ZTIN5creek13UserData_baseI15SDL_PixelFormatEE @303 DATA
+    _ZTIN5creek13UserData_baseI15SDL_WindowEventEE @304 DATA
+    _ZTIN5creek13UserData_baseI16wrap_MouseButtonEE @305 DATA
+    _ZTIN5creek13UserData_baseI17SDL_KeyboardEventEE @306 DATA
+    _ZTIN5creek13UserData_baseI18wrap_SDL_BlendModeEE @307 DATA
+    _ZTIN5creek13UserData_baseI20SDL_MouseButtonEventEE @308 DATA
+    _ZTIN5creek13UserData_baseI20SDL_MouseMotionEventEE @309 DATA
+    _ZTIN5creek13UserData_baseI8SDL_RectEE @310 DATA
+    _ZTIN5creek13UserData_baseI9SDL_ColorEE @311 DATA
+    _ZTIN5creek13UserData_baseI9SDL_EventEE @312 DATA
+    _ZTIN5creek13UserData_baseI9SDL_PointEE @313 DATA
+    _ZTIN5creek14AmbiguousTokenE @314 DATA
+    _ZTIN5creek14ExprBasicBlockE @315 DATA
+    _ZTIN5creek14ExprCallMethodE @316 DATA
+    _ZTIN5creek14ExprIdentifierE @317 DATA
+    _ZTIN5creek14ExprLoadGlobalE @318 DATA
+    _ZTIN5creek14ExprStoreLocalE @319 DATA
+    _ZTIN5creek14WrongArgNumberE @320 DATA
+    _ZTIN5creek15BadNumberFormatE @321 DATA
+    _ZTIN5creek15DynLibraryErrorE @322 DATA
+    _ZTIN5creek15ExprCreateLocalE @323 DATA
+    _ZTIN5creek15ExprStoreGlobalE @324 DATA
+    _ZTIN5creek15UnexpectedTokenE @325 DATA
+    _ZTIN5creek16ExprCreateGlobalE @326 DATA
+    _ZTIN5creek16ExprVariadicCallE @327 DATA
+    _ZTIN5creek17DynSymbolNotFoundE @328 DATA
+    _ZTIN5creek18BadCharacterEscapeE @329 DATA
+    _ZTIN5creek18GarbageCollectableE @330 DATA
+    _ZTIN5creek19UnexpectedCharacterE @331 DATA
+    _ZTIN5creek22ExprVariadicCallMethodE @332 DATA
+    _ZTIN5creek3MapE @333 DATA
+    _ZTIN5creek4DataE @334 DATA
+    _ZTIN5creek4NullE @335 DATA
+    _ZTIN5creek4VoidE @336 DATA
+    _ZTIN5creek5ScopeE @337 DATA
+    _ZTIN5creek6ExprDoE @338 DATA
+    _ZTIN5creek6ExprEQE @339 DATA
+    _ZTIN5creek6ExprGEE @340 DATA
+    _ZTIN5creek6ExprGTE @341 DATA
+    _ZTIN5creek6ExprIfE @342 DATA
+    _ZTIN5creek6ExprLEE @343 DATA
+    _ZTIN5creek6ExprLTE @344 DATA
+    _ZTIN5creek6ExprNEE @345 DATA
+    _ZTIN5creek6NumberE @346 DATA
+    _ZTIN5creek6ObjectE @347 DATA
+    _ZTIN5creek6SharedE @348 DATA
+    _ZTIN5creek6StringE @349 DATA
+    _ZTIN5creek6VectorE @350 DATA
+    _ZTIN5creek7BooleanE @351 DATA
+    _ZTIN5creek7ExprCmpE @352 DATA
+    _ZTIN5creek7ExprForE @353 DATA
+    _ZTIN5creek7ExprMapE @354 DATA
+    _ZTIN5creek7ExprTryE @355 DATA
+    _ZTIN5creek8ExprCallE @356 DATA
+    _ZTIN5creek8ExprLoopE @357 DATA
+    _ZTIN5creek8ExprNullE @358 DATA
+    _ZTIN5creek8ExprVoidE @359 DATA
+    _ZTIN5creek8FunctionE @360 DATA
+    _ZTIN5creek8UserDataI10SDL_KeysymEE @361 DATA
+    _ZTIN5creek8UserDataI10SDL_WindowEE @362 DATA
+    _ZTIN5creek8UserDataI11SDL_PaletteEE @363 DATA
+    _ZTIN5creek8UserDataI11SDL_SurfaceEE @364 DATA
+    _ZTIN5creek8UserDataI11SDL_TextureEE @365 DATA
+    _ZTIN5creek8UserDataI11wrap_KeymodEE @366 DATA
+    _ZTIN5creek8UserDataI12SDL_RendererEE @367 DATA
+    _ZTIN5creek8UserDataI13SDL_QuitEventEE @368 DATA
+    _ZTIN5creek8UserDataI13wrap_ScancodeEE @369 DATA
+    _ZTIN5creek8UserDataI15SDL_PixelFormatEE @370 DATA
+    _ZTIN5creek8UserDataI15SDL_WindowEventEE @371 DATA
+    _ZTIN5creek8UserDataI16wrap_MouseButtonEE @372 DATA
+    _ZTIN5creek8UserDataI17SDL_KeyboardEventEE @373 DATA
+    _ZTIN5creek8UserDataI18wrap_SDL_BlendModeEE @374 DATA
+    _ZTIN5creek8UserDataI20SDL_MouseButtonEventEE @375 DATA
+    _ZTIN5creek8UserDataI20SDL_MouseMotionEventEE @376 DATA
+    _ZTIN5creek8UserDataI8SDL_RectEE @377 DATA
+    _ZTIN5creek8UserDataI9SDL_ColorEE @378 DATA
+    _ZTIN5creek8UserDataI9SDL_EventEE @379 DATA
+    _ZTIN5creek8UserDataI9SDL_PointEE @380 DATA
+    _ZTIN5creek8UserDataIK15SDL_PixelFormatEE @381 DATA
+    _ZTIN5creek8UserDataIK8SDL_RectEE @382 DATA
+    _ZTIN5creek8UserDataIK9SDL_ColorEE @383 DATA
+    _ZTIN5creek8UserDataIK9SDL_PointEE @384 DATA
+    _ZTIN5creek8UserDataIP10SDL_WindowEE @385 DATA
+    _ZTIN5creek8UserDataIP11SDL_PaletteEE @386 DATA
+    _ZTIN5creek8UserDataIP11SDL_SurfaceEE @387 DATA
+    _ZTIN5creek8UserDataIP11SDL_TextureEE @388 DATA
+    _ZTIN5creek8UserDataIP12SDL_RendererEE @389 DATA
+    _ZTIN5creek8UserDataIP15SDL_PixelFormatEE @390 DATA
+    _ZTIN5creek9CFunctionE @391 DATA
+    _ZTIN5creek9ExceptionE @392 DATA
+    _ZTIN5creek9ExprBreakE @393 DATA
+    _ZTIN5creek9ExprClassE @394 DATA
+    _ZTIN5creek9ExprConstE @395 DATA
+    _ZTIN5creek9ExprForInE @396 DATA
+    _ZTIN5creek9ExprPrintE @397 DATA
+    _ZTIN5creek9ExprThrowE @398 DATA
+    _ZTIN5creek9ExprWhileE @399 DATA
+    _ZTIN5creek9UndefinedE @400 DATA
+    _ZTVN5creek10LexicErrorE @401 DATA
+    _ZTVN5creek11BadArgumentE @402 DATA
+    _ZTVN5creek11GlobalScopeE @403 DATA
+    _ZTVN5creek11SyntaxErrorE @404 DATA
+    _ZTVN5creek12RuntimeErrorE @405 DATA
+    _ZTVN5creek13UnexpectedEofE @406 DATA
+    _ZTVN5creek13UnimplementedE @407 DATA
+    _ZTVN5creek13UserData_baseI10SDL_KeysymEE @408 DATA
+    _ZTVN5creek13UserData_baseI10SDL_WindowEE @409 DATA
+    _ZTVN5creek13UserData_baseI11SDL_PaletteEE @410 DATA
+    _ZTVN5creek13UserData_baseI11SDL_SurfaceEE @411 DATA
+    _ZTVN5creek13UserData_baseI11SDL_TextureEE @412 DATA
+    _ZTVN5creek13UserData_baseI11wrap_KeymodEE @413 DATA
+    _ZTVN5creek13UserData_baseI12SDL_RendererEE @414 DATA
+    _ZTVN5creek13UserData_baseI13SDL_QuitEventEE @415 DATA
+    _ZTVN5creek13UserData_baseI13wrap_ScancodeEE @416 DATA
+    _ZTVN5creek13UserData_baseI15SDL_PixelFormatEE @417 DATA
+    _ZTVN5creek13UserData_baseI15SDL_WindowEventEE @418 DATA
+    _ZTVN5creek13UserData_baseI16wrap_MouseButtonEE @419 DATA
+    _ZTVN5creek13UserData_baseI17SDL_KeyboardEventEE @420 DATA
+    _ZTVN5creek13UserData_baseI18wrap_SDL_BlendModeEE @421 DATA
+    _ZTVN5creek13UserData_baseI20SDL_MouseButtonEventEE @422 DATA
+    _ZTVN5creek13UserData_baseI20SDL_MouseMotionEventEE @423 DATA
+    _ZTVN5creek13UserData_baseI8SDL_RectEE @424 DATA
+    _ZTVN5creek13UserData_baseI9SDL_ColorEE @425 DATA
+    _ZTVN5creek13UserData_baseI9SDL_EventEE @426 DATA
+    _ZTVN5creek13UserData_baseI9SDL_PointEE @427 DATA
+    _ZTVN5creek14AmbiguousTokenE @428 DATA
+    _ZTVN5creek14WrongArgNumberE @429 DATA
+    _ZTVN5creek15BadNumberFormatE @430 DATA
+    _ZTVN5creek15DynLibraryErrorE @431 DATA
+    _ZTVN5creek15UnexpectedTokenE @432 DATA
+    _ZTVN5creek17DynSymbolNotFoundE @433 DATA
+    _ZTVN5creek18BadCharacterEscapeE @434 DATA
+    _ZTVN5creek18GarbageCollectableE @435 DATA
+    _ZTVN5creek19UnexpectedCharacterE @436 DATA
+    _ZTVN5creek5ScopeE @437 DATA
+    _ZTVN5creek6SharedE @438 DATA
+    _ZTVN5creek8UserDataI10SDL_KeysymEE @439 DATA
+    _ZTVN5creek8UserDataI10SDL_WindowEE @440 DATA
+    _ZTVN5creek8UserDataI11SDL_PaletteEE @441 DATA
+    _ZTVN5creek8UserDataI11SDL_SurfaceEE @442 DATA
+    _ZTVN5creek8UserDataI11SDL_TextureEE @443 DATA
+    _ZTVN5creek8UserDataI11wrap_KeymodEE @444 DATA
+    _ZTVN5creek8UserDataI12SDL_RendererEE @445 DATA
+    _ZTVN5creek8UserDataI13SDL_QuitEventEE @446 DATA
+    _ZTVN5creek8UserDataI13wrap_ScancodeEE @447 DATA
+    _ZTVN5creek8UserDataI15SDL_PixelFormatEE @448 DATA
+    _ZTVN5creek8UserDataI15SDL_WindowEventEE @449 DATA
+    _ZTVN5creek8UserDataI16wrap_MouseButtonEE @450 DATA
+    _ZTVN5creek8UserDataI17SDL_KeyboardEventEE @451 DATA
+    _ZTVN5creek8UserDataI18wrap_SDL_BlendModeEE @452 DATA
+    _ZTVN5creek8UserDataI20SDL_MouseButtonEventEE @453 DATA
+    _ZTVN5creek8UserDataI20SDL_MouseMotionEventEE @454 DATA
+    _ZTVN5creek8UserDataI8SDL_RectEE @455 DATA
+    _ZTVN5creek8UserDataI9SDL_ColorEE @456 DATA
+    _ZTVN5creek8UserDataI9SDL_EventEE @457 DATA
+    _ZTVN5creek8UserDataI9SDL_PointEE @458 DATA
+    _ZTVN5creek8UserDataIK15SDL_PixelFormatEE @459 DATA
+    _ZTVN5creek8UserDataIK8SDL_RectEE @460 DATA
+    _ZTVN5creek8UserDataIK9SDL_ColorEE @461 DATA
+    _ZTVN5creek8UserDataIK9SDL_PointEE @462 DATA
+    _ZTVN5creek8UserDataIP10SDL_WindowEE @463 DATA
+    _ZTVN5creek8UserDataIP11SDL_PaletteEE @464 DATA
+    _ZTVN5creek8UserDataIP11SDL_SurfaceEE @465 DATA
+    _ZTVN5creek8UserDataIP11SDL_TextureEE @466 DATA
+    _ZTVN5creek8UserDataIP12SDL_RendererEE @467 DATA
+    _ZTVN5creek8UserDataIP15SDL_PixelFormatEE @468 DATA
+    _ZTVN5creek9ExceptionE @469 DATA
+    _ZTVN5creek9UndefinedE @470 DATA
+    creek_class_BlendMode @471 DATA
+    creek_class_Color @472 DATA
+    creek_class_Event @473 DATA
+    creek_class_KeyboardEvent @474 DATA
+    creek_class_Keymod @475 DATA
+    creek_class_Keysym @476 DATA
+    creek_class_MouseButton @477 DATA
+    creek_class_MouseButtonEvent @478 DATA
+    creek_class_MouseMotionEvent @479 DATA
+    creek_class_Palette @480 DATA
+    creek_class_PixelFormat @481 DATA
+    creek_class_Point @482 DATA
+    creek_class_QuitEvent @483 DATA
+    creek_class_Rect @484 DATA
+    creek_class_Renderer @485 DATA
+    creek_class_Scancode @486 DATA
+    creek_class_Surface @487 DATA
+    creek_class_Texture @488 DATA
+    creek_class_Window @489 DATA
+    creek_class_WindowEvent @490 DATA
+    creek_func_create_renderer @491 DATA
+    creek_func_create_window @492 DATA
+    creek_func_delay @493 DATA
+    creek_func_destroy_renderer @494 DATA
+    creek_func_destroy_texture @495 DATA
+    creek_func_destroy_window @496 DATA
+    creek_func_free_surface @497 DATA
+    creek_func_get_error @498 DATA
+    creek_func_img_init @499 DATA
+    creek_func_img_quit @500 DATA
+    creek_func_init @501 DATA
+    creek_func_poll_event @502 DATA
+    creek_func_quit @503 DATA
+    creek_func_set_error @504 DATA
+    creek_func_show_simple_message_box @505 DATA
+    creek_func_was_init @506 DATA
+    creek_var_INIT_EVERYTHING @507 DATA
+    creek_var_INIT_JPG @508 DATA
+    creek_var_INIT_PNG @509 DATA
+    creek_var_INIT_TIF @510 DATA
+    creek_var_INIT_WEBP @511 DATA

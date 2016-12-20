@@ -43,17 +43,17 @@ namespace creek
     }
 
 
-    bool String::bool_value() const
+    bool String::bool_value(const SharedPointer<Scope>& scope) const
     {
         return true;
     }
 
-    char String::char_value() const
+    char String::char_value(const SharedPointer<Scope>& scope) const
     {
         return m_value.size() == 0 ? '\0' : m_value.front();
     }
 
-    const std::string& String::string_value() const
+    const std::string& String::string_value(const SharedPointer<Scope>& scope) const
     {
         return m_value;
     }
@@ -63,11 +63,11 @@ namespace creek
         // m_value = new_value;
     // }
 
-    Data* String::index(Data* key)
+    Data* String::index(const SharedPointer<Scope>& scope, Data* key)
     {
-        Value value = this->string_value();
+        Value value = this->string_value(scope);
 
-        int pos = key->int_value();
+        int pos = key->int_value(scope);
         if (pos < 0)
         {
             pos = value.size() + pos;
@@ -76,32 +76,32 @@ namespace creek
         return new String(value.substr(pos, 1));
     }
 
-    Data* String::index(Data* key, Data* new_data)
+    Data* String::index(const SharedPointer<Scope>& scope, Data* key, Data* new_data)
     {
-        int pos = key->int_value();
+        int pos = key->int_value(scope);
         if (pos < 0)
         {
             pos = m_value.size() + pos;
         }
-        m_value[pos] = new_data->int_value();
+        m_value[pos] = new_data->int_value(scope);
 
         return new_data;
     }
 
-    Data* String::add(Data* other)
+    Data* String::add(const SharedPointer<Scope>& scope, Data* other)
     {
-        return new String(this->string_value() + other->string_value());
+        return new String(this->string_value(scope) + other->string_value(scope));
     }
 
-    // Data* String::sub(Data* other)
+    // Data* String::sub(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     return new String(this->double_value() - other->double_value());
+    //     return new String(this->double_value(scope) - other->double_value(scope));
     // }
 
-    Data* String::mul(Data* other)
+    Data* String::mul(const SharedPointer<Scope>& scope, Data* other)
     {
-        Value old_value = this->string_value();
-        size_t new_size = old_value.size() * other->double_value();
+        Value old_value = this->string_value(scope);
+        size_t new_size = old_value.size() * other->double_value(scope);
         Value new_value(new_size, ' ');
 
         for (size_t i = 0; i < new_value.size(); ++i)
@@ -112,62 +112,62 @@ namespace creek
         return new String(new_value);
     }
 
-    // Data* String::div(Data* other)
+    // Data* String::div(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     return new String(this->double_value() / other->double_value());
+    //     return new String(this->double_value(scope) / other->double_value(scope));
     // }
 
-    // Data* String::mod(Data* other)
+    // Data* String::mod(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     int this_int = this->double_value();
-    //     int other_int = other->double_value();
+    //     int this_int = this->double_value(scope);
+    //     int other_int = other->double_value(scope);
     //     return new String(this_int % other_int);
     // }
 
-    // Data* String::exp(Data* other)
+    // Data* String::exp(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     return new String(std::pow(this->double_value(), other->double_value()));
+    //     return new String(std::pow(this->double_value(scope), other->double_value(scope)));
     // }
 
     // Data* String::min()
     // {
-    //     return new String(-this->double_value());
+    //     return new String(-this->double_value(scope));
     // }
 
-    // Data* String::bit_and(Data* other)
+    // Data* String::bit_and(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     int this_int = this->double_value();
-    //     int other_int = other->double_value();
+    //     int this_int = this->double_value(scope);
+    //     int other_int = other->double_value(scope);
     //     return new String(this_int & other_int);
     // }
 
-    // Data* String::bit_or(Data* other)
+    // Data* String::bit_or(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     int this_int = this->double_value();
-    //     int other_int = other->double_value();
+    //     int this_int = this->double_value(scope);
+    //     int other_int = other->double_value(scope);
     //     return new String(this_int | other_int);
     // }
 
-    // Data* String::bit_xor(Data* other)
+    // Data* String::bit_xor(const SharedPointer<Scope>& scope, Data* other)
     // {
-    //     int this_int = this->double_value();
-    //     int other_int = other->double_value();
+    //     int this_int = this->double_value(scope);
+    //     int other_int = other->double_value(scope);
     //     return new String(this_int ^ other_int);
     // }
 
-    // Data* String::bit_not()
+    // Data* String::bit_not(const SharedPointer<Scope>& scope)
     // {
-    //     int this_int = this->double_value();
+    //     int this_int = this->double_value(scope);
     //     return new String(~this_int);
     // }
 
-    int String::cmp(Data* other)
+    int String::cmp(const SharedPointer<Scope>& scope, Data* other)
     {
-        return this->string_value().compare(other->string_value());
+        return this->string_value(scope).compare(other->string_value(scope));
     }
 
-    Data* String::get_class() const
+    Data* String::get_class(const SharedPointer<Scope>& scope) const
     {
-        return GlobalScope::class_String->copy();
+        return scope->global()->class_String->copy();
     }
 }

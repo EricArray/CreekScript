@@ -23,7 +23,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprVoid::eval(Scope& scope)
+    Variable ExprVoid::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new Void());
     }
@@ -50,7 +50,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprNull::eval(Scope& scope)
+    Variable ExprNull::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new Null());
     }
@@ -78,7 +78,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprBoolean::eval(Scope& scope)
+    Variable ExprBoolean::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new Boolean(m_value));
     }
@@ -109,7 +109,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprNumber::eval(Scope& scope)
+    Variable ExprNumber::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new Number(m_value));
     }
@@ -137,7 +137,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprString::eval(Scope& scope)
+    Variable ExprString::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new String(m_value));
     }
@@ -165,7 +165,7 @@ namespace creek
         return true;
     }
 
-    Variable ExprIdentifier::eval(Scope& scope)
+    Variable ExprIdentifier::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new Identifier(m_value));
     }
@@ -216,7 +216,7 @@ namespace creek
         return new ExprVector(new_values);
     }
 
-    Variable ExprVector::eval(Scope& scope)
+    Variable ExprVector::eval(const SharedPointer<Scope>& scope)
     {
         Vector::Value new_value = std::make_shared< std::vector<Variable> >();
         for (auto& v : m_values)
@@ -278,14 +278,14 @@ namespace creek
         return new ExprMap(new_pairs);
     }
 
-    Variable ExprMap::eval(Scope& scope)
+    Variable ExprMap::eval(const SharedPointer<Scope>& scope)
     {
         Map::Value new_value = std::make_shared<Map::Definition>();
         for (auto& p : m_pairs)
         {
             Variable key = p.key->eval(scope);
             Variable value = p.value->eval(scope);
-            (*new_value)[Map::Key(key.release())] = value;
+            (*new_value)[Map::Key(scope, key.release())] = value;
         }
         return Variable(new Map(new_value));
     }
@@ -343,7 +343,7 @@ namespace creek
         return new ExprFunction(m_arg_names, m_variadic, m_body->const_optimize());
     }
 
-    Variable ExprFunction::eval(Scope& scope)
+    Variable ExprFunction::eval(const SharedPointer<Scope>& scope)
     {
         Function::Definition* def = new Function::Definition(scope, m_arg_names, m_variadic, m_body);
         Function::Value new_value(def);
@@ -377,7 +377,7 @@ namespace creek
 
     // }
 
-    // Variable ExprCFunction::eval(Scope& scope)
+    // Variable ExprCFunction::eval(const SharedPointer<Scope>& scope)
     // {
     //     CFunction::Definition* def = new CFunction::Definition(scope, m_argn, m_variadic, m_listener);
     //     CFunction::Value new_value(def);
@@ -390,33 +390,127 @@ namespace creek
     // }
 
 
-    // @brief  `ExprClass` constructor.
-    // @param  id          Class name.
-    // @param  super_class Expression for the super class.
-    // @param  method_defs List of method definitions.
-    ExprClass::ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs) :
+    // // @brief  `ExprClass` constructor.
+    // // @param  id          Class name.
+    // // @param  super_class Expression for the super class.
+    // // @param  method_defs List of method definitions.
+    // ExprClass::ExprClass(VarName id, Expression* super_class, std::vector<MethodDef>& method_defs, std::vector<StaticDef>& static_defs) :
+    //     m_id(id),
+    //     m_super_class(super_class)
+    // {
+    //     m_method_defs.swap(method_defs);
+    //     m_static_defs.swap(static_defs);
+    // }
+
+    // /// @brief  Get a copy.
+    // /// The cloned expression shares the body expression.
+    // Expression* ExprClass::clone() const
+    // {
+    //     std::vector<MethodDef> new_method_defs;
+    //     for (auto& d : m_method_defs)
+    //     {
+    //         new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body);
+    //     }
+    //     std::vector<StaticDef> new_static_defs;
+    //     for (auto& d : m_static_defs)
+    //     {
+    //         new_static_defs.emplace_back(d.id);
+    //     }
+    //     return new ExprClass(m_id, m_super_class->clone(), new_method_defs, new_static_defs);
+    // }
+
+    // bool ExprClass::is_const() const
+    // {
+    //     return false;
+    // }
+
+    // /// @brief  Get an optimized copy.
+    // /// The cloned expression has an optimized body expression.
+    // Expression* ExprClass::const_optimize() const
+    // {
+    //     std::vector<MethodDef> new_method_defs;
+    //     for (auto& d : m_method_defs)
+    //     {
+    //         new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body->const_optimize());
+    //     }
+    //     std::vector<StaticDef> new_static_defs;
+    //     for (auto& d : m_static_defs)
+    //     {
+    //         new_static_defs.emplace_back(d.id);
+    //     }
+    //     return new ExprClass(m_id, m_super_class->const_optimize(), new_method_defs, new_static_defs);
+    // }
+
+    // Variable ExprClass::eval(const SharedPointer<Scope>& scope)
+    // {
+    //     Variable new_class;
+
+    //     {
+    //         Variable super_class = m_super_class->eval(scope);
+
+    //         std::vector< std::unique_ptr<Data> > args;
+    //         args.emplace_back(super_class->copy());
+    //         args.emplace_back(new Identifier(m_id));
+
+    //         Variable func_derive = scope->global()->class_Class.attr(scope, "derive");
+    //         new_class = func_derive->call(scope, args);
+    //     }
+
+    //     for (auto& method_def : m_method_defs)
+    //     {
+    //         Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
+    //         Function::Value new_value(def);
+    //         Variable method = new Function(new_value);
+    //         new_class.attr(scope, method_def.id, method.release());
+    //     }
+
+    //     // for (auto& static_def : m_static_defs)
+    //     // {
+    //     //     Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
+    //     //     Function::Value new_value(def);
+    //     //     Variable method = new Function(new_value);
+    //     //     new_class.attr(method_def.id, method.release());
+    //     // }
+
+    //     return new_class;
+    // }
+
+    // Bytecode ExprClass::bytecode(VarNameMap& var_name_map) const
+    // {
+    //     Bytecode b;
+    //     b << static_cast<uint8_t>(OpCode::data_class);
+    //     b << var_name_map.id_from_name(m_id.name());
+    //     b << m_super_class->bytecode(var_name_map);
+
+    //     b << static_cast<uint32_t>(m_method_defs.size());
+    //     for (auto& method_def : m_method_defs)
+    //     {
+    //         b << var_name_map.id_from_name(method_def.id.name());
+    //         b << static_cast<uint32_t>(method_def.arg_names.size());
+    //         for (auto& arg_name : method_def.arg_names)
+    //         {
+    //             b << var_name_map.id_from_name(arg_name.name());
+    //         }
+    //         b << method_def.is_variadic;
+    //         b << method_def.body->bytecode(var_name_map);
+    //     }
+
+    //     return b;
+    // }
+
+    /// @brief  `ExprClass` constructor.
+    /// @param  expression  Expression to evaluate inside the class.
+    ExprClass::ExprClass(VarName id, Expression* super_class, Expression* body) :
         m_id(id),
-        m_super_class(super_class)
+        m_super_class(super_class),
+        m_body(body)
     {
-        m_method_defs.swap(method_defs);
-        m_static_defs.swap(static_defs);
+
     }
 
-    /// @brief  Get a copy.
-    /// The cloned expression shares the body expression.
     Expression* ExprClass::clone() const
     {
-        std::vector<MethodDef> new_method_defs;
-        for (auto& d : m_method_defs)
-        {
-            new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body);
-        }
-        std::vector<StaticDef> new_static_defs;
-        for (auto& d : m_static_defs)
-        {
-            new_static_defs.emplace_back(d.id);
-        }
-        return new ExprClass(m_id, m_super_class->clone(), new_method_defs, new_static_defs);
+        return new ExprClass(m_id, m_super_class->clone(), m_body->clone());
     }
 
     bool ExprClass::is_const() const
@@ -424,24 +518,12 @@ namespace creek
         return false;
     }
 
-    /// @brief  Get an optimized copy.
-    /// The cloned expression has an optimized body expression.
     Expression* ExprClass::const_optimize() const
     {
-        std::vector<MethodDef> new_method_defs;
-        for (auto& d : m_method_defs)
-        {
-            new_method_defs.emplace_back(d.id, d.arg_names, d.is_variadic, d.body->const_optimize());
-        }
-        std::vector<StaticDef> new_static_defs;
-        for (auto& d : m_static_defs)
-        {
-            new_static_defs.emplace_back(d.id);
-        }
-        return new ExprClass(m_id, m_super_class->const_optimize(), new_method_defs, new_static_defs);
+        return new ExprClass(m_id, m_super_class->const_optimize(), m_body->const_optimize());
     }
 
-    Variable ExprClass::eval(Scope& scope)
+    Variable ExprClass::eval(const SharedPointer<Scope>& scope)
     {
         Variable new_class;
 
@@ -452,49 +534,84 @@ namespace creek
             args.emplace_back(super_class->copy());
             args.emplace_back(new Identifier(m_id));
 
-            Variable func_derive = GlobalScope::class_Class.attr("derive");
-            new_class = func_derive->call(args);
+            Variable func_derive = scope->global()->class_Class.attr(scope, "derive");
+            new_class = func_derive->call(scope, args);
         }
 
-        for (auto& method_def : m_method_defs)
-        {
-            Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
-            Function::Value new_value(def);
-            Variable method = new Function(new_value);
-            new_class.attr(method_def.id, method.release());
-        }
-
-        // for (auto& static_def : m_static_defs)
-        // {
-        //     Function::Definition* def = new Function::Definition(scope, method_def.arg_names, method_def.is_variadic, method_def.body);
-        //     Function::Value new_value(def);
-        //     Variable method = new Function(new_value);
-        //     new_class.attr(method_def.id, method.release());
-        // }
+        auto obj_scope = SharedPointer<ObjectScope>::make(scope, new_class->copy()->assert_cast<Object>());
+        m_body->eval(obj_scope);
 
         return new_class;
     }
 
     Bytecode ExprClass::bytecode(VarNameMap& var_name_map) const
     {
-        Bytecode b;
-        b << static_cast<uint8_t>(OpCode::data_class);
-        b << var_name_map.id_from_name(m_id.name());
-        b << m_super_class->bytecode(var_name_map);
-        
-        b << static_cast<uint32_t>(m_method_defs.size());
-        for (auto& method_def : m_method_defs)
-        {
-            b << var_name_map.id_from_name(method_def.id.name());
-            b << static_cast<uint32_t>(method_def.arg_names.size());
-            for (auto& arg_name : method_def.arg_names)
-            {
-                b << var_name_map.id_from_name(arg_name.name());
-            }
-            b << method_def.is_variadic;
-            b << method_def.body->bytecode(var_name_map);
-        }
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::data_class) <<
+            var_name_map.id_from_name(m_id.name()) <<
+            m_super_class->bytecode(var_name_map) <<
+            m_body->bytecode(var_name_map);
+    }
 
-        return b;
+
+    // ExprModule constructor.
+    // @param  body     Expression to evaluate inside new scope.
+    ExprModule::ExprModule(VarName name, Expression* body) :
+        m_name(name),
+        m_body(body)
+    {
+
+    }
+
+    Expression* ExprModule::clone() const
+    {
+        return new ExprModule(m_name, m_body->clone());
+    }
+
+    bool ExprModule::is_const() const
+    {
+        return m_body->is_const();
+    }
+
+    Expression* ExprModule::const_optimize() const
+    {
+        return new ExprModule(m_name, m_body->const_optimize());
+    }
+
+    Variable ExprModule::eval(const SharedPointer<Scope>& scope)
+    {
+        // Variable* var = nullptr;
+        // if (scope.has_var(m_name))
+        // {
+        //     var = &scope->find_var(m_name);
+        // }
+        // else
+        // {
+            Variable new_module;
+
+            {
+                std::vector< std::unique_ptr<Data> > args;
+                args.emplace_back(scope->global()->class_Module->copy());
+                args.emplace_back(new Identifier(m_name));
+
+                Variable func_new = scope->global()->class_Class.attr(scope, "new");
+                new_module = func_new->call(scope, args);
+            }
+
+        //     var = &scope->create_local_var(m_name, new_module.release());
+        // }
+        // Variable& mod = *var;
+
+        auto new_scope = SharedPointer<ObjectScope>::make(scope, new_module->copy()->assert_cast<Object>());
+        m_body->eval(new_scope);
+        return new_module.release();
+    }
+
+    Bytecode ExprModule::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::data_module) <<
+            var_name_map.id_from_name(m_name.name()) <<
+            m_body->bytecode(var_name_map);
     }
 }

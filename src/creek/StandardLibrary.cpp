@@ -7,6 +7,7 @@
 #include <creek/Expression.hpp>
 #include <creek/Identifier.hpp>
 #include <creek/Interpreter.hpp>
+#include <creek/GlobalScope.hpp>
 #include <creek/Number.hpp>
 #include <creek/Object.hpp>
 #include <creek/Scope.hpp>
@@ -15,18 +16,18 @@
 
 namespace creek
 {
-    Data* func_print(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_print(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         auto& strings = args[0];
-        for (auto& string : strings->vector_value())
+        for (auto& string : strings->vector_value(scope))
         {
-            std::cout << string->string_value();
+            std::cout << string->string_value(scope);
         }
         return new Void();
     }
 
 
-    Data* func_scan(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_scan(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         delete func_print(scope, args);
 
@@ -36,10 +37,10 @@ namespace creek
     }
 
 
-    Data* func_debug(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_debug(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         auto& values = args[0];
-        for (auto& value : values->vector_value())
+        for (auto& value : values->vector_value(scope))
         {
             std::cout << "\t" << value->debug_text();;
         }
@@ -48,14 +49,14 @@ namespace creek
     }
 
 
-    Data* func_require(Scope& scope, std::vector< std::unique_ptr<Data> >& args)
+    Data* func_require(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         static const std::vector<std::string> path_templates
         {
             "./?.txt",
         };
 
-        auto module_name = args[0]->string_value();
+        auto module_name = args[0]->string_value(scope);
 
 
         // check path
@@ -100,16 +101,23 @@ namespace creek
         return result.release();
     }
 
+    Data* func_collect_garbage(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
+    {
+        scope->global()->spread_garbage_trace();
+        GarbageCollector::collect_garbage();
+    }
+
 
     // Load standard library.
     // @param  scope   Scope where standard variables are created.
-    void load_standard_library(Scope& scope)
+    void load_standard_library(const SharedPointer<Scope>& scope)
     {
         // global functions
-        scope.create_local_var(VarName::from_name("print"),     new CFunction(scope, 1, true, &func_print));
-        scope.create_local_var(VarName::from_name("scan"),      new CFunction(scope, 1, true, &func_scan));
-        scope.create_local_var(VarName::from_name("debug"),     new CFunction(scope, 1, true, &func_debug));
-        scope.create_local_var(VarName::from_name("exit"),      new CFunction(scope, &exit));
-        scope.create_local_var(VarName::from_name("require"),   new CFunction(scope, 1, false, &func_require));
+        scope->create_local_var(VarName::from_name("print"),     new CFunction(scope, 1, true, &func_print));
+        scope->create_local_var(VarName::from_name("scan"),      new CFunction(scope, 1, true, &func_scan));
+        scope->create_local_var(VarName::from_name("debug"),     new CFunction(scope, 1, true, &func_debug));
+        scope->create_local_var(VarName::from_name("exit"),      new CFunction(scope, &exit));
+        scope->create_local_var(VarName::from_name("require"),   new CFunction(scope, 1, false, &func_require));
+        scope->create_local_var(VarName("collect_garbage"),      new CFunction(scope, 1, false, &func_collect_garbage));
     }
 }

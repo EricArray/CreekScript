@@ -50,7 +50,7 @@ namespace creek
         open_brace,         ///< Open curly brackets or braces ({).
         close_brace,        ///< Close curly brackets or braces (}).
 
-        keyword,            ///< Identifier used as a keyword.
+        // keyword,            ///< Identifier used as a keyword.
     };
 
 

@@ -9,6 +9,7 @@
 #include <creek/Expression_ControlFlow.hpp>
 #include <creek/Expression_DataTypes.hpp>
 #include <creek/Interpreter.hpp>
+#include <creek/GlobalScope.hpp>
 #include <creek/Scope.hpp>
 #include <creek/StandardLibrary.hpp>
 #include <creek/VarName.hpp>
@@ -40,10 +41,10 @@ Expression* load_bytecode_file(const std::string& path);
 void save_bytecode_file(const std::string& path, const Expression* program);
 
 // execute interpreted program
-void exec_program(Expression* program, Scope& scope);
+void exec_program(Expression* program, const SharedPointer<Scope>& scope);
 
 // execute interactive
-void exec_interactive(bool const_optimize, Scope& scope);
+void exec_interactive(bool const_optimize, const SharedPointer<Scope>& scope, bool collect);
 
 
 std::chrono::system_clock::time_point start_timer() {
@@ -66,6 +67,7 @@ int main(int argc, char** argv)
     std::vector<const char*> input_paths;
     bool const_optimize = false;
     bool interactive = false;
+    bool collect = false;
 
 
     // parse command
@@ -109,6 +111,11 @@ int main(int argc, char** argv)
         {
             interactive = true;
         }
+        // collect garbage
+        else if (strcmp(argv[i], "-g") == 0)
+        {
+            collect = true;
+        }
         // add input file
         else
         {
@@ -120,10 +127,10 @@ int main(int argc, char** argv)
     // decide what to do
     interactive = interactive || input_paths.size() == 0;
 
-    Scope scope;
+    auto global = SharedPointer<GlobalScope>::make();
     if (!output_path || interactive)
     {
-        load_standard_library(scope);
+        load_standard_library(global);
     }
 
     // input
@@ -186,15 +193,17 @@ int main(int argc, char** argv)
         }
         else
         {
-            exec_program(program.get(), scope);
+            exec_program(program.get(), global);
         }
     }
 
     // interactive
     if (interactive)
     {
-        exec_interactive(const_optimize, scope);
+        exec_interactive(const_optimize, global, collect);
     }
+
+    GarbageCollector::collect_garbage();
 
     return 0;
 }
@@ -313,7 +322,7 @@ void save_bytecode_file(const std::string& path, const Expression* program)
 
 
 // execute interpreted program
-void exec_program(Expression* program, Scope& scope)
+void exec_program(Expression* program, const SharedPointer<Scope>& scope)
 {
     // try to execute the program
     try
@@ -339,7 +348,7 @@ void exec_program(Expression* program, Scope& scope)
 
 
 // execute interactive
-void exec_interactive(bool const_optimize, Scope& scope)
+void exec_interactive(bool const_optimize, const SharedPointer<Scope>& scope, bool collect)
 {
     while (!quit)
     {
@@ -389,6 +398,11 @@ void exec_interactive(bool const_optimize, Scope& scope)
 
             Variable result = program->eval(scope);
             std::cout << " -> " << result->debug_text() << "\n";
+
+            if (collect)
+            {
+                GarbageCollector::collect_garbage();
+            }
         }
         catch (const LexicError& e)
         {

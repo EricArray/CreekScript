@@ -41,7 +41,7 @@ namespace creek
         { TokenType::open_brace,     "open brace" },                 //< Open curly brackets or braces ({).
         { TokenType::close_brace,    "close brace" },                //< Close curly brackets or braces (}).
 
-        { TokenType::keyword,        "keyword" },                    //< Identifier used as a keyword.
+        // { TokenType::keyword,        "keyword" },                    //< Identifier used as a keyword.
     };
 
     // `Token` constructor.

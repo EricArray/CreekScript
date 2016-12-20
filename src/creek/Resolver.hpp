@@ -29,7 +29,7 @@ namespace creek
         template<class T> struct data_to_value_struct
         {
             using ret = typename data_to_instance_struct<T, std::is_enum<T>::value>::ret;
-            static ret get(Data* data);
+            static ret get(const SharedPointer<Scope>& scope, Data* data);
         };
 
         template<class T> struct value_to_data_struct
@@ -40,7 +40,7 @@ namespace creek
         /// @brief  Convert a data object to a value.
         /// @param  T       Value type.
         /// @param  data    Data to convert.
-        template<class T> static auto data_to_value(Data* data) -> typename data_to_value_struct<T>::ret;
+        template<class T> static auto data_to_value(const SharedPointer<Scope>& scope, Data* data) -> typename data_to_value_struct<T>::ret;
 
         /// @brief  Convert a value into a data object.
         /// @param  T       Value type.
@@ -53,13 +53,13 @@ namespace creek
         /// @param  V       Attribute type.
         /// @param  C       Class holding the attribute.
         /// @param  attr    Pointer to class attribute.
-        template<class C, class V> static std::function<Data*(Data*)> attr_getter(V C::*attr);
+        template<class C, class V> static std::function<Data*(const SharedPointer<Scope>&, Data*)> attr_getter(V C::*attr);
 
         /// @brief  Create a setter to a C++ class public attribute.
         /// @param  V       Attribute type.
         /// @param  C       Class holding the attribute.
         /// @param  attr    Pointer to class attribute.
-        template<class C, class V> static std::function<Data*(Data*,Data*)> attr_setter(V C::*attr);
+        template<class C, class V> static std::function<Data*(const SharedPointer<Scope>&, Data*, Data*)> attr_setter(V C::*attr);
 
 
         using DataVector = std::vector< std::unique_ptr<Data> >;
@@ -68,20 +68,20 @@ namespace creek
         /// @brief  Convert a C function to the format used by `CFunction`.
         /// @param  c_func  C function to convert.
         template<class R, class... Args>
-        static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
+        static std::function<Data*(const SharedPointer<Scope>& scope, DataVector&)> c_func_to_listener(
             std::function<R(Args...)> c_func
         ) {
-            return [c_func](Scope& scope, DataVector& args) -> Data*
+            return [c_func](const SharedPointer<Scope>& scope, DataVector& args) -> Data*
             {
                 static const unsigned argn = sizeof...(Args);
-                return runner<argn, R, Args...>::run(c_func, args.begin());
+                return runner<argn, R, Args...>::run(scope, c_func, args.begin());
             };
         }
 
         // /// @brief  Convert a C function to the format used by `CFunction`.
         // /// @param  c_func  C function to convert.
         template<class R, class... Args>
-        static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
+        static std::function<Data*(const SharedPointer<Scope>& scope, DataVector&)> c_func_to_listener(
             R(*c_func)(Args...)
         ) {
             return c_func_to_listener(std::function<R(Args...)>(c_func));
@@ -90,7 +90,7 @@ namespace creek
         // /// @brief  Convert a C function to the format used by `CFunction`.
         // /// @param  c_func  C function to convert.
         template<class T, class R, class... Args>
-        static std::function<Data*(Scope& scope, DataVector&)> c_func_to_listener(
+        static std::function<Data*(const SharedPointer<Scope>& scope, DataVector&)> c_func_to_listener(
             R(T::*c_func)(Args...)
         ) {
             return c_func_to_listener(std::function<R(T*, Args...)>(c_func));
@@ -101,7 +101,7 @@ namespace creek
         template<unsigned unresolved, class R, class... Args> struct runner
         {
             template<class F, class... Resolved>
-            static Data* run(F f, Iterator iter, Resolved... resolved);
+            static Data* run(const SharedPointer<Scope>& scope, F f, Iterator iter, Resolved... resolved);
         };
     };
 
@@ -109,9 +109,9 @@ namespace creek
     // Convert a data object to a value.
     // @param  T       Value type.
     // @param  data    Data to convert.
-    template<class T> auto Resolver::data_to_value(Data* data) -> typename data_to_value_struct<T>::ret
+    template<class T> auto Resolver::data_to_value(const SharedPointer<Scope>& scope, Data* data) -> typename data_to_value_struct<T>::ret
     {
-        return data_to_value_struct<T>::get(data);
+        return data_to_value_struct<T>::get(scope, data);
     }
 
     // Convert a value into a data object.
@@ -128,96 +128,96 @@ namespace creek
     template<> struct Resolver::data_to_value_struct<bool>
     {
         using ret = bool;
-        static ret get(Data* data) { return data->bool_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->bool_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<char>
     {
         using ret = char;
-        static ret get(Data* data) { return data->char_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->char_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<uint8_t>
     {
         using ret = uint8_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<uint16_t>
     {
         using ret = uint16_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<uint32_t>
     {
         using ret = uint32_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<uint64_t>
     {
         using ret = uint64_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<int8_t>
     {
         using ret = int8_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<int16_t>
     {
         using ret = int16_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<int32_t>
     {
         using ret = int32_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<int64_t>
     {
         using ret = int64_t;
-        static ret get(Data* data) { return data->int_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->int_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<float>
     {
         using ret = float;
-        static ret get(Data* data) { return data->double_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->double_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<double>
     {
         using ret = double;
-        static ret get(Data* data) { return data->double_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->double_value(scope); }
     };
 
     template<> struct Resolver::data_to_value_struct<const char*>
     {
         using ret = const char*;
-        static ret get(Data* data) {
-            return data->string_value().c_str();
+        static ret get(const SharedPointer<Scope>& scope, Data* data) {
+            return data->string_value(scope).c_str();
         }
     };
 
     template<> struct Resolver::data_to_value_struct<std::string>
     {
         using ret = std::string;
-        static ret get(Data* data) { return data->string_value(); }
+        static ret get(const SharedPointer<Scope>& scope, Data* data) { return data->string_value(scope); }
     };
 
     template<class T> struct Resolver::data_to_value_struct<std::vector<T>>
     {
         using ret = std::vector<T>;
-        static ret get(Data* data)
+        static ret get(const SharedPointer<Scope>& scope, Data* data)
         {
             std::vector<T> ret;
-            for (auto& item : data->vector_value())
+            for (auto& item : data->vector_value(scope))
             {
                 ret.push_back(data_to_value<T>(item));
             }
@@ -228,7 +228,7 @@ namespace creek
     template<class T> struct Resolver::data_to_value_struct<T&>
     {
         using ret = T&;
-        static ret get(Data* data) {
+        static ret get(const SharedPointer<Scope>& scope, Data* data) {
             auto ud = data->assert_cast<typename UserData<T>::base>();
             return ud->reference();
         }
@@ -237,7 +237,7 @@ namespace creek
     template<class T> struct Resolver::data_to_value_struct<T*>
     {
         using ret = T*;
-        static ret get(Data* data) {
+        static ret get(const SharedPointer<Scope>& scope, Data* data) {
             auto ud = data->assert_cast<typename UserData<T>::base>();
             return ud->pointer();
         }
@@ -252,7 +252,7 @@ namespace creek
     template<class T> struct Resolver::data_to_instance_struct<T, false>
     {
         using ret = T&;
-        static ret get(Data* data)
+        static ret get(const SharedPointer<Scope>& scope, Data* data)
         {
     //        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
             auto ud = data->assert_cast<typename UserData<T>::base>();
@@ -263,16 +263,16 @@ namespace creek
     template<class T> struct Resolver::data_to_instance_struct<T, true>
     {
         using ret = T;
-        static ret get(Data* data)
+        static ret get(const SharedPointer<Scope>& scope, Data* data)
         {
     //        throw Unimplemented(std::string("Resolver::value_to_data for type ") + typeid(T).name());
-            return ret(data->int_value());
+            return ret(data->int_value(scope));
         }
     };
 
-    template<class T> auto Resolver::data_to_value_struct<T>::get(Data* data) -> ret
+    template<class T> auto Resolver::data_to_value_struct<T>::get(const SharedPointer<Scope>& scope, Data* data) -> ret
     {
-        return data_to_instance_struct<T, std::is_enum<T>::value>::get(data);
+        return data_to_instance_struct<T, std::is_enum<T>::value>::get(scope, data);
     }
 
 
@@ -425,22 +425,23 @@ namespace creek
     // runner
     template<unsigned unresolved, class R, class... Args>
     template<class F, class... Resolved>
-    Data* Resolver::runner<unresolved, R, Args...>::run(F f, Iterator iter, Resolved... resolved)
+    Data* Resolver::runner<unresolved, R, Args...>::run(const SharedPointer<Scope>& scope, F f, Iterator iter, Resolved... resolved)
     {
         static const unsigned arg_pos = sizeof...(Args) - unresolved;
         using type = typename std::tuple_element<arg_pos, std::tuple<Args...>>::type;
         return runner<unresolved - 1, R, Args...>::run(
+            scope,
             f,
             iter + 1,
             resolved...,
-            data_to_value<type>(iter->get())
+            data_to_value<type>(scope, iter->get())
         );
     }
 
     template<class R, class... Args>
     struct Resolver::runner<0, R, Args...>
     {
-        template<class F> static Data* run(F f, Iterator iter, Args... resolved)
+        template<class F> static Data* run(const SharedPointer<Scope>& scope, F f, Iterator iter, Args... resolved)
         {
             return value_to_data<R>(f(resolved...));
         }
@@ -450,7 +451,7 @@ namespace creek
     struct Resolver::runner<0, void, Args...>
     {
         template<class F>
-        static Data* run(F f, Iterator iter, Args... resolved)
+        static Data* run(const SharedPointer<Scope>& scope, F f, Iterator iter, Args... resolved)
         {
             f(resolved...);
             return new Void();
@@ -474,9 +475,9 @@ namespace creek
     // @param  V       Attribute type.
     // @param  C       Class holding the attribute.
     // @param  attr    Pointer to class attribute.
-    template<class C, class V> std::function<Data*(Data*)> Resolver::attr_getter(V C::*attr)
+    template<class C, class V> std::function<Data*(const SharedPointer<Scope>&, Data*)> Resolver::attr_getter(V C::*attr)
     {
-        return [attr](Data* data) -> Data*
+        return [attr](const SharedPointer<Scope>& scope, Data* data) -> Data*
         {
             auto ud = data->assert_cast<UserData_base<C>>();
             return value_to_data(ud->reference().*attr);
@@ -487,12 +488,12 @@ namespace creek
     // @param  V       Attribute type.
     // @param  C       Class holding the attribute.
     // @param  attr    Pointer to class attribute.
-    template<class C, class V> std::function<Data*(Data*,Data*)> Resolver::attr_setter(V C::*attr)
+    template<class C, class V> std::function<Data*(const SharedPointer<Scope>&, Data*, Data*)> Resolver::attr_setter(V C::*attr)
     {
-        return [attr](Data* data, Data* value) -> Data*
+        return [attr](const SharedPointer<Scope>& scope, Data* data, Data* value) -> Data*
         {
             auto ud = data->assert_cast<UserData_base<C>>();
-            return value_to_data(ud->reference().*attr = data_to_value<V>(value));
+            return value_to_data(ud->reference().*attr = data_to_value<V>(scope, value));
         };
     }
 }

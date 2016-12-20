@@ -26,7 +26,9 @@ namespace creek
 
     std::string Boolean::debug_text() const
     {
-        return string_value();
+        static const std::string true_str = "true";
+        static const std::string false_str = "false";
+        return m_value ? true_str : false_str;
     }
 
     Expression* Boolean::to_expression() const
@@ -35,7 +37,7 @@ namespace creek
     }
 
 
-    bool Boolean::bool_value() const
+    bool Boolean::bool_value(const SharedPointer<Scope>& scope) const
     {
         return m_value;
     }
@@ -45,7 +47,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    int Boolean::int_value() const
+    int Boolean::int_value(const SharedPointer<Scope>& scope) const
     {
         return m_value;
     }
@@ -55,7 +57,7 @@ namespace creek
         // m_value = new_value;
     // }
 
-    double Boolean::double_value() const
+    double Boolean::double_value(const SharedPointer<Scope>& scope) const
     {
         return m_value;
     }
@@ -65,7 +67,7 @@ namespace creek
         // m_value = new_value > 0;
     // }
 
-    const std::string& Boolean::string_value() const
+    const std::string& Boolean::string_value(const SharedPointer<Scope>& scope) const
     {
         static const std::string true_str = "true";
         static const std::string false_str = "false";
@@ -78,43 +80,43 @@ namespace creek
     // }
 
 
-    // Data* Boolean::index(Data* key)
+    // Data* Boolean::index(const SharedPointer<Scope>& scope, Data* key)
     // {
 
     // }
 
-    // Data* Boolean::index(Data* key, Data* new_value)
+    // Data* Boolean::index(const SharedPointer<Scope>& scope, Data* key, Data* new_value)
     // {
 
     // }
 
 
-    // Data* Boolean::add(Data* other)
+    // Data* Boolean::add(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::sub(Data* other)
+    // Data* Boolean::sub(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::mul(Data* other)
+    // Data* Boolean::mul(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::div(Data* other)
+    // Data* Boolean::div(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::mod(Data* other)
+    // Data* Boolean::mod(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::exp(Data* other)
+    // Data* Boolean::exp(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
@@ -124,31 +126,31 @@ namespace creek
 
     // }
 
-    // Data* Boolean::bit_and(Data* other)
+    // Data* Boolean::bit_and(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::bit_or(Data* other)
+    // Data* Boolean::bit_or(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::bit_xor(Data* other)
+    // Data* Boolean::bit_xor(const SharedPointer<Scope>& scope, Data* other)
     // {
 
     // }
 
-    // Data* Boolean::bit_not()
+    // Data* Boolean::bit_not(const SharedPointer<Scope>& scope)
     // {
 
     // }
 
 
-    int Boolean::cmp(Data* other)
+    int Boolean::cmp(const SharedPointer<Scope>& scope, Data* other)
     {
-        bool this_value = this->bool_value();
-        bool other_value = other->bool_value();
+        bool this_value = this->bool_value(scope);
+        bool other_value = other->bool_value(scope);
         if (this_value < other_value)
         {
             return -1;
@@ -163,8 +165,8 @@ namespace creek
         }
     }
 
-    Data* Boolean::get_class() const
+    Data* Boolean::get_class(const SharedPointer<Scope>& scope) const
     {
-        return GlobalScope::class_Boolean->copy();
+        return scope->global()->class_Boolean->copy();
     }
 }

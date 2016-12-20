@@ -11,9 +11,17 @@
 #include <creek/Exception.hpp>
 #include <creek/Resolver.hpp>
 #include <creek/UserData.hpp>
+#include <creek/Scope.hpp>
 
 
 /// @defgroup   library_macros  Dynamic library macros
+/// The following code generates a variable interface named
+/// `creek_var_my_var`:
+/// @code
+/// // my_var.hpp
+/// CREEK_VAR(my_var,   "Hello, world!");
+/// @endcode
+///
 /// The following code generates a function interface named
 /// `creek_func_my_print`:
 /// @code
@@ -25,6 +33,12 @@
 ///     std::cout << output;
 /// }
 /// CREEK_FUNC_IMPL(my_print, &my_print);
+///
+/// // or in one file
+/// void my_print(std::string output) {
+///     std::cout << output;
+/// }
+/// CREEK_FUNC(my_print, &my_print);
 /// @endcode
 ///
 /// The following code generates a class interface named `creek_class_MyClass`:
@@ -35,15 +49,46 @@
 /// // MyClass.cpp
 /// struct MyClass {
 ///     int value;
+///     static const int zero;
 ///     void set_value(int new_value) { value = new_value; }
 ///     int get_value() { return value; }
 /// };
-/// CREEK_CLASS_IMPL(MyClass, MyClass) {
-///     CREEK_CLASS_METHOD(get_value, &MyClass::get_value),
-///     CREEK_CLASS_METHOD(set_value, &MyClass::set_value),
-/// };
+/// CREEK_CLASS_IMPL(MyClass, MyClass) (
+///     CREEK_ATTR(value,   &MyClass::value),           // getter + setter
+///     CREEK_STATIC(zero,  MyClass::zero),             // copied by value
+///     CREEK_METHOD(get_value, &MyClass::get_value),
+///     CREEK_METHOD(set_value, &MyClass::set_value)
+/// );
 /// @endcode
 /// @{
+
+/// @brief  Header for a variable interface in a dynamic library.
+/// @param  NAME    Name for the variable (identifier).
+/// Will declare an extern variable with name `creek_var_NAME`.
+/// @see CREEK_VAR_HEADER
+/// @see CREEK_VAR_IMPL
+/// @see CREEK_VAR
+#define CREEK_VAR_HEADER(NAME) \
+    extern "C" CREEK_EXPORT const creek::Variable creek_var_##NAME
+
+/// @brief  Implementation for a variable interface in a dynamic library.
+/// @param  NAME    Name for the variable (identifier).
+/// @param  VALUE   C++ value for the variable.
+/// @see CREEK_VAR_HEADER
+/// @see CREEK_VAR_IMPL
+/// @see CREEK_VAR
+#define CREEK_VAR_IMPL(NAME, VALUE) \
+    const creek::Variable creek_var_##NAME(creek::Resolver::value_to_data(VALUE))
+
+/// @brief  Header + implementation for a variable interface in a dynamic library.
+/// @param  NAME    Name for the variable (identifier).
+/// @param  VALUE   C++ value for the variable.
+/// @see CREEK_VAR_HEADER
+/// @see CREEK_VAR_IMPL
+/// @see CREEK_VAR
+#define CREEK_VAR(NAME, VALUE) \
+    CREEK_VAR_HEADER(NAME); \
+    CREEK_VAR_IMPL(NAME, VALUE)
 
 /// @brief  Header for a function interface in a dynamic library.
 /// @param  NAME    Name for the function (identifier).
@@ -113,8 +158,10 @@
 /// @see    CREEK_CLASS_HEADER
 /// @see    CREEK_CLASS_IMPL
 /// @see    CREEK_CLASS
-/// @see    CREEK_CLASS_METHOD
-/// @see    CREEK_CLASS_METHOD_X
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
 #define CREEK_CLASS_HEADER(NAME) \
     extern "C" CREEK_EXPORT const creek::DynClassDef creek_class_##NAME
 
@@ -124,8 +171,10 @@
 /// @see    CREEK_CLASS_HEADER
 /// @see    CREEK_CLASS_IMPL
 /// @see    CREEK_CLASS
-/// @see    CREEK_CLASS_METHOD
-/// @see    CREEK_CLASS_METHOD_X
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
 #define CREEK_CLASS_IMPL(NAME, CLASS) \
     namespace creek { \
         template class UserData_base<CLASS>; \
@@ -141,8 +190,10 @@
 /// @see    CREEK_CLASS_HEADER
 /// @see    CREEK_CLASS_IMPL
 /// @see    CREEK_CLASS
-/// @see    CREEK_CLASS_METHOD
-/// @see    CREEK_CLASS_METHOD_X
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
 #define CREEK_CLASS(NAME, CLASS) \
     CREEK_CLASS_HEADER(NAME); \
     CREEK_CLASS_IMPL(NAME, CLASS)
@@ -154,9 +205,11 @@
 /// @see    CREEK_CLASS_HEADER
 /// @see    CREEK_CLASS_IMPL
 /// @see    CREEK_CLASS
-/// @see    CREEK_CLASS_METHOD
-/// @see    CREEK_CLASS_METHOD_X
-#define CREEK_CLASS_METHOD(NAME, FUNC) \
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
+#define CREEK_METHOD(NAME, FUNC) \
     creek::DynClassDef::Factory::MethodDef(#NAME, creek::DynClassDef::Method(new creek::DynFuncDef(FUNC)))
 
 /// @brief  Method definition for a class interface.
@@ -167,15 +220,37 @@
 /// @see    CREEK_CLASS_HEADER
 /// @see    CREEK_CLASS_IMPL
 /// @see    CREEK_CLASS
-/// @see    CREEK_CLASS_METHOD
-/// @see    CREEK_CLASS_METHOD_X
-#define CREEK_CLASS_METHOD_X(NAME, ARITY, IS_VARIADIC, LISTENER) \
-    { #NAME, creek::DynFuncDef(ARITY, IS_VARIADIC, LISTENER) }
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
+#define CREEK_METHOD_X(NAME, ARITY, IS_VARIADIC, LISTENER) \
+    creek::DynClassDef::Factory::MethodDef(#NAME, creek::DynClassDef::Method(new creek::DynFuncDef(ARITY, IS_VARIADIC, LISTENER)))
 
-#define CREEK_CLASS_STATIC(NAME, VALUE) \
+/// @brief  Static variable definition for a class interface.
+/// @param  NAME        Name for the static variable (identifier).
+/// @param  VALUE       C++ value for the static variable.
+/// @see    CREEK_CLASS_HEADER
+/// @see    CREEK_CLASS_IMPL
+/// @see    CREEK_CLASS
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
+#define CREEK_STATIC(NAME, VALUE) \
     creek::DynClassDef::Factory::StaticDef(#NAME, creek::DynClassDef::Static(creek::Resolver::value_to_data(VALUE)))
 
-#define CREEK_CLASS_ATTR(NAME, ATTR) \
+/// @brief  C++ struct public attribute getter & setter definition for a class interface.
+/// @param  NAME        Name for the attribute (identifier).
+/// @param  ATTR        Pointer to C++ struct public attribute.
+/// @see    CREEK_CLASS_HEADER
+/// @see    CREEK_CLASS_IMPL
+/// @see    CREEK_CLASS
+/// @see    CREEK_METHOD
+/// @see    CREEK_METHOD_X
+/// @see    CREEK_STATIC
+/// @see    CREEK_ATTR
+#define CREEK_ATTR(NAME, ATTR) \
     creek::DynClassDef::Factory::AttrDef(#NAME, creek::DynClassDef::Attr(creek::Resolver::attr_getter(ATTR), creek::Resolver::attr_setter(ATTR)))
 
 /// @}
@@ -248,15 +323,17 @@ namespace creek
     public:
         struct Attr
         {
-            Attr(std::function<Data*(Data*)> getter, std::function<Data*(Data*,Data*)> setter) :
+            Attr(
+                    std::function<Data*(const SharedPointer<Scope>&, Data*)> getter,
+                    std::function<Data*(const SharedPointer<Scope>&, Data*, Data*)> setter) :
                 getter(getter),
                 setter(setter)
             {
 
             }
 
-            std::function<Data*(Data*)> getter;
-            std::function<Data*(Data*,Data*)> setter;
+            std::function<Data*(const SharedPointer<Scope>&, Data*)> getter;
+            std::function<Data*(const SharedPointer<Scope>&, Data*, Data*)> setter;
         };
 
         using Method = std::shared_ptr<DynFuncDef>;
@@ -469,6 +546,12 @@ namespace creek
         template<class T>
         T* find_symbol(const std::string& symbol);
 
+        /// @brief  Find a varible.
+        /// @param  var_name    Name of the variable.
+        /// Search in this library for a global `Variable` variable named
+        /// `creek_var_<var_name>` where @c <var_name> is the @p var_name.
+        const Variable& find_dyn_var(const std::string& var_name);
+
         /// @brief  Find a listener function.
         /// @param  func_name   Name of the function.
         /// Search in this library for a global `DynFuncDef` variable named
@@ -552,23 +635,23 @@ namespace creek
     }
 
 
-    template<class T> Data* UserData_base<T>::attr(VarName key)
+    template<class T> Data* UserData_base<T>::attr(const SharedPointer<Scope>& scope, VarName key)
     {
         if (!class_def)
         {
             throw Exception("Dynamic class not yet loaded");
         }
         auto getter = class_def->find_attr(key.name()).getter;
-        return getter(this);
+        return getter(scope, this);
     }
 
-    template<class T> Data* UserData_base<T>::attr(VarName key, Data* new_data)
+    template<class T> Data* UserData_base<T>::attr(const SharedPointer<Scope>& scope, VarName key, Data* new_data)
     {
         if (!class_def)
         {
             throw Exception("Dynamic class not yet loaded");
         }
         auto setter = class_def->find_attr(key.name()).setter;
-        return setter(this, new_data);
+        return setter(scope, this, new_data);
     }
 }

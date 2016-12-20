@@ -13,6 +13,28 @@ namespace creek
     /// @defgroup   expression_dyn_load Dynamic load operations
     /// @{
 
+    /// @brief  Expression: Load variable from dynamic library.
+    /// Returns a copy of the value at that variable.
+    class CREEK_API ExprDynVar : public Expression
+    {
+    public:
+        /// @brief  `ExprDynVar` constructor.
+        /// @param  library_path    Path to the library.
+        /// @param  var_name        Name of the variable.
+        ExprDynVar(const std::string& library_path,
+                   VarName var_name);
+
+        Expression* clone() const override;
+
+        Variable eval(const SharedPointer<Scope>& scope) override;
+        Bytecode bytecode(VarNameMap& var_name_map) const override;
+
+    private:
+        std::string m_library_path;
+        VarName m_var_name;
+    };
+
+
     /// @brief  Expression: Load function from dynamic library.
     /// Returns a new `DynCFunction`.
     class CREEK_API ExprDynFunc : public Expression
@@ -29,7 +51,7 @@ namespace creek
 
         Expression* clone() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:
@@ -83,7 +105,7 @@ namespace creek
 
         Expression* clone() const override;
 
-        Variable eval(Scope& scope) override;
+        Variable eval(const SharedPointer<Scope>& scope) override;
         Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     private:

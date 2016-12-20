@@ -4,6 +4,7 @@
 #include <creek/Bytecode.hpp>
 #include <creek/Exception.hpp>
 #include <creek/OpCode.hpp>
+#include <creek/Shared.hpp>
 #include <creek/VarNameMap.hpp>
 
 
@@ -34,7 +35,7 @@ namespace creek
 
         /// @brief  Evaluate this expression.
         /// @return Result of the expression; may be `nullptr`.
-        virtual Variable eval(Scope& scope) = 0;
+        virtual Variable eval(const SharedPointer<Scope>& scope) = 0;
 
         /// @brief  Get the bytecode of this expression.
         virtual Bytecode bytecode(VarNameMap& var_name_map) const = 0;

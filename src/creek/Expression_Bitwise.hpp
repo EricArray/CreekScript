@@ -47,7 +47,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprBitAnd(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:
@@ -66,7 +66,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprBitOr(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:
@@ -85,7 +85,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprBitXor(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:
@@ -103,7 +103,7 @@ namespace creek
     //     /// @param  expr        Expression to bitwise negate.
     //     ExprBitNot(Expression* expr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:
@@ -121,7 +121,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprBitLeftShift(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:
@@ -140,7 +140,7 @@ namespace creek
     //     /// @param  rexpr       Expression for right parameter.
     //     ExprBitRightShift(Expression* lexpr, Expression* rexpr);
 
-    //     Variable eval(Scope& scope) override;
+    //     Variable eval(const SharedPointer<Scope>& scope) override;
     //     Bytecode bytecode(VarNameMap& var_name_map) const override;
 
     // private:

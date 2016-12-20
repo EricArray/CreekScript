@@ -34,29 +34,29 @@ namespace creek
     }
 
 
-    bool Null::bool_value() const
+    bool Null::bool_value(const SharedPointer<Scope>& scope) const
     {
         return false;
     }
 
-    int Null::int_value() const
+    int Null::int_value(const SharedPointer<Scope>& scope) const
     {
         return 0;
     }
 
-    double Null::double_value() const
+    double Null::double_value(const SharedPointer<Scope>& scope) const
     {
         return 0.0f;
     }
 
-    const std::string& Null::string_value() const
+    const std::string& Null::string_value(const SharedPointer<Scope>& scope) const
     {
         static std::string str = "null";
         return str;
     }
 
 
-    int Null::cmp(Data* other)
+    int Null::cmp(const SharedPointer<Scope>& scope, Data* other)
     {
         if (Null* other_null = dynamic_cast<Null*>(other))
         {
@@ -65,8 +65,8 @@ namespace creek
         return false;
     }
 
-    Data* Null::get_class() const
+    Data* Null::get_class(const SharedPointer<Scope>& scope) const
     {
-        return GlobalScope::class_Null->copy();
+        return scope->global()->class_Null->copy();
     }
 }

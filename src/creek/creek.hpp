@@ -8,6 +8,7 @@
 #include <creek/Bytecode.hpp>
 #include <creek/BytecodeInterpreter.hpp>
 #include <creek/CFunction.hpp>
+#include <creek/creek.hpp>
 #include <creek/Data.hpp>
 #include <creek/DynCFunction.hpp>
 #include <creek/DynLibrary.hpp>
@@ -25,6 +26,7 @@
 #include <creek/Expression_General.hpp>
 #include <creek/Expression_Variable.hpp>
 #include <creek/Function.hpp>
+#include <creek/GarbageCollectable.hpp>
 #include <creek/GlobalScope.hpp>
 #include <creek/Identifier.hpp>
 #include <creek/Interpreter.hpp>
@@ -35,9 +37,11 @@
 #include <creek/OpCode.hpp>
 #include <creek/Resolver.hpp>
 #include <creek/Scope.hpp>
+#include <creek/Shared.hpp>
 #include <creek/StandardLibrary.hpp>
 #include <creek/String.hpp>
 #include <creek/Token.hpp>
+#include <creek/UserData.hpp>
 #include <creek/utility.hpp>
 #include <creek/Variable.hpp>
 #include <creek/VarName.hpp>

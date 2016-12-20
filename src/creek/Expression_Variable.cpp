@@ -32,10 +32,10 @@ namespace creek
         return new ExprCreateLocal(m_var_name, m_expression->const_optimize());
     }
 
-    Variable ExprCreateLocal::eval(Scope& scope)
+    Variable ExprCreateLocal::eval(const SharedPointer<Scope>& scope)
     {
         Variable new_value(m_expression->eval(scope));
-        scope.create_local_var(m_var_name, new_value->copy());
+        scope->create_local_var(m_var_name, new_value->copy());
         return new_value;
     }
 
@@ -71,9 +71,9 @@ namespace creek
         return new ExprLoadLocal(m_var_name);
     }
 
-    Variable ExprLoadLocal::eval(Scope& scope)
+    Variable ExprLoadLocal::eval(const SharedPointer<Scope>& scope)
     {
-        return Variable(scope.find_var(m_var_name)->copy());
+        return Variable(scope->find_var(m_var_name)->copy());
     }
 
     Bytecode ExprLoadLocal::bytecode(VarNameMap& var_name_map) const
@@ -109,10 +109,10 @@ namespace creek
         return new ExprStoreLocal(m_var_name, m_expression->const_optimize());
     }
 
-    Variable ExprStoreLocal::eval(Scope& scope)
+    Variable ExprStoreLocal::eval(const SharedPointer<Scope>& scope)
     {
         Variable new_value(m_expression->eval(scope));
-        Variable& var = scope.find_var(m_var_name);
+        Variable& var = scope->find_var(m_var_name);
         var.data(new_value->copy());
         return new_value;
     }
@@ -151,10 +151,10 @@ namespace creek
         return new ExprCreateGlobal(m_var_name, m_expression->const_optimize());
     }
 
-    Variable ExprCreateGlobal::eval(Scope& scope)
+    Variable ExprCreateGlobal::eval(const SharedPointer<Scope>& scope)
     {
         Variable new_value(m_expression->eval(scope));
-        GlobalScope::instance.create_local_var(m_var_name, new_value->copy());
+        scope->global()->create_local_var(m_var_name, new_value->copy());
         return new_value;
     }
 
@@ -190,9 +190,9 @@ namespace creek
         return new ExprLoadGlobal(m_var_name);
     }
 
-    Variable ExprLoadGlobal::eval(Scope& scope)
+    Variable ExprLoadGlobal::eval(const SharedPointer<Scope>& scope)
     {
-        return Variable(GlobalScope::instance.find_var(m_var_name)->copy());
+        return Variable(scope->global()->find_var(m_var_name)->copy());
     }
 
     Bytecode ExprLoadGlobal::bytecode(VarNameMap& var_name_map) const
@@ -228,10 +228,10 @@ namespace creek
         return new ExprStoreGlobal(m_var_name, m_expression->const_optimize());
     }
 
-    Variable ExprStoreGlobal::eval(Scope& scope)
+    Variable ExprStoreGlobal::eval(const SharedPointer<Scope>& scope)
     {
         Variable new_value(m_expression->eval(scope));
-        Variable& var = GlobalScope::instance.find_var(m_var_name);
+        Variable& var = scope->global()->find_var(m_var_name);
         var.data(new_value->copy());
         return new_value;
     }

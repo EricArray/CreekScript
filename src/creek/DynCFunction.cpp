@@ -11,7 +11,7 @@ namespace creek
     // @param  is_variadic     Is this function variadic?
     // @param  library_path    File path to dynamic library.
     // @param  func_name       Name of the function in the library.
-    DynCFunction::DynCFunction(Scope& scope, const std::vector<VarName>& arg_names, bool is_variadic,
+    DynCFunction::DynCFunction(const SharedPointer<Scope>& scope, const std::vector<VarName>& arg_names, bool is_variadic,
                                const std::string& library_path,
                                const std::string& func_name) :
         DynCFunction(scope,
@@ -29,7 +29,7 @@ namespace creek
     // @param  dl              Shared dynamic library.
     // @param  func_name       Name of the function in the library.
     // Find in an shared library.
-    DynCFunction::DynCFunction(Scope& scope, const std::vector<VarName>& arg_names, bool is_variadic,
+    DynCFunction::DynCFunction(const SharedPointer<Scope>& scope, const std::vector<VarName>& arg_names, bool is_variadic,
                                const std::shared_ptr<DynLibrary>& dl,
                                const std::string& func_name) :
         DynCFunction(scope,
@@ -46,7 +46,7 @@ namespace creek
     // @param  dl              Shared dynamic library.
     // @param  dyn_func        Dynamic function.
     // Construct from dynamic function.
-    DynCFunction::DynCFunction(Scope& scope, const std::vector<VarName>& arg_names, bool is_variadic,
+    DynCFunction::DynCFunction(const SharedPointer<Scope>& scope, const std::vector<VarName>& arg_names, bool is_variadic,
                                const std::shared_ptr<DynLibrary>& dl,
                                const DynFuncDef& df) :
         DynCFunction(dl, std::make_shared<Definition>(scope, df.argn(), df.is_variadic(), df.listener()))

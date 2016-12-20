@@ -28,9 +28,9 @@ namespace creek
     {
         if (m_lexpr->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
-            if (l->bool_value() == true)
+            if (l->bool_value(scope) == true)
             {
                 return true;
             }
@@ -46,9 +46,9 @@ namespace creek
     {
         if (m_lexpr->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l = m_lexpr->eval(scope);
-            if (l->bool_value() == true)
+            if (l->bool_value(scope) == true)
             {
                 return m_lexpr->const_optimize();
             }
@@ -63,10 +63,10 @@ namespace creek
         }
     }
 
-    Variable ExprBoolAnd::eval(Scope& scope)
+    Variable ExprBoolAnd::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
-        if (l->bool_value() == false)
+        if (l->bool_value(scope) == false)
         {
             return l;
         }
@@ -102,9 +102,9 @@ namespace creek
     {
         if (m_lexpr->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
-            if (l->bool_value() == false)
+            if (l->bool_value(scope) == false)
             {
                 return true;
             }
@@ -120,9 +120,9 @@ namespace creek
     {
         if (m_lexpr->is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l = m_lexpr->eval(scope);
-            if (l->bool_value() == false)
+            if (l->bool_value(scope) == false)
             {
                 return m_lexpr->const_optimize();
             }
@@ -137,10 +137,10 @@ namespace creek
         }
     }
 
-    Variable ExprBoolOr::eval(Scope& scope)
+    Variable ExprBoolOr::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
-        if (l->bool_value() == true)
+        if (l->bool_value(scope) == true)
         {
             return l;
         }
@@ -181,10 +181,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->bool_value() != r->bool_value());
+            return new ExprBoolean(l->bool_value(scope) != r->bool_value(scope));
         }
         else
         {
@@ -192,13 +192,13 @@ namespace creek
         }
     }
 
-    Variable ExprBoolXor::eval(Scope& scope)
+    Variable ExprBoolXor::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
 
-        bool l_bool = l->bool_value();
-        bool r_bool = r->bool_value();
+        bool l_bool = l->bool_value(scope);
+        bool r_bool = r->bool_value(scope);
 
         return Variable(new Boolean(l_bool != r_bool));
     }
@@ -230,9 +230,9 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable v(m_expr->eval(scope));
-            return new ExprBoolean(!v->bool_value());
+            return new ExprBoolean(!v->bool_value(scope));
         }
         else
         {
@@ -240,10 +240,10 @@ namespace creek
         }
     }
 
-    Variable ExprBoolNot::eval(Scope& scope)
+    Variable ExprBoolNot::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_expr->eval(scope));
-        return Variable(new Boolean(!l->bool_value()));
+        return Variable(new Boolean(!l->bool_value(scope)));
     }
 
     Bytecode ExprBoolNot::bytecode(VarNameMap& var_name_map) const

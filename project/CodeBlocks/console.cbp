@@ -12,7 +12,7 @@
 				<Option object_output="obj/console32-debug/" />
 				<Option type="1" />
 				<Option compiler="tdm64" />
-				<Option parameters="test_sdl2.bin" />
+				<Option parameters="-g -i" />
 				<Compiler>
 					<Add option="-m32" />
 					<Add option="-g" />

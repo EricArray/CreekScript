@@ -26,13 +26,13 @@ namespace creek
         return new ExprVoid();
     }
 
-    bool Void::bool_value() const
+    bool Void::bool_value(const SharedPointer<Scope>& scope) const
     {
         return false;
     }
 
-    Data* Void::get_class() const
+    Data* Void::get_class(const SharedPointer<Scope>& scope) const
     {
-        return GlobalScope::class_Void->copy();
+        return scope->global()->class_Void->copy();
     }
 }

@@ -93,6 +93,8 @@
 		<Unit filename="../../src/creek/Expression_Variable.hpp" />
 		<Unit filename="../../src/creek/Function.cpp" />
 		<Unit filename="../../src/creek/Function.hpp" />
+		<Unit filename="../../src/creek/GarbageCollectable.cpp" />
+		<Unit filename="../../src/creek/GarbageCollectable.hpp" />
 		<Unit filename="../../src/creek/GlobalScope.cpp" />
 		<Unit filename="../../src/creek/GlobalScope.hpp" />
 		<Unit filename="../../src/creek/Identifier.cpp" />
@@ -113,6 +115,8 @@
 		<Unit filename="../../src/creek/Resolver.hpp" />
 		<Unit filename="../../src/creek/Scope.cpp" />
 		<Unit filename="../../src/creek/Scope.hpp" />
+		<Unit filename="../../src/creek/Shared.cpp" />
+		<Unit filename="../../src/creek/Shared.hpp" />
 		<Unit filename="../../src/creek/StandardLibrary.cpp" />
 		<Unit filename="../../src/creek/StandardLibrary.hpp" />
 		<Unit filename="../../src/creek/String.cpp" />

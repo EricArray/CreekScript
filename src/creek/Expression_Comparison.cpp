@@ -31,10 +31,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprNumber(l->cmp(*r));
+            return new ExprNumber(l->cmp(scope, *r));
         }
         else
         {
@@ -42,11 +42,11 @@ namespace creek
         }
     }
 
-    Variable ExprCmp::eval(Scope& scope)
+    Variable ExprCmp::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Number(l->cmp(*r)));
+        return Variable(new Number(l->cmp(scope, *r)));
     }
 
     Bytecode ExprCmp::bytecode(VarNameMap& var_name_map) const
@@ -77,10 +77,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->cmp(*r) == 0);
+            return new ExprBoolean(l->cmp(scope, *r) == 0);
         }
         else
         {
@@ -88,11 +88,11 @@ namespace creek
         }
     }
 
-    Variable ExprEQ::eval(Scope& scope)
+    Variable ExprEQ::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l->cmp(*r) == 0));
+        return Variable(new Boolean(l->cmp(scope, *r) == 0));
     }
 
     Bytecode ExprEQ::bytecode(VarNameMap& var_name_map) const
@@ -123,10 +123,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->cmp(*r) != 0);
+            return new ExprBoolean(l->cmp(scope, *r) != 0);
         }
         else
         {
@@ -134,11 +134,11 @@ namespace creek
         }
     }
 
-    Variable ExprNE::eval(Scope& scope)
+    Variable ExprNE::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l->cmp(*r) != 0));
+        return Variable(new Boolean(l->cmp(scope, *r) != 0));
     }
 
     Bytecode ExprNE::bytecode(VarNameMap& var_name_map) const
@@ -169,10 +169,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->cmp(*r) < 0);
+            return new ExprBoolean(l->cmp(scope, *r) < 0);
         }
         else
         {
@@ -180,11 +180,11 @@ namespace creek
         }
     }
 
-    Variable ExprLT::eval(Scope& scope)
+    Variable ExprLT::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l->cmp(*r) < 0));
+        return Variable(new Boolean(l->cmp(scope, *r) < 0));
     }
 
     Bytecode ExprLT::bytecode(VarNameMap& var_name_map) const
@@ -215,10 +215,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->cmp(*r) <= 0);
+            return new ExprBoolean(l->cmp(scope, *r) <= 0);
         }
         else
         {
@@ -226,11 +226,11 @@ namespace creek
         }
     }
 
-    Variable ExprLE::eval(Scope& scope)
+    Variable ExprLE::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l->cmp(*r) <= 0));
+        return Variable(new Boolean(l->cmp(scope, *r) <= 0));
     }
 
     Bytecode ExprLE::bytecode(VarNameMap& var_name_map) const
@@ -261,10 +261,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->cmp(*r) > 0);
+            return new ExprBoolean(l->cmp(scope, *r) > 0);
         }
         else
         {
@@ -272,11 +272,11 @@ namespace creek
         }
     }
 
-    Variable ExprGT::eval(Scope& scope)
+    Variable ExprGT::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l->cmp(*r) > 0));
+        return Variable(new Boolean(l->cmp(scope, *r) > 0));
     }
 
     Bytecode ExprGT::bytecode(VarNameMap& var_name_map) const
@@ -307,10 +307,10 @@ namespace creek
     {
         if (is_const())
         {
-            Scope scope;
+            auto scope = SharedPointer<ConstScope>::make();
             Variable l(m_lexpr->eval(scope));
             Variable r(m_rexpr->eval(scope));
-            return new ExprBoolean(l->cmp(*r) >= 0);
+            return new ExprBoolean(l->cmp(scope, *r) >= 0);
         }
         else
         {
@@ -318,11 +318,11 @@ namespace creek
         }
     }
 
-    Variable ExprGE::eval(Scope& scope)
+    Variable ExprGE::eval(const SharedPointer<Scope>& scope)
     {
         Variable l(m_lexpr->eval(scope));
         Variable r(m_rexpr->eval(scope));
-        return Variable(new Boolean(l->cmp(*r) >= 0));
+        return Variable(new Boolean(l->cmp(scope, *r) >= 0));
     }
 
     Bytecode ExprGE::bytecode(VarNameMap& var_name_map) const

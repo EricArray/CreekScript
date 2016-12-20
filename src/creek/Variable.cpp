@@ -117,27 +117,27 @@ namespace creek
 
     Variable::operator bool () const
     {
-        return data();// && data()->bool_value();
+        return data();// && data()->bool_value(scope);
     }
 
 
     // @name   Container index
     // @{
     // Get the data at index.
-    Variable Variable::index(Variable key)
+    Variable Variable::index(const SharedPointer<Scope>& scope, Variable key)
     {
         assert(data());
         assert(key.data());
-        return Variable(data()->index(key.data()));
+        return Variable(data()->index(scope, key.data()));
     }
 
     // Set the data at index.
-    Variable Variable::index(Variable key, Variable new_data)
+    Variable Variable::index(const SharedPointer<Scope>& scope, Variable key, Variable new_data)
     {
         assert(data());
         assert(key.data());
         assert(new_data.data());
-        return Variable(data()->index(key.data(), new_data.release()));
+        return Variable(data()->index(scope, key.data(), new_data.release()));
     }
     // @}
 
@@ -146,20 +146,20 @@ namespace creek
     /// @{
     /// @brief  Get the attribute.
     /// @brief  key         Attribute key.
-    Variable Variable::attr(VarName key)
+    Variable Variable::attr(const SharedPointer<Scope>& scope, VarName key)
     {
         assert(data());
-        return Variable(data()->attr(key));
+        return Variable(data()->attr(scope, key));
     }
 
     /// @brief  Set the attribute.
     /// @brief  key         Attribute key.
     /// @brief  new_data    New data to save in attribute.
-    Variable Variable::attr(VarName key, Variable new_data)
+    Variable Variable::attr(const SharedPointer<Scope>& scope, VarName key, Variable new_data)
     {
         assert(data());
         assert(new_data.data());
-        return Variable(data()->attr(key, new_data.release()));
+        return Variable(data()->attr(scope, key, new_data.release()));
     }
     /// @}
 
@@ -167,58 +167,58 @@ namespace creek
     // @name   Arithmetic operations
     // @{
     // Addition.
-    Variable Variable::add(Variable& other)
+    Variable Variable::add(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->add(other.data()));
+        return Variable(data()->add(scope, other.data()));
     }
 
     // Subtraction.
-    Variable Variable::sub(Variable& other)
+    Variable Variable::sub(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->sub(other.data()));
+        return Variable(data()->sub(scope, other.data()));
     }
 
     // Multiplication.
-    Variable Variable::mul(Variable& other)
+    Variable Variable::mul(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->mul(other.data()));
+        return Variable(data()->mul(scope, other.data()));
     }
 
     // Divison.
-    Variable Variable::div(Variable& other)
+    Variable Variable::div(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->div(other.data()));
+        return Variable(data()->div(scope, other.data()));
     }
 
     // Modulo.
-    Variable Variable::mod(Variable& other)
+    Variable Variable::mod(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->mod(other.data()));
+        return Variable(data()->mod(scope, other.data()));
     }
 
     // Exponentiation.
-    Variable Variable::exp(Variable& other)
+    Variable Variable::exp(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->exp(other.data()));
+        return Variable(data()->exp(scope, other.data()));
     }
 
     // Unary minus.
-    Variable Variable::unm()
+    Variable Variable::unm(const SharedPointer<Scope>& scope)
     {
         assert(data());
-        return Variable(data()->unm());
+        return Variable(data()->unm(scope));
     }
     // @}
 
@@ -226,50 +226,50 @@ namespace creek
     // @name   Bitwise operations
     // @{
     // Bitwise and.
-    Variable Variable::bit_and(Variable& other)
+    Variable Variable::bit_and(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->bit_and(other.data()));
+        return Variable(data()->bit_and(scope, other.data()));
     }
 
     // Bitwise or.
-    Variable Variable::bit_or(Variable& other)
+    Variable Variable::bit_or(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->bit_or(other.data()));
+        return Variable(data()->bit_or(scope, other.data()));
     }
 
     // Bitwise xor.
-    Variable Variable::bit_xor(Variable& other)
+    Variable Variable::bit_xor(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->bit_xor(other.data()));
+        return Variable(data()->bit_xor(scope, other.data()));
     }
 
     // Bitwise not.
-    Variable Variable::bit_not()
+    Variable Variable::bit_not(const SharedPointer<Scope>& scope)
     {
         assert(data());
-        return Variable(data()->bit_not());
+        return Variable(data()->bit_not(scope));
     }
 
     // Bitwise left shift.
-    Variable Variable::bit_left_shift(Variable& other)
+    Variable Variable::bit_left_shift(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->bit_left_shift(other.data()));
+        return Variable(data()->bit_left_shift(scope, other.data()));
     }
 
     // Bitwise right shift.
-    Variable Variable::bit_right_shift(Variable& other)
+    Variable Variable::bit_right_shift(const SharedPointer<Scope>& scope, Variable& other)
     {
         assert(data());
         assert(other.data());
-        return Variable(data()->bit_right_shift(other.data()));
+        return Variable(data()->bit_right_shift(scope, other.data()));
     }
     // @}
 
@@ -280,34 +280,34 @@ namespace creek
     // Compare less-than/equal/greater-than.
     // This special operation must return an integer.
     // @return -1 if less-than, 0 if equal, +1 if greater-than.
-    int Variable::cmp(const Variable& other) const
+    int Variable::cmp(const SharedPointer<Scope>& scope, const Variable& other) const
     {
         assert(data());
         assert(other.data());
-        return data()->cmp(other.data());
+        return data()->cmp(scope, other.data());
     }
     // @}
 
 
-    // @name   Operators
-    // @{
-    // // Call equivalent data operation.
-    // VariableProxy Variable::operator [] (Variable& index)
-    // {
+    // // @name   Operators
+    // // @{
+    // // // Call equivalent data operation.
+    // // VariableProxy Variable::operator [] (Variable& index)
+    // // {
 
-    // }
+    // // }
 
-    Variable Variable::operator + (Variable& other) { return add(other); }
-    Variable Variable::operator - (Variable& other) { return sub(other); }
-    Variable Variable::operator * (Variable& other) { return mul(other); }
-    Variable Variable::operator / (Variable& other) { return div(other); }
-    Variable Variable::operator % (Variable& other) { return mod(other); }
-    // Variable Variable::operator ** (Variable& other) { return exp(other); }
-    Variable Variable::operator - ()                { return unm(); }
+    // Variable Variable::operator + (Variable& other) { return add(other); }
+    // Variable Variable::operator - (Variable& other) { return sub(other); }
+    // Variable Variable::operator * (Variable& other) { return mul(other); }
+    // Variable Variable::operator / (Variable& other) { return div(other); }
+    // Variable Variable::operator % (Variable& other) { return mod(other); }
+    // // Variable Variable::operator ** (Variable& other) { return exp(other); }
+    // Variable Variable::operator - ()                { return unm(); }
 
-    Variable Variable::operator & (Variable& other) { return bit_and(other); }
-    Variable Variable::operator | (Variable& other) { return bit_or(other); }
-    Variable Variable::operator ^ (Variable& other) { return bit_xor(other); }
-    Variable Variable::operator ~ ()                { return bit_not(); }
-    // @}
+    // Variable Variable::operator & (Variable& other) { return bit_and(other); }
+    // Variable Variable::operator | (Variable& other) { return bit_or(other); }
+    // Variable Variable::operator ^ (Variable& other) { return bit_xor(other); }
+    // Variable Variable::operator ~ ()                { return bit_not(); }
+    // // @}
 }

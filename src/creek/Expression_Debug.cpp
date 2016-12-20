@@ -30,7 +30,7 @@ namespace creek
         return new ExprPrint(m_expression->const_optimize());
     }
 
-    Variable ExprPrint::eval(Scope& scope)
+    Variable ExprPrint::eval(const SharedPointer<Scope>& scope)
     {
         // Data* data = m_expression->eval(scope);
         // std::cout << data->debug_text() << std::endl;

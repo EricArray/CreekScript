@@ -1,238 +1,240 @@
-func init(flags) extern "dl_sdl2-debug.dll";
-func quit() extern "dl_sdl2-debug.dll";
-func get_error() extern "dl_sdl2-debug.dll";
-func set_error(msg) extern "dl_sdl2-debug.dll";
-func was_init(flags) extern "dl_sdl2-debug.dll";
-func INIT_EVERYTHING() extern "dl_sdl2-debug.dll";
+module SDL {
+    func init(flags) extern "dl_sdl2-debug.dll";
+    func quit() extern "dl_sdl2-debug.dll";
+    func get_error() extern "dl_sdl2-debug.dll";
+    func set_error(msg) extern "dl_sdl2-debug.dll";
+    func was_init(flags) extern "dl_sdl2-debug.dll";
+    func delay(time) extern "dl_sdl2-debug.dll";
 
-func delay(time) extern "dl_sdl2-debug.dll";
+    var INIT_EVERYTHING extern "dl_sdl2-debug.dll";
 
-func img_init(flags) extern "dl_sdl2-debug.dll";
-func img_quit() extern "dl_sdl2-debug.dll";
-func INIT_JPG() extern "dl_sdl2-debug.dll";
-func INIT_PNG() extern "dl_sdl2-debug.dll";
-func INIT_TIF() extern "dl_sdl2-debug.dll";
-func INIT_WEBP() extern "dl_sdl2-debug.dll";
+    func img_init(flags) extern "dl_sdl2-debug.dll";
+    func img_quit() extern "dl_sdl2-debug.dll";
 
-class Point extern "dl_sdl2-debug.dll" {
-    func new(x, y);
-    func x(self);
-    func y(self);
-    func set_x(self, new_x);
-    func set_y(self, new_y);
+    var INIT_JPG extern "dl_sdl2-debug.dll";
+    var INIT_PNG extern "dl_sdl2-debug.dll";
+    var INIT_TIF extern "dl_sdl2-debug.dll";
+    var INIT_WEBP extern "dl_sdl2-debug.dll";
+
+    class Point extern "dl_sdl2-debug.dll" {
+        func new(x, y);
+        func x(self);
+        func y(self);
+        func set_x(self, new_x);
+        func set_y(self, new_y);
+    }
+
+    class Rect extern "dl_sdl2-debug.dll" {
+        func new(x, y, w, h);
+        func x(self);
+        func y(self);
+        func w(self);
+        func h(self);
+        func set_x(self, new_x);
+        func set_y(self, new_y);
+        func set_w(self, new_w);
+        func set_h(self, new_h);
+    }
+
+    func show_simple_message_box(flags, title, msg, window) extern "dl_sdl2-debug.dll";
+
+
+
+    class MouseButton extern "dl_sdl2-debug.dll" {
+        var LEFT;
+        var MIDDLE;
+        var RIGHT;
+        var X1;
+        var X2;
+    }
+
+    class MouseButtonEvent extern "dl_sdl2-debug.dll" { }
+
+    class MouseMotionEvent extern "dl_sdl2-debug.dll" { }
+
+    class Keymod extern "dl_sdl2-debug.dll" {
+        var NONE;
+        var LSHIFT;
+        var RSHIFT;
+        var LCTRL;
+        var RCTRL;
+        var LALT;
+        var RALT;
+        var LGUI;
+        var RGUI;
+        var NUM;
+        var CAPS;
+        var MODE;
+        var CTRL;
+        var SHIFT;
+        var ALT;
+        var GUI;
+    }
+
+    class Scancode extern "dl_sdl2-debug.dll" {
+        func from_name(name);
+    }
+
+    class Keysym extern "dl_sdl2-debug.dll" { }
+
+    class KeyboardEvent extern "dl_sdl2-debug.dll" { }
+
+    class QuitEvent extern "dl_sdl2-debug.dll" { }
+
+    class WindowEvent extern "dl_sdl2-debug.dll" { }
+
+    class Event extern "dl_sdl2-debug.dll" {
+        func new();
+        var AUDIODEVICEADDED;
+        var AUDIODEVICEREMOVED;
+        var CONTROLLERAXISMOTION;
+        var CONTROLLERBUTTONDOWN;
+        var CONTROLLERBUTTONUP;
+        var CONTROLLERDEVICEADDED;
+        var CONTROLLERDEVICEREMOVED;
+        var CONTROLLERDEVICEREMAPPED;
+        var DOLLARGESTURE;
+        var DOLLARRECORD;
+        var DROPFILE;
+        var FINGERMOTION;
+        var FINGERDOWN;
+        var FINGERUP;
+        var KEYDOWN;
+        var KEYUP;
+        var JOYAXISMOTION;
+        var JOYBALLMOTION;
+        var JOYHATMOTION;
+        var JOYBUTTONDOWN;
+        var JOYBUTTONUP;
+        var JOYDEVICEADDED;
+        var JOYDEVICEREMOVED;
+        var MOUSEMOTION;
+        var MOUSEBUTTONDOWN;
+        var MOUSEBUTTONUP;
+        var MOUSEWHEEL;
+        var MULTIGESTURE;
+        var QUIT;
+        var SYSWMEVENT;
+        var TEXTEDITING;
+        var TEXTINPUT;
+        var USEREVENT;
+        var WINDOWEVENT;
+    }
+
+    func poll_event(event) extern "dl_sdl2-debug.dll";
+
+
+
+    class Color extern "dl_sdl2-debug.dll" {
+        func new(r, g, b, a);
+    }
+
+    class BlendMode extern "dl_sdl2-debug.dll" {
+        var NONE;
+        var BLEND;
+        var ADD;
+        var MOD;
+    }
+
+    class PixelFormat extern "dl_sdl2-debug" {
+        func map_color(self, color);
+        func map_rgb(self, r, g, b);
+        func map_rgba(self, r, g, b, a);
+        func get_rgb(self, pixel);
+        func get_rgba(self, pixel);
+    }
+
+    class Window extern "dl_sdl2-debug.dll" {
+        func flags(self);
+        func position(self);
+        func size(self);
+        func surface(self);
+        func title(self);
+        func hide(self);
+        func maximize(self);
+        func minimize(self);
+        func raise(self);
+        func restore(self);
+        func show(self);
+        func set_position(self, new_x, new_y);
+        func set_size(self, new_w, new_h);
+        func set_title(self, new_title);
+        func update_surface(self);
+        var FULLSCREEN;
+        var FULLSCREEN_DESKTOP;
+        var OPENGL;
+        var HIDDEN;
+        var BORDERLESS;
+        var RESIZABLE;
+        var MINIMIZED;
+        var MAXIMIZED;
+        var INPUT_GRABBED;
+        var ALLOW_HIGHDPI;
+    }
+
+    func create_window(title, x, y, w, h, flags) extern "dl_sdl2-debug.dll";
+    func destroy_window(window) extern "dl_sdl2-debug.dll";
+
+    class Surface extern "dl_sdl2-debug.dll" {
+        func blit_scaled(self, srcrect, dst, dstrect);
+        func blit_surface(self, srcrect, dst, dstrect);
+        func clip_rect(self);
+        func color_key(self);
+        func alpha_mod(self);
+        func blend_mode(self);
+        func color_mod(self);
+        func load(path);
+        func save(self, path);
+        func set_clip_rect(self, rect);
+        func set_color_key(self, enable, pixel);
+        func set_alpha_mod(self, alpha);
+        func set_blend_mode(self, blend_mode);
+        func set_color_mod(self, color);
+        func fill_rect(self, rect, color);
+        func format(self);
+        func convert(self, format);
+    }
+
+    func free_surface(surface) extern "dl_sdl2-debug.dll";
+
+    class Texture extern "dl_sdl2-debug.dll" {
+        func blend_mode(self);
+        func color_mod(self);
+        func set_blend_mode(self, new_blend_mode);
+        func set_color_mod(self, new_color_mod);
+        func format(self);
+        func access(self);
+        func size(self);
+    }
+
+    func destroy_texture(texture) extern "dl_sdl2-debug.dll";
+
+    class Renderer extern "dl_sdl2-debug.dll" {
+        func clear(self);
+        func copy(self, texture, srcrect, dstrect);
+        func copy_ex(self, texture, srcrect, dstrect, angle, center, flip);
+        func draw_line(self, x1, y1, x2, y2);
+        func draw_point(self, x, y);
+        func draw_rect(self, rect);
+        func fill_rect(self, rect);
+        func set_draw_color(self, new_color);
+        func set_draw_blend_mode(self, new_blend_mode);
+        func present(self);
+        func load_texture(self, path);
+
+        var SOFTWARE;
+        var ACCELERATED;
+        var PRESENTVSYNC;
+        var TARGETTEXTURE;
+
+        var FLIP_NONE;
+        var FLIP_HORIZONTAL;
+        var FLIP_VERTICAL;
+    }
+
+    func create_renderer(window, index, flags) extern "dl_sdl2-debug.dll";
+    func destroy_renderer(renderer) extern "dl_sdl2-debug.dll";
 }
-
-class Rect extern "dl_sdl2-debug.dll" {
-    func new(x, y, w, h);
-    func x(self);
-    func y(self);
-    func w(self);
-    func h(self);
-    func set_x(self, new_x);
-    func set_y(self, new_y);
-    func set_w(self, new_w);
-    func set_h(self, new_h);
-}
-
-func show_simple_message_box(flags, title, msg, window) extern "dl_sdl2-debug.dll";
-
-
-
-class MouseButton extern "dl_sdl2-debug.dll" {
-    var LEFT;
-    var MIDDLE;
-    var RIGHT;
-    var X1;
-    var X2;
-}
-
-class MouseButtonEvent extern "dl_sdl2-debug.dll" { }
-
-class MouseMotionEvent extern "dl_sdl2-debug.dll" { }
-
-class Keymod extern "dl_sdl2-debug.dll" {
-    var NONE;
-    var LSHIFT;
-    var RSHIFT;
-    var LCTRL;
-    var RCTRL;
-    var LALT;
-    var RALT;
-    var LGUI;
-    var RGUI;
-    var NUM;
-    var CAPS;
-    var MODE;
-    var CTRL;
-    var SHIFT;
-    var ALT;
-    var GUI;
-}
-
-class Scancode extern "dl_sdl2-debug.dll" {
-    func from_name(name);
-}
-
-class Keysym extern "dl_sdl2-debug.dll" { }
-
-class KeyboardEvent extern "dl_sdl2-debug.dll" { }
-
-class QuitEvent extern "dl_sdl2-debug.dll" { }
-
-class WindowEvent extern "dl_sdl2-debug.dll" { }
-
-class Event extern "dl_sdl2-debug.dll" {
-    func new();
-    var AUDIODEVICEADDED;
-    var AUDIODEVICEREMOVED;
-    var CONTROLLERAXISMOTION;
-    var CONTROLLERBUTTONDOWN;
-    var CONTROLLERBUTTONUP;
-    var CONTROLLERDEVICEADDED;
-    var CONTROLLERDEVICEREMOVED;
-    var CONTROLLERDEVICEREMAPPED;
-    var DOLLARGESTURE;
-    var DOLLARRECORD;
-    var DROPFILE;
-    var FINGERMOTION;
-    var FINGERDOWN;
-    var FINGERUP;
-    var KEYDOWN;
-    var KEYUP;
-    var JOYAXISMOTION;
-    var JOYBALLMOTION;
-    var JOYHATMOTION;
-    var JOYBUTTONDOWN;
-    var JOYBUTTONUP;
-    var JOYDEVICEADDED;
-    var JOYDEVICEREMOVED;
-    var MOUSEMOTION;
-    var MOUSEBUTTONDOWN;
-    var MOUSEBUTTONUP;
-    var MOUSEWHEEL;
-    var MULTIGESTURE;
-    var QUIT;
-    var SYSWMEVENT;
-    var TEXTEDITING;
-    var TEXTINPUT;
-    var USEREVENT;
-    var WINDOWEVENT;
-}
-
-func poll_event(event) extern "dl_sdl2-debug.dll";
-
-
-
-class Color extern "dl_sdl2-debug.dll" {
-    func new(r, g, b, a);
-}
-
-class BlendMode extern "dl_sdl2-debug.dll" {
-    var NONE;
-    var BLEND;
-    var ADD;
-    var MOD;
-}
-
-class PixelFormat extern "dl_sdl2-debug" {
-    func map_color(self, color);
-    func map_rgb(self, r, g, b);
-    func map_rgba(self, r, g, b, a);
-    func get_rgb(self, pixel);
-    func get_rgba(self, pixel);
-}
-
-class Window extern "dl_sdl2-debug.dll" {
-    func flags(self);
-    func position(self);
-    func size(self);
-    func surface(self);
-    func title(self);
-    func hide(self);
-    func maximize(self);
-    func minimize(self);
-    func raise(self);
-    func restore(self);
-    func show(self);
-    func set_position(self, new_x, new_y);
-    func set_size(self, new_w, new_h);
-    func set_title(self, new_title);
-    func update_surface(self);
-    var FULLSCREEN;
-    var FULLSCREEN_DESKTOP;
-    var OPENGL;
-    var HIDDEN;
-    var BORDERLESS;
-    var RESIZABLE;
-    var MINIMIZED;
-    var MAXIMIZED;
-    var INPUT_GRABBED;
-    var ALLOW_HIGHDPI;
-}
-
-func create_window(title, x, y, w, h, flags) extern "dl_sdl2-debug.dll";
-func destroy_window(window) extern "dl_sdl2-debug.dll";
-
-class Surface extern "dl_sdl2-debug.dll" {
-    func blit_scaled(self, srcrect, dst, dstrect);
-    func blit_surface(self, srcrect, dst, dstrect);
-    func clip_rect(self);
-    func color_key(self);
-    func alpha_mod(self);
-    func blend_mode(self);
-    func color_mod(self);
-    func load(path);
-    func save(self, path);
-    func set_clip_rect(self, rect);
-    func set_color_key(self, enable, pixel);
-    func set_alpha_mod(self, alpha);
-    func set_blend_mode(self, blend_mode);
-    func set_color_mod(self, color);
-    func fill_rect(self, rect, color);
-    func format(self);
-    func convert(self, format);
-}
-
-func free_surface(surface) extern "dl_sdl2-debug.dll";
-
-class Texture extern "dl_sdl2-debug.dll" {
-    func blend_mode(self);
-    func color_mod(self);
-    func set_blend_mode(self, new_blend_mode);
-    func set_color_mod(self, new_color_mod);
-    func format(self);
-    func access(self);
-    func size(self);
-}
-
-func destroy_texture(texture) extern "dl_sdl2-debug.dll";
-
-class Renderer extern "dl_sdl2-debug.dll" {
-    func clear(self);
-    func copy(self, texture, srcrect, dstrect);
-    func copy_ex(self, texture, srcrect, dstrect, angle, center, flip);
-    func draw_line(self, x1, y1, x2, y2);
-    func draw_point(self, x, y);
-    func draw_rect(self, rect);
-    func fill_rect(self, rect);
-    func set_draw_color(self, new_color);
-    func set_draw_blend_mode(self, new_blend_mode);
-    func present(self);
-    func load_texture(self, path);
-
-    var SOFTWARE;
-    var ACCELERATED;
-    var PRESENTVSYNC;
-    var TARGETTEXTURE;
-
-    var FLIP_NONE;
-    var FLIP_HORIZONTAL;
-    var FLIP_VERTICAL;
-}
-
-func create_renderer(window, index, flags) extern "dl_sdl2-debug.dll";
-func destroy_renderer(renderer) extern "dl_sdl2-debug.dll";
-
 
 do {
     // var x = scan("- Enter x: ").to_number(10);
@@ -244,43 +246,44 @@ do {
     // var other_mc = MyClass(other_x);
     // mc.reset(other_mc);
 
-    init(INIT_EVERYTHING());
+    SDL::init(SDL::INIT_EVERYTHING);
+    SDL::img_init(SDL::INIT_PNG);
 
-    var w = create_window("Window title", 100, 100, 600, 600, 0);
-    var r = create_renderer(w, -1, Renderer::ACCELERATED | Renderer::PRESENTVSYNC);
+    var w = SDL::create_window("Window title", 100, 100, 600, 600, 0);
+    var r = SDL::create_renderer(w, -1, SDL::Renderer::ACCELERATED | SDL::Renderer::PRESENTVSYNC);
     
     // var s = Surface::load("box.png");
     // s.set_color_key(true, s.format.map_rgba(255, 0, 255, 255));
     // var r = s.clip_rect();
 
     var t = r.load_texture("box.png");
-    var src = Rect(0, 0, t.size.x, t.size.y);
-    var dst = Rect(0, 0, t.size.x, t.size.y);
+    var src = SDL::Rect(0, 0, t.size.x, t.size.y);
+    var dst = SDL::Rect(0, 0, t.size.x, t.size.y);
     var angle = 0;
-    var center = Point(t.size.x / 2, t.size.y / 2);
+    var center = SDL::Point(t.size.x / 2, t.size.y / 2);
 
     var q = false;
     while (!q) {
-        var e = Event();
-        while (poll_event(e)) {
+        var e = SDL::Event();
+        while (SDL::poll_event(e)) {
             switch (e::type) {
-                case Event::QUIT {
+                case SDL::Event::QUIT {
                     q = true;
                 }
 
-                case Event::KEYDOWN {
+                case SDL::Event::KEYDOWN {
                     switch e::key::keysym::scancode {
                         // case Scancode::from_name("A") => r::x = r::x - 10;
                         // case Scancode::from_name("D") => r::x = r::x + 10;
                         // case Scancode::from_name("W") => r::y = r::y - 10;
                         // case Scancode::from_name("S") => r::y = r::y + 10;
-                        case Scancode::from_name("A") => dst::x = dst::x - 10;
-                        case Scancode::from_name("D") => dst::x = dst::x + 10;
-                        case Scancode::from_name("W") => dst::y = dst::y - 10;
-                        case Scancode::from_name("S") => dst::y = dst::y + 10;
-                        case Scancode::from_name("Q") => angle = angle - 10;
-                        case Scancode::from_name("E") => angle = angle + 10;
-                        case Scancode::from_name("Escape") => q = true;
+                        case SDL::Scancode::from_name("A") => dst::x = dst::x - 10;
+                        case SDL::Scancode::from_name("D") => dst::x = dst::x + 10;
+                        case SDL::Scancode::from_name("W") => dst::y = dst::y - 10;
+                        case SDL::Scancode::from_name("S") => dst::y = dst::y + 10;
+                        case SDL::Scancode::from_name("Q") => angle = angle - 10;
+                        case SDL::Scancode::from_name("E") => angle = angle + 10;
+                        case SDL::Scancode::from_name("Escape") => q = true;
                     }
                 }
             }
@@ -294,17 +297,20 @@ do {
         // w.update_surface();
         // delay(20);
 
-        r.set_draw_color(Color(0, 0, 0, 255));
+        r.set_draw_color(SDL::Color(0, 0, 0, 255));
         r.clear();
 
-        r.copy_ex(t, src, dst, angle, center, Renderer::FLIP_NONE);
+        r.copy_ex(t, src, dst, angle, center, SDL::Renderer::FLIP_NONE);
 
         r.present();
     }
 
-    // free_surface(s);
-    destroy_renderer(r);
-    destroy_window(w);
+    SDL::destroy_texture(t);
 
-    quit();
+    // free_surface(s);
+    SDL::destroy_renderer(r);
+    SDL::destroy_window(w);
+
+    SDL::img_quit();
+    SDL::quit();
 }

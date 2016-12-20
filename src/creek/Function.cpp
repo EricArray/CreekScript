@@ -40,12 +40,12 @@ namespace creek
     }
 
 
-    bool Function::bool_value() const
+    bool Function::bool_value(const SharedPointer<Scope>& scope) const
     {
         return m_value.get();
     }
 
-    int Function::cmp(Data* other)
+    int Function::cmp(const SharedPointer<Scope>& scope, Data* other)
     {
         if (auto other_function = dynamic_cast<Function*>(other))
         {
@@ -58,7 +58,7 @@ namespace creek
     }
 
 
-    Data* Function::call(std::vector< std::unique_ptr<Data> >& args)
+    Data* Function::call(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         auto& arg_names = m_value->arg_names;
 
@@ -81,12 +81,14 @@ namespace creek
         }
 
         // TODO: break point in function?
-        Scope new_scope(m_value->parent,
-                        std::make_shared<Scope::ReturnPoint>(),
-                        std::make_shared<Scope::BreakPoint>());
+        auto new_scope = SharedPointer<LocalScope>::make(
+            m_value->parent,
+            std::make_shared<Scope::ReturnPoint>(),
+            std::make_shared<Scope::BreakPoint>());
+
         for (size_t i = 0; i < arg_names.size(); ++i)
         {
-            new_scope.create_local_var(arg_names[i], args[i].release());
+            new_scope->create_local_var(arg_names[i], args[i].release());
         }
         Variable result = m_value->body->eval(new_scope);
 

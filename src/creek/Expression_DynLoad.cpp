@@ -7,6 +7,36 @@
 
 namespace creek
 {
+    /// @brief  `ExprDynVar` constructor.
+    /// @param  library_path    Path to the library.
+    /// @param  var_name        Name of the variable.
+    ExprDynVar::ExprDynVar(const std::string& library_path, VarName var_name) :
+        m_library_path(library_path),
+        m_var_name(var_name)
+    {
+
+    }
+
+    Expression* ExprDynVar::clone() const
+    {
+        return new ExprDynVar(m_library_path, m_var_name);
+    }
+
+    Variable ExprDynVar::eval(const SharedPointer<Scope>& scope)
+    {
+        DynLibrary dl(m_library_path);
+        return dl.find_dyn_var(m_var_name.name())->copy();
+    }
+
+    Bytecode ExprDynVar::bytecode(VarNameMap& var_name_map) const
+    {
+        return Bytecode() <<
+            static_cast<uint8_t>(OpCode::dyn_var) <<
+            m_library_path <<
+            var_name_map.id_from_name(m_var_name.name());
+    }
+
+
     // `ExprDynFunc` constructor.
     // @param  arg_names       Names of the arguments.
     // @param  is_variadic     Is this function variadic?
@@ -28,7 +58,7 @@ namespace creek
         return new ExprDynFunc(m_arg_names, m_is_variadic, m_library_path, m_func_name);
     }
 
-    Variable ExprDynFunc::eval(Scope& scope)
+    Variable ExprDynFunc::eval(const SharedPointer<Scope>& scope)
     {
         return Variable(new DynCFunction(scope, m_arg_names, m_is_variadic, m_library_path, m_func_name));
     }
@@ -95,19 +125,19 @@ namespace creek
     //     return new ExprDynClass(m_id, new_method_defs);
     // }
 
-    Variable ExprDynClass::eval(Scope& scope)
+    Variable ExprDynClass::eval(const SharedPointer<Scope>& scope)
     {
         Variable new_class;
 
         {
-            Variable super_class = GlobalScope::class_UserData;
+            Variable super_class = scope->global()->class_UserData;
 
             std::vector< std::unique_ptr<Data> > args;
             args.emplace_back(super_class->copy());
             args.emplace_back(new Identifier(m_id));
 
-            Variable func_derive = GlobalScope::class_Class.attr("derive");
-            new_class = func_derive->call(args);
+            Variable func_derive = scope->global()->class_Class.attr(scope, "derive");
+            new_class = func_derive->call(scope, args);
         }
 
         auto dl = std::make_shared<DynLibrary>(m_library_path);
@@ -122,13 +152,13 @@ namespace creek
                 dl,
                 dyn_class_def.find_method(method_def.id.name())
             );
-            new_class.attr(method_def.id, method.release());
+            new_class.attr(scope, method_def.id, method.release());
         }
 
         for (auto& static_def : m_static_defs)
         {
             auto& var = dyn_class_def.find_static(static_def.id.name());
-            new_class.attr(static_def.id, var.copy());
+            new_class.attr(scope, static_def.id, var.copy());
         }
 
         dyn_class_def.class_obj().reset(new_class->copy());

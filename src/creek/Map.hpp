@@ -18,9 +18,9 @@ namespace creek
     public:
         /// @brief  Map key.
         struct Key {
-            Key(Data* key) : class_num(0), key(key) {
+            Key(const SharedPointer<Scope>& scope, Data* key) : class_num(0), scope(scope), key(key) {
                 if (key) {
-                    Variable v = key->get_class();
+                    Variable v = key->get_class(scope);
                     if (auto o = dynamic_cast<Object*>(*v))
                     {
                         class_num = reinterpret_cast<uintptr_t>(o->value().get());
@@ -30,7 +30,7 @@ namespace creek
 
             bool operator < (const Key& other) const {
                 if (class_num == other.class_num) {
-                    return key.cmp(other.key) < 0;
+                    return key.cmp(scope, other.key) < 0;
                 } else {
                     return class_num < other.class_num;
                 }
@@ -39,6 +39,7 @@ namespace creek
             Data* operator -> () const { return *key; }
 
             uintptr_t class_num; ///< Identifier for class of key.
+            SharedPointer<Scope> scope; ///< Scope.
             Variable key; ///< Key.
         };
 
@@ -64,37 +65,37 @@ namespace creek
         std::string debug_text() const override;
         Expression* to_expression() const override;
 
-        bool bool_value() const override;
+        bool bool_value(const SharedPointer<Scope>& scope) const override;
         // void bool_value(bool new_value) override;
-        // int int_value() const override;
+        // int int_value(const SharedPointer<Scope>& scope) const override;
         // void int_value(int new_value) override;
-        // double double_value() const override;
+        // double double_value(const SharedPointer<Scope>& scope) const override;
         // void float_value(float new_value) override;
-        // std::string string_value() const override;
+        // std::string string_value(const SharedPointer<Scope>& scope) const override;
         // void string_value(const std::string& new_value) override;
-        // std::vector<Variable>& vector_value() const override;
+        // std::vector<Variable>& vector_value(const SharedPointer<Scope>& scope) const override;
 
-        Data* index(Data* key) override;
-        Data* index(Data* key, Data* new_value) override;
+        Data* index(const SharedPointer<Scope>& scope, Data* key) override;
+        Data* index(const SharedPointer<Scope>& scope, Data* key, Data* new_value) override;
 
-        Data* attr(VarName key) override;
-        Data* attr(VarName key, Data* new_value) override;
+        Data* attr(const SharedPointer<Scope>& scope, VarName key) override;
+        Data* attr(const SharedPointer<Scope>& scope, VarName key, Data* new_value) override;
 
-        // Data* add(Data* other) override;
-        // Data* sub(Data* other) override;
-        // Data* mul(Data* other) override;
-        // Data* div(Data* other) override;
-        // Data* mod(Data* other) override;
-        // Data* exp(Data* other) override;
+        // Data* add(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* sub(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* mul(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* div(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* mod(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* exp(const SharedPointer<Scope>& scope, Data* other) override;
         // Data* min() override;
-        // Data* bit_and(Data* other) override;
-        // Data* bit_or(Data* other) override;
-        // Data* bit_xor(Data* other) override;
-        // Data* bit_not() override;
+        // Data* bit_and(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* bit_or(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* bit_xor(const SharedPointer<Scope>& scope, Data* other) override;
+        // Data* bit_not(const SharedPointer<Scope>& scope) override;
 
-        // int cmp(Data* other) override;
+        // int cmp(const SharedPointer<Scope>& scope, Data* other) override;
 
-        Data* get_class() const override;
+        Data* get_class(const SharedPointer<Scope>& scope) const override;
 
     private:
         Value m_value;

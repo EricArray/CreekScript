@@ -20,7 +20,7 @@ namespace creek
     // @param  argn        Number of arguments.
     // @param  is_variadic Is variadic.
     // @param  listener    Listener function to call.
-    CFunction::CFunction(Scope& scope, int argn, bool is_variadic, Listener listener) :
+    CFunction::CFunction(const SharedPointer<Scope>& scope, int argn, bool is_variadic, Listener listener) :
         CFunction(std::make_shared<Definition>(scope, argn, is_variadic, listener))
     {
 
@@ -52,12 +52,12 @@ namespace creek
     }
 
 
-    bool CFunction::bool_value() const
+    bool CFunction::bool_value(const SharedPointer<Scope>& scope) const
     {
         return m_value.get();
     }
 
-    int CFunction::cmp(Data* other)
+    int CFunction::cmp(const SharedPointer<Scope>& scope, Data* other)
     {
         if (auto other_cfunction = dynamic_cast<CFunction*>(other))
         {
@@ -70,7 +70,7 @@ namespace creek
     }
 
 
-    Data* CFunction::call(std::vector< std::unique_ptr<Data> >& args)
+    Data* CFunction::call(const SharedPointer<Scope>& scope, std::vector< std::unique_ptr<Data> >& args)
     {
         // variadic arguments
         if (m_value->is_variadic)

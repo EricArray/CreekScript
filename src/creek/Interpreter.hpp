@@ -49,8 +49,8 @@ namespace creek
         /// Regular expressions for tokens.
         static const std::map<TokenType, std::regex> token_regexes;
 
-        /// Keywords.
-        static const std::map<std::string, std::pair<std::string, TokenType> > keywords;
+        /// Synonyms.
+        static const std::map<std::string, std::pair<std::string, TokenType> > synonyms;
 
 
         /// @brief  `Interpreter` constructor..
@@ -114,6 +114,7 @@ namespace creek
         Expression* parse_var(ParseIterator& iter);
         Expression* parse_function(ParseIterator& iter);
         Expression* parse_class(ParseIterator& iter);
+        Expression* parse_module(ParseIterator& iter);
 
         static bool is_operation(ParseIterator& iter);
 

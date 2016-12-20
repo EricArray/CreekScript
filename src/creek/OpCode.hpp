@@ -58,6 +58,7 @@ namespace creek
         data_map                = 0x37,
         data_function           = 0x38,
         data_class              = 0x39,
+        data_module             = 0x3A,
 
         // control flow
         control_block           = 0x40,
@@ -92,8 +93,9 @@ namespace creek
         var_store_global        = 0x65,
 
         // dynamic load
-        dyn_func                = 0x70,
-        dyn_class               = 0x71,
+        dyn_var                 = 0x70,
+        dyn_func                = 0x71,
+        dyn_class               = 0x72,
     };
 
 

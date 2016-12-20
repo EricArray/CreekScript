@@ -50,6 +50,7 @@ namespace creek
         { OpCode::data_map,                 "data_map" },
         { OpCode::data_function,            "data_function" },
         { OpCode::data_class,               "data_class" },
+        { OpCode::data_module,              "data_module" },
 
         // control flow
         { OpCode::control_block,            "control_block" },
@@ -84,6 +85,7 @@ namespace creek
         { OpCode::var_store_global,         "var_store_global" },
 
         // dynamic load
+        { OpCode::dyn_var,                  "dyn_var" },
         { OpCode::dyn_func,                 "dyn_func" },
         { OpCode::dyn_class,                "dyn_class" },
     };

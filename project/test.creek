@@ -15,4 +15,11 @@
 //     mc.reset(other_mc);
 // }
 
-func test(text) extern "test_dyn_lib-debug.dll";
+// func test(text) extern "test_dyn_lib-debug.dll";
+
+do {
+    var a = Object();
+    var b = Object();
+    a::b = b;
+    b::a = a;
+}
